@@ -37,7 +37,6 @@ import { ODateField } from '../components/date-field'
 import { OTimeField } from '../components/time-field'
 import { ODatePicker } from '../components/date-picker'
 import { ODateRangePicker } from '../components/date-range-picker'
-import { ODisclosure, ODisclosureGroup } from '../components/disclosure'
 import { OForm } from '../components/form'
 import { OInputOtp } from '../components/input-otp'
 import { OKbd } from '../components/kbd'
@@ -60,7 +59,6 @@ import { OCollapsible } from '../components/collapsible'
 import { OTagInput } from '../components/tag-input'
 import { OContextMenu } from '../components/context-menu'
 import { OMarquee } from '../components/marquee'
-import { ODock } from '../components/dock'
 import { OTypewriter } from '../components/typewriter'
 import { OGradientText } from '../components/gradient-text'
 import { OConfetti } from '../components/confetti'
@@ -68,6 +66,7 @@ import { OCommandPalette } from '../components/command-palette'
 import { OCarousel } from '../components/carousel'
 import { OStepper } from '../components/stepper'
 import { OFileUpload } from '../components/file-upload'
+import { OTimelineNav } from '../components/timeline-nav'
 import { OTreeView } from '../components/tree-view'
 import { OBentoGrid, OBentoGridItem } from '../components/bento-grid'
 import { OResizable } from '../components/resizable'
@@ -114,8 +113,6 @@ const components = {
   OTimeField,
   ODatePicker,
   ODateRangePicker,
-  ODisclosure,
-  ODisclosureGroup,
   OForm,
   OInputOtp,
   OKbd,
@@ -138,7 +135,6 @@ const components = {
   OTagInput,
   OContextMenu,
   OMarquee,
-  ODock,
   OTypewriter,
   OGradientText,
   OConfetti,
@@ -146,6 +142,7 @@ const components = {
   OCarousel,
   OStepper,
   OFileUpload,
+  OTimelineNav,
   OTreeView,
   OBentoGrid,
   OBentoGridItem,

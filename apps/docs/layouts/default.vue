@@ -112,7 +112,7 @@ function onSearchSelect(key: string) {
               class="h-7 w-auto"
             />
             <span class="text-2xl font-extrabold tracking-tight text-ousi-foreground">Ousi</span>
-            <span class="text-xs text-ousi-muted hidden sm:inline">v0.1.0</span>
+            <span class="text-xs text-ousi-muted hidden sm:inline">v0.1.2</span>
           </NuxtLink>
 
           <!-- Search trigger -->
@@ -218,6 +218,18 @@ function onSearchSelect(key: string) {
           >
             <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" /></svg>
             Playground
+          </NuxtLink>
+          <NuxtLink
+            to="/changelog"
+            :class="[
+              'flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 transition-colors',
+              route.path === '/changelog'
+                ? 'border-ousi-foreground text-ousi-foreground'
+                : 'border-transparent text-ousi-muted hover:text-ousi-foreground',
+            ]"
+          >
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3" /><circle cx="12" cy="12" r="10" /></svg>
+            Changelog
           </NuxtLink>
         </div>
       </div>

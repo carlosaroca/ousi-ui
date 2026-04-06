@@ -1,6 +1,6 @@
 {
   "name": "@ousi-ui/cli",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "CLI tool for Ousi UI",
   "type": "module",
   "bin": {

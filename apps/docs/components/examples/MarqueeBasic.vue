@@ -3,9 +3,9 @@
 
 <template>
   <OMarquee :pause-on-hover="true">
-    <OBadge content="New">Sale</OBadge>
+    <OBadge>Sale</OBadge>
     <span>Free shipping on orders over $50</span>
-    <OBadge color="accent" content="🔥">Hot</OBadge>
+    <OBadge color="accent">Hot</OBadge>
     <span>Up to 40% off select items</span>
   </OMarquee>
 </template>

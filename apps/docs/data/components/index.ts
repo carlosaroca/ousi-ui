@@ -44,6 +44,7 @@ import { chipData } from './chip'
 import { tableData } from './table'
 import { kbdData } from './kbd'
 import { timelineData } from './timeline'
+import { timelineNavData } from './timeline-nav'
 
 // Feedback
 import { alertData } from './alert'
@@ -63,8 +64,6 @@ import { avatarData } from './avatar'
 import { imageCompareData } from './image-compare'
 
 // Navigation
-import { disclosureData } from './disclosure'
-import { disclosureGroupData } from './disclosure-group'
 import { breadcrumbsData } from './breadcrumbs'
 import { paginationData } from './pagination'
 import { tabsData } from './tabs'
@@ -89,7 +88,6 @@ import { chartData } from './chart'
 
 // Batch 2 — Trendy
 import { marqueeData } from './marquee'
-import { dockData } from './dock'
 import { typewriterData } from './typewriter'
 import { gradientTextData } from './gradient-text'
 import { confettiData } from './confetti'
@@ -144,6 +142,7 @@ export const componentRegistry: Record<string, ComponentData> = {
   'table': tableData,
   'kbd': kbdData,
   'timeline': timelineData,
+  'timeline-nav': timelineNavData,
   'alert': alertData,
   'progress-bar': progressBarData,
   'progress-circle': progressCircleData,
@@ -155,8 +154,6 @@ export const componentRegistry: Record<string, ComponentData> = {
   'separator': separatorData,
   'avatar': avatarData,
   'image-compare': imageCompareData,
-  'disclosure': disclosureData,
-  'disclosure-group': disclosureGroupData,
   'breadcrumbs': breadcrumbsData,
   'pagination': paginationData,
   'tabs': tabsData,
@@ -171,7 +168,6 @@ export const componentRegistry: Record<string, ComponentData> = {
   'scroll-shadow': scrollShadowData,
   'chart': chartData,
   'marquee': marqueeData,
-  'dock': dockData,
   'typewriter': typewriterData,
   'gradient-text': gradientTextData,
   'confetti': confettiData,

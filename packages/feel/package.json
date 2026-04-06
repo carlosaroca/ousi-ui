@@ -1,6 +1,6 @@
 {
   "name": "@ousi-ui/feel",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Motion personality system for Ousi UI (placeholder)",
   "type": "module",
   "main": "./dist/index.js",

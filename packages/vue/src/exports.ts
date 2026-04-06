@@ -79,7 +79,6 @@ export * from './components/date-picker'
 
 export * from './components/date-range-picker'
 
-export * from './components/disclosure'
 
 export * from './components/form'
 
@@ -107,6 +106,8 @@ export * from './components/image-compare'
 
 export * from './components/timeline'
 
+export * from './components/timeline-nav'
+
 export * from './components/accordion'
 
 export * from './components/magnetic-button'
@@ -120,7 +121,6 @@ export * from './components/collapsible'
 export * from './components/tag-input'
 export * from './components/context-menu'
 export * from './components/marquee'
-export * from './components/dock'
 export * from './components/typewriter'
 export * from './components/gradient-text'
 export * from './components/confetti'

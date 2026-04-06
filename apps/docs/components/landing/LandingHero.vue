@@ -36,7 +36,7 @@ const activeAccent = ref('#006FEE')
       <!-- Version badge -->
       <div class="mb-6">
         <OChip variant="outline" color="default" size="sm">
-          v0.1.0 — Now in Beta
+          v0.1.2 — Now in Beta
         </OChip>
       </div>
 

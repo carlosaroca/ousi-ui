@@ -143,7 +143,7 @@ function handleKeydown(e: KeyboardEvent) {
     :class="cn(
       imageCompareTheme,
       rounded ? 'rounded-ousi-2xl' : '',
-      disabled ? 'opacity-50 pointer-events-none' : 'cursor-col-resize',
+      disabled ? 'opacity-50 pointer-events-none' : 'cursor-col-resize touch-none',
       props.class,
     )"
     role="slider"

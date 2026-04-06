@@ -90,6 +90,7 @@ export function useVueNavigation(): NavSection[] {
         { title: 'Table', path: '/vue/components/table' },
         { title: 'Kbd', path: '/vue/components/kbd' },
         { title: 'Timeline', path: '/vue/components/timeline' },
+        { title: 'TimelineNav', path: '/vue/components/timeline-nav' },
       ],
     },
     {
@@ -128,8 +129,6 @@ export function useVueNavigation(): NavSection[] {
       title: 'Navigation',
       items: [
         { title: 'Breadcrumbs', path: '/vue/components/breadcrumbs' },
-        { title: 'Disclosure', path: '/vue/components/disclosure' },
-        { title: 'DisclosureGroup', path: '/vue/components/disclosure-group' },
         { title: 'Pagination', path: '/vue/components/pagination' },
         { title: 'Stepper', path: '/vue/components/stepper' },
         { title: 'Tabs', path: '/vue/components/tabs' },
@@ -159,7 +158,6 @@ export function useVueNavigation(): NavSection[] {
     {
       title: 'Interactive',
       items: [
-        { title: 'Dock', path: '/vue/components/dock' },
         { title: 'Collapsible', path: '/vue/components/collapsible' },
       ],
     },
