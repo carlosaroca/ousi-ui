@@ -9,8 +9,8 @@ export default defineNuxtConfig({
     '@nuxt/content',
   ],
 
-  // SSR enabled for SEO + social sharing (OG meta tags in HTML)
-  ssr: true,
+  // SPA mode — OG meta tags are in app.head (static HTML)
+  ssr: false,
 
   // ── SEO ──
   app: {
