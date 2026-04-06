@@ -1,0 +1,19 @@
+/*
+ * @ousi-ui/theme — Main entry point.
+ *
+ * Usage in a user's project:
+ *   @import "tailwindcss";
+ *   @import "@ousi-ui/theme";
+ *
+ * Or import individual pieces:
+ *   @import "@ousi-ui/theme/themes/ousi-light.css";
+ *   @import "@ousi-ui/theme/shared/theme.css";
+ */
+
+@import "./base/reset.css";
+@import "./base/base.css";
+@import "./themes/ousi-dark.css";
+@import "./themes/ousi-light.css";
+@import "./shared/theme.css";
+@import "./motion.css";
+@import "./recipes/button-group.css";

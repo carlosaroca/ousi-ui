@@ -1,0 +1,6 @@
+{
+  "name": "dialog",
+  "version": "0.0.1",
+  "dependencies": ["@ousi-ui/core", "@ousi-ui/theme"],
+  "files": []
+}

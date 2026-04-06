@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "@ousi-ui/theme";
+
+/* Scan Ousi UI library sources so Tailwind detects component classes */
+@source "../../../packages/vue/src/**/*.{ts,vue}";
+@source "../../shared/**/*.vue";

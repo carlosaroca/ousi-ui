@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "@ousi-ui/theme";
+
+@source "../../../../packages/vue/src/**/*.{ts,vue}";
+@source "../../components/**/*.vue";
+@source "../../layouts/**/*.vue";
+@source "../../pages/**/*.vue";
+@source "../../../shared/**/*.vue";
+
+/* Smooth scroll with offset for sticky header */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7.5rem;
+}

@@ -1,0 +1,6 @@
+export const carouselTheme = 'relative w-full overflow-hidden rounded-ousi-2xl'
+export const carouselTrackTheme = 'flex transition-transform duration-500'
+export const carouselSlideTheme = 'flex-shrink-0 w-full'
+export const carouselArrowTheme = 'absolute top-1/2 -translate-y-1/2 z-10 size-9 rounded-full bg-ousi-surface/80 backdrop-blur border border-ousi-border shadow-lg flex items-center justify-center cursor-pointer transition-all hover:bg-ousi-surface hover:scale-105 text-ousi-foreground'
+export const carouselDotsTheme = 'flex justify-center gap-2 mt-3'
+export const carouselDotTheme = 'size-2 rounded-full transition-all duration-300 cursor-pointer'

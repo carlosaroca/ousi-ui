@@ -1,0 +1,25 @@
+.ousi-input {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--ousi-color-border);
+  background-color: var(--ousi-color-surface);
+  color: var(--ousi-color-surface-foreground);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--ousi-duration-fast);
+  transition-timing-function: var(--ousi-easing-default);
+}
+
+.ousi-input::placeholder {
+  color: var(--ousi-color-muted-foreground);
+}
+
+.ousi-input:focus-visible {
+  outline: none;
+  border-color: var(--ousi-color-ring);
+  box-shadow: 0 0 0 1px var(--ousi-color-ring);
+}
+
+.ousi-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

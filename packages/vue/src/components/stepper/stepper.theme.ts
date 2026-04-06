@@ -1,0 +1,6 @@
+export const stepperTheme = 'flex gap-2'
+export const stepperStepTheme = 'flex items-center gap-2'
+export const stepperCircleTheme = 'flex items-center justify-center rounded-full font-semibold transition-colors shrink-0'
+export const stepperConnectorTheme = 'flex-1 transition-colors'
+export const stepperLabelTheme = 'text-sm font-medium text-ousi-foreground'
+export const stepperDescriptionTheme = 'text-xs text-ousi-muted'

@@ -1,0 +1,94 @@
+/*
+ * Ousi UI — Tailwind v4 theme registration.
+ * Maps CSS custom properties from the active theme into Tailwind utilities.
+ * @theme inline makes values available as classes (bg-ousi-accent, rounded-ousi-lg, etc.)
+ * without generating extra CSS custom properties.
+ */
+
+@theme inline {
+  /* ── Colors ────────────────────────────────────────────────────── */
+  --color-ousi-background: var(--ousi-background);
+  --color-ousi-foreground: var(--ousi-foreground);
+  --color-ousi-surface: var(--ousi-surface);
+  --color-ousi-surface-secondary: var(--ousi-surface-secondary);
+  --color-ousi-surface-tertiary: var(--ousi-surface-tertiary);
+  --color-ousi-overlay: var(--ousi-overlay);
+  --color-ousi-overlay-foreground: var(--ousi-overlay-foreground);
+  --color-ousi-muted: var(--ousi-muted);
+  --color-ousi-default: var(--ousi-default);
+  --color-ousi-default-foreground: var(--ousi-default-foreground);
+  --color-ousi-accent: var(--ousi-accent);
+  --color-ousi-accent-foreground: var(--ousi-accent-foreground);
+  --color-ousi-success: var(--ousi-success);
+  --color-ousi-success-foreground: var(--ousi-success-foreground);
+  --color-ousi-warning: var(--ousi-warning);
+  --color-ousi-warning-foreground: var(--ousi-warning-foreground);
+  --color-ousi-danger: var(--ousi-danger);
+  --color-ousi-danger-foreground: var(--ousi-danger-foreground);
+  --color-ousi-border: var(--ousi-border);
+  --color-ousi-separator: var(--ousi-separator);
+  --color-ousi-separator-secondary: color-mix(in oklab, var(--ousi-separator) 60%, transparent);
+  --color-ousi-separator-tertiary: color-mix(in oklab, var(--ousi-separator) 30%, transparent);
+  --color-ousi-focus: var(--ousi-focus);
+
+  /* Fields */
+  --color-ousi-field: var(--ousi-field-background);
+  --color-ousi-field-foreground: var(--ousi-field-foreground);
+  --color-ousi-field-placeholder: var(--ousi-field-placeholder);
+  --color-ousi-field-hover: var(--ousi-field-hover);
+  --color-ousi-field-focus: var(--ousi-field-focus);
+
+  /* ── Hover states — computed with color-mix ────────────────────── */
+  --color-ousi-accent-hover: color-mix(in oklab, var(--ousi-accent) 90%, var(--ousi-accent-foreground) 10%);
+  --color-ousi-default-hover: color-mix(in oklab, var(--ousi-default) 96%, var(--ousi-default-foreground) 4%);
+  --color-ousi-success-hover: color-mix(in oklab, var(--ousi-success) 90%, var(--ousi-success-foreground) 10%);
+  --color-ousi-warning-hover: color-mix(in oklab, var(--ousi-warning) 90%, var(--ousi-warning-foreground) 10%);
+  --color-ousi-danger-hover: color-mix(in oklab, var(--ousi-danger) 90%, var(--ousi-danger-foreground) 10%);
+
+  /* ── Switch colors ──────────────────────────────────────────────── */
+  --color-ousi-switch-off: oklch(85% 0.01 286);
+  --color-ousi-switch-off-hover: oklch(80% 0.01 286);
+  --color-ousi-switch-on: oklch(0.6204 0.195 253.83);
+  --color-ousi-switch-on-hover: oklch(0.56 0.195 253.83);
+
+  /* ── Soft colors — 15% opacity blend ───────────────────────────── */
+  --color-ousi-accent-soft: color-mix(in oklab, var(--ousi-accent) 15%, transparent);
+  --color-ousi-accent-soft-foreground: var(--ousi-accent);
+  --color-ousi-accent-soft-hover: color-mix(in oklab, var(--ousi-accent) 20%, transparent);
+  --color-ousi-danger-soft: color-mix(in oklab, var(--ousi-danger) 15%, transparent);
+  --color-ousi-danger-soft-foreground: var(--ousi-danger);
+  --color-ousi-danger-soft-hover: color-mix(in oklab, var(--ousi-danger) 20%, transparent);
+  --color-ousi-warning-soft: color-mix(in oklab, var(--ousi-warning) 15%, transparent);
+  --color-ousi-warning-soft-foreground: var(--ousi-warning);
+  --color-ousi-warning-soft-hover: color-mix(in oklab, var(--ousi-warning) 20%, transparent);
+  --color-ousi-success-soft: color-mix(in oklab, var(--ousi-success) 15%, transparent);
+  --color-ousi-success-soft-foreground: var(--ousi-success);
+  --color-ousi-success-soft-hover: color-mix(in oklab, var(--ousi-success) 20%, transparent);
+
+  /* ── Radius ────────────────────────────────────────────────────── */
+  --radius-ousi-field: var(--ousi-radius-field);
+  --radius-ousi-xs: var(--ousi-radius-xs);
+  --radius-ousi-sm: var(--ousi-radius-sm);
+  --radius-ousi-md: var(--ousi-radius-md);
+  --radius-ousi-lg: var(--ousi-radius-lg);
+  --radius-ousi-xl: var(--ousi-radius-xl);
+  --radius-ousi-2xl: var(--ousi-radius-2xl);
+  --radius-ousi-3xl: var(--ousi-radius-3xl);
+  --radius-ousi-4xl: var(--ousi-radius-4xl);
+
+  /* ── Shadows ───────────────────────────────────────────────────── */
+  --shadow-ousi-surface: var(--ousi-shadow-surface);
+  --shadow-ousi-overlay: var(--ousi-shadow-overlay);
+  --shadow-ousi-field: var(--ousi-shadow-field);
+
+  /* ── Easing ────────────────────────────────────────────────────── */
+  --ease-ousi-smooth: ease;
+  --ease-ousi-out-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-ousi-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-ousi-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* ── Animations ───────────────────────────────────────────────── */
+  --animate-otp-slot-value-in: otp-slot-value-in 250ms var(--ease-ousi-smooth) both;
+  --animate-otp-caret-blink: otp-caret-blink 1.2s ease-out infinite;
+  --animate-otp-shake: otp-shake 400ms ease-out both;
+}

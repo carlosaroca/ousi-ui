@@ -1,0 +1,11 @@
+{
+  "name": "button",
+  "version": "0.0.1",
+  "dependencies": ["@ousi-ui/core", "@ousi-ui/theme"],
+  "files": [
+    "components/button/Button.vue",
+    "components/button/button.types.ts",
+    "components/button/button.theme.ts",
+    "components/button/index.ts"
+  ]
+}

@@ -1,0 +1,132 @@
+/* Ousi UI motion tokens as CSS variables */
+:root {
+  --ousi-duration-fastest: 50ms;
+  --ousi-duration-faster: 100ms;
+  --ousi-duration-fast: 150ms;
+  --ousi-duration-normal: 200ms;
+  --ousi-duration-slow: 300ms;
+  --ousi-duration-slower: 400ms;
+  --ousi-duration-slowest: 500ms;
+
+  --ousi-easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ousi-easing-linear: linear;
+  --ousi-easing-in: cubic-bezier(0.4, 0, 1, 1);
+  --ousi-easing-out: cubic-bezier(0, 0, 0.2, 1);
+  --ousi-easing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ousi-easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Fade */
+.ousi-fade-enter-active,
+.ousi-fade-leave-active {
+  transition: opacity var(--ousi-duration-normal) var(--ousi-easing-default);
+}
+
+.ousi-fade-enter-from,
+.ousi-fade-leave-to {
+  opacity: 0;
+}
+
+/* Scale Fade */
+.ousi-scale-fade-enter-active,
+.ousi-scale-fade-leave-active {
+  transition:
+    opacity var(--ousi-duration-normal) var(--ousi-easing-default),
+    transform var(--ousi-duration-normal) var(--ousi-easing-spring);
+}
+
+.ousi-scale-fade-enter-from,
+.ousi-scale-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Slide Up */
+.ousi-slide-up-enter-active,
+.ousi-slide-up-leave-active {
+  transition:
+    opacity var(--ousi-duration-normal) var(--ousi-easing-default),
+    transform var(--ousi-duration-normal) var(--ousi-easing-out);
+}
+
+.ousi-slide-up-enter-from,
+.ousi-slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Slide Down */
+.ousi-slide-down-enter-active,
+.ousi-slide-down-leave-active {
+  transition:
+    opacity var(--ousi-duration-normal) var(--ousi-easing-default),
+    transform var(--ousi-duration-normal) var(--ousi-easing-out);
+}
+
+.ousi-slide-down-enter-from,
+.ousi-slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* Collapse — use with v-show and max-height */
+.ousi-collapse-enter-active,
+.ousi-collapse-leave-active {
+  transition:
+    max-height var(--ousi-duration-slow) var(--ousi-easing-default),
+    opacity var(--ousi-duration-normal) var(--ousi-easing-default);
+  overflow: hidden;
+}
+
+.ousi-collapse-enter-from,
+.ousi-collapse-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* Progress bar indeterminate */
+@keyframes progress-bar-indeterminate {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
+
+/* Skeleton shimmer */
+@keyframes skeleton {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(200%); }
+}
+
+/* OTP slot value entrance */
+@keyframes otp-slot-value-in {
+  0%   { opacity: 0; transform: translateY(6px) scale(0.85); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* OTP caret blink */
+@keyframes otp-caret-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* OTP shake on error */
+@keyframes otp-shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-5px); }
+  30%  { transform: translateX(4px); }
+  45%  { transform: translateX(-3px); }
+  60%  { transform: translateX(2px); }
+  75%  { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

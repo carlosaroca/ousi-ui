@@ -1,0 +1,14 @@
+@layer base {
+  body {
+    background-color: var(--ousi-background);
+    color: var(--ousi-foreground);
+    font-family: var(--ousi-font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--ousi-accent);
+    color: var(--ousi-accent-foreground);
+  }
+}

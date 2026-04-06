@@ -1,0 +1,47 @@
+/* Button Group — radius and separator handling */
+
+/* All direct children: no radius */
+.ousi-btn-group > * {
+  border-radius: 0 !important;
+}
+
+/* Horizontal: first gets start radius, last gets end radius */
+.ousi-btn-group--horizontal > *:first-child {
+  border-start-start-radius: var(--ousi-radius-4xl, 32px) !important;
+  border-end-start-radius: var(--ousi-radius-4xl, 32px) !important;
+}
+.ousi-btn-group--horizontal > *:last-child {
+  border-start-end-radius: var(--ousi-radius-4xl, 32px) !important;
+  border-end-end-radius: var(--ousi-radius-4xl, 32px) !important;
+}
+
+/* Vertical: first gets top radius, last gets bottom radius */
+.ousi-btn-group--vertical > *:first-child {
+  border-start-start-radius: var(--ousi-radius-4xl, 32px) !important;
+  border-start-end-radius: var(--ousi-radius-4xl, 32px) !important;
+}
+.ousi-btn-group--vertical > *:last-child {
+  border-end-start-radius: var(--ousi-radius-4xl, 32px) !important;
+  border-end-end-radius: var(--ousi-radius-4xl, 32px) !important;
+}
+
+/* Single button: full radius */
+.ousi-btn-group > *:first-child:last-child {
+  border-radius: var(--ousi-radius-4xl, 32px) !important;
+}
+
+/* Full width buttons */
+.ousi-btn-group.w-full > * {
+  width: 100%;
+}
+
+/* Disable active scale in group */
+.ousi-btn-group > *:active {
+  transform: none !important;
+}
+
+/* Focus ring inset in group */
+.ousi-btn-group > *:focus-visible {
+  --tw-ring-inset: inset;
+  --tw-ring-offset-width: 0px;
+}

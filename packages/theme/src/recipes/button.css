@@ -1,0 +1,34 @@
+.ousi-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  white-space: nowrap;
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: var(--ousi-duration-fast);
+  transition-timing-function: var(--ousi-easing-default);
+  user-select: none;
+}
+
+.ousi-button:focus-visible {
+  outline: 2px solid var(--ousi-color-ring);
+  outline-offset: 2px;
+}
+
+.ousi-button:disabled,
+.ousi-button[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.ousi-button[data-loading="true"] {
+  position: relative;
+  color: transparent;
+}
+
+.ousi-button[data-loading="true"] > .ousi-button-spinner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

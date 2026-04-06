@@ -1,0 +1,49 @@
+{
+  "name": "@ousi-ui/theme",
+  "version": "0.1.0",
+  "description": "CSS themes and design tokens for Ousi UI (Tailwind v4)",
+  "type": "module",
+  "style": "./dist/index.css",
+  "exports": {
+    ".": "./dist/index.css",
+    "./themes/ousi-dark": "./dist/themes/ousi-dark.css",
+    "./themes/ousi-light": "./dist/themes/ousi-light.css",
+    "./shared/theme": "./dist/shared/theme.css",
+    "./motion": "./dist/motion.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "glob": "^11.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carlosaroca/ousi-ui.git",
+    "directory": "packages/theme"
+  },
+  "homepage": "https://ousiui.com",
+  "license": "MIT",
+  "author": "Carlos Aroca <hello@carlosaroca.com> (https://carlosaroca.com)",
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "ui-library",
+    "tailwindcss",
+    "typescript",
+    "design-system",
+    "ousi-ui"
+  ]
+}

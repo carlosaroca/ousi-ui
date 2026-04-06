@@ -1,0 +1,28 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import dts from 'vite-plugin-dts'
+import { resolve } from 'node:path'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    dts({ rollupTypes: true }),
+  ],
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      formats: ['es', 'cjs'],
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
+    },
+    rollupOptions: {
+      external: [
+        'vue',
+        '@ousi-ui/core',
+        '@ousi-ui/tokens',
+        '@floating-ui/vue',
+        'class-variance-authority',
+        'motion-v',
+      ],
+    },
+  },
+})
