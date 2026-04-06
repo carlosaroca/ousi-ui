@@ -9,8 +9,8 @@ export default defineNuxtConfig({
     '@nuxt/content',
   ],
 
-  // Disable SSR |docs is a client-rendered SPA
-  ssr: false,
+  // SSR enabled for SEO + social sharing (OG meta tags in HTML)
+  ssr: true,
 
   // ── SEO ──
   app: {
