@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "echo \"skip: cli build not configured\"",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },

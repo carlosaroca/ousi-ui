@@ -14,5 +14,5 @@ export function provideDisclosureGroup(ctx: DisclosureGroupContext) {
 }
 
 export function useDisclosureGroupContext(): DisclosureGroupContext | undefined {
-  return inject<DisclosureGroupContext>(DISCLOSURE_GROUP_KEY, undefined)
+  return inject(DISCLOSURE_GROUP_KEY, undefined) as DisclosureGroupContext | undefined!
 }

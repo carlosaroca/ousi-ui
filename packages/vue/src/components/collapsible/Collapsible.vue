@@ -71,7 +71,7 @@ watch(isOpen, (open) => {
 // Init: if open on mount, show content; if closed, hide
 watch(() => props.defaultOpen, () => {}, { immediate: true })
 
-const initStyle = ref(props.defaultOpen || props.modelValue ? {} : { maxHeight: '0px', overflow: 'hidden' })
+const initStyle = ref<Record<string, string>>(props.defaultOpen || props.modelValue ? {} : { maxHeight: '0px', overflow: 'hidden' })
 // Use initStyle only initially
 contentStyle.value = initStyle.value
 </script>

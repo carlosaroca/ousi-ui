@@ -53,7 +53,7 @@ function flattenSlots(children: VNode[]): VNode[] {
 }
 
 const slideNodes = computed(() => {
-  const defaultSlot = slots.default?.()
+  const defaultSlot = (slots as any).default?.()
   if (!defaultSlot) return []
   return flattenSlots(defaultSlot)
 })

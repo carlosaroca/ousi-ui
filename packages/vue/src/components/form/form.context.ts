@@ -12,5 +12,5 @@ export function provideForm(ctx: FormContext) {
 }
 
 export function useFormContext(): FormContext | undefined {
-  return inject<FormContext>(FORM_KEY, undefined)
+  return inject(FORM_KEY, undefined) as FormContext | undefined!
 }

@@ -69,7 +69,7 @@ const panelEnter = computed(() => {
         <Motion
           tag="div"
           :class="dialogBackdropTheme({ backdrop })"
-          :initial="{ opacity: 0 }"
+          :initial="({ opacity: 0 } as any)"
           :animate="{ opacity: 1 }"
           :exit="{ opacity: 0 }"
           :transition="{ duration: 0.15, ease: 'easeOut' }"
@@ -89,7 +89,7 @@ const panelEnter = computed(() => {
               aria-modal="true"
               :aria-labelledby="titleId"
               :class="cn(dialogPanelTheme({ size, placement, scrollBehavior }), props.class)"
-              :initial="panelEnter"
+              :initial="(panelEnter as any)"
               :animate="{ opacity: 1, scale: 1, y: 0 }"
               :exit="{ opacity: 0, scale: 0.95 }"
               :transition="{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }"

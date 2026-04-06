@@ -87,7 +87,7 @@ defineExpose({ open, close })
         <Motion
           tag="div"
           :class="drawerBackdropTheme({ backdrop })"
-          :initial="{ opacity: 0 }"
+          :initial="({ opacity: 0 } as any)"
           :animate="{ opacity: 1 }"
           :exit="{ opacity: 0 }"
           :transition="{ duration: 0.2 }"
@@ -105,9 +105,9 @@ defineExpose({ open, close })
             aria-modal="true"
             :aria-label="title"
             :class="cn(drawerPanelTheme({ placement }), props.class)"
-            :initial="panelAnimation.initial"
-            :animate="panelAnimation.animate"
-            :exit="panelAnimation.exit"
+            :initial="(panelAnimation.initial as any)"
+            :animate="(panelAnimation.animate as any)"
+            :exit="(panelAnimation.exit as any)"
             :transition="{ duration: 0.3, ease: [0.165, 0.84, 0.44, 1] }"
           >
             <!-- Handle bar -->

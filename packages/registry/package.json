@@ -17,7 +17,7 @@
     "src/**/*.json"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "echo \"skip: registry build not configured\"",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },

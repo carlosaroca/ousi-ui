@@ -1,4 +1,4 @@
-import type { Directive } from 'vue'
+import type { Directive, DirectiveBinding } from 'vue'
 import { HapticsEngine } from './haptics.engine'
 import type { HapticPreset } from './haptics.types'
 
@@ -47,7 +47,7 @@ function createOverlay(): HTMLInputElement {
 }
 
 export const vHaptic: Directive<HTMLElement, HapticPreset | 'none' | undefined> = {
-  mounted(el, binding) {
+  mounted(el: HTMLElement, binding: DirectiveBinding<HapticPreset | 'none' | undefined>) {
     const preset = binding.value ?? 'medium'
     if (preset === 'none') return
 
@@ -74,7 +74,7 @@ export const vHaptic: Directive<HTMLElement, HapticPreset | 'none' | undefined> 
     }
   },
 
-  updated(el, binding) {
+  updated(el: HTMLElement, binding: DirectiveBinding<HapticPreset | 'none' | undefined>) {
     const preset = binding.value ?? 'medium'
     // Update Android handler
     if (!isIOS && typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
@@ -92,7 +92,7 @@ export const vHaptic: Directive<HTMLElement, HapticPreset | 'none' | undefined> 
     }
   },
 
-  unmounted(el) {
+  unmounted(el: HTMLElement) {
     // Cleanup Android handler
     const handler = (el as any).__hapticHandler
     if (handler) {
