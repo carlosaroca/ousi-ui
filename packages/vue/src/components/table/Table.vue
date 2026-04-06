@@ -244,7 +244,7 @@ const rootRadiusStyle = computed(() =>
                 :key="col.key"
                 :class="tableCellTheme({ variant })"
               >
-                <OSkeleton :class="['h-4 rounded-ousi-sm', i % 2 === 0 ? 'w-3/4' : 'w-full']" />
+                <OSkeleton :class="`h-4 rounded-ousi-sm ${i % 2 === 0 ? 'w-3/4' : 'w-full'}`" />
               </td>
             </tr>
           </template>
