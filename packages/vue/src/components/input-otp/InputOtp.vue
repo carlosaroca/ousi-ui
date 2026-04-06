@@ -267,7 +267,7 @@ function onValueRef(el: Element | null, slotIndex: number) {
               <!-- Filled value — ref callback checks pendingAnimSlots before animating -->
               <span
                 v-if="slots[slotIndex] !== null"
-                :ref="(el) => onValueRef(el, slotIndex)"
+                :ref="(el: any) => onValueRef(el, slotIndex)"
                 class="font-semibold"
               >
                 {{ getSlotDisplay(slots[slotIndex]) }}

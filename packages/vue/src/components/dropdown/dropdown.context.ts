@@ -34,7 +34,7 @@ export function provideMenu(ctx: MenuContext) {
 }
 
 export function useMenuContext(): MenuContext | undefined {
-  return inject(MENU_KEY, undefined) as MenuContext | undefined!
+  return inject(MENU_KEY, undefined) as MenuContext | undefined
 }
 
 // Item context — so ItemIndicator knows if its parent item is selected
@@ -49,5 +49,5 @@ export function provideItem(ctx: ItemContext) {
 }
 
 export function useItemContext(): ItemContext | undefined {
-  return inject(ITEM_KEY, undefined) as ItemContext | undefined!
+  return inject(ITEM_KEY, undefined) as ItemContext | undefined
 }

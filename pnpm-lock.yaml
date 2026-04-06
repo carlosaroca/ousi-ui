@@ -191,6 +191,10 @@ importers:
         version: 4.5.4(rollup@4.60.1)(typescript@5.9.3)(vite@6.4.1(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))
 
   packages/haptics:
+    dependencies:
+      vue:
+        specifier: ^3.5.0
+        version: 3.5.31(typescript@5.9.3)
     devDependencies:
       '@ousi-ui/tsconfig':
         specifier: workspace:*

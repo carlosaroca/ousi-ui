@@ -161,7 +161,7 @@ onBeforeUnmount(stopHold)
 
     <!-- Group: [−] [input] [+] -->
     <div
-      :class="numberFieldGroupTheme({ variant, size, showButtons, fullWidth })"
+      :class="numberFieldGroupTheme({ variant, size, showButtons })"
       :data-invalid="isInvalid || undefined"
       :data-disabled="disabled || undefined"
     >

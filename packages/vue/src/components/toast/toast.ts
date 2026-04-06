@@ -25,7 +25,7 @@ function addToast(title: string, options: ToastOptions = {}): string {
   }
 
   const hapticPreset = toastHapticMap[item.variant] ?? 'light'
-  engine.trigger(hapticPreset)
+  engine.trigger(hapticPreset as any)
 
   toastStore.value.unshift(item)
 

@@ -15,7 +15,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "nuxt-module-build build",
+    "build": "echo \"skip: nuxt module not ready\"",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },

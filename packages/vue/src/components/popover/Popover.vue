@@ -119,7 +119,7 @@ defineExpose({ open, close, toggle })
         <Motion
           tag="div"
           :class="cn(popoverPanelTheme, props.class)"
-          :initial="enterAnimation"
+          :initial="(enterAnimation as any)"
           :animate="{ opacity: 1, scale: 1, x: 0, y: 0 }"
           :exit="{ opacity: 0, scale: 0.95 }"
           :transition="{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }"

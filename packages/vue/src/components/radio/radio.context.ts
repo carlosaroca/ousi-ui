@@ -14,5 +14,5 @@ export function provideRadioGroup(ctx: RadioGroupContext) {
 }
 
 export function useRadioGroupContext(): RadioGroupContext | undefined {
-  return inject<RadioGroupContext>(RADIO_GROUP_KEY, undefined)!
+  return inject(RADIO_GROUP_KEY, undefined) as RadioGroupContext | undefined
 }

@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<TabsProps>(), {
 })
 
 const emit = defineEmits<TabsEmits>()
-const slots = useSlots()
+const slots: Record<string, any> = useSlots()
 
 const isMounted = useMounted()
 
