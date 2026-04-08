@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 export const cardTheme = cva(
   [
     'relative flex flex-col gap-3 overflow-hidden p-4',
-    'rounded-ousi-4xl shadow-ousi-surface',
+    'rounded-ousi-3xl shadow-ousi-surface',
   ],
   {
     variants: {

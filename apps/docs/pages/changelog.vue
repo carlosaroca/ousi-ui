@@ -10,13 +10,32 @@ useSeoMeta({
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.1.4 -->
+    <article class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.1.4</h2>
+        <span class="text-xs text-ousi-muted">April 8, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+      <ul class="space-y-1.5 text-sm text-ousi-muted">
+        <li class="flex items-start gap-2">
+          <span class="text-ousi-warning mt-0.5">~</span>
+          Fixed Card border-radius — reduced from 4xl to 3xl for better visual consistency
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-ousi-accent mt-0.5">+</span>
+          Theme now auto-scans @ousi-ui/vue classes — no manual @source needed in Tailwind v4
+        </li>
+      </ul>
+    </article>
+
     <!-- v0.1.3 -->
     <article class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.1.3</h2>
         <span class="text-xs text-ousi-muted">April 8, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
       <ul class="space-y-1.5 text-sm text-ousi-muted">
         <li class="flex items-start gap-2">

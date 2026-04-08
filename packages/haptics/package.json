@@ -1,6 +1,6 @@
 {
   "name": "@ousi-ui/haptics",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Haptic feedback layer for Ousi UI",
   "type": "module",
   "main": "./src/index.ts",

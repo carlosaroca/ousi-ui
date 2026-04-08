@@ -10,6 +10,9 @@
  *   @import "@ousi-ui/theme/shared/theme.css";
  */
 
+/* Scan @ousi-ui/vue bundle so Tailwind generates all component classes */
+@source "../../vue/dist";
+
 @import "./base/reset.css";
 @import "./base/base.css";
 @import "./themes/ousi-dark.css";
