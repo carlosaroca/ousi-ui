@@ -17,8 +17,6 @@ export default defineConfig({
     rollupOptions: {
       external: [
         'vue',
-        '@ousi-ui/core',
-        '@ousi-ui/tokens',
         '@floating-ui/vue',
         'class-variance-authority',
         'motion-v',

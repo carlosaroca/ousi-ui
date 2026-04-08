@@ -1,6 +1,6 @@
 {
   "name": "@ousi-ui/registry",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Component and theme registry metadata for Ousi UI CLI",
   "type": "module",
   "main": "./dist/index.js",

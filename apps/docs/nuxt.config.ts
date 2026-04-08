@@ -64,6 +64,14 @@ export default defineNuxtConfig({
         { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' },
       ],
       script: [
+        // Google Analytics (gtag.js)
+        {
+          async: true,
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-EK5BQC7G7K',
+        },
+        {
+          innerHTML: "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EK5BQC7G7K');",
+        },
         // Structured data (JSON-LD)
         {
           type: 'application/ld+json',

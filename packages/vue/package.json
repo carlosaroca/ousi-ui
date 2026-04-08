@@ -1,6 +1,6 @@
 {
   "name": "@ousi-ui/vue",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Vue 3 components for Ousi UI",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -23,8 +23,6 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@ousi-ui/core": "workspace:*",
-    "@ousi-ui/haptics": "workspace:*",
     "@floating-ui/vue": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "motion-v": "^1.0.0"
@@ -34,6 +32,8 @@
     "vue": "^3.5.0"
   },
   "devDependencies": {
+    "@ousi-ui/core": "workspace:*",
+    "@ousi-ui/haptics": "workspace:*",
     "@ousi-ui/tsconfig": "workspace:*",
     "@vitejs/plugin-vue": "^5.2.0",
     "typescript": "^5.7.0",

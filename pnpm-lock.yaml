@@ -279,12 +279,6 @@ importers:
       '@floating-ui/vue':
         specifier: ^1.1.0
         version: 1.1.11(vue@3.5.31(typescript@5.9.3))
-      '@ousi-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@ousi-ui/haptics':
-        specifier: workspace:*
-        version: link:../haptics
       '@ousi-ui/theme':
         specifier: workspace:*
         version: link:../theme
@@ -295,6 +289,12 @@ importers:
         specifier: ^1.0.0
         version: 1.10.3(@vueuse/core@14.2.1(vue@3.5.31(typescript@5.9.3)))(vue@3.5.31(typescript@5.9.3))
     devDependencies:
+      '@ousi-ui/core':
+        specifier: workspace:*
+        version: link:../core
+      '@ousi-ui/haptics':
+        specifier: workspace:*
+        version: link:../haptics
       '@ousi-ui/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
