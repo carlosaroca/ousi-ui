@@ -139,9 +139,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         <OButton size="sm" class="w-full">Let's Go!</OButton>
       </div>
 
-      <div class="shadow-ousi-lg">
-        <OAccordion v-model="accordionKey" :items="accordionItems" />
-      </div>
+      <OAccordion v-model="accordionKey" :items="accordionItems" />
     </div>
 
     <!-- Desktop masonry collage (≥lg) -->
