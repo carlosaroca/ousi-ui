@@ -13,13 +13,9 @@ export function OusiResolver(options: OusiResolverOptions = {}) {
   return {
     type: 'component' as const,
     resolve(name: string) {
-      if (name.startsWith(prefix)) {
-        const componentName = name.slice(prefix.length).toLowerCase()
-        return {
-          name: `O${name.slice(prefix.length)}`,
-          from: '@ousi-ui/vue',
-        }
-      }
+      if (!name.startsWith(prefix)) return
+      const exportName = prefix === 'O' ? name : `O${name.slice(prefix.length)}`
+      return { name: exportName, from: '@ousi-ui/vue' }
     },
   }
 }

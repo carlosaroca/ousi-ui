@@ -8,6 +8,8 @@ export type SelectValue = string | number | (string | number)[]
 
 import type { HapticInput } from '@ousi-ui/haptics'
 
+export type SelectShadow = 'none' | 'xs' | 'sm' | 'md'
+
 export interface SelectProps {
   /** Controlled value (v-model). Single value or array for multiple. */
   modelValue?: SelectValue
@@ -31,12 +33,14 @@ export interface SelectProps {
   size?: 'sm' | 'md' | 'lg'
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow on the trigger. Defaults to 'xs'. */
+  shadow?: SelectShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Whether the select is disabled. */
   disabled?: boolean
   /** Whether the select is required. */
   required?: boolean
-  /** Stretch to fill parent width. */
-  fullWidth?: boolean
   /** Haptic feedback on option select. Pass false to disable. */
   haptic?: HapticInput
   /** Additional CSS classes on the outer container. */

@@ -54,7 +54,21 @@ export const sliderTrackWrapperTheme = cva(
 )
 
 /** Inner track bar — HAS overflow:hidden to clip the fill. */
-export const sliderTrackBarTheme = 'absolute inset-0 rounded-full bg-ousi-default overflow-hidden'
+export const sliderTrackBarTheme = cva(
+  'absolute inset-0 rounded-full bg-ousi-default overflow-hidden',
+  {
+    variants: {
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+      },
+    },
+    defaultVariants: {
+      shadow: 'none',
+    },
+  },
+)
 
 /** Fill inside the clipped bar. */
 export const sliderFillTheme = cva(

@@ -27,7 +27,7 @@ The `variant` prop controls the visual style of the button.
 <OButton variant="primary">Primary</OButton>
 <OButton variant="secondary">Secondary</OButton>
 <OButton variant="outline">Outline</OButton>
-<OButton variant="ghost">Ghost</OButton>
+<OButton variant="text">Text</OButton>
 <OButton variant="soft">Soft</OButton>
 <OButton variant="danger">Danger</OButton>
 <OButton variant="danger-soft">Danger Soft</OButton>
@@ -79,7 +79,7 @@ Use the `start` and `end` slots to add icons.
 ### Icon only
 
 ```vue
-<OButton is-icon-only variant="ghost">
+<OButton is-icon-only variant="text">
   <SettingsIcon class="w-4 h-4" />
 </OButton>
 ```
@@ -90,7 +90,7 @@ Use the `start` and `end` slots to add icons.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'soft' \| 'danger' \| 'danger-soft'` | `'primary'` | Visual style |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'text' \| 'soft' \| 'danger' \| 'danger-soft'` | `'primary'` | Visual style |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
 | `disabled` | `boolean` | `false` | Disable interactions |
 | `loading` | `boolean` | `false` | Show loading state |

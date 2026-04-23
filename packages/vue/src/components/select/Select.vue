@@ -28,7 +28,8 @@ const props = withDefaults(defineProps<SelectProps>(), {
   multiple: false,
   disabled: false,
   required: false,
-  fullWidth: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<SelectEmits>()
@@ -241,7 +242,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div
-    :class="cn(selectWrapperTheme({ fullWidth }), props.class)"
+    :class="cn(selectWrapperTheme, props.class)"
   >
     <!-- Label -->
     <label
@@ -271,7 +272,7 @@ onBeforeUnmount(() => {
       :aria-multiselectable="multiple || undefined"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
-      :class="selectTriggerTheme({ variant, size, fullWidth })"
+      :class="selectTriggerTheme({ variant, size, shadow, animated })"
       @click="toggle"
       @keydown="handleKeydown"
     >

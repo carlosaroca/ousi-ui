@@ -25,7 +25,7 @@ import { OBadge } from '@ousi-ui/vue'
 <OBadge variant="solid">Solid</OBadge>
 <OBadge variant="outline">Outline</OBadge>
 <OBadge variant="soft">Soft</OBadge>
-<OBadge variant="ghost">Ghost</OBadge>
+<OBadge variant="text">Text</OBadge>
 ```
 
 ## Colors
@@ -63,7 +63,7 @@ import { OBadge } from '@ousi-ui/vue'
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'solid' \| 'outline' \| 'soft' \| 'ghost'` | `'solid'` | Visual style |
+| `variant` | `'solid' \| 'outline' \| 'soft' \| 'text'` | `'solid'` | Visual style |
 | `color` | `'accent' \| 'success' \| 'warning' \| 'danger' \| 'default'` | `'accent'` | Color scheme |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size |
 

@@ -75,6 +75,7 @@ export const avatarData: ComponentData = {
     { name: 'name', type: 'string', default: '-', description: 'Full name used to generate initials as fallback.' },
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Size of the avatar.' },
     { name: 'shape', type: "'circle' | 'square'", default: "'circle'", description: 'Shape of the avatar.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md' | 'lg'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

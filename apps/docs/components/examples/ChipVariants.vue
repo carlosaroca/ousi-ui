@@ -6,6 +6,6 @@ import { OChip } from '@ousi-ui/vue'
     <OChip variant="solid">Solid</OChip>
     <OChip variant="outline">Outline</OChip>
     <OChip variant="soft">Soft</OChip>
-    <OChip variant="ghost">Ghost</OChip>
+    <OChip variant="text">Text</OChip>
   </div>
 </template>

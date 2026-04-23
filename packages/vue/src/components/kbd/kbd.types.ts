@@ -25,12 +25,15 @@ export type KbdKey =
   | 'windows'
 
 export type KbdVariant = 'default' | 'light'
+export type KbdShadow = 'none' | 'xs' | 'sm'
 
 export interface KbdProps {
   /** Special key(s) to display as symbols. */
   keys?: KbdKey | KbdKey[]
   /** Visual variant. */
   variant?: KbdVariant
+  /** Elevation shadow. Defaults to 'none'. */
+  shadow?: KbdShadow
   /** Additional CSS classes. */
   class?: string
 }

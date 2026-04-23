@@ -1,6 +1,7 @@
 import type { HapticInput } from '@ousi-ui/haptics'
 
 export type RadioGroupOrientation = 'vertical' | 'horizontal'
+export type RadioGroupShadow = 'none' | 'xs' | 'sm'
 
 export interface RadioProps {
   /** Unique value for this radio option. */
@@ -32,6 +33,8 @@ export interface RadioGroupProps {
   required?: boolean
   /** Disable all radios in the group. */
   disabled?: boolean
+  /** Elevation shadow applied to each radio control. Defaults to 'none'. */
+  shadow?: RadioGroupShadow
   /** Haptic feedback on selection. Pass false to disable. */
   haptic?: HapticInput
   /** Additional CSS classes. */

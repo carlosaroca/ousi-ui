@@ -7,16 +7,16 @@ useSeoMeta({
 })
 
 const semanticColors = [
-  { name: 'accent', token: '--ousi-accent', purpose: 'Primary brand and action color', bg: 'bg-ousi-accent' },
-  { name: 'success', token: '--ousi-success', purpose: 'Positive outcomes, confirmations', bg: 'bg-ousi-success' },
-  { name: 'danger', token: '--ousi-danger', purpose: 'Errors, destructive actions', bg: 'bg-ousi-danger' },
-  { name: 'warning', token: '--ousi-warning', purpose: 'Caution states, important notices', bg: 'bg-ousi-warning' },
-  { name: 'foreground', token: '--ousi-foreground', purpose: 'Primary text color', bg: 'bg-ousi-foreground' },
-  { name: 'muted', token: '--ousi-muted', purpose: 'Secondary text, helper text', bg: 'bg-ousi-muted' },
-  { name: 'border', token: '--ousi-border', purpose: 'Borders and dividers', bg: 'bg-ousi-border' },
-  { name: 'surface', token: '--ousi-surface', purpose: 'Card and panel backgrounds', bg: 'bg-ousi-surface' },
-  { name: 'default', token: '--ousi-default', purpose: 'Subtle backgrounds, hover states', bg: 'bg-ousi-default' },
-  { name: 'background', token: '--ousi-background', purpose: 'Page background', bg: 'bg-ousi-background' },
+  { name: 'accent', token: '--ousi-accent', purpose: 'Primary brand and action color', hex: '#1b5cff', bg: 'bg-ousi-accent' },
+  { name: 'success', token: '--ousi-success', purpose: 'Positive outcomes, confirmations', hex: '#46c93a', bg: 'bg-ousi-success' },
+  { name: 'danger', token: '--ousi-danger', purpose: 'Errors, destructive actions', hex: '#ff4757', bg: 'bg-ousi-danger' },
+  { name: 'warning', token: '--ousi-warning', purpose: 'Caution states, important notices', hex: '#ffba00', bg: 'bg-ousi-warning' },
+  { name: 'foreground', token: '--ousi-foreground', purpose: 'Primary text color', hex: '#1e1e1e', bg: 'bg-ousi-foreground' },
+  { name: 'muted', token: '--ousi-muted', purpose: 'Secondary text, helper text', hex: 'oklch gray', bg: 'bg-ousi-muted' },
+  { name: 'border', token: '--ousi-border', purpose: 'Borders and dividers', hex: 'oklch gray', bg: 'bg-ousi-border' },
+  { name: 'surface', token: '--ousi-surface', purpose: 'Card and panel backgrounds', hex: '#ffffff / #1e1e1e', bg: 'bg-ousi-surface' },
+  { name: 'default', token: '--ousi-default', purpose: 'Subtle backgrounds, hover states', hex: 'oklch gray', bg: 'bg-ousi-default' },
+  { name: 'background', token: '--ousi-background', purpose: 'Page background', hex: 'oklch light/dark', bg: 'bg-ousi-background' },
 ]
 
 const oklchParts = [
@@ -144,6 +144,7 @@ oklch(0.65 0.24 250)
             <thead>
               <tr class="border-b border-ousi-border bg-ousi-surface-secondary/50">
                 <th class="px-4 py-2.5 text-left text-xs font-semibold text-ousi-muted">Token</th>
+                <th class="px-4 py-2.5 text-left text-xs font-semibold text-ousi-muted">Default</th>
                 <th class="px-4 py-2.5 text-left text-xs font-semibold text-ousi-muted">Purpose</th>
                 <th class="px-4 py-2.5 text-left text-xs font-semibold text-ousi-muted">Tailwind Class</th>
               </tr>
@@ -155,6 +156,7 @@ oklch(0.65 0.24 250)
                 :class="i < semanticColors.length - 1 ? 'border-b border-ousi-border' : ''"
               >
                 <td class="px-4 py-3 font-mono text-xs text-ousi-accent">{{ color.token }}</td>
+                <td class="px-4 py-3 font-mono text-xs text-ousi-muted">{{ color.hex }}</td>
                 <td class="px-4 py-3 text-ousi-foreground">{{ color.purpose }}</td>
                 <td class="px-4 py-3 font-mono text-xs text-ousi-muted">{{ color.bg }}</td>
               </tr>
@@ -362,23 +364,25 @@ oklch(0.65 0.24 250)
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
-          <CodeBlock :code="`/* Brand customization — change just the hue */
+          <CodeBlock :code="`/* Default Ousi UI brand palette */
 :root {
-  --ousi-accent: oklch(0.65 0.24 270);
+  --ousi-accent: #1b5cff;
+  --ousi-success: #46c93a;
+  --ousi-danger: #ff4757;
+  --ousi-warning: #ffba00;
+  --ousi-eclipse: #1e1e1e;  /* foreground in light, surfaces in dark */
 }
 
-/* Semantic colors — usually left as defaults */
+/* Change just the accent to rebrand */
 :root {
-  --ousi-success: oklch(0.65 0.2 145);
-  --ousi-danger: oklch(0.6 0.22 25);
-  --ousi-warning: oklch(0.75 0.18 70);
+  --ousi-accent: #7c3aed;  /* or any hex, rgb, hsl, oklch */
 }
 
-/* Dark mode overrides */
-.dark {
+/* Dark mode — eclipse is reused for surfaces, snow for text */
+[data-theme='dark'] {
   --ousi-background: oklch(0.13 0 0);
-  --ousi-foreground: oklch(0.93 0 0);
-  --ousi-surface: oklch(0.18 0 0);
+  --ousi-foreground: var(--ousi-snow);
+  --ousi-surface: var(--ousi-eclipse);
   --ousi-border: oklch(0.28 0 0);
   --ousi-muted: oklch(0.6 0 0);
   --ousi-default: oklch(0.22 0 0);

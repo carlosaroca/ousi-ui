@@ -1,5 +1,7 @@
 import type { Placement } from '@floating-ui/vue'
 
+export type TooltipShadow = 'xs' | 'sm' | 'md' | 'lg'
+
 export interface TooltipProps {
   /** Text content of the tooltip. */
   content: string
@@ -15,6 +17,8 @@ export interface TooltipProps {
   closeDelay?: number
   /** Whether the tooltip is disabled. */
   disabled?: boolean
+  /** Elevation shadow. Defaults to 'md'. */
+  shadow?: TooltipShadow
   /** Additional CSS classes on the tooltip bubble. */
   class?: string
 }

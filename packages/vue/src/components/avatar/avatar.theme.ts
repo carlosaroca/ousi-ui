@@ -14,10 +14,18 @@ export const avatarTheme = cva(
         circle: 'rounded-full',
         square: 'rounded-ousi-lg',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+      },
     },
     defaultVariants: {
       size: 'md',
       shape: 'circle',
+      shadow: 'none',
     },
   },
 )

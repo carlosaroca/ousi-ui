@@ -32,7 +32,7 @@ The radius system uses a single `--ousi-radius` base value with calculated scale
 
 ### Shadows
 
-Three shadow tokens mapped to utilities: `shadow-ousi-surface`, `shadow-ousi-overlay`, and `shadow-ousi-field`.
+Layered elevation scale (Josh Comeau technique): `shadow-ousi-xs`, `shadow-ousi-sm`, `shadow-ousi-md`, `shadow-ousi-lg`, `shadow-ousi-xl`, `shadow-ousi-2xl`. Each level stacks 1–5 box-shadows with a 1:2 horizontal:vertical offset ratio. Override `--ousi-shadow-color` (HSL components) on any container to retint its descendants' shadows.
 
 ### Easing
 

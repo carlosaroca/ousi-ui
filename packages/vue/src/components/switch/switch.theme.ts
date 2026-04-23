@@ -1,3 +1,9 @@
+export const switchTrackShadowTheme = {
+  none: 'shadow-none',
+  xs: 'shadow-ousi-xs',
+  sm: 'shadow-ousi-sm',
+} as const
+
 export const switchLabelTheme = 'text-sm font-medium text-ousi-foreground select-none'
 
 export const switchDescriptionTheme = 'text-sm text-ousi-muted select-none'

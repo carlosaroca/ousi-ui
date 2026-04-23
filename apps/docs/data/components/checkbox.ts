@@ -85,6 +85,7 @@ export const checkboxData: ComponentData = {
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the checkbox is read-only.' },
     { name: 'invalid', type: 'boolean', default: 'false', description: 'Force invalid state without error message.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

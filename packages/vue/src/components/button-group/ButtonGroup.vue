@@ -7,6 +7,7 @@ import type { ButtonGroupProps } from './button-group.types'
 const props = withDefaults(defineProps<ButtonGroupProps>(), {
   orientation: 'horizontal',
   fullWidth: false,
+  shadow: 'none',
 })
 
 provide('button-group-orientation', props.orientation)
@@ -15,7 +16,7 @@ provide('button-group-orientation', props.orientation)
 <template>
   <div
     :class="cn(
-      buttonGroupBaseTheme,
+      buttonGroupBaseTheme({ shadow }),
       orientation === 'vertical' ? 'flex-col' : 'flex-row',
       fullWidth && 'w-full',
       'ousi-btn-group',

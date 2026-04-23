@@ -1,10 +1,25 @@
 import { cva } from 'class-variance-authority'
 
-export const dropdownPopoverTheme = [
-  'max-w-[48svw] scroll-py-1 overflow-y-auto overscroll-contain',
-  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground p-0 text-sm md:min-w-[220px]',
-  'shadow-ousi-overlay z-50',
-].join(' ')
+export const dropdownPopoverTheme = cva(
+  [
+    'max-w-[48svw] scroll-py-1 overflow-y-auto overscroll-contain',
+    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground p-0 text-sm md:min-w-[220px]',
+    'z-50',
+  ],
+  {
+    variants: {
+      shadow: {
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+        xl: 'shadow-ousi-xl',
+      },
+    },
+    defaultVariants: {
+      shadow: 'lg',
+    },
+  },
+)
 
 export const dropdownMenuTheme = 'relative flex w-full flex-col gap-0.5 overflow-clip p-1.5 outline-none'
 

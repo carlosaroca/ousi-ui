@@ -3,7 +3,7 @@ import { OCodeBlock } from '@ousi-ui/vue'
 const code = [
   '<script setup>',
   "import { ref } from 'vue'",
-  "import { OButton, OInput, OCard } from '@ousi-ui/vue'",
+  "import { OButton, OInput, OCard, OCardContent } from '@ousi-ui/vue'",
   '',
   "const name = ref('')",
   'const submitted = ref(false)',
@@ -16,10 +16,10 @@ const code = [
   '',
   '<template>',
   '  <OCard class="max-w-sm">',
-  '    <OCard.Content>',
+  '    <OCardContent>',
   '      <OInput v-model="name" label="Your name" />',
   '      <OButton @click="handleSubmit">Submit</OButton>',
-  '    </OCard.Content>',
+  '    </OCardContent>',
   '  </OCard>',
   '</template>',
 ].join('\n')

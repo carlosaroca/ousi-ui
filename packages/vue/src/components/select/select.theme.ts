@@ -1,24 +1,15 @@
 import { cva } from 'class-variance-authority'
 
-export const selectWrapperTheme = cva(
-  'flex flex-col gap-1',
-  {
-    variants: {
-      fullWidth: { true: 'w-full', false: 'w-fit' },
-    },
-    defaultVariants: { fullWidth: false },
-  },
-)
+export const selectWrapperTheme = 'flex w-full flex-col gap-1'
 
 export const selectTriggerTheme = cva(
   [
-    'relative isolate inline-flex min-h-9 items-center',
+    'relative isolate flex w-full min-h-9 items-center',
     'rounded-ousi-field border bg-ousi-field',
     'px-3 py-2 pr-8 text-sm text-ousi-field-foreground',
-    'shadow-ousi-field outline-none select-none',
+    'outline-none select-none',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
-    'transition-[background-color,border-color,box-shadow] duration-150',
-    'ease-[ease] motion-reduce:transition-none',
+    'motion-reduce:transition-none',
     'cursor-[--ousi-cursor-interactive]',
     // Hover
     'hover:bg-ousi-field-hover',
@@ -36,26 +27,46 @@ export const selectTriggerTheme = cva(
     variants: {
       variant: {
         primary: '',
-        secondary: 'shadow-none border-transparent bg-ousi-surface-secondary hover:bg-ousi-surface-tertiary',
+        secondary: 'border-transparent bg-ousi-surface-secondary hover:bg-ousi-surface-tertiary',
       },
-      fullWidth: { true: 'w-full', false: 'w-fit' },
       size: {
         sm: 'min-h-8 text-xs',
         md: 'min-h-9 text-sm',
         lg: 'min-h-10 text-base',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
+      animated: {
+        true: [
+          'transition-all duration-[400ms]',
+          'ease-[cubic-bezier(0.33,1,0.68,1)]',
+          'focus-within:scale-[0.98]',
+        ],
+        false: [
+          'transition-[background-color,border-color,box-shadow] duration-150',
+          'ease-[ease]',
+        ],
+      },
     },
+    compoundVariants: [
+      { variant: 'secondary', shadow: 'xs', class: 'shadow-none' },
+    ],
     defaultVariants: {
       variant: 'primary',
-      fullWidth: false,
       size: 'md',
+      shadow: 'xs',
+      animated: false,
     },
   },
 )
 
 export const selectPopoverTheme = [
   'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground',
-  'shadow-ousi-overlay',
+  'shadow-ousi-lg',
   'overflow-hidden',
   'z-50',
 ].join(' ')

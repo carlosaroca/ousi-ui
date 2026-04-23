@@ -39,11 +39,17 @@ export const drawerContentTheme = cva(
 export const drawerPanelTheme = cva(
   [
     'relative flex flex-col',
-    'bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-overlay outline-none',
+    'bg-ousi-overlay text-ousi-overlay-foreground outline-none',
     'p-6 pointer-events-auto',
   ],
   {
     variants: {
+      shadow: {
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+        xl: 'shadow-ousi-xl',
+        '2xl': 'shadow-ousi-2xl',
+      },
       placement: {
         // Edge-attached — rounded on the open side only
         bottom: 'w-full rounded-t-ousi-3xl max-h-[85vh]',
@@ -58,6 +64,6 @@ export const drawerPanelTheme = cva(
         'floating-bottom': 'w-full max-w-lg rounded-ousi-3xl max-h-[85vh]',
       },
     },
-    defaultVariants: { placement: 'right' },
+    defaultVariants: { placement: 'right', shadow: 'xl' },
   },
 )

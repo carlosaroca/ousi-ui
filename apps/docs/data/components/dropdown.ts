@@ -13,16 +13,16 @@ export const dropdownData: ComponentData = {
       example: {
         component: 'DropdownUsage',
         code: `<ODropdown>
-  <ODropdown.Trigger>
+  <ODropdownTrigger>
     <OButton>Options</OButton>
-  </ODropdown.Trigger>
-  <ODropdown.Popover>
-    <ODropdown.Menu>
-      <ODropdown.Item id="edit">Edit</ODropdown.Item>
-      <ODropdown.Item id="duplicate">Duplicate</ODropdown.Item>
-      <ODropdown.Item id="delete">Delete</ODropdown.Item>
-    </ODropdown.Menu>
-  </ODropdown.Popover>
+  </ODropdownTrigger>
+  <ODropdownPopover>
+    <ODropdownMenu>
+      <ODropdownItem id="edit">Edit</ODropdownItem>
+      <ODropdownItem id="duplicate">Duplicate</ODropdownItem>
+      <ODropdownItem id="delete">Delete</ODropdownItem>
+    </ODropdownMenu>
+  </ODropdownPopover>
 </ODropdown>`,
       },
     },
@@ -31,10 +31,10 @@ export const dropdownData: ComponentData = {
       title: 'With Icons',
       example: {
         component: 'DropdownWithIcons',
-        code: `<ODropdown.Item id="edit">
+        code: `<ODropdownItem id="edit">
   <template #start><PencilIcon class="size-4" /></template>
   Edit
-</ODropdown.Item>`,
+</ODropdownItem>`,
       },
     },
     {
@@ -42,10 +42,10 @@ export const dropdownData: ComponentData = {
       title: 'Danger Item',
       example: {
         component: 'DropdownDangerItem',
-        code: `<ODropdown.Separator />
-<ODropdown.Item id="delete" variant="danger">
+        code: `<ODropdownSeparator />
+<ODropdownItem id="delete" variant="danger">
   Delete
-</ODropdown.Item>`,
+</ODropdownItem>`,
       },
     },
     {
@@ -53,15 +53,16 @@ export const dropdownData: ComponentData = {
       title: 'Disabled',
       example: {
         component: 'DropdownDisabled',
-        code: `<ODropdown.Item id="archive" disabled>
+        code: `<ODropdownItem id="archive" disabled>
   Archive
-</ODropdown.Item>`,
+</ODropdownItem>`,
       },
     },
   ],
 
   props: [
     { name: 'modelValue', type: 'boolean', description: 'Controls open/close state (v-model).' },
+    { name: 'shadow', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'lg'", description: 'Elevation shadow (on ODropdownPopover).' },
     { name: 'defaultOpen', type: 'boolean', default: 'false', description: 'Whether the dropdown starts open.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
@@ -94,7 +95,7 @@ export const dropdownData: ComponentData = {
   ],
 
   bestPractices: [
-    { text: 'Group related actions using ODropdown.Section.', good: true },
+    { text: 'Group related actions using ODropdownSection.', good: true },
     { text: 'Place destructive actions at the end with variant="danger".', good: true },
     { text: "Don't put too many items in a single dropdown — consider grouping.", good: false },
   ],

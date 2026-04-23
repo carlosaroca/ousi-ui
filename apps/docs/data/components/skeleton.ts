@@ -43,6 +43,7 @@ export const skeletonData: ComponentData = {
 
   props: [
     { name: 'animation', type: "'shimmer' | 'pulse' | 'none'", default: "'shimmer'", description: 'Animation type.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes for dimensions and radius.' },
   ],
 }

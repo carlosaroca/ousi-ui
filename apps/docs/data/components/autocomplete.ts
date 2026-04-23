@@ -106,7 +106,16 @@ export const autocompleteData: ComponentData = {
       title: 'Full Width',
       example: {
         component: 'AutocompleteFullWidth',
-        code: '<OAutocomplete full-width :options="options" placeholder="Full width" />',
+        code: '<OAutocomplete :options="options" placeholder="Full width" />',
+      },
+    },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'AutocompleteAnimated',
+        code: `<OAutocomplete :options="options" placeholder="Default — no animation" />
+<OAutocomplete :options="options" placeholder="With tactile press" animated />`,
       },
     },
   ],
@@ -120,10 +129,11 @@ export const autocompleteData: ComponentData = {
     { name: 'description', type: 'string', default: '-', description: 'Help text.' },
     { name: 'errorMessage', type: 'string', default: '-', description: 'Error message that activates error state.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the field is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the field is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether a value is required.' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
     { name: 'clearable', type: 'boolean', default: 'false', description: 'Show clear button.' },
     { name: 'allowCustomValue', type: 'boolean', default: 'false', description: 'Allow values not in the options list.' },
     { name: 'emptyMessage', type: 'string', default: '-', description: 'Message when no results match.' },
@@ -142,7 +152,7 @@ export const autocompleteData: ComponentData = {
   themeCode: `import { autocompleteTheme } from '@ousi-ui/vue'
 
 // CVA variants: primary, secondary
-// CVA booleans: fullWidth, disabled, invalid`,
+// CVA booleans: disabled, invalid`,
 
   keyboard: [
     { key: 'ArrowDown', description: 'Opens the suggestions or moves to the next option.' },

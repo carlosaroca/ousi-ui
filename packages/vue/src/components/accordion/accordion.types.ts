@@ -7,6 +7,8 @@ export interface AccordionItem {
   description?: string
 }
 
+export type AccordionShadow = 'none' | 'xs' | 'sm' | 'md' | 'lg'
+
 export interface AccordionProps {
   /** Accordion items. */
   items: AccordionItem[]
@@ -20,6 +22,8 @@ export interface AccordionProps {
   showDividers?: boolean
   /** Visual variant. Default: 'primary'. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow on the outer wrapper. Defaults to 'none'. */
+  shadow?: AccordionShadow
   /** Additional CSS classes. */
   class?: string
 }

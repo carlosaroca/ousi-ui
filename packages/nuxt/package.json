@@ -1,25 +1,28 @@
 {
   "name": "@ousi-ui/nuxt",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Nuxt module for Ousi UI",
   "type": "module",
-  "main": "./dist/module.js",
-  "types": "./dist/module.d.ts",
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/module.d.ts",
-      "import": "./dist/module.js"
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "echo \"skip: nuxt module not ready\"",
+    "build": "nuxt-module-build build",
+    "prepack": "nuxt-module-build build",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@nuxt/kit": "^3.14.0",
+    "@nuxt/schema": "^3.14.0",
     "@ousi-ui/vue": "workspace:*",
     "@ousi-ui/theme": "workspace:*",
     "@ousi-ui/core": "workspace:*"

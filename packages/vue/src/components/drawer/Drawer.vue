@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   backdrop: 'opaque',
   showHandle: false,
   showCloseButton: true,
+  shadow: 'xl',
 })
 
 const emit = defineEmits<DrawerEmits>()
@@ -104,7 +105,7 @@ defineExpose({ open, close })
             role="dialog"
             aria-modal="true"
             :aria-label="title"
-            :class="cn(drawerPanelTheme({ placement }), props.class)"
+            :class="cn(drawerPanelTheme({ placement, shadow }), props.class)"
             :initial="(panelAnimation.initial as any)"
             :animate="(panelAnimation.animate as any)"
             :exit="(panelAnimation.exit as any)"

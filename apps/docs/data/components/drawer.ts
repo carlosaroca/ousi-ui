@@ -30,6 +30,17 @@ export const drawerData: ComponentData = {
       },
     },
     {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'DrawerShadows',
+        code: `<ODrawer v-model="open" shadow="md">...</ODrawer>
+<ODrawer v-model="open" shadow="lg">...</ODrawer>
+<ODrawer v-model="open" shadow="xl">...</ODrawer>   <!-- default -->
+<ODrawer v-model="open" shadow="2xl">...</ODrawer>`,
+      },
+    },
+    {
       id: 'with-form',
       title: 'With Form',
       example: {
@@ -47,6 +58,7 @@ export const drawerData: ComponentData = {
   props: [
     { name: 'modelValue', type: 'boolean', description: 'Controls open/close state (v-model).' },
     { name: 'placement', type: "'top' | 'bottom' | 'left' | 'right' | 'floating-center' | 'floating-left' | 'floating-right' | 'floating-top' | 'floating-bottom'", default: "'right'", description: 'Direction from which the drawer slides in.' },
+    { name: 'shadow', type: "'md' | 'lg' | 'xl' | '2xl'", default: "'xl'", description: 'Elevation shadow.' },
     { name: 'backdrop', type: "'opaque' | 'blur' | 'transparent'", default: "'opaque'", description: 'Backdrop style.' },
     { name: 'showHandle', type: 'boolean', default: '-', description: 'Show a drag handle bar.' },
     { name: 'showCloseButton', type: 'boolean', default: '-', description: 'Show the built-in close button.' },

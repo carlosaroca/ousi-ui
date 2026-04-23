@@ -1,5 +1,6 @@
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 export type AvatarShape = 'circle' | 'square'
+export type AvatarShadow = 'none' | 'xs' | 'sm' | 'md' | 'lg'
 
 export interface AvatarProps {
   /** URL of the avatar image. */
@@ -12,6 +13,8 @@ export interface AvatarProps {
   size?: AvatarSize
   /** Shape of the avatar. */
   shape?: AvatarShape
+  /** Elevation shadow. Defaults to 'none'. */
+  shadow?: AvatarShadow
   /** Additional CSS classes (merged, never replaced). */
   class?: string
 }

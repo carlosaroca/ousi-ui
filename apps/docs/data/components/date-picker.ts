@@ -57,7 +57,7 @@ export const datePickerData: ComponentData = {
       title: 'Full Width',
       example: {
         component: 'DatePickerFullWidth',
-        code: '<ODatePicker v-model="date" label="Date" full-width />',
+        code: '<ODatePicker v-model="date" label="Date" />',
       },
     },
     {
@@ -68,10 +68,21 @@ export const datePickerData: ComponentData = {
         code: '<ODatePicker label="Date" disabled />',
       },
     },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'DatePickerAnimated',
+        code: `<ODatePicker label="Default" />
+<ODatePicker label="Animated" animated />`,
+      },
+    },
   ],
 
   props: [
     { name: 'modelValue', type: 'DateFieldValue | null', default: 'null', description: 'Current date value (v-model).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateFieldValue | null', default: 'null', description: 'Default date value.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Description text below the field.' },
@@ -85,7 +96,6 @@ export const datePickerData: ComponentData = {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the picker.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Read-only mode.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Mark as required (shows asterisk on label).' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Make the field take full width.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

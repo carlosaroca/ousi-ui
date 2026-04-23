@@ -1,10 +1,14 @@
 import type { HapticInput } from '@ousi-ui/haptics'
 
+export type DialogShadow = 'md' | 'lg' | 'xl' | '2xl'
+
 export interface DialogProps {
   /** Controls open/close state (v-model). */
   modelValue: boolean
   /** Size of the dialog panel. */
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'cover' | 'full'
+  /** Elevation shadow. Defaults to 'xl'. */
+  shadow?: DialogShadow
   /** Vertical placement of the dialog. */
   placement?: 'auto' | 'top' | 'center' | 'bottom'
   /** Backdrop style. */

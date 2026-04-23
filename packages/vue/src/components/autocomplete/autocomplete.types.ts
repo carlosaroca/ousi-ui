@@ -4,6 +4,8 @@ export interface AutocompleteOption {
   disabled?: boolean
 }
 
+export type AutocompleteShadow = 'none' | 'xs' | 'sm' | 'md'
+
 export interface AutocompleteProps {
   /** Selected value (v-model). */
   modelValue?: string | number
@@ -21,14 +23,16 @@ export interface AutocompleteProps {
   errorMessage?: string
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow on the trigger. Defaults to 'xs'. */
+  shadow?: AutocompleteShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Whether the field is disabled. */
   disabled?: boolean
   /** Whether the field is read-only. */
   readonly?: boolean
   /** Whether a value is required. */
   required?: boolean
-  /** Stretch to fill parent width. */
-  fullWidth?: boolean
   /** Show clear button. */
   clearable?: boolean
   /** Allow values not in the options list. */

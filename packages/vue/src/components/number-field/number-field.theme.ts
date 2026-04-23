@@ -1,22 +1,13 @@
 import { cva } from 'class-variance-authority'
 
-export const numberFieldWrapperTheme = cva(
-  'flex flex-col gap-1.5',
-  {
-    variants: {
-      fullWidth: { true: 'w-full', false: 'w-fit' },
-    },
-    defaultVariants: { fullWidth: false },
-  },
-)
+export const numberFieldWrapperTheme = 'flex w-full flex-col gap-1.5'
 
 export const numberFieldGroupTheme = cva(
   [
-    'grid items-center overflow-hidden',
-    'rounded-ousi-field border bg-ousi-field text-sm text-ousi-field-foreground shadow-ousi-field',
+    'grid w-full items-center overflow-hidden',
+    'rounded-ousi-field border bg-ousi-field text-sm text-ousi-field-foreground',
     'outline-none',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
-    'transition-[background-color,border-color,box-shadow] duration-150',
     'motion-reduce:transition-none',
     'hover:not-focus-within:bg-ousi-field-hover',
     'focus-within:ring-2 focus-within:ring-ousi-focus focus-within:bg-ousi-field-focus',
@@ -29,7 +20,7 @@ export const numberFieldGroupTheme = cva(
       variant: {
         primary: '',
         secondary: [
-          'shadow-none border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-surface-secondary',
           'hover:not-focus-within:bg-ousi-surface-tertiary',
           'focus-within:bg-ousi-surface-secondary',
         ],
@@ -43,8 +34,27 @@ export const numberFieldGroupTheme = cva(
         true: '[grid-template-columns:40px_1fr_40px]',
         false: '[grid-template-columns:1fr]',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
+      animated: {
+        true: [
+          'transition-all duration-[400ms]',
+          'ease-[cubic-bezier(0.33,1,0.68,1)]',
+          'focus-within:scale-[0.98]',
+        ],
+        false: [
+          'transition-[background-color,border-color,box-shadow] duration-150',
+        ],
+      },
     },
-    defaultVariants: { variant: 'primary', size: 'md', showButtons: true },
+    compoundVariants: [
+      { variant: 'secondary', shadow: 'xs', class: 'shadow-none' },
+    ],
+    defaultVariants: { variant: 'primary', size: 'md', showButtons: true, shadow: 'xs', animated: false },
   },
 )
 

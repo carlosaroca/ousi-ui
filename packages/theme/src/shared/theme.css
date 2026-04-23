@@ -77,9 +77,12 @@
   --radius-ousi-4xl: var(--ousi-radius-4xl);
 
   /* ── Shadows ───────────────────────────────────────────────────── */
-  --shadow-ousi-surface: var(--ousi-shadow-surface);
-  --shadow-ousi-overlay: var(--ousi-shadow-overlay);
-  --shadow-ousi-field: var(--ousi-shadow-field);
+  --shadow-ousi-xs: var(--ousi-shadow-xs);
+  --shadow-ousi-sm: var(--ousi-shadow-sm);
+  --shadow-ousi-md: var(--ousi-shadow-md);
+  --shadow-ousi-lg: var(--ousi-shadow-lg);
+  --shadow-ousi-xl: var(--ousi-shadow-xl);
+  --shadow-ousi-2xl: var(--ousi-shadow-2xl);
 
   /* ── Easing ────────────────────────────────────────────────────── */
   --ease-ousi-smooth: ease;

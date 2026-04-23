@@ -1,27 +1,14 @@
-import Dropdown from './Dropdown.vue'
-import DropdownTrigger from './DropdownTrigger.vue'
-import DropdownPopover from './DropdownPopover.vue'
-import DropdownMenu from './DropdownMenu.vue'
-import DropdownItem from './DropdownItem.vue'
-import DropdownItemIndicator from './DropdownItemIndicator.vue'
-import DropdownSection from './DropdownSection.vue'
-import DropdownSubmenuTrigger from './DropdownSubmenuTrigger.vue'
-import DropdownSubmenuIndicator from './DropdownSubmenuIndicator.vue'
-import DropdownSeparator from './DropdownSeparator.vue'
+export { default as ODropdown } from './Dropdown.vue'
+export { default as ODropdownTrigger } from './DropdownTrigger.vue'
+export { default as ODropdownPopover } from './DropdownPopover.vue'
+export { default as ODropdownMenu } from './DropdownMenu.vue'
+export { default as ODropdownItem } from './DropdownItem.vue'
+export { default as ODropdownItemIndicator } from './DropdownItemIndicator.vue'
+export { default as ODropdownSection } from './DropdownSection.vue'
+export { default as ODropdownSubmenuTrigger } from './DropdownSubmenuTrigger.vue'
+export { default as ODropdownSubmenuIndicator } from './DropdownSubmenuIndicator.vue'
+export { default as ODropdownSeparator } from './DropdownSeparator.vue'
 
-const ODropdown = Object.assign(Dropdown, {
-  Trigger: DropdownTrigger,
-  Popover: DropdownPopover,
-  Menu: DropdownMenu,
-  Item: DropdownItem,
-  ItemIndicator: DropdownItemIndicator,
-  Section: DropdownSection,
-  SubmenuTrigger: DropdownSubmenuTrigger,
-  SubmenuIndicator: DropdownSubmenuIndicator,
-  Separator: DropdownSeparator,
-})
-
-export { ODropdown }
 export type {
   DropdownProps, DropdownMenuProps, DropdownItemProps,
   DropdownPopoverProps, DropdownSectionProps, DropdownSelectionMode,

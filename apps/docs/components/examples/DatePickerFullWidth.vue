@@ -3,5 +3,5 @@ import { ODatePicker } from '@ousi-ui/vue'
 const date = ref(null)
 </script>
 <template>
-  <ODatePicker v-model="date" label="Date" full-width />
+  <ODatePicker v-model="date" label="Date" />
 </template>

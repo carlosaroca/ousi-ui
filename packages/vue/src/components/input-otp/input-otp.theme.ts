@@ -34,7 +34,6 @@ export const inputOtpSlotTheme = cva(
   [
     'relative flex items-center justify-center',
     'font-semibold outline-none',
-    'transition-[background-color,border-color,box-shadow] duration-150',
     'motion-reduce:transition-none',
     'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
     'data-[disabled=true]:opacity-[--ousi-disabled-opacity] data-[disabled=true]:pointer-events-none',
@@ -43,7 +42,7 @@ export const inputOtpSlotTheme = cva(
     variants: {
       variant: {
         primary: [
-          'border bg-ousi-field text-ousi-field-foreground shadow-ousi-field',
+          'border bg-ousi-field text-ousi-field-foreground',
           'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
           'hover:bg-ousi-field-hover',
           'data-[active=true]:z-10 data-[active=true]:bg-ousi-field-focus',
@@ -51,7 +50,7 @@ export const inputOtpSlotTheme = cva(
           'data-[filled=true]:bg-ousi-field-focus',
         ],
         secondary: [
-          'border-0 bg-ousi-default text-ousi-field-foreground shadow-none',
+          'border-0 bg-ousi-default text-ousi-field-foreground',
           'hover:bg-ousi-default-hover',
           'data-[active=true]:z-10 data-[active=true]:bg-ousi-default',
           'data-[active=true]:ring-2 data-[active=true]:ring-ousi-focus',
@@ -63,8 +62,27 @@ export const inputOtpSlotTheme = cva(
         md: 'w-10 h-12 text-xl rounded-ousi-2xl',
         lg: 'w-12 h-14 text-2xl rounded-ousi-2xl',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
+      animated: {
+        true: [
+          'transition-all duration-[400ms]',
+          'ease-[cubic-bezier(0.33,1,0.68,1)]',
+          'data-[active=true]:scale-[0.98]',
+        ],
+        false: [
+          'transition-[background-color,border-color,box-shadow] duration-150',
+        ],
+      },
     },
-    defaultVariants: { variant: 'primary', size: 'md' },
+    compoundVariants: [
+      { variant: 'secondary', shadow: 'xs', class: 'shadow-none' },
+    ],
+    defaultVariants: { variant: 'primary', size: 'md', shadow: 'xs', animated: false },
   },
 )
 

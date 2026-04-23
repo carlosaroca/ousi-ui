@@ -1,0 +1,19 @@
+{
+  "name": "@ousi-ui/size-test",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:button": "BUNDLE=button vite build --outDir dist-button",
+    "build:all": "BUNDLE=all vite build --outDir dist-all",
+    "measure": "pnpm build:button && pnpm build:all && ls -la dist-button/assets dist-all/assets"
+  },
+  "dependencies": {
+    "@ousi-ui/vue": "workspace:*",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "vite": "^6.0.0"
+  }
+}

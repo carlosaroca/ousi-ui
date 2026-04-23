@@ -13,16 +13,16 @@ export const cardData: ComponentData = {
       example: {
         component: 'CardBasic',
         code: `<OCard>
-  <OCard.Header>
-    <OCard.Title>Card Title</OCard.Title>
-    <OCard.Description>Card description.</OCard.Description>
-  </OCard.Header>
-  <OCard.Content>
+  <OCardHeader>
+    <OCardTitle>Card Title</OCardTitle>
+    <OCardDescription>Card description.</OCardDescription>
+  </OCardHeader>
+  <OCardContent>
     <p>Card body content goes here.</p>
-  </OCard.Content>
-  <OCard.Footer>
+  </OCardContent>
+  <OCardFooter>
     <OButton>Action</OButton>
-  </OCard.Footer>
+  </OCardFooter>
 </OCard>`,
       },
     },
@@ -38,6 +38,20 @@ export const cardData: ComponentData = {
       },
     },
     {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'CardShadows',
+        code: `<OCard shadow="none">...</OCard>   <!-- default -->
+<OCard shadow="xs">...</OCard>
+<OCard shadow="sm">...</OCard>
+<OCard shadow="md">...</OCard>
+<OCard shadow="lg">...</OCard>
+<OCard shadow="xl">...</OCard>
+<OCard shadow="2xl">...</OCard>`,
+      },
+    },
+    {
       id: 'horizontal',
       title: 'Horizontal Layout',
       example: {
@@ -48,10 +62,10 @@ export const cardData: ComponentData = {
     <!-- image or icon -->
   </div>
   <div class="flex flex-col gap-2">
-    <OCard.Header>
-      <OCard.Title>Horizontal Card</OCard.Title>
-      <OCard.Description>Image left, content right.</OCard.Description>
-    </OCard.Header>
+    <OCardHeader>
+      <OCardTitle>Horizontal Card</OCardTitle>
+      <OCardDescription>Image left, content right.</OCardDescription>
+    </OCardHeader>
   </div>
 </OCard>`,
       },
@@ -66,14 +80,14 @@ export const cardData: ComponentData = {
   <div class="h-28 -mx-4 -mt-4 rounded-t-ousi-4xl overflow-hidden bg-ousi-accent/15">
     ...
   </div>
-  <OCard.Header>
-    <OCard.Title>Project Alpha</OCard.Title>
-    <OCard.Description>A design system.</OCard.Description>
-  </OCard.Header>
-  <OCard.Footer class="gap-2">
+  <OCardHeader>
+    <OCardTitle>Project Alpha</OCardTitle>
+    <OCardDescription>A design system.</OCardDescription>
+  </OCardHeader>
+  <OCardFooter class="gap-2">
     <OAvatar name="Carlos Roca" size="sm" />
     <span>Carlos Roca</span>
-  </OCard.Footer>
+  </OCardFooter>
 </OCard>`,
       },
     },
@@ -83,17 +97,17 @@ export const cardData: ComponentData = {
       example: {
         component: 'CardWithForm',
         code: `<OCard variant="secondary" class="max-w-sm">
-  <OCard.Header>
-    <OCard.Title>Login</OCard.Title>
-    <OCard.Description>Enter your credentials.</OCard.Description>
-  </OCard.Header>
-  <OCard.Content class="gap-3">
-    <OInput label="Email" variant="secondary" full-width />
-    <OInput label="Password" type="password" variant="secondary" full-width />
-  </OCard.Content>
-  <OCard.Footer>
+  <OCardHeader>
+    <OCardTitle>Login</OCardTitle>
+    <OCardDescription>Enter your credentials.</OCardDescription>
+  </OCardHeader>
+  <OCardContent class="gap-3">
+    <OInput label="Email" variant="secondary" />
+    <OInput label="Password" type="password" variant="secondary" />
+  </OCardContent>
+  <OCardFooter>
     <OButton variant="primary" full-width>Sign In</OButton>
-  </OCard.Footer>
+  </OCardFooter>
 </OCard>`,
       },
     },
@@ -109,13 +123,13 @@ export const cardData: ComponentData = {
   variant="secondary"
   class="hover:bg-ousi-surface-tertiary transition-colors cursor-pointer"
 >
-  <OCard.Header>
-    <OCard.Title>Documentation</OCard.Title>
-    <OCard.Description>Read the API reference.</OCard.Description>
-  </OCard.Header>
-  <OCard.Footer class="text-ousi-accent text-sm gap-1">
+  <OCardHeader>
+    <OCardTitle>Documentation</OCardTitle>
+    <OCardDescription>Read the API reference.</OCardDescription>
+  </OCardHeader>
+  <OCardFooter class="text-ousi-accent text-sm gap-1">
     Learn more →
-  </OCard.Footer>
+  </OCardFooter>
 </OCard>`,
       },
     },
@@ -129,22 +143,22 @@ export const cardData: ComponentData = {
   <!-- Banner: flex-row for horizontal layout -->
   <OCard class="col-span-12 flex-row">
     <img src="..." class="rounded-2xl w-[120px]" />
-    <OCard.Header>...</OCard.Header>
-    <OCard.Footer>...</OCard.Footer>
+    <OCardHeader>...</OCardHeader>
+    <OCardFooter>...</OCardFooter>
   </OCard>
 
   <!-- Full-image card with overlay text -->
   <OCard class="col-span-6 min-h-[200px]">
     <img class="absolute inset-0 object-cover" />
-    <OCard.Footer class="z-10 mt-auto">
+    <OCardFooter class="z-10 mt-auto">
       <OButton>Notify me</OButton>
-    </OCard.Footer>
+    </OCardFooter>
   </OCard>
 
   <!-- Event list with transparent cards -->
   <OCard class="flex-row gap-3 p-1" variant="transparent">
     <img class="h-20 w-20 rounded-xl object-cover" />
-    <OCard.Title>Event Name</OCard.Title>
+    <OCardTitle>Event Name</OCardTitle>
   </OCard>
 </div>`,
       },
@@ -155,13 +169,13 @@ export const cardData: ComponentData = {
       example: {
         component: 'CardWithHeader',
         code: `<OCard>
-  <OCard.Header>
-    <OCard.Title>Card Title</OCard.Title>
-    <OCard.Description>Card description here.</OCard.Description>
-  </OCard.Header>
-  <OCard.Content>
+  <OCardHeader>
+    <OCardTitle>Card Title</OCardTitle>
+    <OCardDescription>Card description here.</OCardDescription>
+  </OCardHeader>
+  <OCardContent>
     <p>Card body content goes here.</p>
-  </OCard.Content>
+  </OCardContent>
 </OCard>`,
       },
     },
@@ -171,16 +185,16 @@ export const cardData: ComponentData = {
       example: {
         component: 'CardWithFooter',
         code: `<OCard>
-  <OCard.Header>
-    <OCard.Title>Settings</OCard.Title>
-  </OCard.Header>
-  <OCard.Content>
+  <OCardHeader>
+    <OCardTitle>Settings</OCardTitle>
+  </OCardHeader>
+  <OCardContent>
     <p>Update your preferences below.</p>
-  </OCard.Content>
-  <OCard.Footer>
+  </OCardContent>
+  <OCardFooter>
     <OButton variant="outline">Cancel</OButton>
     <OButton>Save</OButton>
-  </OCard.Footer>
+  </OCardFooter>
 </OCard>`,
       },
     },
@@ -188,16 +202,19 @@ export const cardData: ComponentData = {
 
   props: [
     { name: 'variant', type: "'transparent' | 'default' | 'secondary' | 'tertiary'", default: "'default'", description: 'Visual variant of the card.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'as', type: 'string | Component', default: "'div'", description: 'Renders the card as a different element (e.g. "a" for links, "router-link").' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 
   slots: [
-    { name: 'default', type: '-', description: 'Card content — compose with OCard.Header, OCard.Content, OCard.Footer.' },
+    { name: 'default', type: '-', description: 'Card content — compose with OCardHeader, OCardContent, OCardFooter.' },
   ],
 
   bestPractices: [
     { text: 'Use `variant="secondary"` for cards with form inputs inside — it provides better contrast.', good: true },
+    { text: 'Use `shadow="md"` or higher for destacated/hero cards, `sm` (default) for inline content.', good: true },
+    { text: 'Override `--ousi-shadow-color` on a container to tint all descendant shadows to your brand.', good: true },
     { text: 'Use `as="a"` with hover classes for clickable card links.', good: true },
     { text: 'Use `class="flex-row"` for horizontal card layouts.', good: true },
     { text: 'Use negative margins (`-mx-4 -mt-4`) for full-bleed cover images.', good: true },

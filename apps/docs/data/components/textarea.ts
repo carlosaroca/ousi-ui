@@ -89,7 +89,16 @@ export const textareaData: ComponentData = {
       title: 'Full Width',
       example: {
         component: 'TextareaFullWidth',
-        code: '<OTextarea full-width placeholder="Full width textarea" />',
+        code: '<OTextarea placeholder="Full width textarea" />',
+      },
+    },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'TextareaAnimated',
+        code: `<OTextarea placeholder="Default — no animation" />
+<OTextarea placeholder="With tactile press" animated />`,
       },
     },
   ],
@@ -108,10 +117,11 @@ export const textareaData: ComponentData = {
     { name: 'autoResize', type: 'boolean', default: 'false', description: 'Auto-resize with content.' },
     { name: 'resize', type: "'none' | 'vertical' | 'horizontal' | 'both'", default: "'vertical'", description: 'CSS resize behavior.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the textarea is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the textarea is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the textarea is required.' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 
@@ -125,7 +135,7 @@ export const textareaData: ComponentData = {
   themeCode: `import { textareaTheme } from '@ousi-ui/vue'
 
 // CVA variants: primary, secondary
-// CVA booleans: fullWidth, disabled, invalid`,
+// CVA booleans: disabled, invalid`,
 
   keyboard: [
     { key: 'tab', description: 'Moves focus to the next focusable element.' },

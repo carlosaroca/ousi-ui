@@ -90,6 +90,7 @@ export const sliderData: ComponentData = {
     { name: 'formatOptions', type: 'Intl.NumberFormatOptions', default: '-', description: 'Intl.NumberFormat options for the output.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Orientation of the slider.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Track and thumb size.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'color', type: "'primary' | 'secondary' | 'success' | 'danger' | 'warning'", default: "'primary'", description: 'Fill color.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interaction.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },

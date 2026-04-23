@@ -1,9 +1,11 @@
 import { inject, provide, type Ref, type ComputedRef } from 'vue'
+import type { RadioGroupShadow } from './radio.types'
 
 interface RadioGroupContext {
   selectedValue: Ref<string> | ComputedRef<string>
   disabled: ComputedRef<boolean>
   isInvalid: ComputedRef<boolean>
+  shadow: ComputedRef<RadioGroupShadow>
   select: (value: string) => void
 }
 

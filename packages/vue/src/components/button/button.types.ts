@@ -1,8 +1,9 @@
 import type { Component } from 'vue'
 import type { HapticInput } from '@ousi-ui/haptics'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'soft' | 'danger' | 'danger-soft'
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'text' | 'soft' | 'danger' | 'danger-soft'
 export type ButtonSize = 'sm' | 'md' | 'lg'
+export type ButtonShadow = 'none' | 'xs' | 'sm' | 'md'
 
 export interface ButtonProps {
   /** Visual variant of the button. */
@@ -17,6 +18,8 @@ export interface ButtonProps {
   isIconOnly?: boolean
   /** Stretch to fill parent width. */
   fullWidth?: boolean
+  /** Elevation shadow. Defaults to 'none'. */
+  shadow?: ButtonShadow
   /** HTML type attribute. */
   type?: 'button' | 'submit' | 'reset'
   /** Renders the button as a different element or component. */

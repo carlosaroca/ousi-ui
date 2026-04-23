@@ -5,6 +5,7 @@ export interface TimeFieldValue {
 }
 
 export type TimeFieldGranularity = 'hour' | 'minute' | 'second'
+export type TimeFieldShadow = 'none' | 'xs' | 'sm' | 'md'
 
 export interface TimeFieldProps {
   /** Current time value (v-model). */
@@ -19,6 +20,10 @@ export interface TimeFieldProps {
   min?: TimeFieldValue
   /** Maximum allowed time. */
   max?: TimeFieldValue
+  /** Elevation shadow. Defaults to 'xs'. */
+  shadow?: TimeFieldShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Disable the field. */
   disabled?: boolean
   /** Mark field as read-only. */

@@ -1,5 +1,7 @@
 import type { DateFieldValue } from '../date-field/date-field.types'
 
+export type DatePickerShadow = 'none' | 'xs' | 'sm' | 'md'
+
 export interface DatePickerProps {
   /** Current date value (v-model). */
   modelValue?: DateFieldValue | null
@@ -29,8 +31,10 @@ export interface DatePickerProps {
   readonly?: boolean
   /** Mark as required (shows asterisk on label). */
   required?: boolean
-  /** Make the field take full width. */
-  fullWidth?: boolean
+  /** Elevation shadow on the trigger. Defaults to 'xs'. */
+  shadow?: DatePickerShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Additional CSS classes. */
   class?: string
 }

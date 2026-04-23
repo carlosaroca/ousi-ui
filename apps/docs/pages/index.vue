@@ -6,6 +6,5 @@ definePageMeta({ layout: 'landing' })
   <div>
     <LandingHero />
     <LandingCredits />
-    <LandingFooter />
   </div>
 </template>

@@ -7,6 +7,7 @@ import type { KbdProps, KbdKey } from './kbd.types'
 
 const props = withDefaults(defineProps<KbdProps>(), {
   variant: 'default',
+  shadow: 'none',
 })
 
 const keyList = computed((): KbdKey[] => {
@@ -16,7 +17,7 @@ const keyList = computed((): KbdKey[] => {
 </script>
 
 <template>
-  <kbd :class="cn(kbdTheme({ variant }), props.class)">
+  <kbd :class="cn(kbdTheme({ variant, shadow }), props.class)">
     <abbr
       v-for="key in keyList"
       :key="key"

@@ -2,6 +2,7 @@ export type SliderOrientation = 'horizontal' | 'vertical'
 export type SliderValue = number | [number, number]
 export type SliderSize = 'sm' | 'md' | 'lg'
 export type SliderColor = 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+export type SliderShadow = 'none' | 'xs' | 'sm'
 
 export interface SliderProps {
   /** Current value — number for single, [min, max] for range. */
@@ -26,6 +27,8 @@ export interface SliderProps {
   size?: SliderSize
   /** Fill color. */
   color?: SliderColor
+  /** Elevation shadow on the track. Defaults to 'none'. */
+  shadow?: SliderShadow
   /** Disable interaction. */
   disabled?: boolean
   /** Additional CSS classes. */

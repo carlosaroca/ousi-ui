@@ -94,12 +94,7 @@ function resolveExample(name: string) {
       <!-- Import -->
       <section id="import">
         <SectionHeading id="import" title="Import" />
-        <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
-          <div class="flex items-center px-4 py-2 border-b border-ousi-border/50">
-            <span class="text-xs text-ousi-muted font-mono">vue</span>
-          </div>
-          <ClientOnly><OCodeBlock :code="data.importCode" show-copy /></ClientOnly>
-        </div>
+        <ClientOnly><OCodeBlock :code="data.importCode" filename="vue" show-copy /></ClientOnly>
       </section>
 
       <!-- Dynamic sections -->

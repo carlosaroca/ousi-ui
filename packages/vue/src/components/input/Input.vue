@@ -14,7 +14,8 @@ const props = withDefaults(defineProps<InputProps>(), {
   required: false,
   clearable: false,
   loading: false,
-  fullWidth: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<InputEmits>()
@@ -66,7 +67,7 @@ function handleClear() {
 </script>
 
 <template>
-  <div :class="cn('flex flex-col gap-1.5', fullWidth ? 'w-full' : 'w-fit', props.class)">
+  <div :class="cn('flex w-full flex-col gap-1.5', props.class)">
     <!-- Label -->
     <label
       v-if="label"
@@ -82,7 +83,7 @@ function handleClear() {
 
     <!-- Input group wrapper -->
     <div
-      :class="inputGroupTheme({ variant, fullWidth })"
+      :class="inputGroupTheme({ variant, shadow, animated })"
       :data-invalid="isInvalid || undefined"
       :data-disabled="disabled || undefined"
     >

@@ -34,6 +34,11 @@ export const badgeTheme = cva(
         true: 'opacity-0 pointer-events-none',
         false: '',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+      },
     },
     compoundVariants: [
       // Dot sizes override
@@ -68,6 +73,7 @@ export const badgeTheme = cva(
       color: 'danger',
       variant: 'primary',
       invisible: false,
+      shadow: 'none',
     },
   },
 )

@@ -2,5 +2,5 @@
 import { ONumberField } from '@ousi-ui/vue'
 </script>
 <template>
-  <ONumberField full-width label="Amount" :default-value="100" />
+  <ONumberField label="Amount" :default-value="100" />
 </template>

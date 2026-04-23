@@ -1,5 +1,7 @@
 import type { HapticInput } from '@ousi-ui/haptics'
 
+export type CheckboxShadow = 'none' | 'xs' | 'sm'
+
 export interface CheckboxProps {
   /** Controlled checked state (v-model). */
   modelValue?: boolean
@@ -23,6 +25,8 @@ export interface CheckboxProps {
   invalid?: boolean
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow on the control box. Defaults to 'none'. */
+  shadow?: CheckboxShadow
   /** Haptic feedback on toggle. Pass false to disable. */
   haptic?: HapticInput
   /** Additional CSS classes. */

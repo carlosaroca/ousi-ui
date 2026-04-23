@@ -34,12 +34,12 @@ onUnmounted(() => clearInterval(interval))
     <div class="flex items-center gap-2 flex-wrap">
       <OButton
         size="sm"
-        :variant="theme === 'dark' ? 'soft' : 'ghost'"
+        :variant="theme === 'dark' ? 'soft' : 'text'"
         @click="theme = 'dark'"
       >Dark</OButton>
       <OButton
         size="sm"
-        :variant="theme === 'light' ? 'soft' : 'ghost'"
+        :variant="theme === 'light' ? 'soft' : 'text'"
         @click="theme = 'light'"
       >Light</OButton>
       <span class="w-px h-4 bg-ousi-border mx-1" />

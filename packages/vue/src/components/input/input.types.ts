@@ -1,5 +1,7 @@
 import type { Component } from 'vue'
 
+export type InputShadow = 'none' | 'xs' | 'sm' | 'md'
+
 export interface InputProps {
   /** Controlled value (v-model). */
   modelValue?: string | number
@@ -21,6 +23,10 @@ export interface InputProps {
   size?: 'sm' | 'md' | 'lg'
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow. Defaults to 'xs'. */
+  shadow?: InputShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Whether the input is disabled. */
   disabled?: boolean
   /** Whether the input is read-only. */
@@ -31,8 +37,6 @@ export interface InputProps {
   clearable?: boolean
   /** Show a loading spinner in the end slot. */
   loading?: boolean
-  /** Stretch to fill parent width. */
-  fullWidth?: boolean
   /** Renders the wrapper as a different element or component. */
   as?: string | Component
   /** Additional CSS classes on the outer container (merged, never replaced). */

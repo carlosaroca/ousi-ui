@@ -19,7 +19,8 @@ const props = withDefaults(defineProps<TextareaProps>(), {
   disabled: false,
   readonly: false,
   required: false,
-  fullWidth: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<TextareaEmits>()
@@ -80,7 +81,7 @@ watch(() => value.value, () => {
 </script>
 
 <template>
-  <div :class="cn(textareaWrapperTheme({ fullWidth }), props.class)">
+  <div :class="cn(textareaWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
@@ -99,7 +100,7 @@ watch(() => value.value, () => {
       :id="textareaId"
       ref="textareaRef"
       :name="name"
-      :class="textareaFieldTheme({ variant, resize: autoResize ? 'none' : resize })"
+      :class="textareaFieldTheme({ variant, resize: autoResize ? 'none' : resize, shadow, animated })"
       :value="value"
       :placeholder="placeholder"
       :rows="rows"

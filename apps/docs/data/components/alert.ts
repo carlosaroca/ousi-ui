@@ -28,6 +28,18 @@ export const alertData: ComponentData = {
       },
     },
     {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'AlertShadows',
+        code: `<OAlert shadow="none" title="shadow none" />   <!-- default -->
+<OAlert shadow="xs" title="shadow xs" />
+<OAlert shadow="sm" title="shadow sm" />
+<OAlert shadow="md" title="shadow md" />
+<OAlert shadow="lg" title="shadow lg" />`,
+      },
+    },
+    {
       id: 'with-description',
       title: 'With Description',
       example: {
@@ -56,6 +68,7 @@ export const alertData: ComponentData = {
 
   props: [
     { name: 'variant', type: "'default' | 'accent' | 'success' | 'warning' | 'danger'", default: "'default'", description: 'Color variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md' | 'lg'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'title', type: 'string', default: '-', description: 'Title text (required).' },
     { name: 'description', type: 'string', default: '-', description: 'Description text.' },
     { name: 'closable', type: 'boolean', default: 'false', description: 'Show a close button.' },

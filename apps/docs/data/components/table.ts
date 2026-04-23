@@ -25,6 +25,17 @@ export const tableData: ComponentData = {
       },
     },
     {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'TableShadows',
+        code: `<OTable shadow="none" :columns="columns" :rows="rows" />   <!-- default -->
+<OTable shadow="xs" :columns="columns" :rows="rows" />
+<OTable shadow="sm" :columns="columns" :rows="rows" />
+<OTable shadow="md" :columns="columns" :rows="rows" />`,
+      },
+    },
+    {
       id: 'sorting',
       title: 'Sorting',
       example: {
@@ -123,6 +134,7 @@ export const tableData: ComponentData = {
     { name: 'rows', type: 'Record<string, any>[]', default: '-', description: 'Row data array.' },
     { name: 'rowKey', type: 'string', default: "'id'", description: 'Key property on each row.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'selectionMode', type: "'none' | 'single' | 'multiple'", default: "'none'", description: 'Selection mode.' },
     { name: 'selectedKeys', type: 'Set<string>', default: '-', description: 'Controlled selected row keys.' },
     { name: 'defaultSelectedKeys', type: 'Set<string>', default: '-', description: 'Default selected keys (uncontrolled).' },

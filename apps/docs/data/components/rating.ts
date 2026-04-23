@@ -87,6 +87,7 @@ const rating = ref(3)
 
   props: [
     { name: 'modelValue', type: 'number', description: 'Current rating value (v-model).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'defaultValue', type: 'number', default: '0', description: 'Initial rating when uncontrolled.' },
     { name: 'max', type: 'number', default: '5', description: 'Maximum number of stars.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the stars.' },

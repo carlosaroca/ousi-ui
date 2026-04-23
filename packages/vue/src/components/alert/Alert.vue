@@ -11,6 +11,7 @@ import type { AlertProps, AlertEmits } from './alert.types'
 
 const props = withDefaults(defineProps<AlertProps>(), {
   variant: 'default',
+  shadow: 'none',
   closable: false,
 })
 
@@ -27,7 +28,7 @@ const icons: Record<string, string> = {
 
 <template>
   <div
-    :class="cn(alertTheme({ variant }), props.class)"
+    :class="cn(alertTheme({ variant, shadow }), props.class)"
     role="alert"
   >
     <!-- Indicator -->

@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<ImageCompareProps>(), {
   showHandle: true,
   rounded: true,
   disabled: false,
+  shadow: 'sm',
 })
 
 const emit = defineEmits<ImageCompareEmits>()
@@ -141,7 +142,7 @@ function handleKeydown(e: KeyboardEvent) {
   <div
     ref="containerRef"
     :class="cn(
-      imageCompareTheme,
+      imageCompareTheme({ shadow }),
       rounded ? 'rounded-ousi-2xl' : '',
       disabled ? 'opacity-50 pointer-events-none' : 'cursor-col-resize touch-none',
       props.class,

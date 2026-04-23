@@ -7,6 +7,7 @@ import type { AvatarProps } from './avatar.types'
 const props = withDefaults(defineProps<AvatarProps>(), {
   size: 'md',
   shape: 'circle',
+  shadow: 'none',
   alt: '',
 })
 
@@ -44,6 +45,7 @@ const classes = computed(() =>
     avatarTheme({
       size: props.size,
       shape: props.shape,
+      shadow: props.shadow,
     }),
     props.class,
   ),

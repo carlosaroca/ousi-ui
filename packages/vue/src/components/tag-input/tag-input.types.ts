@@ -1,5 +1,6 @@
 export type TagInputSize = 'sm' | 'md' | 'lg'
 export type TagInputColor = 'accent' | 'success' | 'warning' | 'danger' | 'default'
+export type TagInputShadow = 'none' | 'xs' | 'sm' | 'md'
 
 export interface TagInputProps {
   /** Tags array (v-model). */
@@ -22,6 +23,10 @@ export interface TagInputProps {
   color?: TagInputColor
   /** Visual variant (matches Input). */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow. Defaults to 'xs'. */
+  shadow?: TagInputShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Max number of tags. */
   maxTags?: number
   /** Allow duplicate tags. */

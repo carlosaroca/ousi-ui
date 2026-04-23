@@ -23,6 +23,7 @@ import type { TableProps, TableEmits, SortDescriptor } from './table.types'
 const props = withDefaults(defineProps<TableProps>(), {
   rowKey: 'id',
   variant: 'primary',
+  shadow: 'none',
   selectionMode: 'none',
   loadingRows: 5,
   isLoading: false,
@@ -143,7 +144,7 @@ const rootRadiusStyle = computed(() =>
 
 <template>
   <div
-    :class="cn(tableRootTheme({ variant }), props.class)"
+    :class="cn(tableRootTheme({ variant, shadow }), props.class)"
     :style="rootRadiusStyle"
   >
     <div :class="tableScrollContainerTheme">

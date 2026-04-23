@@ -49,7 +49,16 @@ export const colorFieldData: ComponentData = {
       title: 'Full Width',
       example: {
         component: 'ColorFieldFullWidth',
-        code: '<OColorField v-model="color" label="Color" full-width />',
+        code: '<OColorField v-model="color" label="Color" />',
+      },
+    },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'ColorFieldAnimated',
+        code: `<OColorField label="Default" show-swatch />
+<OColorField label="Animated" show-swatch animated />`,
       },
     },
   ],
@@ -63,10 +72,11 @@ export const colorFieldData: ComponentData = {
     { name: 'format', type: "'hex' | 'rgb' | 'hsl'", default: "'hex'", description: 'Output format.' },
     { name: 'showSwatch', type: 'boolean', default: 'false', description: 'Show color preview swatch.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the field is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the field is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether a value is required.' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

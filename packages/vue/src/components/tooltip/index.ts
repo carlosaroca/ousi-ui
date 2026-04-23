@@ -1,3 +1,5 @@
 export { default as OTooltip } from './Tooltip.vue'
-export type { TooltipProps } from './tooltip.types'
+export type { TooltipProps, TooltipShadow } from './tooltip.types'
 export { tooltipTheme, tooltipTriggerTheme } from './tooltip.theme'
+export { useTooltip, type UseTooltipOptions, type TooltipConfig } from './use-tooltip'
+export { vTooltip, tooltipDirective, type TooltipDirectiveBinding } from './tooltip.directive'

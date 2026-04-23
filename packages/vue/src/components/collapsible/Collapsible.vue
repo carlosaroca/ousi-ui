@@ -7,6 +7,7 @@ import { collapsibleTheme, collapsibleContentTheme } from './collapsible.theme'
 const props = withDefaults(defineProps<CollapsibleProps>(), {
   defaultOpen: false,
   disabled: false,
+  shadow: 'none',
 })
 
 const emit = defineEmits<CollapsibleEmits>()
@@ -77,7 +78,7 @@ contentStyle.value = initStyle.value
 </script>
 
 <template>
-  <div :class="cn(collapsibleTheme, props.class)">
+  <div :class="cn(collapsibleTheme({ shadow }), props.class)">
     <slot name="trigger" :is-open="isOpen" :toggle="toggle" />
     <div
       ref="contentRef"

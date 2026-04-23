@@ -4,13 +4,13 @@ import { OBadge } from '../components/badge'
 import { OChip } from '../components/chip'
 import { OAvatar } from '../components/avatar'
 import { OInput } from '../components/input'
-import { OCard } from '../components/card'
+import { OCard, OCardHeader, OCardTitle, OCardDescription, OCardContent, OCardFooter } from '../components/card'
 import { OTooltip } from '../components/tooltip'
 import { OSelect } from '../components/select'
-import { ODialog } from '../components/dialog'
+import { ODialog, ODialogHeader, ODialogBody, ODialogFooter } from '../components/dialog'
 import { ODrawer } from '../components/drawer'
 import { OTabs } from '../components/tabs'
-import { ODropdown } from '../components/dropdown'
+import { ODropdown, ODropdownTrigger, ODropdownPopover, ODropdownMenu, ODropdownItem, ODropdownItemIndicator, ODropdownSection, ODropdownSubmenuTrigger, ODropdownSubmenuIndicator, ODropdownSeparator } from '../components/dropdown'
 import { OToastProvider } from '../components/toast'
 import { OCheckbox } from '../components/checkbox'
 import { OSwitch } from '../components/switch'
@@ -23,7 +23,7 @@ import { OSpinner } from '../components/spinner'
 import { OAlert } from '../components/alert'
 import { OAutocomplete } from '../components/autocomplete'
 import { OBreadcrumbs } from '../components/breadcrumbs'
-import { OButtonGroup } from '../components/button-group'
+import { OButtonGroup, OButtonGroupSeparator } from '../components/button-group'
 import { OCalendar } from '../components/calendar'
 import { ORangeCalendar } from '../components/range-calendar'
 import { OProgressBar } from '../components/progress-bar'
@@ -72,6 +72,7 @@ import { OBentoGrid, OBentoGridItem } from '../components/bento-grid'
 import { OResizable } from '../components/resizable'
 import { OInfiniteScroll } from '../components/infinite-scroll'
 import { OAspectRatio } from '../components/aspect-ratio'
+import { vTooltip } from '../components/tooltip'
 
 const components = {
   OButton,
@@ -80,12 +81,29 @@ const components = {
   OAvatar,
   OInput,
   OCard,
+  OCardHeader,
+  OCardTitle,
+  OCardDescription,
+  OCardContent,
+  OCardFooter,
   OTooltip,
   OSelect,
   ODialog,
+  ODialogHeader,
+  ODialogBody,
+  ODialogFooter,
   ODrawer,
   OTabs,
   ODropdown,
+  ODropdownTrigger,
+  ODropdownPopover,
+  ODropdownMenu,
+  ODropdownItem,
+  ODropdownItemIndicator,
+  ODropdownSection,
+  ODropdownSubmenuTrigger,
+  ODropdownSubmenuIndicator,
+  ODropdownSeparator,
   OToastProvider,
   OCheckbox,
   OSwitch,
@@ -100,6 +118,7 @@ const components = {
   OAutocomplete,
   OBreadcrumbs,
   OButtonGroup,
+  OButtonGroupSeparator,
   OCalendar,
   ORangeCalendar,
   OProgressBar,
@@ -163,6 +182,9 @@ export function install(app: App, options: OusiUIPluginOptions = {}) {
     const registeredName = prefix ? name.replace(/^O/, prefix) : name
     app.component(registeredName, component)
   }
+
+  // Directives
+  app.directive('tooltip', vTooltip)
 }
 
 export const OusiUIPlugin = { install }

@@ -11,7 +11,8 @@ const props = withDefaults(defineProps<ColorFieldProps>(), {
   disabled: false,
   readonly: false,
   required: false,
-  fullWidth: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<ColorFieldEmits>()
@@ -98,10 +99,11 @@ function handleBlur() {
     :description="description"
     :error-message="errorMessage"
     :variant="variant"
+    :shadow="shadow"
+    :animated="animated"
     :disabled="disabled"
     :readonly="readonly"
     :required="required"
-    :full-width="fullWidth"
     :class="props.class"
     placeholder="#000000"
     @update:model-value="handleInput"

@@ -6,7 +6,7 @@ import { OButton } from '@ousi-ui/vue'
     <OButton variant="primary">Primary</OButton>
     <OButton variant="secondary">Secondary</OButton>
     <OButton variant="outline">Outline</OButton>
-    <OButton variant="ghost">Ghost</OButton>
+    <OButton variant="text">Text</OButton>
     <OButton variant="soft">Soft</OButton>
     <OButton variant="danger">Danger</OButton>
     <OButton variant="danger-soft">Danger Soft</OButton>

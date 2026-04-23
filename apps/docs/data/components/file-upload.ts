@@ -66,6 +66,15 @@ function onFilesChange(files: File[]) {
 <OFileUpload size="lg" variant="inline" />`,
       },
     },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'FileUploadAnimated',
+        code: `<OFileUpload />
+<OFileUpload animated />`,
+      },
+    },
   ],
 
   props: [
@@ -76,6 +85,8 @@ function onFilesChange(files: File[]) {
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the component — affects padding, text, icon, and the browse button.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the upload zone.' },
     { name: 'variant', type: "'area' | 'inline'", default: "'area'", description: 'Layout variant. "area" is the default tall drop zone; "inline" is a compact horizontal strip.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
   ],
 
   emits: [

@@ -1,3 +1,5 @@
+export type ColorFieldShadow = 'none' | 'xs' | 'sm' | 'md'
+
 export interface ColorFieldProps {
   /** Color value (v-model). Any valid CSS color. */
   modelValue?: string
@@ -15,14 +17,16 @@ export interface ColorFieldProps {
   showSwatch?: boolean
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow. Defaults to 'xs'. */
+  shadow?: ColorFieldShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Whether the field is disabled. */
   disabled?: boolean
   /** Whether the field is read-only. */
   readonly?: boolean
   /** Whether a value is required. */
   required?: boolean
-  /** Stretch to fill parent width. */
-  fullWidth?: boolean
   /** Additional CSS classes. */
   class?: string
 }

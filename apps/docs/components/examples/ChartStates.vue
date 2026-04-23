@@ -40,7 +40,7 @@ onUnmounted(() => clearInterval(interval))
   <div class="space-y-3">
     <div class="flex items-center gap-2">
       <OButton size="sm" variant="soft" @click="start">Load data</OButton>
-      <OButton size="sm" variant="ghost" @click="stop">Clear</OButton>
+      <OButton size="sm" variant="text" @click="stop">Clear</OButton>
       <span class="text-xs text-ousi-muted">{{ isLive ? 'Streaming...' : 'Empty — shows loading squiggly' }}</span>
     </div>
     <div class="h-56 w-full">

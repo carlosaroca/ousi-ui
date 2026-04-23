@@ -19,6 +19,18 @@ export const imageCompareData: ComponentData = {
       },
     },
     {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'ImageCompareShadows',
+        code: `<OImageCompare shadow="none" :before-src="before" :after-src="after" />
+<OImageCompare shadow="xs" :before-src="before" :after-src="after" />
+<OImageCompare shadow="sm" :before-src="before" :after-src="after" />   <!-- default -->
+<OImageCompare shadow="md" :before-src="before" :after-src="after" />
+<OImageCompare shadow="lg" :before-src="before" :after-src="after" />`,
+      },
+    },
+    {
       id: 'with-labels',
       title: 'With Labels',
       example: {
@@ -93,6 +105,7 @@ const position = ref(30)
 
   props: [
     { name: 'beforeSrc', type: 'string', default: '-', description: 'URL of the before (left/top) image. Required.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md' | 'lg'", default: "'sm'", description: 'Elevation shadow.' },
     { name: 'afterSrc', type: 'string', default: '-', description: 'URL of the after (right/bottom) image. Required.' },
     { name: 'beforeAlt', type: 'string', default: "'Before'", description: 'Alt text for the before image.' },
     { name: 'afterAlt', type: 'string', default: "'After'", description: 'Alt text for the after image.' },

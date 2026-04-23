@@ -151,6 +151,7 @@ toast.clear()`,
 
   props: [
     { name: 'placement', type: "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end'", default: "'bottom-end'", description: 'Where toasts appear on screen (OToastProvider prop).' },
+    { name: 'shadow', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'lg'", description: 'Elevation shadow on each toast (OToastProvider prop).' },
     { name: 'maxVisible', type: 'number', default: '5', description: 'Maximum number of visible stacked toasts (OToastProvider prop).' },
   ],
 

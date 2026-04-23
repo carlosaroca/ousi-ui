@@ -7,6 +7,7 @@ import type { BentoGridItemProps } from './bento-grid.types'
 const props = withDefaults(defineProps<BentoGridItemProps>(), {
   colSpan: 1,
   rowSpan: 1,
+  shadow: 'none',
 })
 
 const itemStyle = computed(() => ({
@@ -17,7 +18,7 @@ const itemStyle = computed(() => ({
 
 <template>
   <div
-    :class="cn(bentoGridItemTheme, props.class)"
+    :class="cn(bentoGridItemTheme({ shadow }), props.class)"
     :style="itemStyle"
   >
     <slot />

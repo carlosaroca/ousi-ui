@@ -1,22 +1,110 @@
 <script setup lang="ts">
+import TimelineToc from '~/components/TimelineToc.vue'
+
 useSeoMeta({
   title: 'Changelog — Ousi UI',
   description: 'Release history and changes for Ousi UI.',
 })
+
+const tocItems = [
+  { id: 'v0-2-0', label: 'v0.2.0' },
+  { id: 'v0-1-4', label: 'v0.1.4' },
+  { id: 'v0-1-3', label: 'v0.1.3' },
+  { id: 'v0-1-2', label: 'v0.1.2' },
+  { id: 'v0-1-1', label: 'v0.1.1' },
+  { id: 'v0-1-0', label: 'v0.1.0' },
+]
 </script>
 
 <template>
   <div class="max-w-2xl">
+    <Teleport to="#docs-toc">
+      <TimelineToc :items="tocItems" />
+    </Teleport>
+
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.2.0 -->
+    <article id="v0-2-0" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.2.0</h2>
+        <span class="text-xs text-ousi-muted">April 23, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Breaking changes</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-danger mt-0.5">!</span>
+              Renamed <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">variant="ghost"</code> to <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">variant="text"</code> on OButton, OChip, and OToast action
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-danger mt-0.5">!</span>
+              Compound components flattened — <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">OCard.Header</code> → <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">OCardHeader</code> across Card, Dialog, Dropdown, ButtonGroup, BentoGrid
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-danger mt-0.5">!</span>
+              Removed <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">fullWidth</code> prop from 13 field components — fields always stretch now
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Added</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              Layered shadow system with tintable <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">--ousi-shadow-color</code> token — xs/sm/md/lg/xl/2xl
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">shadow</code> prop on 40+ components, each with scoped ranges
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">animated</code> prop on fields — iOS-style tactile scale on focus
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">v-tooltip</code> directive and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">useTooltip</code> composable as alternatives to the <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">&lt;OTooltip&gt;</code> wrapper
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              Complete <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/nuxt</code> module with auto-imports + <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">unplugin-vue-components</code> resolver
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">sideEffects</code> field in package.json for reliable tree-shaking
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              Redesigned OCodeBlock
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Fixed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              Tooltip no longer breaks child layouts — uses <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">display: contents</code> wrapper instead of <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">inline-flex</code>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <!-- v0.1.4 -->
-    <article class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+    <article id="v0-1-4" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.1.4</h2>
         <span class="text-xs text-ousi-muted">April 8, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
       <ul class="space-y-1.5 text-sm text-ousi-muted">
         <li class="flex items-start gap-2">
@@ -31,7 +119,7 @@ useSeoMeta({
     </article>
 
     <!-- v0.1.3 -->
-    <article class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+    <article id="v0-1-3" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.1.3</h2>
@@ -50,7 +138,7 @@ useSeoMeta({
     </article>
 
     <!-- v0.1.2 -->
-    <article class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+    <article id="v0-1-2" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.1.2</h2>
@@ -117,7 +205,7 @@ useSeoMeta({
     </article>
 
     <!-- v0.1.1 -->
-    <article class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+    <article id="v0-1-1" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.1.1</h2>
@@ -144,7 +232,7 @@ useSeoMeta({
     </article>
 
     <!-- v0.1.0 -->
-    <article class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+    <article id="v0-1-0" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.1.0</h2>

@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<InputOtpProps>(), {
   clearOnError: false,
   clearDelay: 80,
   mask: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<InputOtpEmits>()
@@ -258,7 +260,7 @@ function onValueRef(el: Element | null, slotIndex: number) {
             <div
               v-for="slotIndex in group.indices"
               :key="slotIndex"
-              :class="inputOtpSlotTheme({ variant, size })"
+              :class="inputOtpSlotTheme({ variant, size, shadow, animated })"
               :data-active="(isFocused && slotIndex === activeIndex) || undefined"
               :data-filled="slots[slotIndex] !== null || undefined"
               :data-invalid="isInvalid || undefined"

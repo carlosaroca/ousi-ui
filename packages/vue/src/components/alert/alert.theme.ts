@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 export const alertTheme = cva(
   [
     'flex w-full flex-row items-start justify-start gap-4',
-    'rounded-ousi-3xl bg-ousi-surface px-4 py-3 shadow-ousi-surface',
+    'rounded-ousi-3xl bg-ousi-surface px-4 py-3',
   ],
   {
     variants: {
@@ -14,8 +14,18 @@ export const alertTheme = cva(
         warning: '',
         danger: '',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+      },
     },
-    defaultVariants: { variant: 'default' },
+    defaultVariants: {
+      variant: 'default',
+      shadow: 'none',
+    },
   },
 )
 

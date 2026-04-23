@@ -1,4 +1,5 @@
 export type ImageCompareOrientation = 'horizontal' | 'vertical'
+export type ImageCompareShadow = 'none' | 'xs' | 'sm' | 'md' | 'lg'
 
 export interface ImageCompareProps {
   /** Source URL for the "before" (left/top) image. */
@@ -27,6 +28,8 @@ export interface ImageCompareProps {
   rounded?: boolean
   /** Disable interaction. */
   disabled?: boolean
+  /** Elevation shadow. Defaults to 'sm'. */
+  shadow?: ImageCompareShadow
   /** Additional CSS classes. */
   class?: string
 }

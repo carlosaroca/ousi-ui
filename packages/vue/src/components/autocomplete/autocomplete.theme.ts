@@ -4,15 +4,7 @@ import { cva } from 'class-variance-authority'
 export { labelTheme as autocompleteLabelTheme } from '../input/input.theme'
 export { inputGroupTheme as autocompleteTriggerTheme } from '../input/input.theme'
 
-export const autocompleteWrapperTheme = cva(
-  'flex flex-col gap-1.5',
-  {
-    variants: {
-      fullWidth: { true: 'w-full', false: 'w-fit' },
-    },
-    defaultVariants: { fullWidth: false },
-  },
-)
+export const autocompleteWrapperTheme = 'flex w-full flex-col gap-1.5'
 
 export const autocompleteInputTheme = [
   'flex-1 bg-transparent outline-none border-none min-w-0',
@@ -21,7 +13,7 @@ export const autocompleteInputTheme = [
 ].join(' ')
 
 export const autocompletePopoverTheme = [
-  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-overlay',
+  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-lg',
   'overflow-y-auto overscroll-contain max-h-60',
   'z-50',
 ].join(' ')

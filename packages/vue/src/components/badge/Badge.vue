@@ -12,6 +12,7 @@ const props = withDefaults(defineProps<BadgeProps>(), {
   showZero: false,
   dot: false,
   invisible: false,
+  shadow: 'none',
 })
 
 const slots = useSlots()
@@ -40,6 +41,7 @@ const badgeClasses = computed(() => cn(
     color: props.color,
     variant: props.variant,
     invisible: isHidden.value || undefined,
+    shadow: props.shadow,
   }),
   isAnchored.value && badgePlacementTheme[props.placement],
   props.class,

@@ -5,6 +5,7 @@ export type DrawerPlacement =
   | 'floating-top' | 'floating-bottom'
 
 export type DrawerBackdrop = 'opaque' | 'blur' | 'transparent'
+export type DrawerShadow = 'md' | 'lg' | 'xl' | '2xl'
 
 export interface DrawerProps {
   /** Controls open/close state (v-model). */
@@ -13,6 +14,8 @@ export interface DrawerProps {
   placement?: DrawerPlacement
   /** Backdrop style. */
   backdrop?: DrawerBackdrop
+  /** Elevation shadow. Defaults to 'xl'. */
+  shadow?: DrawerShadow
   /** Show a drag handle bar. */
   showHandle?: boolean
   /** Show the built-in close button. */

@@ -3,11 +3,9 @@ import { cva } from 'class-variance-authority'
 export const inputGroupTheme = cva(
   [
     'input-group',
-    'inline-flex min-h-9 items-center overflow-hidden rounded-ousi-field',
-    'border bg-ousi-field text-sm text-ousi-field-foreground shadow-ousi-field outline-none',
+    'flex w-full min-h-9 items-center overflow-hidden rounded-ousi-field',
+    'border bg-ousi-field text-sm text-ousi-field-foreground outline-none',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
-    'transition-[background-color,border-color,box-shadow] duration-150',
-    'ease-[ease]',
     'motion-reduce:transition-none',
     // Hover (only when not focused)
     'hover:not-focus-within:bg-ousi-field-hover',
@@ -27,19 +25,36 @@ export const inputGroupTheme = cva(
       variant: {
         primary: '',
         secondary: [
-          'shadow-none border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-surface-secondary',
           'hover:not-focus-within:bg-ousi-surface-tertiary',
           'focus-within:bg-ousi-surface-secondary',
         ],
       },
-      fullWidth: {
-        true: 'w-full',
-        false: '',
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
+      animated: {
+        true: [
+          'transition-all duration-[400ms]',
+          'ease-[cubic-bezier(0.33,1,0.68,1)]',
+          'focus-within:scale-[0.98]',
+        ],
+        false: [
+          'transition-[background-color,border-color,box-shadow] duration-150',
+          'ease-[ease]',
+        ],
       },
     },
+    compoundVariants: [
+      { variant: 'secondary', shadow: 'xs', class: 'shadow-none' },
+    ],
     defaultVariants: {
       variant: 'primary',
-      fullWidth: false,
+      shadow: 'xs',
+      animated: false,
     },
   },
 )

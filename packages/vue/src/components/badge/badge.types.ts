@@ -2,6 +2,7 @@ export type BadgeColor = 'default' | 'accent' | 'success' | 'warning' | 'danger'
 export type BadgeVariant = 'primary' | 'secondary' | 'soft'
 export type BadgeSize = 'sm' | 'md' | 'lg'
 export type BadgePlacement = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+export type BadgeShadow = 'none' | 'xs' | 'sm'
 
 export interface BadgeProps {
   /** Text or number inside the badge. */
@@ -22,6 +23,8 @@ export interface BadgeProps {
   dot?: boolean
   /** Hide the badge without removing from DOM. */
   invisible?: boolean
+  /** Elevation shadow. Defaults to 'none'. */
+  shadow?: BadgeShadow
   /** Additional CSS classes. */
   class?: string
 }

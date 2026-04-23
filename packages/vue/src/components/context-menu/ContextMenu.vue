@@ -11,6 +11,7 @@ import type { ContextMenuProps, ContextMenuEmits, ContextMenuItem } from './cont
 
 const props = withDefaults(defineProps<ContextMenuProps>(), {
   disabled: false,
+  shadow: 'lg',
 })
 
 const emit = defineEmits<ContextMenuEmits>()
@@ -127,7 +128,7 @@ onBeforeUnmount(() => {
       <div
         v-if="isOpen"
         ref="menuRef"
-        :class="cn(contextMenuTheme, props.class)"
+        :class="cn(contextMenuTheme({ shadow }), props.class)"
         :style="{ position: 'fixed', left: `${menuX}px`, top: `${menuY}px` }"
         tabindex="-1"
         role="menu"

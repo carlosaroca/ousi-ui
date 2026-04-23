@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
   backdrop: 'opaque',
   scrollBehavior: 'inside',
   hideCloseButton: false,
+  shadow: 'xl',
 })
 
 const emit = defineEmits<DialogEmits>()
@@ -88,7 +89,7 @@ const panelEnter = computed(() => {
               role="dialog"
               aria-modal="true"
               :aria-labelledby="titleId"
-              :class="cn(dialogPanelTheme({ size, placement, scrollBehavior }), props.class)"
+              :class="cn(dialogPanelTheme({ size, placement, scrollBehavior, shadow }), props.class)"
               :initial="(panelEnter as any)"
               :animate="{ opacity: 1, scale: 1, y: 0 }"
               :exit="{ opacity: 0, scale: 0.95 }"

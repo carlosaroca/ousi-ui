@@ -74,10 +74,21 @@ function onSelect(key: string) {
 />`,
       },
     },
+    {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'CommandPaletteShadows',
+        code: `<OCommandPalette v-model="open" :items="items" shadow="lg" />
+<OCommandPalette v-model="open" :items="items" shadow="xl" />    <!-- default -->
+<OCommandPalette v-model="open" :items="items" shadow="2xl" />`,
+      },
+    },
   ],
 
   props: [
     { name: 'items', type: 'CommandItem[]', default: '[]', description: 'Array of command items to display.' },
+    { name: 'shadow', type: "'lg' | 'xl' | '2xl'", default: "'xl'", description: 'Elevation shadow.' },
     { name: 'modelValue', type: 'boolean', default: 'false', description: 'Controls whether the palette is open.' },
     { name: 'placeholder', type: 'string', default: "'Search...'", description: 'Placeholder text for the search input.' },
     { name: 'emptyText', type: 'string', default: "'No results'", description: 'Text shown when no items match the search query.' },

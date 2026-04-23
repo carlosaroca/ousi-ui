@@ -24,7 +24,7 @@ export const toastItemTheme = cva(
   [
     'pointer-events-auto relative',
     'flex flex-row items-start justify-start gap-1.5',
-    'rounded-ousi-3xl bg-ousi-surface shadow-ousi-overlay',
+    'rounded-ousi-3xl bg-ousi-surface',
     'px-4 py-3',
   ],
   {
@@ -36,8 +36,14 @@ export const toastItemTheme = cva(
         warning: '',
         danger: '',
       },
+      shadow: {
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+        xl: 'shadow-ousi-xl',
+      },
     },
-    defaultVariants: { variant: 'default' },
+    defaultVariants: { variant: 'default', shadow: 'lg' },
   },
 )
 

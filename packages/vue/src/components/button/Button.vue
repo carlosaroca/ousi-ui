@@ -12,6 +12,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   loading: false,
   isIconOnly: false,
   fullWidth: false,
+  shadow: 'none',
   type: 'button',
   as: 'button',
 })
@@ -31,6 +32,7 @@ const classes = computed(() =>
       size: props.size,
       isIconOnly: props.isIconOnly || undefined,
       fullWidth: props.fullWidth || undefined,
+      shadow: props.shadow,
     }),
     props.class,
   ),

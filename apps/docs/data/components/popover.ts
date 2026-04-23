@@ -48,6 +48,7 @@ export const popoverData: ComponentData = {
 
   props: [
     { name: 'placement', type: 'Placement', default: "'bottom'", description: 'Placement relative to the trigger.' },
+    { name: 'shadow', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'lg'", description: 'Elevation shadow.' },
     { name: 'offset', type: 'number', default: '8', description: 'Offset in px from the trigger.' },
     { name: 'showArrow', type: 'boolean', default: 'false', description: 'Show an arrow pointing to the trigger.' },
     { name: 'title', type: 'string', description: 'Title shown at the top of the popover.' },

@@ -1,10 +1,5 @@
-import ButtonGroup from './ButtonGroup.vue'
-import ButtonGroupSeparator from './ButtonGroupSeparator.vue'
+export { default as OButtonGroup } from './ButtonGroup.vue'
+export { default as OButtonGroupSeparator } from './ButtonGroupSeparator.vue'
 
-const OButtonGroup = Object.assign(ButtonGroup, {
-  Separator: ButtonGroupSeparator,
-})
-
-export { OButtonGroup }
 export type { ButtonGroupProps, ButtonGroupOrientation } from './button-group.types'
 export { buttonGroupBaseTheme } from './button-group.theme'

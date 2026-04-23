@@ -1,5 +1,6 @@
 export type FileUploadVariant = 'area' | 'inline'
 export type FileUploadSize = 'sm' | 'md' | 'lg'
+export type FileUploadShadow = 'none' | 'xs' | 'sm' | 'md'
 
 export interface FileUploadProps {
   /** Accepted file types (e.g. "image/*,.pdf"). */
@@ -16,6 +17,10 @@ export interface FileUploadProps {
   disabled?: boolean
   /** Visual variant. */
   variant?: FileUploadVariant
+  /** Elevation shadow on the dropzone. Defaults to 'none'. */
+  shadow?: FileUploadShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Additional CSS classes. */
   class?: string
 }

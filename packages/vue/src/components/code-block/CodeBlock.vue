@@ -4,12 +4,13 @@ import { cn } from '@ousi-ui/core'
 import {
   codeBlockTheme,
   codeBlockHeaderTheme,
+  codeBlockFilenameTheme,
+  codeBlockBodyWrapperTheme,
   codeBlockBodyTheme,
   codeBlockLineNumberTheme,
   codeBlockCodeTheme,
   codeBlockCopyTheme,
   codeBlockToggleTheme,
-  codeBlockFadeTheme,
 } from './code-block.theme'
 import type { CodeBlockProps } from './code-block.types'
 
@@ -21,12 +22,17 @@ const props = withDefaults(defineProps<CodeBlockProps>(), {
   defaultExpanded: false,
   expandLabel: 'Expand code',
   collapseLabel: 'Collapse code',
+  shadow: 'none',
+  variant: 'primary',
 })
 
 const expanded = ref(props.defaultExpanded)
 const copied = ref(false)
 
 const lines = computed(() => props.code.split('\n'))
+
+// Header renders when there's anything to show (filename, copy button, or custom header slot).
+const showHeader = computed(() => !!props.filename || props.showCopy)
 
 function copyCode() {
   navigator.clipboard.writeText(props.code)
@@ -72,16 +78,29 @@ function highlight(line: string): string {
 </script>
 
 <template>
-  <div :class="cn(codeBlockTheme, props.class)">
-    <!-- Optional header with filename -->
-    <div v-if="filename || $slots.header" :class="codeBlockHeaderTheme">
+  <div :class="cn(codeBlockTheme({ variant, shadow }), props.class)">
+    <!-- Header: filename + copy button, styled like a table column header -->
+    <div v-if="showHeader || $slots.header" :class="codeBlockHeaderTheme({ variant })">
       <slot name="header">
-        <span>{{ filename }}</span>
+        <span :class="codeBlockFilenameTheme">{{ filename }}</span>
       </slot>
+
+      <button
+        v-if="showCopy"
+        type="button"
+        :class="codeBlockCopyTheme"
+        :aria-label="copied ? 'Copied' : 'Copy code'"
+        @click="copyCode"
+      >
+        <slot name="copy-icon" :copied="copied">
+          <svg v-if="!copied" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" /></svg>
+          <svg v-else class="size-3.5 text-ousi-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </slot>
+      </button>
     </div>
 
-    <!-- Code body -->
-    <div class="relative" :class="collapsible ? 'bg-ousi-surface-secondary/40' : ''">
+    <!-- Body: the inner "card" with rounded corners — color inverts based on variant -->
+    <div :class="codeBlockBodyWrapperTheme({ variant })">
       <!-- Scrollable code area -->
       <div
         :class="codeBlockBodyTheme"
@@ -112,23 +131,9 @@ function highlight(line: string): string {
         </table>
       </div>
 
-
-      <!-- Copy button -->
-      <button
-        v-if="showCopy"
-        :class="codeBlockCopyTheme"
-        style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10;"
-        @click="copyCode"
-      >
-        <slot name="copy-icon" :copied="copied">
-          <svg v-if="!copied" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" /></svg>
-          <svg v-else class="size-3.5 text-ousi-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-        </slot>
-      </button>
-
       <!-- Expand/collapse toggle -->
       <div v-if="collapsible" class="flex justify-center pb-2.5 pt-0.5 relative z-10">
-        <button :class="codeBlockToggleTheme" @click="expanded = !expanded">
+        <button type="button" :class="codeBlockToggleTheme" @click="expanded = !expanded">
           <slot name="toggle-icon" :expanded="expanded">
             <svg
               class="size-3 transition-transform duration-200"

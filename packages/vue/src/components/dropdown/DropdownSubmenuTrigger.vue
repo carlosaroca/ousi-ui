@@ -51,7 +51,7 @@ function handleLeave() {
         <AnimatePresence>
           <Motion
             tag="div"
-            class="rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-overlay min-w-40 overflow-hidden"
+            class="rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-lg min-w-40 overflow-hidden"
             :initial="{ opacity: 0, x: -8 }"
             :animate="{ opacity: 1, x: 0 }"
             :exit="{ opacity: 0, x: -8 }"

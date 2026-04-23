@@ -5,6 +5,7 @@ export interface DateFieldValue {
 }
 
 export type DateFieldGranularity = 'day' | 'month' | 'year'
+export type DateFieldShadow = 'none' | 'xs' | 'sm' | 'md'
 
 export interface DateFieldProps {
   /** Current date value (v-model). */
@@ -19,6 +20,10 @@ export interface DateFieldProps {
   min?: DateFieldValue
   /** Maximum allowed date. */
   max?: DateFieldValue
+  /** Elevation shadow. Defaults to 'xs'. */
+  shadow?: DateFieldShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Disable the field. */
   disabled?: boolean
   /** Mark field as read-only. */

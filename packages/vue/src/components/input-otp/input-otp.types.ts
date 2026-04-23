@@ -1,4 +1,5 @@
 export type OtpSlotType = 'digit' | 'alpha' | 'alphanumeric'
+export type InputOtpShadow = 'none' | 'xs' | 'sm' | 'md'
 
 export interface OtpGroup {
   slots: number
@@ -17,6 +18,10 @@ export interface InputOtpProps {
   type?: OtpSlotType
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow on each slot. Defaults to 'xs'. */
+  shadow?: InputOtpShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Size of the slots. Default: 'md'. */
   size?: 'sm' | 'md' | 'lg'
   /** Label text. */

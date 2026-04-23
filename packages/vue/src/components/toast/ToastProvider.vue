@@ -11,6 +11,7 @@ import type { ToastProviderProps } from './toast.types'
 const props = withDefaults(defineProps<ToastProviderProps>(), {
   placement: 'bottom-end',
   maxVisible: 5,
+  shadow: 'lg',
 })
 
 // Inherit theme from nearest [data-theme] ancestor so teleported toasts
@@ -89,6 +90,7 @@ const exitAnim = computed(() => {
             <ToastItemVue
               :item="item"
               :is-frontmost="index === 0"
+              :shadow="shadow"
               @close="removeToast"
             />
           </Motion>

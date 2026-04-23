@@ -1,5 +1,7 @@
 import type { HapticInput } from '@ousi-ui/haptics'
 
+export type SwitchShadow = 'none' | 'xs' | 'sm'
+
 export interface SwitchProps {
   /** Controlled checked state (v-model). */
   modelValue?: boolean
@@ -11,6 +13,8 @@ export interface SwitchProps {
   description?: string
   /** Size of the switch. */
   size?: 'sm' | 'md' | 'lg'
+  /** Elevation shadow on the track. Defaults to 'none'. */
+  shadow?: SwitchShadow
   /** Whether the switch is disabled. */
   disabled?: boolean
   /** Whether the switch is read-only. */

@@ -20,6 +20,8 @@ const props = withDefaults(defineProps<TimeFieldProps>(), {
   granularity: 'minute',
   disabled: false,
   readOnly: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<TimeFieldEmits>()
@@ -309,7 +311,7 @@ function setRef(el: any, idx: number) {
 
 <template>
   <div
-    :class="cn(dateFieldWrapperTheme, 'gap-0 px-3 py-2', props.class)"
+    :class="cn(dateFieldWrapperTheme({ shadow, animated }), 'gap-0 px-3 py-2', props.class)"
     :data-disabled="disabled || undefined"
     role="group"
     :aria-label="label ?? 'Time field'"

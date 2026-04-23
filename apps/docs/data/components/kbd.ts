@@ -52,6 +52,7 @@ export const kbdData: ComponentData = {
   props: [
     { name: 'keys', type: "KbdKey | KbdKey[]", default: '-', description: 'Special key(s) to display as symbols.' },
     { name: 'variant', type: "'default' | 'light'", default: "'default'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

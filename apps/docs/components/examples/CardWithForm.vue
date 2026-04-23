@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { OCard, OInput, OButton } from '@ousi-ui/vue'
+import { OCard, OCardHeader, OCardTitle, OCardDescription, OCardContent, OCardFooter, OInput, OButton } from '@ousi-ui/vue'
 </script>
 <template>
   <OCard variant="secondary" class="max-w-sm">
-    <OCard.Header>
-      <OCard.Title class="text-base">Login</OCard.Title>
-      <OCard.Description>Enter your credentials to continue.</OCard.Description>
-    </OCard.Header>
-    <OCard.Content class="gap-3">
-      <OInput label="Email" placeholder="you@example.com" type="email" variant="secondary" full-width />
-      <OInput label="Password" placeholder="Enter password" type="password" variant="secondary" full-width />
-    </OCard.Content>
-    <OCard.Footer>
+    <OCardHeader>
+      <OCardTitle class="text-base">Login</OCardTitle>
+      <OCardDescription>Enter your credentials to continue.</OCardDescription>
+    </OCardHeader>
+    <OCardContent class="gap-3">
+      <OInput label="Email" placeholder="you@example.com" type="email" variant="secondary" />
+      <OInput label="Password" placeholder="Enter password" type="password" variant="secondary" />
+    </OCardContent>
+    <OCardFooter>
       <OButton variant="primary" full-width>Sign In</OButton>
-    </OCard.Footer>
+    </OCardFooter>
   </OCard>
 </template>

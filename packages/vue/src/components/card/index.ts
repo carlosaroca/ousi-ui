@@ -1,19 +1,10 @@
-import Card from './Card.vue'
-import CardHeader from './CardHeader.vue'
-import CardTitle from './CardTitle.vue'
-import CardDescription from './CardDescription.vue'
-import CardContent from './CardContent.vue'
-import CardFooter from './CardFooter.vue'
+export { default as OCard } from './Card.vue'
+export { default as OCardHeader } from './CardHeader.vue'
+export { default as OCardTitle } from './CardTitle.vue'
+export { default as OCardDescription } from './CardDescription.vue'
+export { default as OCardContent } from './CardContent.vue'
+export { default as OCardFooter } from './CardFooter.vue'
 
-const OCard = Object.assign(Card, {
-  Header: CardHeader,
-  Title: CardTitle,
-  Description: CardDescription,
-  Content: CardContent,
-  Footer: CardFooter,
-})
-
-export { OCard }
 export type { CardProps, CardSubProps } from './card.types'
 export {
   cardTheme,

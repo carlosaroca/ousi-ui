@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<CommandPaletteProps>(), {
   modelValue: false,
   placeholder: 'Type a command or search...',
   emptyText: 'No results found.',
+  shadow: 'xl',
 })
 
 const emit = defineEmits<CommandPaletteEmits>()
@@ -174,7 +175,7 @@ function getFlatIndex(item: CommandItem): number {
           appear
         >
           <div
-            :class="cn(commandPaletteTheme, props.class)"
+            :class="cn(commandPaletteTheme({ shadow }), props.class)"
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"

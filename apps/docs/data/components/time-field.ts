@@ -39,10 +39,21 @@ export const timeFieldData: ComponentData = {
         code: '<OTimeField label="Time" disabled />',
       },
     },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'TimeFieldAnimated',
+        code: `<OTimeField label="Default" />
+<OTimeField label="Animated" animated />`,
+      },
+    },
   ],
 
   props: [
     { name: 'modelValue', type: 'TimeFieldValue | null', default: 'null', description: 'Current time value (v-model).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'TimeFieldValue | null', default: 'null', description: 'Default time value.' },
     { name: 'hour12', type: 'boolean', default: 'false', description: 'Use 12-hour format with AM/PM.' },
     { name: 'granularity', type: "'hour' | 'minute' | 'second'", default: "'minute'", description: 'Granularity of the time field.' },

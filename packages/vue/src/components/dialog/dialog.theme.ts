@@ -49,7 +49,7 @@ export const dialogContainerTheme = cva(
 export const dialogPanelTheme = cva(
   [
     'relative flex w-full flex-col',
-    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-overlay outline-none',
+    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground outline-none',
     'p-6',
     'pointer-events-auto',
   ],
@@ -61,7 +61,7 @@ export const dialogPanelTheme = cva(
         md: 'max-w-md',
         lg: 'max-w-lg',
         cover: 'h-full min-h-full w-full',
-        full: 'h-full min-h-full w-full rounded-none shadow-none',
+        full: 'h-full min-h-full w-full rounded-none',
       },
       placement: {
         auto: 'mt-auto sm:my-auto',
@@ -73,11 +73,21 @@ export const dialogPanelTheme = cva(
         inside: 'overflow-hidden',
         outside: 'h-auto min-h-0 shrink-0',
       },
+      shadow: {
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+        xl: 'shadow-ousi-xl',
+        '2xl': 'shadow-ousi-2xl',
+      },
     },
+    compoundVariants: [
+      { size: 'full', shadow: 'xl', class: 'shadow-none' },
+    ],
     defaultVariants: {
       size: 'md',
       placement: 'auto',
       scrollBehavior: 'inside',
+      shadow: 'xl',
     },
   },
 )

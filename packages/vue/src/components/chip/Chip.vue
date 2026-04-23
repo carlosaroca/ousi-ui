@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<ChipProps>(), {
   variant: 'solid',
   color: 'accent',
   size: 'md',
+  shadow: 'none',
 })
 
 const id = useId()
@@ -18,6 +19,7 @@ const classes = computed(() =>
       variant: props.variant,
       color: props.color,
       size: props.size,
+      shadow: props.shadow,
     }),
     props.class,
   ),

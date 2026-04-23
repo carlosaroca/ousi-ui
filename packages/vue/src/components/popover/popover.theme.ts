@@ -1,8 +1,24 @@
-export const popoverPanelTheme = [
-  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground text-sm',
-  'shadow-ousi-overlay',
-  'z-50 outline-none',
-].join(' ')
+import { cva } from 'class-variance-authority'
+
+export const popoverPanelTheme = cva(
+  [
+    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground text-sm',
+    'z-50 outline-none',
+  ],
+  {
+    variants: {
+      shadow: {
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+        xl: 'shadow-ousi-xl',
+      },
+    },
+    defaultVariants: {
+      shadow: 'lg',
+    },
+  },
+)
 
 export const popoverDialogTheme = 'p-4 outline-none'
 

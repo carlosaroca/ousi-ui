@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<SliderProps>(), {
   color: 'primary',
   showOutput: false,
   disabled: false,
+  shadow: 'none',
 })
 
 const emit = defineEmits<SliderEmits>()
@@ -208,7 +209,7 @@ const outputLabel = computed(() => {
       @click="handleTrackClick"
     >
       <!-- Inner track bar — HAS overflow:hidden, clips the fill -->
-      <div :class="sliderTrackBarTheme">
+      <div :class="sliderTrackBarTheme({ shadow })">
         <div :class="sliderFillTheme({ orientation, color })" :style="fillStyle" :data-dragging="draggingThumb !== null || undefined" />
       </div>
 

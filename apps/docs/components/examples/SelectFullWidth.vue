@@ -8,5 +8,5 @@ const options = [
 ]
 </script>
 <template>
-  <OSelect full-width :options="options" placeholder="Full width" />
+  <OSelect :options="options" placeholder="Full width" />
 </template>

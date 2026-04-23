@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { OCard } from '@ousi-ui/vue'
+import { OCard, OCardHeader, OCardTitle, OCardDescription, OCardContent } from '@ousi-ui/vue'
 </script>
 <template>
   <OCard>
-    <OCard.Header>
-      <OCard.Title>Card Title</OCard.Title>
-      <OCard.Description>Card description here.</OCard.Description>
-    </OCard.Header>
-    <OCard.Content>
+    <OCardHeader>
+      <OCardTitle>Card Title</OCardTitle>
+      <OCardDescription>Card description here.</OCardDescription>
+    </OCardHeader>
+    <OCardContent>
       <p class="text-sm text-ousi-muted">Card body content goes here.</p>
-    </OCard.Content>
+    </OCardContent>
   </OCard>
 </template>

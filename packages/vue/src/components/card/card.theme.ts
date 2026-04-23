@@ -3,19 +3,29 @@ import { cva } from 'class-variance-authority'
 export const cardTheme = cva(
   [
     'relative flex flex-col gap-3 overflow-hidden p-4',
-    'rounded-ousi-3xl shadow-ousi-surface',
+    'rounded-ousi-3xl',
   ],
   {
     variants: {
       variant: {
-        transparent: 'border-none bg-transparent shadow-none',
+        transparent: 'border-none bg-transparent',
         default: 'bg-ousi-surface',
         secondary: 'bg-ousi-surface-secondary',
         tertiary: 'bg-ousi-surface-tertiary',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+        lg: 'shadow-ousi-lg',
+        xl: 'shadow-ousi-xl',
+        '2xl': 'shadow-ousi-2xl',
+      },
     },
     defaultVariants: {
       variant: 'default',
+      shadow: 'none',
     },
   },
 )

@@ -7,7 +7,16 @@ const props = withDefaults(defineProps<AccordionProps>(), {
   gap: 10,
   showDividers: true,
   variant: 'primary',
+  shadow: 'none',
 })
+
+const accordionShadowMap = {
+  none: 'shadow-none',
+  xs: 'shadow-ousi-xs',
+  sm: 'shadow-ousi-sm',
+  md: 'shadow-ousi-md',
+  lg: 'shadow-ousi-lg',
+} as const
 
 const emit = defineEmits<AccordionEmits>()
 const slots = useSlots()
@@ -138,7 +147,7 @@ function setBodyRef(el: any, key: string) {
 </script>
 
 <template>
-  <div :class="cn('flex flex-col', props.class)">
+  <div :class="cn('flex flex-col', accordionShadowMap[shadow], props.class)">
     <div
       v-for="(item, index) in items"
       :key="item.key"

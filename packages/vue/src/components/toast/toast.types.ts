@@ -2,11 +2,12 @@ export type ToastVariant = 'default' | 'accent' | 'success' | 'warning' | 'dange
 export type ToastPlacement =
   | 'top' | 'top-start' | 'top-end'
   | 'bottom' | 'bottom-start' | 'bottom-end'
+export type ToastShadow = 'sm' | 'md' | 'lg' | 'xl'
 
 export interface ToastAction {
   label: string
   onClick: () => void
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'soft' | 'danger'
+  variant?: 'primary' | 'secondary' | 'text' | 'outline' | 'soft' | 'danger'
 }
 
 export interface ToastOptions {
@@ -32,6 +33,8 @@ export interface ToastItem extends ToastOptions {
 export interface ToastProviderProps {
   placement?: ToastPlacement
   maxVisible?: number
+  /** Elevation shadow applied to each toast item. Defaults to 'lg'. */
+  shadow?: ToastShadow
 }
 
 export interface PromiseOptions<T> {

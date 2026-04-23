@@ -8,6 +8,7 @@ import {
   checkboxLabelTheme,
   checkboxDescriptionTheme,
   checkboxErrorTheme,
+  checkboxControlShadowTheme,
 } from './checkbox.theme'
 import type { CheckboxProps, CheckboxEmits } from './checkbox.types'
 
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   readonly: false,
   required: false,
   indeterminate: false,
+  shadow: 'none',
 })
 
 const emit = defineEmits<CheckboxEmits>()
@@ -108,7 +110,10 @@ const indicatorStyle = computed(() => ({
   >
     <!-- Control box -->
     <div
-      class="relative inline-flex shrink-0 items-center justify-center outline-none"
+      :class="cn(
+        'relative inline-flex shrink-0 items-center justify-center outline-none',
+        checkboxControlShadowTheme[shadow],
+      )"
       :style="controlStyle"
     >
       <!-- Checkmark -->

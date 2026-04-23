@@ -40,10 +40,21 @@ export const dateFieldData: ComponentData = {
         code: '<ODateField label="Date" disabled />',
       },
     },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'DateFieldAnimated',
+        code: `<ODateField label="Default" />
+<ODateField label="Animated" animated />`,
+      },
+    },
   ],
 
   props: [
     { name: 'modelValue', type: 'DateFieldValue | null', default: 'null', description: 'Current date value (v-model).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateFieldValue | null', default: 'null', description: 'Default date value.' },
     { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for segment ordering (e.g. "en-US", "ja-JP").' },
     { name: 'granularity', type: "'day' | 'month' | 'year'", default: "'day'", description: 'Granularity of the date field.' },

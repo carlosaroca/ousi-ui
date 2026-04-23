@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   placement: 'bottom',
   offset: 8,
   showArrow: false,
+  shadow: 'lg',
 })
 
 const emit = defineEmits<PopoverEmits>()
@@ -118,7 +119,7 @@ defineExpose({ open, close, toggle })
       <AnimatePresence>
         <Motion
           tag="div"
-          :class="cn(popoverPanelTheme, props.class)"
+          :class="cn(popoverPanelTheme({ shadow }), props.class)"
           :initial="(enterAnimation as any)"
           :animate="{ opacity: 1, scale: 1, x: 0, y: 0 }"
           :exit="{ opacity: 0, scale: 0.95 }"

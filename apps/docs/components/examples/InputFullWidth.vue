@@ -2,5 +2,5 @@
 import { OInput } from '@ousi-ui/vue'
 </script>
 <template>
-  <OInput full-width placeholder="Full width input" />
+  <OInput placeholder="Full width input" />
 </template>

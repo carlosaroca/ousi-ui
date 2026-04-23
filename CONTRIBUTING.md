@@ -200,7 +200,7 @@ bg-ousi-surface          ← surfaces
 text-ousi-foreground     ← text
 border-ousi-border       ← borders
 rounded-ousi-xl          ← radius
-shadow-ousi-overlay      ← shadows
+shadow-ousi-lg           ← shadows (xs/sm/md/lg/xl/2xl scale)
 text-ousi-accent         ← accent color
 bg-ousi-danger           ← semantic color
 ```

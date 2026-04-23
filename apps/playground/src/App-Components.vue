@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { OButton, OBadge, OChip, OAvatar, OInput, OCard, OTooltip, OSelect, ODialog, ODrawer, OTabs, ODropdown, OToastProvider, toast, OCheckbox, OSwitch, ORadio, ORadioGroup, OTextarea, OPopover, OSeparator, OSkeleton, OSpinner, OAlert, OAutocomplete, OBreadcrumbs, OButtonGroup, OCalendar, ORangeCalendar, OProgressBar, OProgressCircle, OColorSwatch, OColorField, OColorSlider, OColorArea, OColorPicker, ODateField, OTimeField, ODatePicker, ODateRangePicker, ODisclosure, ODisclosureGroup, OForm, OInputOtp, OKbd, OMeter, ONumberField, OPagination, OTable, OSlider } from '@ousi-ui/vue'
+import { OButton, OBadge, OChip, OAvatar, OInput, OCard, OCardHeader, OCardTitle, OCardDescription, OCardContent, OCardFooter, OTooltip, OSelect, ODialog, ODialogHeader, ODialogBody, ODialogFooter, ODrawer, OTabs, ODropdown, ODropdownTrigger, ODropdownPopover, ODropdownMenu, ODropdownItem, ODropdownItemIndicator, ODropdownSection, ODropdownSubmenuTrigger, ODropdownSubmenuIndicator, ODropdownSeparator, OToastProvider, toast, OCheckbox, OSwitch, ORadio, ORadioGroup, OTextarea, OPopover, OSeparator, OSkeleton, OSpinner, OAlert, OAutocomplete, OBreadcrumbs, OButtonGroup, OButtonGroupSeparator, OCalendar, ORangeCalendar, OProgressBar, OProgressCircle, OColorSwatch, OColorField, OColorSlider, OColorArea, OColorPicker, ODateField, OTimeField, ODatePicker, ODateRangePicker, ODisclosure, ODisclosureGroup, OForm, OInputOtp, OKbd, OMeter, ONumberField, OPagination, OTable, OSlider } from '@ousi-ui/vue'
 import type { TableColumn, SortDescriptor } from '@ousi-ui/vue'
 import type { ButtonVariant, ButtonSize, ChipVariant, ChipColor, ChipSize, AvatarSize, SelectOption, TabItem, CalendarDate, DateRange, DateFieldValue, TimeFieldValue, DateRangeValue } from '@ousi-ui/vue'
 
-const buttonVariants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'soft', 'danger', 'danger-soft']
+const buttonVariants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'text', 'soft', 'danger', 'danger-soft']
 const buttonSizes: ButtonSize[] = ['sm', 'md', 'lg']
 
-const chipVariants: ChipVariant[] = ['solid', 'outline', 'soft', 'ghost']
+const chipVariants: ChipVariant[] = ['solid', 'outline', 'soft', 'text']
 const chipColors: ChipColor[] = ['accent', 'success', 'warning', 'danger', 'default']
 const chipSizes: ChipSize[] = ['sm', 'md', 'lg']
 
@@ -489,7 +489,7 @@ function toggleTheme() {
         <OButton variant="danger-soft">Danger Soft</OButton>
         <OButton variant="secondary">Secondary</OButton>
         <OButton variant="outline">Outline</OButton>
-        <OButton variant="ghost">Ghost</OButton>
+        <OButton variant="text">Text</OButton>
       </div>
     </section>
 
@@ -759,8 +759,8 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Variants</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <OInput label="Primary" placeholder="Primary variant" variant="primary" full-width />
-        <OInput label="Secondary" placeholder="Secondary variant" variant="secondary" full-width />
+        <OInput label="Primary" placeholder="Primary variant" variant="primary" />
+        <OInput label="Secondary" placeholder="Secondary variant" variant="secondary" />
       </div>
     </section>
 
@@ -768,9 +768,9 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Sizes</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <OInput label="Small" placeholder="Size sm" size="sm" full-width />
-        <OInput label="Medium" placeholder="Size md" size="md" full-width />
-        <OInput label="Large" placeholder="Size lg" size="lg" full-width />
+        <OInput label="Small" placeholder="Size sm" size="sm" />
+        <OInput label="Medium" placeholder="Size md" size="md" />
+        <OInput label="Large" placeholder="Size lg" size="lg" />
       </div>
     </section>
 
@@ -784,14 +784,12 @@ function toggleTheme() {
           placeholder="you@example.com"
           type="email"
           description="We'll never share your email."
-          full-width
         />
         <OInput
           label="Password"
           placeholder="Enter your password"
           type="password"
           required
-          full-width
         />
       </div>
     </section>
@@ -805,7 +803,6 @@ function toggleTheme() {
           placeholder="you@example.com"
           error-message="Please enter a valid email address."
           model-value="bad-email"
-          full-width
         />
         <OInput
           label="Email (secondary)"
@@ -813,7 +810,6 @@ function toggleTheme() {
           error-message="This email is already taken."
           model-value="taken@email.com"
           variant="secondary"
-          full-width
         />
       </div>
     </section>
@@ -827,14 +823,12 @@ function toggleTheme() {
           placeholder="Can't type here"
           disabled
           model-value="Disabled value"
-          full-width
         />
         <OInput
           label="Readonly"
           placeholder="Can't edit"
           readonly
           model-value="Readonly value"
-          full-width
         />
       </div>
     </section>
@@ -848,7 +842,6 @@ function toggleTheme() {
           label="Search"
           placeholder="Type something…"
           clearable
-          full-width
         />
         <p class="text-xs text-ousi-muted mt-2 font-mono">value: "{{ clearableDemo }}"</p>
       </div>
@@ -863,7 +856,6 @@ function toggleTheme() {
           placeholder="Checking availability…"
           loading
           model-value="ousi-ui"
-          full-width
         />
       </div>
     </section>
@@ -872,12 +864,12 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Slots</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <OInput label="Website" placeholder="example.com" full-width>
+        <OInput label="Website" placeholder="example.com">
           <template #start>
             <span class="text-ousi-muted text-sm">https://</span>
           </template>
         </OInput>
-        <OInput label="Price" placeholder="0.00" type="number" full-width>
+        <OInput label="Price" placeholder="0.00" type="number">
           <template #start>
             <span class="text-ousi-muted text-sm">$</span>
           </template>
@@ -885,14 +877,14 @@ function toggleTheme() {
             <span class="text-ousi-muted text-sm">USD</span>
           </template>
         </OInput>
-        <OInput label="Search" placeholder="Search…" full-width>
+        <OInput label="Search" placeholder="Search…">
           <template #start>
             <svg class="w-4 h-4 text-ousi-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </template>
         </OInput>
-        <OInput label="Email" placeholder="you@example.com" type="email" full-width>
+        <OInput label="Email" placeholder="you@example.com" type="email">
           <template #end>
             <svg class="w-4 h-4 text-ousi-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -905,7 +897,7 @@ function toggleTheme() {
     <!-- Input: Full width -->
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Full Width</h2>
-      <OInput label="Full width input" placeholder="This stretches to fill the container" full-width />
+      <OInput label="Full width input" placeholder="This stretches to fill the container" />
     </section>
 
     <!-- ═══════════ CARD ═══════════ -->
@@ -919,16 +911,16 @@ function toggleTheme() {
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Variants</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <OCard v-for="v in (['transparent', 'default', 'secondary', 'tertiary'] as const)" :key="v" :variant="v">
-          <OCard.Header>
-            <OCard.Title>{{ v.charAt(0).toUpperCase() + v.slice(1) }}</OCard.Title>
-            <OCard.Description>The {{ v }} card variant.</OCard.Description>
-          </OCard.Header>
-          <OCard.Content>
+          <OCardHeader>
+            <OCardTitle>{{ v.charAt(0).toUpperCase() + v.slice(1) }}</OCardTitle>
+            <OCardDescription>The {{ v }} card variant.</OCardDescription>
+          </OCardHeader>
+          <OCardContent>
             <p class="text-sm text-ousi-muted">Card content goes here. This shows the visual difference between variants.</p>
-          </OCard.Content>
-          <OCard.Footer>
+          </OCardContent>
+          <OCardFooter>
             <OButton size="sm" variant="secondary">Action</OButton>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
       </div>
     </section>
@@ -943,13 +935,13 @@ function toggleTheme() {
           </svg>
         </div>
         <div class="flex flex-col gap-2 py-1">
-          <OCard.Header>
-            <OCard.Title>Horizontal Card</OCard.Title>
-            <OCard.Description>Image on the left, content on the right.</OCard.Description>
-          </OCard.Header>
-          <OCard.Content>
+          <OCardHeader>
+            <OCardTitle>Horizontal Card</OCardTitle>
+            <OCardDescription>Image on the left, content on the right.</OCardDescription>
+          </OCardHeader>
+          <OCardContent>
             <p class="text-sm text-ousi-muted">Achieved with <code class="text-ousi-accent">class="flex-row"</code> on the Card.</p>
-          </OCard.Content>
+          </OCardContent>
         </div>
       </OCard>
     </section>
@@ -964,14 +956,14 @@ function toggleTheme() {
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
             </svg>
           </div>
-          <OCard.Header>
-            <OCard.Title>Project Alpha</OCard.Title>
-            <OCard.Description>A design system built with Vue 3.</OCard.Description>
-          </OCard.Header>
-          <OCard.Footer class="gap-2">
+          <OCardHeader>
+            <OCardTitle>Project Alpha</OCardTitle>
+            <OCardDescription>A design system built with Vue 3.</OCardDescription>
+          </OCardHeader>
+          <OCardFooter class="gap-2">
             <OAvatar name="Carlos Roca" size="sm" />
             <span class="text-sm text-ousi-foreground">Carlos Roca</span>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
 
         <OCard variant="secondary">
@@ -980,14 +972,14 @@ function toggleTheme() {
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
             </svg>
           </div>
-          <OCard.Header>
-            <OCard.Title>Project Beta</OCard.Title>
-            <OCard.Description>An open-source component library.</OCard.Description>
-          </OCard.Header>
-          <OCard.Footer class="gap-2">
+          <OCardHeader>
+            <OCardTitle>Project Beta</OCardTitle>
+            <OCardDescription>An open-source component library.</OCardDescription>
+          </OCardHeader>
+          <OCardFooter class="gap-2">
             <OAvatar name="Ana Torres" size="sm" />
             <span class="text-sm text-ousi-foreground">Ana Torres</span>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
       </div>
     </section>
@@ -996,17 +988,17 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">With Form</h2>
       <OCard variant="secondary" class="max-w-sm">
-        <OCard.Header>
-          <OCard.Title class="text-base">Login</OCard.Title>
-          <OCard.Description>Enter your credentials to continue.</OCard.Description>
-        </OCard.Header>
-        <OCard.Content class="gap-3">
-          <OInput label="Email" placeholder="you@example.com" type="email" variant="secondary" full-width />
-          <OInput label="Password" placeholder="Enter password" type="password" variant="secondary" full-width />
-        </OCard.Content>
-        <OCard.Footer>
+        <OCardHeader>
+          <OCardTitle class="text-base">Login</OCardTitle>
+          <OCardDescription>Enter your credentials to continue.</OCardDescription>
+        </OCardHeader>
+        <OCardContent class="gap-3">
+          <OInput label="Email" placeholder="you@example.com" type="email" variant="secondary" />
+          <OInput label="Password" placeholder="Enter password" type="password" variant="secondary" />
+        </OCardContent>
+        <OCardFooter>
           <OButton variant="primary" full-width>Sign In</OButton>
-        </OCard.Footer>
+        </OCardFooter>
       </OCard>
     </section>
 
@@ -1015,29 +1007,29 @@ function toggleTheme() {
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Card as Link</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg">
         <OCard as="a" href="#" variant="secondary" class="hover:bg-ousi-surface-tertiary transition-colors cursor-pointer no-underline">
-          <OCard.Header>
-            <OCard.Title>Documentation</OCard.Title>
-            <OCard.Description>Read the full API reference and guides.</OCard.Description>
-          </OCard.Header>
-          <OCard.Footer class="text-ousi-accent text-sm gap-1">
+          <OCardHeader>
+            <OCardTitle>Documentation</OCardTitle>
+            <OCardDescription>Read the full API reference and guides.</OCardDescription>
+          </OCardHeader>
+          <OCardFooter class="text-ousi-accent text-sm gap-1">
             Learn more
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
 
         <OCard as="a" href="#" variant="secondary" class="hover:bg-ousi-surface-tertiary transition-colors cursor-pointer no-underline">
-          <OCard.Header>
-            <OCard.Title>GitHub</OCard.Title>
-            <OCard.Description>Star the repo and contribute.</OCard.Description>
-          </OCard.Header>
-          <OCard.Footer class="text-ousi-accent text-sm gap-1">
+          <OCardHeader>
+            <OCardTitle>GitHub</OCardTitle>
+            <OCardDescription>Star the repo and contribute.</OCardDescription>
+          </OCardHeader>
+          <OCardFooter class="text-ousi-accent text-sm gap-1">
             View source
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
       </div>
     </section>
@@ -1059,19 +1051,19 @@ function toggleTheme() {
             />
           </div>
           <div class="flex flex-1 flex-col gap-3">
-            <OCard.Header class="gap-1">
-              <OCard.Title class="pr-8">Become an ACME Creator!</OCard.Title>
-              <OCard.Description>
+            <OCardHeader class="gap-1">
+              <OCardTitle class="pr-8">Become an ACME Creator!</OCardTitle>
+              <OCardDescription>
                 Lorem ipsum dolor sit amet consectetur. Sed arcu donec id aliquam dolor sed amet faucibus etiam.
-              </OCard.Description>
-            </OCard.Header>
-            <OCard.Footer class="mt-auto flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+              </OCardDescription>
+            </OCardHeader>
+            <OCardFooter class="mt-auto flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div class="flex flex-col">
                 <span class="text-sm font-medium text-ousi-foreground">Only 10 spots</span>
                 <span class="text-xs text-ousi-muted">Submission ends Oct 10.</span>
               </div>
               <OButton class="w-full sm:w-auto">Apply Now</OButton>
-            </OCard.Footer>
+            </OCardFooter>
           </div>
         </OCard>
 
@@ -1083,30 +1075,30 @@ function toggleTheme() {
 
             <!-- Payment notification card -->
             <OCard class="col-span-12">
-              <OCard.Header class="gap-3 flex-row">
+              <OCardHeader class="gap-3 flex-row">
                 <svg class="text-ousi-accent size-8 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div class="flex flex-col gap-1">
                   <span class="text-xs font-medium text-ousi-muted uppercase">Payment</span>
-                  <OCard.Title class="pr-8 text-sm sm:text-base">You can now withdraw on crypto</OCard.Title>
-                  <OCard.Description class="text-xs sm:text-sm">Add your wallet in settings to withdraw</OCard.Description>
+                  <OCardTitle class="pr-8 text-sm sm:text-base">You can now withdraw on crypto</OCardTitle>
+                  <OCardDescription class="text-xs sm:text-sm">Add your wallet in settings to withdraw</OCardDescription>
                 </div>
-              </OCard.Header>
-              <OCard.Footer>
+              </OCardHeader>
+              <OCardFooter>
                 <a href="#" class="text-sm text-ousi-accent flex items-center gap-1 hover:underline">
                   Go to settings
                   <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </a>
-              </OCard.Footer>
+              </OCardFooter>
             </OCard>
 
             <!-- Community cards -->
             <div class="col-span-12 grid grid-cols-12 gap-4">
               <OCard class="col-span-12 gap-2 sm:col-span-6">
-                <OCard.Header>
+                <OCardHeader>
                   <OAvatar
                     src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo1.jpg"
                     alt="Indie Hackers"
@@ -1114,12 +1106,12 @@ function toggleTheme() {
                     size="xl"
                     class="rounded-xl !h-14 !w-14"
                   />
-                </OCard.Header>
-                <OCard.Content class="mt-1">
+                </OCardHeader>
+                <OCardContent class="mt-1">
                   <p class="text-sm leading-4 font-medium text-ousi-foreground">Indie Hackers</p>
                   <p class="text-xs text-ousi-muted">148 members</p>
-                </OCard.Content>
-                <OCard.Footer class="gap-2">
+                </OCardContent>
+                <OCardFooter class="gap-2">
                   <OAvatar
                     src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg"
                     alt="John"
@@ -1127,11 +1119,11 @@ function toggleTheme() {
                     class="!h-4 !w-4"
                   />
                   <p class="text-xs text-ousi-muted">By John</p>
-                </OCard.Footer>
+                </OCardFooter>
               </OCard>
 
               <OCard class="col-span-12 gap-2 sm:col-span-6">
-                <OCard.Header>
+                <OCardHeader>
                   <OAvatar
                     src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo2.jpg"
                     alt="AI Builders"
@@ -1139,12 +1131,12 @@ function toggleTheme() {
                     size="xl"
                     class="rounded-xl !h-14 !w-14"
                   />
-                </OCard.Header>
-                <OCard.Content class="mt-1">
+                </OCardHeader>
+                <OCardContent class="mt-1">
                   <p class="text-sm leading-4 font-medium text-ousi-foreground">AI Builders</p>
                   <p class="text-xs text-ousi-muted">362 members</p>
-                </OCard.Content>
-                <OCard.Footer class="gap-2">
+                </OCardContent>
+                <OCardFooter class="gap-2">
                   <OAvatar
                     src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg"
                     alt="Martha"
@@ -1152,7 +1144,7 @@ function toggleTheme() {
                     class="!h-4 !w-4"
                   />
                   <p class="text-xs text-ousi-muted">By Martha</p>
-                </OCard.Footer>
+                </OCardFooter>
               </OCard>
             </div>
           </div>
@@ -1165,17 +1157,17 @@ function toggleTheme() {
               class="absolute inset-0 h-full w-full object-cover"
               src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/neo2.jpeg"
             />
-            <OCard.Header class="z-10">
-              <OCard.Title class="text-xs font-semibold tracking-wide text-black/70">NEO</OCard.Title>
-              <OCard.Description class="text-sm leading-5 font-medium text-black/50">Home Robot</OCard.Description>
-            </OCard.Header>
-            <OCard.Footer class="z-10 mt-auto justify-between">
+            <OCardHeader class="z-10">
+              <OCardTitle class="text-xs font-semibold tracking-wide text-black/70">NEO</OCardTitle>
+              <OCardDescription class="text-sm leading-5 font-medium text-black/50">Home Robot</OCardDescription>
+            </OCardHeader>
+            <OCardFooter class="z-10 mt-auto justify-between">
               <div>
                 <div class="text-sm font-medium text-black">Available soon</div>
                 <div class="text-xs text-black/60">Get notified</div>
               </div>
               <OButton size="sm" class="bg-white text-black hover:bg-white/90">Notify me</OButton>
-            </OCard.Footer>
+            </OCardFooter>
           </OCard>
         </div>
 
@@ -1190,13 +1182,13 @@ function toggleTheme() {
               class="absolute inset-0 h-full w-full object-cover"
               src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/neo1.jpeg"
             />
-            <OCard.Footer class="z-10 mt-auto items-end justify-between">
+            <OCardFooter class="z-10 mt-auto items-end justify-between">
               <div>
                 <div class="text-base font-medium text-black sm:text-lg">NEO</div>
                 <div class="text-xs font-medium text-black/50 sm:text-sm">$499/m</div>
               </div>
               <OButton size="sm" class="bg-white text-black hover:bg-white/90">Get now</OButton>
-            </OCard.Footer>
+            </OCardFooter>
           </OCard>
 
           <!-- Right: Events stack -->
@@ -1209,8 +1201,8 @@ function toggleTheme() {
                 src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/robot1.jpeg"
               />
               <div class="flex flex-1 flex-col justify-center gap-1">
-                <OCard.Title class="text-sm">Bridging the Future</OCard.Title>
-                <OCard.Description class="text-xs">Today, 6:30 PM</OCard.Description>
+                <OCardTitle class="text-sm">Bridging the Future</OCardTitle>
+                <OCardDescription class="text-xs">Today, 6:30 PM</OCardDescription>
               </div>
             </OCard>
 
@@ -1222,8 +1214,8 @@ function toggleTheme() {
                 src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/avocado.jpeg"
               />
               <div class="flex flex-1 flex-col justify-center gap-1">
-                <OCard.Title class="text-sm">Avocado Hackathon</OCard.Title>
-                <OCard.Description class="text-xs">Wed, 4:30 PM</OCard.Description>
+                <OCardTitle class="text-sm">Avocado Hackathon</OCardTitle>
+                <OCardDescription class="text-xs">Wed, 4:30 PM</OCardDescription>
               </div>
             </OCard>
 
@@ -1235,8 +1227,8 @@ function toggleTheme() {
                 src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/oranges.jpeg"
               />
               <div class="flex flex-1 flex-col justify-center gap-1">
-                <OCard.Title class="text-sm">Sound Electro | Beyond art</OCard.Title>
-                <OCard.Description class="text-xs">Fri, 8:00 PM</OCard.Description>
+                <OCardTitle class="text-sm">Sound Electro | Beyond art</OCardTitle>
+                <OCardDescription class="text-xs">Fri, 8:00 PM</OCardDescription>
               </div>
             </OCard>
           </div>
@@ -1341,7 +1333,6 @@ function toggleTheme() {
           :options="fruitOptions"
           label="Favorite fruit"
           placeholder="Pick a fruit"
-          full-width
         />
         <div class="flex flex-col gap-1 justify-end">
           <p class="text-xs text-ousi-muted font-mono">v-model: "{{ selectedFruit }}"</p>
@@ -1358,7 +1349,6 @@ function toggleTheme() {
           :options="stateOptions"
           label="State (controlled)"
           placeholder="Select a state"
-          full-width
         />
         <p class="text-xs text-ousi-muted font-mono">Selected: {{ stateOptions.find(s => s.value === selectedState)?.label || 'None' }}</p>
       </div>
@@ -1373,7 +1363,6 @@ function toggleTheme() {
           multiple
           label="Countries to Visit"
           placeholder="Select countries"
-          full-width
         />
       </div>
     </section>
@@ -1388,7 +1377,6 @@ function toggleTheme() {
           multiple
           label="Countries (controlled)"
           placeholder="Select countries"
-          full-width
         />
         <p class="text-xs text-ousi-muted font-mono">
           Selected: {{ selectedCountries.length > 0 ? selectedCountries.join(', ') : 'None' }}
@@ -1405,14 +1393,12 @@ function toggleTheme() {
           :options="roleOptions"
           label="Role"
           description="Select your role in the organization"
-          full-width
         />
         <OSelect
           :options="roleOptions"
           label="Required field"
           error-message="This field is required"
           required
-          full-width
         />
       </div>
     </section>
@@ -1425,7 +1411,6 @@ function toggleTheme() {
           :options="animalOptions"
           label="Animal"
           placeholder="Select an animal"
-          full-width
         />
         <p class="text-xs text-ousi-muted mt-1">Cat and Kangaroo are disabled.</p>
       </div>
@@ -1435,8 +1420,8 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Variants</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg">
-        <OSelect :options="stateOptions" label="Primary" variant="primary" placeholder="Select one" full-width />
-        <OSelect :options="stateOptions" label="Secondary" variant="secondary" placeholder="Select one" full-width />
+        <OSelect :options="stateOptions" label="Primary" variant="primary" placeholder="Select one" />
+        <OSelect :options="stateOptions" label="Secondary" variant="secondary" placeholder="Select one" />
       </div>
     </section>
 
@@ -1444,9 +1429,9 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Sizes</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
-        <OSelect :options="fruitOptions" size="sm" placeholder="Small" full-width />
-        <OSelect :options="fruitOptions" size="md" placeholder="Medium" full-width />
-        <OSelect :options="fruitOptions" size="lg" placeholder="Large" full-width />
+        <OSelect :options="fruitOptions" size="sm" placeholder="Small" />
+        <OSelect :options="fruitOptions" size="md" placeholder="Medium" />
+        <OSelect :options="fruitOptions" size="lg" placeholder="Large" />
       </div>
     </section>
 
@@ -1454,30 +1439,28 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">In Card</h2>
       <OCard variant="secondary" class="max-w-sm">
-        <OCard.Header>
-          <OCard.Title class="text-base">Settings</OCard.Title>
-          <OCard.Description>Configure your preferences.</OCard.Description>
-        </OCard.Header>
-        <OCard.Content class="gap-3">
+        <OCardHeader>
+          <OCardTitle class="text-base">Settings</OCardTitle>
+          <OCardDescription>Configure your preferences.</OCardDescription>
+        </OCardHeader>
+        <OCardContent class="gap-3">
           <OSelect
             :options="stateOptions"
             label="State"
             placeholder="Select one"
             variant="secondary"
             required
-            full-width
           />
           <OSelect
             :options="roleOptions"
             label="Role"
             placeholder="Select a role"
             variant="secondary"
-            full-width
           />
-        </OCard.Content>
-        <OCard.Footer>
+        </OCardContent>
+        <OCardFooter>
           <OButton variant="primary" full-width>Save</OButton>
-        </OCard.Footer>
+        </OCardFooter>
       </OCard>
     </section>
 
@@ -1485,8 +1468,8 @@ function toggleTheme() {
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Disabled &amp; Full Width</h2>
       <div class="flex flex-col gap-4 max-w-lg">
-        <OSelect :options="stateOptions" label="Disabled" disabled model-value="california" full-width />
-        <OSelect :options="fruitOptions" label="Full width" placeholder="Stretches to container" full-width />
+        <OSelect :options="stateOptions" label="Disabled" disabled model-value="california" />
+        <OSelect :options="fruitOptions" label="Full width" placeholder="Stretches to container" />
       </div>
     </section>
 
@@ -1502,15 +1485,15 @@ function toggleTheme() {
       <OButton @click="dialogBasic = true">Open Dialog</OButton>
       <ODialog v-model="dialogBasic">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Are you sure?" />
-          <ODialog.Body>
+          <ODialogHeader :title-id="titleId" title="Are you sure?" />
+          <ODialogBody>
             This action cannot be undone. This will permanently delete your account
             and remove your data from our servers.
-          </ODialog.Body>
-          <ODialog.Footer>
-            <OButton variant="ghost" @click="close">Cancel</OButton>
+          </ODialogBody>
+          <ODialogFooter>
+            <OButton variant="text" @click="close">Cancel</OButton>
             <OButton variant="danger" @click="close">Delete Account</OButton>
-          </ODialog.Footer>
+          </ODialogFooter>
         </template>
       </ODialog>
     </section>
@@ -1526,30 +1509,30 @@ function toggleTheme() {
       </div>
       <ODialog v-model="dialogSizes.xs" size="xs">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Extra Small" />
-          <ODialog.Body>A compact dialog for quick confirmations.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">OK</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Extra Small" />
+          <ODialogBody>A compact dialog for quick confirmations.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">OK</OButton></ODialogFooter>
         </template>
       </ODialog>
       <ODialog v-model="dialogSizes.sm" size="sm">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Small" />
-          <ODialog.Body>A small dialog with moderate content space.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">OK</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Small" />
+          <ODialogBody>A small dialog with moderate content space.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">OK</OButton></ODialogFooter>
         </template>
       </ODialog>
       <ODialog v-model="dialogSizes.md" size="md">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Medium (default)" />
-          <ODialog.Body>The default dialog size, suitable for most use cases.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">OK</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Medium (default)" />
+          <ODialogBody>The default dialog size, suitable for most use cases.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">OK</OButton></ODialogFooter>
         </template>
       </ODialog>
       <ODialog v-model="dialogSizes.lg" size="lg">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Large" />
-          <ODialog.Body>A large dialog for complex content or forms.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">OK</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Large" />
+          <ODialogBody>A large dialog for complex content or forms.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">OK</OButton></ODialogFooter>
         </template>
       </ODialog>
     </section>
@@ -1564,23 +1547,23 @@ function toggleTheme() {
       </div>
       <ODialog v-model="dialogPlacements.top" placement="top" size="sm">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Top Placement" />
-          <ODialog.Body>This dialog appears at the top of the viewport.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">Close</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Top Placement" />
+          <ODialogBody>This dialog appears at the top of the viewport.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">Close</OButton></ODialogFooter>
         </template>
       </ODialog>
       <ODialog v-model="dialogPlacements.center" placement="center" size="sm">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Center Placement" />
-          <ODialog.Body>This dialog appears centered vertically.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">Close</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Center Placement" />
+          <ODialogBody>This dialog appears centered vertically.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">Close</OButton></ODialogFooter>
         </template>
       </ODialog>
       <ODialog v-model="dialogPlacements.bottom" placement="bottom" size="sm">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Bottom Placement" />
-          <ODialog.Body>This dialog appears at the bottom, like a mobile sheet.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">Close</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Bottom Placement" />
+          <ODialogBody>This dialog appears at the bottom, like a mobile sheet.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">Close</OButton></ODialogFooter>
         </template>
       </ODialog>
     </section>
@@ -1591,9 +1574,9 @@ function toggleTheme() {
       <OButton variant="secondary" @click="dialogBlur = true">Blur Backdrop</OButton>
       <ODialog v-model="dialogBlur" backdrop="blur" size="sm">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Blurred Background" />
-          <ODialog.Body>The backdrop uses a blur filter for a frosted glass effect.</ODialog.Body>
-          <ODialog.Footer><OButton size="sm" @click="close">Close</OButton></ODialog.Footer>
+          <ODialogHeader :title-id="titleId" title="Blurred Background" />
+          <ODialogBody>The backdrop uses a blur filter for a frosted glass effect.</ODialogBody>
+          <ODialogFooter><OButton size="sm" @click="close">Close</OButton></ODialogFooter>
         </template>
       </ODialog>
     </section>
@@ -1604,9 +1587,9 @@ function toggleTheme() {
       <OButton variant="secondary" @click="dialogNoClose = true">No Close Button</OButton>
       <ODialog v-model="dialogNoClose" :hide-close-button="true" size="sm">
         <template #default="{ close }">
-          <ODialog.Header title="Custom Close" />
-          <ODialog.Body>This dialog has no X button. Use the button below or press Escape.</ODialog.Body>
-          <ODialog.Footer><OButton @click="close">Got it</OButton></ODialog.Footer>
+          <ODialogHeader title="Custom Close" />
+          <ODialogBody>This dialog has no X button. Use the button below or press Escape.</ODialogBody>
+          <ODialogFooter><OButton @click="close">Got it</OButton></ODialogFooter>
         </template>
       </ODialog>
     </section>
@@ -1617,14 +1600,14 @@ function toggleTheme() {
       <OButton variant="secondary" @click="dialogScrollable = true">Scrollable Content</OButton>
       <ODialog v-model="dialogScrollable" scroll-behavior="inside" size="sm">
         <template #default="{ titleId, close }">
-          <ODialog.Header :title-id="titleId" title="Long Content" />
-          <ODialog.Body scroll-behavior="inside" class="max-h-60">
+          <ODialogHeader :title-id="titleId" title="Long Content" />
+          <ODialogBody scroll-behavior="inside" class="max-h-60">
             <p v-for="i in 20" :key="i" class="mb-3">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Paragraph {{ i }}.
             </p>
-          </ODialog.Body>
-          <ODialog.Footer><OButton @click="close">Close</OButton></ODialog.Footer>
+          </ODialogBody>
+          <ODialogFooter><OButton @click="close">Close</OButton></ODialogFooter>
         </template>
       </ODialog>
     </section>
@@ -1645,7 +1628,7 @@ function toggleTheme() {
           </template>
           <p>This drawer slides in from the right. It's the default placement, great for settings panels and detail views.</p>
           <template #footer="{ close }">
-            <OButton variant="ghost" @click="close">Cancel</OButton>
+            <OButton variant="text" @click="close">Cancel</OButton>
             <OButton @click="close">Save</OButton>
           </template>
         </ODrawer>
@@ -1752,12 +1735,12 @@ function toggleTheme() {
           <OButton variant="secondary">Edit Profile</OButton>
         </template>
         <div class="flex flex-col gap-3">
-          <OInput label="Name" placeholder="Your name" variant="secondary" full-width />
-          <OInput label="Email" placeholder="you@example.com" type="email" variant="secondary" full-width />
-          <OSelect :options="roleOptions" label="Role" variant="secondary" placeholder="Select role" full-width />
+          <OInput label="Name" placeholder="Your name" variant="secondary" />
+          <OInput label="Email" placeholder="you@example.com" type="email" variant="secondary" />
+          <OSelect :options="roleOptions" label="Role" variant="secondary" placeholder="Select role" />
         </div>
         <template #footer="{ close }">
-          <OButton variant="ghost" @click="close">Cancel</OButton>
+          <OButton variant="text" @click="close">Cancel</OButton>
           <OButton @click="close">Save Changes</OButton>
         </template>
       </ODrawer>
@@ -1899,18 +1882,18 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Basic</h2>
       <ODropdown>
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OButton variant="secondary">Actions</OButton>
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
-          <ODropdown.Menu>
-            <ODropdown.Item id="new-file">New file</ODropdown.Item>
-            <ODropdown.Item id="copy-link">Copy link</ODropdown.Item>
-            <ODropdown.Item id="edit-file">Edit file</ODropdown.Item>
-            <ODropdown.Separator />
-            <ODropdown.Item id="delete-file" variant="danger">Delete file</ODropdown.Item>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+        </ODropdownTrigger>
+        <ODropdownPopover>
+          <ODropdownMenu>
+            <ODropdownItem id="new-file">New file</ODropdownItem>
+            <ODropdownItem id="copy-link">Copy link</ODropdownItem>
+            <ODropdownItem id="edit-file">Edit file</ODropdownItem>
+            <ODropdownSeparator />
+            <ODropdownItem id="delete-file" variant="danger">Delete file</ODropdownItem>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -1918,38 +1901,38 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">With Sections</h2>
       <ODropdown>
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OButton variant="secondary">Menu</OButton>
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
-          <ODropdown.Menu>
-            <ODropdown.Section title="Actions">
-              <ODropdown.Item id="new">
+        </ODropdownTrigger>
+        <ODropdownPopover>
+          <ODropdownMenu>
+            <ODropdownSection title="Actions">
+              <ODropdownItem id="new">
                 <div class="flex flex-col">
                   <span>New file</span>
                   <span class="text-xs text-ousi-muted">Create a new file</span>
                 </div>
                 <kbd class="ml-auto text-xs text-ousi-muted bg-ousi-surface-secondary rounded-ousi-sm px-1.5 py-0.5">⌘N</kbd>
-              </ODropdown.Item>
-              <ODropdown.Item id="edit">
+              </ODropdownItem>
+              <ODropdownItem id="edit">
                 <div class="flex flex-col">
                   <span>Edit file</span>
                   <span class="text-xs text-ousi-muted">Make changes</span>
                 </div>
                 <kbd class="ml-auto text-xs text-ousi-muted bg-ousi-surface-secondary rounded-ousi-sm px-1.5 py-0.5">⌘E</kbd>
-              </ODropdown.Item>
-            </ODropdown.Section>
-            <ODropdown.Separator />
-            <ODropdown.Section title="Danger zone">
-              <ODropdown.Item id="delete" variant="danger">
+              </ODropdownItem>
+            </ODropdownSection>
+            <ODropdownSeparator />
+            <ODropdownSection title="Danger zone">
+              <ODropdownItem id="delete" variant="danger">
                 <div class="flex flex-col">
                   <span>Delete file</span>
                   <span class="text-xs text-ousi-danger/70">Move to trash</span>
                 </div>
-              </ODropdown.Item>
-            </ODropdown.Section>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+              </ODropdownItem>
+            </ODropdownSection>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -1957,16 +1940,16 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Single Selection</h2>
       <ODropdown>
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OButton variant="secondary">Fruit</OButton>
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
-          <ODropdown.Menu selection-mode="single">
-            <ODropdown.Item id="apple"><ODropdown.ItemIndicator /> Apple</ODropdown.Item>
-            <ODropdown.Item id="banana"><ODropdown.ItemIndicator /> Banana</ODropdown.Item>
-            <ODropdown.Item id="cherry"><ODropdown.ItemIndicator /> Cherry</ODropdown.Item>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+        </ODropdownTrigger>
+        <ODropdownPopover>
+          <ODropdownMenu selection-mode="single">
+            <ODropdownItem id="apple"><ODropdownItemIndicator /> Apple</ODropdownItem>
+            <ODropdownItem id="banana"><ODropdownItemIndicator /> Banana</ODropdownItem>
+            <ODropdownItem id="cherry"><ODropdownItemIndicator /> Cherry</ODropdownItem>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -1974,17 +1957,17 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Multiple Selection</h2>
       <ODropdown>
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OButton variant="secondary">Text Style</OButton>
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
-          <ODropdown.Menu selection-mode="multiple">
-            <ODropdown.Item id="bold"><ODropdown.ItemIndicator /> Bold</ODropdown.Item>
-            <ODropdown.Item id="italic"><ODropdown.ItemIndicator /> Italic</ODropdown.Item>
-            <ODropdown.Item id="underline"><ODropdown.ItemIndicator /> Underline</ODropdown.Item>
-            <ODropdown.Item id="strikethrough"><ODropdown.ItemIndicator /> Strikethrough</ODropdown.Item>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+        </ODropdownTrigger>
+        <ODropdownPopover>
+          <ODropdownMenu selection-mode="multiple">
+            <ODropdownItem id="bold"><ODropdownItemIndicator /> Bold</ODropdownItem>
+            <ODropdownItem id="italic"><ODropdownItemIndicator /> Italic</ODropdownItem>
+            <ODropdownItem id="underline"><ODropdownItemIndicator /> Underline</ODropdownItem>
+            <ODropdownItem id="strikethrough"><ODropdownItemIndicator /> Strikethrough</ODropdownItem>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -1992,16 +1975,16 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Disabled Items</h2>
       <ODropdown>
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OButton variant="secondary" size="sm">Actions</OButton>
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
-          <ODropdown.Menu :disabled-keys="new Set(['paste'])">
-            <ODropdown.Item id="copy">Copy</ODropdown.Item>
-            <ODropdown.Item id="paste">Paste (disabled)</ODropdown.Item>
-            <ODropdown.Item id="cut">Cut</ODropdown.Item>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+        </ODropdownTrigger>
+        <ODropdownPopover>
+          <ODropdownMenu :disabled-keys="new Set(['paste'])">
+            <ODropdownItem id="copy">Copy</ODropdownItem>
+            <ODropdownItem id="paste">Paste (disabled)</ODropdownItem>
+            <ODropdownItem id="cut">Cut</ODropdownItem>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -2009,27 +1992,27 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">With Submenu</h2>
       <ODropdown>
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OButton variant="secondary">Share</OButton>
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
-          <ODropdown.Menu>
-            <ODropdown.Item id="copy-link">Copy Link</ODropdown.Item>
-            <ODropdown.Item id="email">Email</ODropdown.Item>
-            <ODropdown.SubmenuTrigger>
+        </ODropdownTrigger>
+        <ODropdownPopover>
+          <ODropdownMenu>
+            <ODropdownItem id="copy-link">Copy Link</ODropdownItem>
+            <ODropdownItem id="email">Email</ODropdownItem>
+            <ODropdownSubmenuTrigger>
               <template #trigger>
-                <ODropdown.Item id="more">More options <ODropdown.SubmenuIndicator /></ODropdown.Item>
+                <ODropdownItem id="more">More options <ODropdownSubmenuIndicator /></ODropdownItem>
               </template>
               <template #popover>
-                <ODropdown.Menu>
-                  <ODropdown.Item id="whatsapp">WhatsApp</ODropdown.Item>
-                  <ODropdown.Item id="telegram">Telegram</ODropdown.Item>
-                  <ODropdown.Item id="discord">Discord</ODropdown.Item>
-                </ODropdown.Menu>
+                <ODropdownMenu>
+                  <ODropdownItem id="whatsapp">WhatsApp</ODropdownItem>
+                  <ODropdownItem id="telegram">Telegram</ODropdownItem>
+                  <ODropdownItem id="discord">Discord</ODropdownItem>
+                </ODropdownMenu>
               </template>
-            </ODropdown.SubmenuTrigger>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+            </ODropdownSubmenuTrigger>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -2037,10 +2020,10 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Custom Trigger</h2>
       <ODropdown>
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OAvatar name="Jane Doe" size="md" class="cursor-pointer" />
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
+        </ODropdownTrigger>
+        <ODropdownPopover>
           <div class="px-3 pt-3 pb-1 flex items-center gap-2">
             <OAvatar name="Jane Doe" size="sm" />
             <div>
@@ -2048,14 +2031,14 @@ function toggleTheme() {
               <p class="text-xs text-ousi-muted">jane@example.com</p>
             </div>
           </div>
-          <ODropdown.Menu>
-            <ODropdown.Item id="dashboard">Dashboard</ODropdown.Item>
-            <ODropdown.Item id="profile">Profile</ODropdown.Item>
-            <ODropdown.Item id="settings">Settings</ODropdown.Item>
-            <ODropdown.Separator />
-            <ODropdown.Item id="logout" variant="danger">Log Out</ODropdown.Item>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+          <ODropdownMenu>
+            <ODropdownItem id="dashboard">Dashboard</ODropdownItem>
+            <ODropdownItem id="profile">Profile</ODropdownItem>
+            <ODropdownItem id="settings">Settings</ODropdownItem>
+            <ODropdownSeparator />
+            <ODropdownItem id="logout" variant="danger">Log Out</ODropdownItem>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -2064,16 +2047,16 @@ function toggleTheme() {
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Controlled</h2>
       <p class="text-xs text-ousi-muted mb-2 font-mono">isOpen: {{ ddOpen }}</p>
       <ODropdown v-model="ddOpen">
-        <ODropdown.Trigger>
+        <ODropdownTrigger>
           <OButton variant="secondary">Controlled</OButton>
-        </ODropdown.Trigger>
-        <ODropdown.Popover>
-          <ODropdown.Menu>
-            <ODropdown.Item id="item1">Item 1</ODropdown.Item>
-            <ODropdown.Item id="item2">Item 2</ODropdown.Item>
-            <ODropdown.Item id="item3">Item 3</ODropdown.Item>
-          </ODropdown.Menu>
-        </ODropdown.Popover>
+        </ODropdownTrigger>
+        <ODropdownPopover>
+          <ODropdownMenu>
+            <ODropdownItem id="item1">Item 1</ODropdownItem>
+            <ODropdownItem id="item2">Item 2</ODropdownItem>
+            <ODropdownItem id="item3">Item 3</ODropdownItem>
+          </ODropdownMenu>
+        </ODropdownPopover>
       </ODropdown>
     </section>
 
@@ -2475,7 +2458,7 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Basic</h2>
       <div class="max-w-md">
-        <OTextarea v-model="taBio" label="Bio" placeholder="Tell us about yourself..." full-width />
+        <OTextarea v-model="taBio" label="Bio" placeholder="Tell us about yourself..." />
       </div>
     </section>
 
@@ -2483,7 +2466,7 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">With Description</h2>
       <div class="max-w-md">
-        <OTextarea label="Notes" description="Add any additional notes here." :rows="4" full-width />
+        <OTextarea label="Notes" description="Add any additional notes here." :rows="4" />
       </div>
     </section>
 
@@ -2498,7 +2481,6 @@ function toggleTheme() {
           auto-resize
           :min-rows="2"
           :max-rows="8"
-          full-width
         />
       </div>
     </section>
@@ -2507,8 +2489,8 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Variants</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg">
-        <OTextarea variant="primary" label="Primary" placeholder="Primary variant" full-width />
-        <OTextarea variant="secondary" label="Secondary" placeholder="Secondary variant" full-width />
+        <OTextarea variant="primary" label="Primary" placeholder="Primary variant" />
+        <OTextarea variant="secondary" label="Secondary" placeholder="Secondary variant" />
       </div>
     </section>
 
@@ -2516,9 +2498,9 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Resize Options</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
-        <OTextarea resize="none" label="No resize" placeholder="Fixed size" :rows="3" full-width />
-        <OTextarea resize="vertical" label="Vertical" placeholder="Drag bottom edge" :rows="3" full-width />
-        <OTextarea resize="both" label="Both" placeholder="Drag any corner" :rows="3" full-width />
+        <OTextarea resize="none" label="No resize" placeholder="Fixed size" :rows="3" />
+        <OTextarea resize="vertical" label="Vertical" placeholder="Drag bottom edge" :rows="3" />
+        <OTextarea resize="both" label="Both" placeholder="Drag any corner" :rows="3" />
       </div>
     </section>
 
@@ -2526,9 +2508,9 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">States</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg">
-        <OTextarea label="Required" required error-message="This field is required" full-width />
-        <OTextarea label="Disabled" placeholder="Cannot edit" disabled full-width />
-        <OTextarea label="Readonly" model-value="Cannot change this" readonly full-width />
+        <OTextarea label="Required" required error-message="This field is required" />
+        <OTextarea label="Disabled" placeholder="Cannot edit" disabled />
+        <OTextarea label="Readonly" model-value="Cannot change this" readonly />
       </div>
     </section>
 
@@ -2539,7 +2521,6 @@ function toggleTheme() {
         v-model="taFeedback"
         label="Feedback"
         placeholder="Write your feedback here..."
-        full-width
         :rows="5"
       />
     </section>
@@ -2605,10 +2586,10 @@ function toggleTheme() {
         </template>
         <template #default="{ close }">
           <div class="flex flex-col gap-3 min-w-64">
-            <OInput label="Name" placeholder="Your name" variant="secondary" full-width />
-            <OInput label="Email" type="email" placeholder="your@email.com" variant="secondary" full-width />
+            <OInput label="Name" placeholder="Your name" variant="secondary" />
+            <OInput label="Email" type="email" placeholder="your@email.com" variant="secondary" />
             <div class="flex justify-end gap-2 mt-1">
-              <OButton variant="ghost" size="sm" @click="close">Cancel</OButton>
+              <OButton variant="text" size="sm" @click="close">Cancel</OButton>
               <OButton size="sm" @click="close">Save</OButton>
             </div>
           </div>
@@ -2707,8 +2688,8 @@ function toggleTheme() {
       <div class="flex flex-col gap-4 max-w-sm">
         <OButton variant="secondary" full-width>Continue with Google</OButton>
         <OSeparator>OR</OSeparator>
-        <OInput label="Email" type="email" placeholder="you@example.com" full-width />
-        <OInput label="Password" type="password" placeholder="Enter password" full-width />
+        <OInput label="Email" type="email" placeholder="you@example.com" />
+        <OInput label="Password" type="password" placeholder="Enter password" />
         <OButton full-width>Sign in</OButton>
       </div>
     </section>
@@ -2717,16 +2698,16 @@ function toggleTheme() {
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">In Card</h2>
       <OCard variant="secondary" class="max-w-sm">
-        <OCard.Header>
-          <OCard.Title>Settings</OCard.Title>
-        </OCard.Header>
-        <OCard.Content class="gap-3">
+        <OCardHeader>
+          <OCardTitle>Settings</OCardTitle>
+        </OCardHeader>
+        <OCardContent class="gap-3">
           <p class="text-sm text-ousi-foreground">Notifications</p>
           <OSeparator />
           <p class="text-sm text-ousi-foreground">Privacy</p>
           <OSeparator variant="secondary" />
           <p class="text-sm text-ousi-foreground">Security</p>
-        </OCard.Content>
+        </OCardContent>
       </OCard>
     </section>
 
@@ -2960,7 +2941,7 @@ function toggleTheme() {
         <OAlert variant="accent" title="Update available" description="Version 2.0 is now available with new features.">
           <div class="flex gap-2">
             <OButton size="sm" variant="soft">Learn more</OButton>
-            <OButton size="sm" variant="ghost">Dismiss</OButton>
+            <OButton size="sm" variant="text">Dismiss</OButton>
           </div>
         </OAlert>
       </div>
@@ -2970,12 +2951,12 @@ function toggleTheme() {
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">In Form</h2>
       <OCard variant="secondary" class="max-w-sm">
-        <OCard.Content class="gap-4">
+        <OCardContent class="gap-4">
           <OAlert variant="danger" title="Invalid credentials" description="The email or password you entered is incorrect." />
-          <OInput label="Email" type="email" placeholder="you@example.com" variant="secondary" full-width />
-          <OInput label="Password" type="password" placeholder="Enter password" variant="secondary" full-width />
+          <OInput label="Email" type="email" placeholder="you@example.com" variant="secondary" />
+          <OInput label="Password" type="password" placeholder="Enter password" variant="secondary" />
           <OButton full-width>Sign in</OButton>
-        </OCard.Content>
+        </OCardContent>
       </OCard>
     </section>
 
@@ -2994,7 +2975,6 @@ function toggleTheme() {
           :options="countryAcOptions"
           label="Country"
           placeholder="Search a country..."
-          full-width
         />
         <p class="text-xs text-ousi-muted font-mono mt-2">v-model: "{{ acCountry }}"</p>
       </div>
@@ -3009,7 +2989,6 @@ function toggleTheme() {
           label="Destination"
           description="Select your travel destination"
           placeholder="Search..."
-          full-width
         />
       </div>
     </section>
@@ -3023,7 +3002,6 @@ function toggleTheme() {
           label="Country"
           required
           error-message="Please select a country"
-          full-width
         />
       </div>
     </section>
@@ -3038,7 +3016,6 @@ function toggleTheme() {
           label="Language"
           description="Python and Go are coming soon"
           placeholder="Search languages..."
-          full-width
         />
       </div>
     </section>
@@ -3047,8 +3024,8 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Variants</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg">
-        <OAutocomplete :options="countryAcOptions" variant="primary" label="Primary" placeholder="Search..." full-width />
-        <OAutocomplete :options="countryAcOptions" variant="secondary" label="Secondary" placeholder="Search..." full-width />
+        <OAutocomplete :options="countryAcOptions" variant="primary" label="Primary" placeholder="Search..." />
+        <OAutocomplete :options="countryAcOptions" variant="secondary" label="Secondary" placeholder="Search..." />
       </div>
     </section>
 
@@ -3061,7 +3038,6 @@ function toggleTheme() {
           label="Framework"
           empty-message="No frameworks match your search"
           placeholder="Try 'angular'..."
-          full-width
         />
       </div>
     </section>
@@ -3070,8 +3046,8 @@ function toggleTheme() {
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">States</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg">
-        <OAutocomplete :options="countryAcOptions" label="Disabled" disabled placeholder="Cannot interact" full-width />
-        <OAutocomplete :options="countryAcOptions" label="No clear button" :clearable="false" placeholder="Search..." full-width />
+        <OAutocomplete :options="countryAcOptions" label="Disabled" disabled placeholder="Cannot interact" />
+        <OAutocomplete :options="countryAcOptions" label="No clear button" :clearable="false" placeholder="Search..." />
       </div>
     </section>
 
@@ -3293,7 +3269,7 @@ function toggleTheme() {
         <OButtonGroup>
           <OButton>Merge pull request</OButton>
           <OButton is-icon-only>
-            <OButtonGroup.Separator />
+            <OButtonGroupSeparator />
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </OButton>
         </OButtonGroup>
@@ -3307,7 +3283,7 @@ function toggleTheme() {
               <OChip color="accent" variant="soft" size="sm">24</OChip>
             </OButton>
             <OButton variant="secondary" is-icon-only>
-              <OButtonGroup.Separator />
+              <OButtonGroupSeparator />
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </OButton>
           </OButtonGroup>
@@ -3318,7 +3294,7 @@ function toggleTheme() {
               Star
             </OButton>
             <OButton variant="secondary" class="px-2">
-              <OButtonGroup.Separator />
+              <OButtonGroupSeparator />
               <OChip color="accent" variant="soft" size="sm">104</OChip>
             </OButton>
           </OButtonGroup>
@@ -3329,7 +3305,7 @@ function toggleTheme() {
               <span class="text-xs font-semibold">2.4K</span>
             </OButton>
             <OButton variant="secondary" is-icon-only>
-              <OButtonGroup.Separator />
+              <OButtonGroupSeparator />
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15V19a3 3 0 003 3l4-9V2H5.72a2 2 0 00-2 1.7l-1.38 9a2 2 0 002 2.3H10z"/><path d="M17 2h3a2 2 0 012 2v7a2 2 0 01-2 2h-3"/></svg>
             </OButton>
           </OButtonGroup>
@@ -3342,7 +3318,7 @@ function toggleTheme() {
             Previous
           </OButton>
           <OButton variant="secondary">
-            <OButtonGroup.Separator />
+            <OButtonGroupSeparator />
             Next
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </OButton>
@@ -3354,15 +3330,15 @@ function toggleTheme() {
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
           </OButton>
           <OButton variant="secondary" is-icon-only>
-            <OButtonGroup.Separator />
+            <OButtonGroupSeparator />
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
           </OButton>
           <OButton variant="secondary" is-icon-only>
-            <OButtonGroup.Separator />
+            <OButtonGroupSeparator />
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
           </OButton>
           <OButton variant="secondary" is-icon-only>
-            <OButtonGroup.Separator />
+            <OButtonGroupSeparator />
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
           </OButton>
         </OButtonGroup>
@@ -3377,40 +3353,40 @@ function toggleTheme() {
           <p class="text-xs text-ousi-muted mb-2">Primary</p>
           <OButtonGroup>
             <OButton>First</OButton>
-            <OButton><OButtonGroup.Separator />Second</OButton>
-            <OButton><OButtonGroup.Separator />Third</OButton>
+            <OButton><OButtonGroupSeparator />Second</OButton>
+            <OButton><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
         <div>
           <p class="text-xs text-ousi-muted mb-2">Secondary</p>
           <OButtonGroup>
             <OButton variant="secondary">First</OButton>
-            <OButton variant="secondary"><OButtonGroup.Separator />Second</OButton>
-            <OButton variant="secondary"><OButtonGroup.Separator />Third</OButton>
+            <OButton variant="secondary"><OButtonGroupSeparator />Second</OButton>
+            <OButton variant="secondary"><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
         <div>
           <p class="text-xs text-ousi-muted mb-2">Outline</p>
           <OButtonGroup>
             <OButton variant="outline">First</OButton>
-            <OButton variant="outline"><OButtonGroup.Separator />Second</OButton>
-            <OButton variant="outline"><OButtonGroup.Separator />Third</OButton>
+            <OButton variant="outline"><OButtonGroupSeparator />Second</OButton>
+            <OButton variant="outline"><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
         <div>
           <p class="text-xs text-ousi-muted mb-2">Ghost</p>
           <OButtonGroup>
-            <OButton variant="ghost">First</OButton>
-            <OButton variant="ghost"><OButtonGroup.Separator />Second</OButton>
-            <OButton variant="ghost"><OButtonGroup.Separator />Third</OButton>
+            <OButton variant="text">First</OButton>
+            <OButton variant="text"><OButtonGroupSeparator />Second</OButton>
+            <OButton variant="text"><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
         <div>
           <p class="text-xs text-ousi-muted mb-2">Danger</p>
           <OButtonGroup>
             <OButton variant="danger">First</OButton>
-            <OButton variant="danger"><OButtonGroup.Separator />Second</OButton>
-            <OButton variant="danger"><OButtonGroup.Separator />Third</OButton>
+            <OButton variant="danger"><OButtonGroupSeparator />Second</OButton>
+            <OButton variant="danger"><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
       </div>
@@ -3424,24 +3400,24 @@ function toggleTheme() {
           <p class="text-xs text-ousi-muted mb-2">Small</p>
           <OButtonGroup>
             <OButton size="sm" variant="secondary">First</OButton>
-            <OButton size="sm" variant="secondary"><OButtonGroup.Separator />Second</OButton>
-            <OButton size="sm" variant="secondary"><OButtonGroup.Separator />Third</OButton>
+            <OButton size="sm" variant="secondary"><OButtonGroupSeparator />Second</OButton>
+            <OButton size="sm" variant="secondary"><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
         <div>
           <p class="text-xs text-ousi-muted mb-2">Medium (default)</p>
           <OButtonGroup>
             <OButton variant="secondary">First</OButton>
-            <OButton variant="secondary"><OButtonGroup.Separator />Second</OButton>
-            <OButton variant="secondary"><OButtonGroup.Separator />Third</OButton>
+            <OButton variant="secondary"><OButtonGroupSeparator />Second</OButton>
+            <OButton variant="secondary"><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
         <div>
           <p class="text-xs text-ousi-muted mb-2">Large</p>
           <OButtonGroup>
             <OButton size="lg" variant="secondary">First</OButton>
-            <OButton size="lg" variant="secondary"><OButtonGroup.Separator />Second</OButton>
-            <OButton size="lg" variant="secondary"><OButtonGroup.Separator />Third</OButton>
+            <OButton size="lg" variant="secondary"><OButtonGroupSeparator />Second</OButton>
+            <OButton size="lg" variant="secondary"><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
       </div>
@@ -3458,11 +3434,11 @@ function toggleTheme() {
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
             </OButton>
             <OButton variant="secondary" is-icon-only>
-              <OButtonGroup.Separator />
+              <OButtonGroupSeparator />
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
             </OButton>
             <OButton variant="secondary" is-icon-only>
-              <OButtonGroup.Separator />
+              <OButtonGroupSeparator />
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
             </OButton>
           </OButtonGroup>
@@ -3474,11 +3450,11 @@ function toggleTheme() {
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
             </OButton>
             <OButton variant="secondary" is-icon-only>
-              <OButtonGroup.Separator />
+              <OButtonGroupSeparator />
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
             </OButton>
             <OButton variant="secondary" is-icon-only>
-              <OButtonGroup.Separator />
+              <OButtonGroupSeparator />
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
             </OButton>
           </OButtonGroup>
@@ -3496,12 +3472,12 @@ function toggleTheme() {
             Search
           </OButton>
           <OButton variant="secondary">
-            <OButtonGroup.Separator />
+            <OButtonGroupSeparator />
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add
           </OButton>
           <OButton variant="secondary">
-            <OButtonGroup.Separator />
+            <OButtonGroupSeparator />
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
             Delete
           </OButton>
@@ -3515,8 +3491,8 @@ function toggleTheme() {
       <div class="max-w-md space-y-3">
         <OButtonGroup full-width>
           <OButton variant="secondary">First</OButton>
-          <OButton variant="secondary"><OButtonGroup.Separator />Second</OButton>
-          <OButton variant="secondary"><OButtonGroup.Separator />Third</OButton>
+          <OButton variant="secondary"><OButtonGroupSeparator />Second</OButton>
+          <OButton variant="secondary"><OButtonGroupSeparator />Third</OButton>
         </OButtonGroup>
       </div>
     </section>
@@ -3529,16 +3505,16 @@ function toggleTheme() {
           <p class="text-xs text-ousi-muted mb-2">All disabled</p>
           <OButtonGroup>
             <OButton disabled>First</OButton>
-            <OButton disabled><OButtonGroup.Separator />Second</OButton>
-            <OButton disabled><OButtonGroup.Separator />Third</OButton>
+            <OButton disabled><OButtonGroupSeparator />Second</OButton>
+            <OButton disabled><OButtonGroupSeparator />Third</OButton>
           </OButtonGroup>
         </div>
         <div>
           <p class="text-xs text-ousi-muted mb-2">Mixed (Third enabled)</p>
           <OButtonGroup>
             <OButton disabled>First</OButton>
-            <OButton disabled><OButtonGroup.Separator />Second</OButton>
-            <OButton><OButtonGroup.Separator />Third (enabled)</OButton>
+            <OButton disabled><OButtonGroupSeparator />Second</OButton>
+            <OButton><OButtonGroupSeparator />Third (enabled)</OButton>
           </OButtonGroup>
         </div>
       </div>
@@ -3649,13 +3625,13 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">In Card</h2>
       <OCard class="w-fit" variant="secondary">
-        <OCard.Content>
+        <OCardContent>
           <OCalendar v-model="calDate1" show-year-picker />
-        </OCard.Content>
-        <OCard.Footer class="justify-between">
-          <OButton variant="ghost" size="sm" @click="calDate1 = null">Clear</OButton>
+        </OCardContent>
+        <OCardFooter class="justify-between">
+          <OButton variant="text" size="sm" @click="calDate1 = null">Clear</OButton>
           <OButton size="sm">Apply</OButton>
-        </OCard.Footer>
+        </OCardFooter>
       </OCard>
     </section>
 
@@ -3770,7 +3746,7 @@ function toggleTheme() {
                 </div>
                 <div class="flex gap-2">
                   <OButton size="sm" variant="soft" @click="close">Details</OButton>
-                  <OButton size="sm" variant="ghost" @click="close">Dismiss</OButton>
+                  <OButton size="sm" variant="text" @click="close">Dismiss</OButton>
                 </div>
               </div>
             </template>
@@ -3870,7 +3846,7 @@ function toggleTheme() {
         <template #default="{ close }">
           <ORangeCalendar v-model="rangePicker" />
           <div class="flex justify-end gap-2 px-4 pb-3">
-            <OButton variant="ghost" size="sm" @click="rangePicker = null">Clear</OButton>
+            <OButton variant="text" size="sm" @click="rangePicker = null">Clear</OButton>
             <OButton size="sm" @click="close">Apply</OButton>
           </div>
         </template>
@@ -3934,7 +3910,7 @@ function toggleTheme() {
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">In Card</h2>
       <OCard variant="secondary" class="max-w-sm">
-        <OCard.Content class="gap-4">
+        <OCardContent class="gap-4">
           <div class="flex justify-between items-center">
             <p class="text-sm font-medium text-ousi-foreground">Project Progress</p>
             <span class="text-sm text-ousi-muted">3 of 5 tasks</span>
@@ -3947,7 +3923,7 @@ function toggleTheme() {
             <OProgressBar :value="20" size="sm" color="danger" label="Testing" show-value-label />
             <OProgressBar size="sm" color="accent" label="Deployment" />
           </div>
-        </OCard.Content>
+        </OCardContent>
       </OCard>
     </section>
 
@@ -4017,22 +3993,22 @@ function toggleTheme() {
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">In Card</h2>
       <div class="flex gap-4">
         <OCard class="flex-1 max-w-48">
-          <OCard.Content class="items-center gap-3">
+          <OCardContent class="items-center gap-3">
             <OProgressCircle :value="87" color="success" size="lg" show-value-label />
             <div class="text-center">
               <p class="text-sm font-medium text-ousi-foreground">CPU Usage</p>
               <p class="text-xs text-ousi-muted">8 cores active</p>
             </div>
-          </OCard.Content>
+          </OCardContent>
         </OCard>
         <OCard class="flex-1 max-w-48">
-          <OCard.Content class="items-center gap-3">
+          <OCardContent class="items-center gap-3">
             <OProgressCircle :value="34" color="warning" size="lg" show-value-label />
             <div class="text-center">
               <p class="text-sm font-medium text-ousi-foreground">Memory</p>
               <p class="text-xs text-ousi-muted">5.4 / 16 GB</p>
             </div>
-          </OCard.Content>
+          </OCardContent>
         </OCard>
       </div>
     </section>
@@ -4138,7 +4114,7 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Basic</h2>
       <div class="max-w-sm">
-        <OColorField v-model="cfBrand" label="Brand color" full-width />
+        <OColorField v-model="cfBrand" label="Brand color" />
         <p class="text-xs text-ousi-muted font-mono mt-2">v-model: "{{ cfBrand }}"</p>
       </div>
     </section>
@@ -4147,8 +4123,8 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Output Formats</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg">
-        <OColorField v-model="cfHex" format="hex" label="Hex format" full-width />
-        <OColorField v-model="cfRgb" format="rgb" label="RGB format" full-width />
+        <OColorField v-model="cfHex" format="hex" label="Hex format" />
+        <OColorField v-model="cfRgb" format="rgb" label="RGB format" />
       </div>
     </section>
 
@@ -4156,7 +4132,7 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Without Swatch</h2>
       <div class="max-w-sm">
-        <OColorField model-value="#F5A524" :show-swatch="false" label="No preview" full-width />
+        <OColorField model-value="#F5A524" :show-swatch="false" label="No preview" />
       </div>
     </section>
 
@@ -4164,7 +4140,7 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">With Presets</h2>
       <div class="flex flex-col gap-2 max-w-sm">
-        <OColorField v-model="cfPresetColor" label="Custom color" full-width />
+        <OColorField v-model="cfPresetColor" label="Custom color" />
         <div class="flex gap-1.5 flex-wrap">
           <button
             v-for="c in cfPresets"
@@ -4182,20 +4158,20 @@ function toggleTheme() {
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Theme Editor</h2>
       <OCard variant="secondary" class="max-w-sm">
-        <OCard.Header>
-          <OCard.Title>Theme Colors</OCard.Title>
-          <OCard.Description>Customize your brand colors</OCard.Description>
-        </OCard.Header>
-        <OCard.Content class="gap-3">
-          <OColorField v-model="themeColors.primary" label="Primary" variant="secondary" full-width />
-          <OColorField v-model="themeColors.secondary" label="Secondary" variant="secondary" full-width />
-          <OColorField v-model="themeColors.background" label="Background" variant="secondary" full-width />
-          <OColorField v-model="themeColors.text" label="Text" variant="secondary" full-width />
-        </OCard.Content>
-        <OCard.Footer>
-          <OButton variant="ghost" class="mr-auto" size="sm">Reset</OButton>
+        <OCardHeader>
+          <OCardTitle>Theme Colors</OCardTitle>
+          <OCardDescription>Customize your brand colors</OCardDescription>
+        </OCardHeader>
+        <OCardContent class="gap-3">
+          <OColorField v-model="themeColors.primary" label="Primary" variant="secondary" />
+          <OColorField v-model="themeColors.secondary" label="Secondary" variant="secondary" />
+          <OColorField v-model="themeColors.background" label="Background" variant="secondary" />
+          <OColorField v-model="themeColors.text" label="Text" variant="secondary" />
+        </OCardContent>
+        <OCardFooter>
+          <OButton variant="text" class="mr-auto" size="sm">Reset</OButton>
           <OButton size="sm">Save theme</OButton>
-        </OCard.Footer>
+        </OCardFooter>
       </OCard>
     </section>
 
@@ -4280,13 +4256,13 @@ function toggleTheme() {
     <!-- ColorArea: Full Color Picker -->
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Full Color Picker</h2>
-      <div class="flex flex-col gap-3 w-64 p-4 rounded-ousi-3xl bg-ousi-surface shadow-ousi-surface">
+      <div class="flex flex-col gap-3 w-64 p-4 rounded-ousi-3xl bg-ousi-surface shadow-ousi-sm">
         <OColorArea v-model="caArea" :hue="caHue" class="max-w-full" />
         <OColorSlider v-model="caHue" channel="hue" :context-color="{ s: caArea.x, l: 50 }" />
         <OColorSlider v-model="caAlpha" channel="alpha" :context-color="{ h: caHue, s: caArea.x, l: caArea.y / 2 }" />
         <div class="flex items-center gap-2">
           <OColorSwatch :color="caColor" shape="circle" />
-          <OColorField :model-value="caColor" :show-swatch="false" full-width />
+          <OColorField :model-value="caColor" :show-swatch="false" />
         </div>
       </div>
     </section>
@@ -4353,11 +4329,11 @@ function toggleTheme() {
     <section class="mb-14">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Theme Builder</h2>
       <OCard variant="secondary" class="max-w-sm">
-        <OCard.Header>
-          <OCard.Title>Theme Builder</OCard.Title>
-          <OCard.Description>Customize your design tokens</OCard.Description>
-        </OCard.Header>
-        <OCard.Content class="gap-4">
+        <OCardHeader>
+          <OCardTitle>Theme Builder</OCardTitle>
+          <OCardDescription>Customize your design tokens</OCardDescription>
+        </OCardHeader>
+        <OCardContent class="gap-4">
           <div class="flex items-center justify-between">
             <span class="text-sm text-ousi-foreground">Primary</span>
             <OColorPicker show-swatches />
@@ -4372,7 +4348,7 @@ function toggleTheme() {
             <span class="text-sm text-ousi-foreground">Background</span>
             <OColorPicker :default-value="{ h: 0, s: 0, v: 100, a: 1 }" />
           </div>
-        </OCard.Content>
+        </OCardContent>
       </OCard>
     </section>
 
@@ -4533,7 +4509,7 @@ function toggleTheme() {
         <ODatePicker v-model="dpDateUp" label="Opens upward" placement="top-start" />
 
         <!-- Full width -->
-        <ODatePicker v-model="dpFull" label="Full width" :full-width="true" />
+        <ODatePicker v-model="dpFull" label="Full width" />
 
         <!-- Disabled -->
         <ODatePicker
@@ -4553,28 +4529,26 @@ function toggleTheme() {
       <!-- Real-world: booking form -->
       <div class="pt-4">
         <OCard class="max-w-sm">
-          <OCard.Header>
-            <OCard.Title>Book appointment</OCard.Title>
-          </OCard.Header>
-          <OCard.Content class="gap-4">
-            <OInput label="Full name" placeholder="John Doe" full-width />
+          <OCardHeader>
+            <OCardTitle>Book appointment</OCardTitle>
+          </OCardHeader>
+          <OCardContent class="gap-4">
+            <OInput label="Full name" placeholder="John Doe" />
             <ODatePicker
               v-model="bookingDate"
               label="Date"
-              :full-width="true"
               description="Select your preferred date"
               :min-value="{ year: 2025, month: 1, day: 1 }"
             />
             <OSelect
               v-model="bookingTime"
               label="Time slot"
-              :full-width="true"
               :options="timeSlots"
             />
-          </OCard.Content>
-          <OCard.Footer>
+          </OCardContent>
+          <OCardFooter>
             <OButton :full-width="true">Confirm booking</OButton>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
       </div>
     </section>
@@ -4640,7 +4614,7 @@ function toggleTheme() {
         <ODateRangePicker v-model="drpRangeUp" label="Opens upward" placement="top-start" />
 
         <!-- Full width -->
-        <ODateRangePicker v-model="drpFull" label="Full width" :full-width="true" />
+        <ODateRangePicker v-model="drpFull" label="Full width" />
 
         <!-- Disabled -->
         <ODateRangePicker
@@ -4666,21 +4640,19 @@ function toggleTheme() {
       <!-- Real-world: hotel booking -->
       <div class="pt-4">
         <OCard class="max-w-sm">
-          <OCard.Header>
-            <OCard.Title>Book a room</OCard.Title>
-          </OCard.Header>
-          <OCard.Content class="gap-4">
+          <OCardHeader>
+            <OCardTitle>Book a room</OCardTitle>
+          </OCardHeader>
+          <OCardContent class="gap-4">
             <ODateRangePicker
               v-model="hotelDates"
               label="Stay dates"
-              :full-width="true"
               description="Select check-in and check-out"
               :min-value="{ year: 2025, month: 1, day: 1 }"
             />
             <OSelect
               v-model="hotelGuests"
               label="Guests"
-              :full-width="true"
               :options="[
                 { value: 1, label: '1 guest' },
                 { value: 2, label: '2 guests' },
@@ -4688,10 +4660,10 @@ function toggleTheme() {
                 { value: 4, label: '4 guests' },
               ]"
             />
-          </OCard.Content>
-          <OCard.Footer>
+          </OCardContent>
+          <OCardFooter>
             <OButton :full-width="true">Search availability</OButton>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
       </div>
     </section>
@@ -4878,7 +4850,6 @@ function toggleTheme() {
               label="Email"
               placeholder="john@example.com"
               :required="true"
-              full-width
             />
             <OInput
               name="password"
@@ -4886,7 +4857,6 @@ function toggleTheme() {
               label="Password"
               placeholder="Min 8 characters"
               :required="true"
-              full-width
             />
             <div class="flex gap-2">
               <OButton type="submit">Submit</OButton>
@@ -4903,19 +4873,19 @@ function toggleTheme() {
             :validation-errors="formServerErrors"
             @submit.prevent
           >
-            <OInput name="email" label="Email" full-width />
-            <OInput name="username" label="Username" full-width />
+            <OInput name="email" label="Email" />
+            <OInput name="username" label="Username" />
             <OButton type="submit">Submit</OButton>
           </OForm>
         </div>
 
         <!-- Login form -->
         <OCard class="w-full max-w-sm">
-          <OCard.Header>
-            <OCard.Title>Sign in</OCard.Title>
-            <OCard.Description>Enter your credentials to continue</OCard.Description>
-          </OCard.Header>
-          <OCard.Content>
+          <OCardHeader>
+            <OCardTitle>Sign in</OCardTitle>
+            <OCardDescription>Enter your credentials to continue</OCardDescription>
+          </OCardHeader>
+          <OCardContent>
             <OForm
               class="flex flex-col gap-4"
               :validation-errors="loginErrors"
@@ -4927,7 +4897,6 @@ function toggleTheme() {
                 label="Email"
                 placeholder="you@example.com"
                 :required="true"
-                full-width
               />
               <OInput
                 name="password"
@@ -4935,7 +4904,6 @@ function toggleTheme() {
                 label="Password"
                 placeholder="........"
                 :required="true"
-                full-width
               />
               <div class="flex items-center justify-between">
                 <OCheckbox label="Remember me" />
@@ -4945,40 +4913,39 @@ function toggleTheme() {
                 Sign in
               </OButton>
             </OForm>
-          </OCard.Content>
-          <OCard.Footer class="justify-center">
+          </OCardContent>
+          <OCardFooter class="justify-center">
             <p class="text-sm text-ousi-muted">
               Don't have an account?
               <a href="#" class="text-sm text-ousi-accent hover:underline">Sign up</a>
             </p>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
 
         <!-- Register form -->
         <OCard class="w-full max-w-sm">
-          <OCard.Header>
-            <OCard.Title>Create account</OCard.Title>
-          </OCard.Header>
-          <OCard.Content>
+          <OCardHeader>
+            <OCardTitle>Create account</OCardTitle>
+          </OCardHeader>
+          <OCardContent>
             <OForm class="flex flex-col gap-4" @submit.prevent="toast.success('Account created!')">
               <div class="flex gap-3">
-                <OInput name="firstName" label="First name" :required="true" full-width />
-                <OInput name="lastName" label="Last name" :required="true" full-width />
+                <OInput name="firstName" label="First name" :required="true" />
+                <OInput name="lastName" label="Last name" :required="true" />
               </div>
-              <OInput name="email" type="email" label="Email" :required="true" full-width />
+              <OInput name="email" type="email" label="Email" :required="true" />
               <OInput
                 name="password"
                 type="password"
                 label="Password"
                 description="Min 8 characters with 1 uppercase and 1 number"
                 :required="true"
-                full-width
               />
               <OCheckbox label="I agree to the Terms of Service" :required="true" />
               <OButton type="submit" :full-width="true">Create account</OButton>
-              <OButton type="reset" variant="ghost" :full-width="true">Clear</OButton>
+              <OButton type="reset" variant="text" :full-width="true">Clear</OButton>
             </OForm>
-          </OCard.Content>
+          </OCardContent>
         </OCard>
 
         <!-- With global alert -->
@@ -4992,8 +4959,8 @@ function toggleTheme() {
               :closable="true"
               @close="globalError = null"
             />
-            <OInput name="email" type="email" label="Email" :required="true" full-width />
-            <OInput name="password" type="password" label="Password" :required="true" full-width />
+            <OInput name="email" type="email" label="Email" :required="true" />
+            <OInput name="password" type="password" label="Password" :required="true" />
             <OButton type="submit" :full-width="true">Sign in</OButton>
           </OForm>
         </div>
@@ -5084,13 +5051,13 @@ function toggleTheme() {
       <!-- Real-world: 2FA verification -->
       <div class="max-w-sm">
         <OCard>
-          <OCard.Header>
-            <OCard.Title>Two-factor authentication</OCard.Title>
-            <OCard.Description>
+          <OCardHeader>
+            <OCardTitle>Two-factor authentication</OCardTitle>
+            <OCardDescription>
               Enter the 6-digit code from your authenticator app
-            </OCard.Description>
-          </OCard.Header>
-          <OCard.Content class="items-center gap-4">
+            </OCardDescription>
+          </OCardHeader>
+          <OCardContent class="items-center gap-4">
             <OInputOtp
               v-model="twoFaCode"
               :groups="[{ slots: 3 }, { slots: 3 }]"
@@ -5106,13 +5073,13 @@ function toggleTheme() {
             >
               Verify
             </OButton>
-          </OCard.Content>
-          <OCard.Footer class="justify-center">
+          </OCardContent>
+          <OCardFooter class="justify-center">
             <p class="text-sm text-ousi-muted">
               Didn't receive a code?
               <button class="text-ousi-accent hover:underline">Resend</button>
             </p>
-          </OCard.Footer>
+          </OCardFooter>
         </OCard>
       </div>
     </section>
@@ -5316,22 +5283,22 @@ function toggleTheme() {
       <!-- System stats card -->
       <div class="max-w-sm">
         <OCard>
-          <OCard.Header>
-            <OCard.Title>System Resources</OCard.Title>
-          </OCard.Header>
-          <OCard.Content class="gap-4">
+          <OCardHeader>
+            <OCardTitle>System Resources</OCardTitle>
+          </OCardHeader>
+          <OCardContent class="gap-4">
             <OMeter :value="23" :auto-color="true" :optimum="0" label="CPU" :show-value-label="true" size="sm" />
             <OMeter :value="67" :auto-color="true" :optimum="0" label="Memory" :show-value-label="true" size="sm" />
             <OMeter :value="82" :auto-color="true" :optimum="0" label="Disk I/O" :show-value-label="true" size="sm" />
             <OMeter :value="12" :auto-color="true" :optimum="0" label="Network" :show-value-label="true" size="sm" />
-          </OCard.Content>
+          </OCardContent>
         </OCard>
       </div>
 
       <!-- Storage card -->
       <div class="max-w-sm">
         <OCard>
-          <OCard.Content class="gap-3">
+          <OCardContent class="gap-3">
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-ousi-foreground">Storage</p>
@@ -5343,7 +5310,7 @@ function toggleTheme() {
               <span>54 GB used</span>
               <span>202 GB free</span>
             </div>
-          </OCard.Content>
+          </OCardContent>
         </OCard>
       </div>
     </section>
@@ -5411,7 +5378,7 @@ function toggleTheme() {
         <ONumberField size="lg" label="Large" v-model="nfS3" />
 
         <!-- Full width -->
-        <ONumberField :full-width="true" label="Full width" v-model="nfFw" class="md:col-span-2" />
+        <ONumberField label="Full width" v-model="nfFw" class="md:col-span-2" />
 
         <!-- States -->
         <ONumberField label="Disabled" :disabled="true" :model-value="42" />
@@ -5464,7 +5431,7 @@ function toggleTheme() {
       <!-- Real-world: cart -->
       <div class="max-w-sm">
         <OCard>
-          <OCard.Content class="gap-4">
+          <OCardContent class="gap-4">
             <div class="flex items-center justify-between gap-4">
               <div>
                 <p class="text-sm font-medium text-ousi-foreground">Wireless Headphones</p>
@@ -5477,7 +5444,7 @@ function toggleTheme() {
               <span class="text-sm font-medium text-ousi-foreground">Total</span>
               <span class="text-sm font-medium text-ousi-foreground">${{ ((nfCart ?? 0) * 99).toFixed(2) }}</span>
             </div>
-          </OCard.Content>
+          </OCardContent>
         </OCard>
       </div>
 
@@ -5725,16 +5692,16 @@ function toggleTheme() {
       <div class="space-y-2">
         <h3 class="text-sm font-semibold text-ousi-foreground">Dashboard card</h3>
         <OCard class="w-full">
-          <OCard.Header>
+          <OCardHeader>
             <div class="flex w-full items-center justify-between">
               <div>
-                <OCard.Title>Team members</OCard.Title>
-                <OCard.Description>Manage your team</OCard.Description>
+                <OCardTitle>Team members</OCardTitle>
+                <OCardDescription>Manage your team</OCardDescription>
               </div>
               <OButton size="sm">Add member</OButton>
             </div>
-          </OCard.Header>
-          <OCard.Content class="p-0">
+          </OCardHeader>
+          <OCardContent class="p-0">
             <OTable
               :columns="tblColumns"
               :rows="tblRows"
@@ -5765,7 +5732,7 @@ function toggleTheme() {
                 </div>
               </template>
             </OTable>
-          </OCard.Content>
+          </OCardContent>
         </OCard>
       </div>
     </section>

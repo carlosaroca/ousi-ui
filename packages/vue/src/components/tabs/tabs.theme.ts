@@ -30,6 +30,12 @@ export const tabsListTheme = cva(
         horizontal: 'w-full flex-row',
         vertical: 'flex-col gap-1',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
     },
     compoundVariants: [
       { variant: 'secondary', orientation: 'horizontal', class: 'border-b overflow-x-auto' },
@@ -38,7 +44,7 @@ export const tabsListTheme = cva(
       { variant: 'secondary', size: 'md', class: 'p-0' },
       { variant: 'secondary', size: 'lg', class: 'p-0' },
     ],
-    defaultVariants: { variant: 'primary', size: 'md', orientation: 'horizontal' },
+    defaultVariants: { variant: 'primary', size: 'md', orientation: 'horizontal', shadow: 'none' },
   },
 )
 
@@ -81,7 +87,7 @@ export const tabIndicatorTheme = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-ousi-surface shadow-ousi-surface rounded-ousi-2xl',
+        primary: 'bg-ousi-surface shadow-ousi-sm rounded-ousi-2xl',
         secondary: 'bg-ousi-accent',
       },
       orientation: {

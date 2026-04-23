@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<RatingProps>(), {
   readOnly: false,
   disabled: false,
   halfStars: false,
+  shadow: 'none',
 })
 
 const emit = defineEmits<RatingEmits>()
@@ -120,7 +121,7 @@ const starPath = 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
 <template>
   <div
     :class="cn(
-      ratingTheme,
+      ratingTheme({ shadow }),
       props.disabled && 'opacity-50 pointer-events-none',
       props.class,
     )"

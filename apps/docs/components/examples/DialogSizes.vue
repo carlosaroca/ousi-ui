@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ODialog, OButton } from '@ousi-ui/vue'
+import { ODialog, ODialogHeader, ODialogBody, ODialogFooter, OButton } from '@ousi-ui/vue'
 const open = ref(false)
 const size = ref<'sm' | 'lg' | 'full'>('sm')
 function show(s: 'sm' | 'lg' | 'full') { size.value = s; open.value = true }
@@ -12,10 +12,10 @@ function show(s: 'sm' | 'lg' | 'full') { size.value = s; open.value = true }
     <OButton variant="outline" @click="show('full')">Full</OButton>
   </div>
   <ODialog v-model="open" :size="size">
-    <ODialog.Header>{{ size }} Dialog</ODialog.Header>
-    <ODialog.Body>Content for the {{ size }} size dialog.</ODialog.Body>
-    <ODialog.Footer>
+    <ODialogHeader>{{ size }} Dialog</ODialogHeader>
+    <ODialogBody>Content for the {{ size }} size dialog.</ODialogBody>
+    <ODialogFooter>
       <OButton @click="open = false">Close</OButton>
-    </ODialog.Footer>
+    </ODialogFooter>
   </ODialog>
 </template>

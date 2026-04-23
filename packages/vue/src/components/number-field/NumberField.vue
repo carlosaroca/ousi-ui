@@ -21,9 +21,10 @@ const props = withDefaults(defineProps<NumberFieldProps>(), {
   disabled: false,
   readonly: false,
   required: false,
-  fullWidth: false,
   showButtons: true,
   locale: 'en-US',
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<NumberFieldEmits>()
@@ -149,7 +150,7 @@ onBeforeUnmount(stopHold)
 </script>
 
 <template>
-  <div :class="cn(numberFieldWrapperTheme({ fullWidth }), props.class)">
+  <div :class="cn(numberFieldWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
@@ -161,7 +162,7 @@ onBeforeUnmount(stopHold)
 
     <!-- Group: [−] [input] [+] -->
     <div
-      :class="numberFieldGroupTheme({ variant, size, showButtons })"
+      :class="numberFieldGroupTheme({ variant, size, showButtons, shadow, animated })"
       :data-invalid="isInvalid || undefined"
       :data-disabled="disabled || undefined"
     >

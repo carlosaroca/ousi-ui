@@ -68,6 +68,7 @@ const enabled = ref(true)
 
   props: [
     { name: 'modelValue', type: 'boolean', default: 'false', description: 'Controlled checked state (v-model).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'defaultValue', type: 'boolean', default: 'false', description: 'Default checked state when uncontrolled.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Help text below the label.' },

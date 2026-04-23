@@ -1,8 +1,10 @@
 {
-  "extends": "../../tooling/tsconfig/vue.json",
+  "extends": "../../tooling/tsconfig/base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "types": [],
+    "lib": ["ES2022"]
   },
   "include": ["src"]
 }

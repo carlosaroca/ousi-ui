@@ -6,6 +6,7 @@ import {
   radioLabelTheme,
   radioDescriptionTheme,
   radioContentTheme,
+  radioControlShadowTheme,
 } from './radio.theme'
 import type { RadioProps } from './radio.types'
 
@@ -18,6 +19,7 @@ const group = useRadioGroupContext()
 const isSelected = computed(() => group?.selectedValue.value === props.value)
 const isDisabled = computed(() => props.disabled || (group?.disabled.value ?? false))
 const isInvalid = computed(() => group?.isInvalid.value ?? false)
+const shadow = computed(() => group?.shadow.value ?? 'none')
 
 function select() {
   if (isDisabled.value) return
@@ -78,7 +80,10 @@ const dotStyle = computed(() => ({
   >
     <!-- Control circle -->
     <div
-      class="relative mt-px inline-flex shrink-0 items-center justify-center group-focus-visible:ring-2 group-focus-visible:ring-ousi-focus group-focus-visible:ring-offset-2 rounded-full"
+      :class="cn(
+        'relative mt-px inline-flex shrink-0 items-center justify-center group-focus-visible:ring-2 group-focus-visible:ring-ousi-focus group-focus-visible:ring-offset-2 rounded-full',
+        radioControlShadowTheme[shadow],
+      )"
       :style="controlStyle"
     >
       <!-- Custom indicator slot or default dot -->

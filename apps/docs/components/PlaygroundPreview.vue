@@ -2,7 +2,7 @@
 import {
   OButton, OInput, OSelect, OCheckbox, OSwitch, ORadio, ORadioGroup,
   OSpinner, OSlider, OInputOtp, OAccordion, OAnimatedNumber, OChart,
-  OAvatar, OTooltip, OSeparator, OKbd, OTabs, OCard, OScrollShadow,
+  OAvatar, OTooltip, OSeparator, OKbd, OTabs, OCard, OCardHeader, OCardTitle, OCardDescription, OCardContent, OScrollShadow,
 } from '@ousi-ui/vue'
 import type { SelectOption, TabItem, ChartPoint } from '@ousi-ui/vue'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
@@ -189,10 +189,10 @@ onUnmounted(() => { if (chartInterval) clearInterval(chartInterval) })
 
             <!-- Animated Numbers -->
             <OCard class="w-[256px]">
-              <OCard.Header>
-                <OCard.Title class="text-xs font-medium text-ousi-muted">Animated Numbers</OCard.Title>
-              </OCard.Header>
-              <OCard.Content class="gap-3">
+              <OCardHeader>
+                <OCardTitle class="text-xs font-medium text-ousi-muted">Animated Numbers</OCardTitle>
+              </OCardHeader>
+              <OCardContent class="gap-3">
                 <div v-for="(anim, i) in animations" :key="anim" class="flex items-center justify-between">
                   <span class="text-xs text-ousi-muted capitalize">{{ anim }}</span>
                   <OAnimatedNumber
@@ -204,7 +204,7 @@ onUnmounted(() => { if (chartInterval) clearInterval(chartInterval) })
                     class="text-sm font-semibold text-ousi-foreground tabular-nums"
                   />
                 </div>
-              </OCard.Content>
+              </OCardContent>
             </OCard>
           </div>
 
@@ -244,7 +244,7 @@ onUnmounted(() => { if (chartInterval) clearInterval(chartInterval) })
               <OButton size="sm" variant="outline">Click me</OButton>
               <OButton size="sm" variant="danger">Click me</OButton>
               <OButton size="sm" variant="danger-soft">Click me</OButton>
-              <OButton size="sm" variant="ghost">Click me</OButton>
+              <OButton size="sm" variant="text">Click me</OButton>
             </div>
 
             <!-- Accordion -->
@@ -287,13 +287,13 @@ onUnmounted(() => { if (chartInterval) clearInterval(chartInterval) })
           <div class="order-3 grid w-full max-w-[360px] grid-cols-1 justify-items-center gap-5 self-start md:col-span-2 md:grid-cols-2 lg:col-span-1 lg:grid-cols-1">
             <!-- Login card -->
             <OCard class="w-full max-w-[320px]">
-              <OCard.Header class="flex w-full items-center justify-center gap-2">
+              <OCardHeader class="flex w-full items-center justify-center gap-2">
                 <div class="flex size-10 items-center justify-center rounded-full bg-ousi-default">
                   <svg class="size-5 text-ousi-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                 </div>
-              </OCard.Header>
-              <OCard.Content class="gap-2">
-                <OCard.Title class="text-center">Create an account</OCard.Title>
+              </OCardHeader>
+              <OCardContent class="gap-2">
+                <OCardTitle class="text-center">Create an account</OCardTitle>
                 <p class="text-center text-sm font-medium text-ousi-muted">Start your free 7-day trial. No credit card required.</p>
                 <OButton class="w-full">Get Started</OButton>
                 <div class="flex w-full items-center gap-2 py-2">
@@ -309,15 +309,15 @@ onUnmounted(() => { if (chartInterval) clearInterval(chartInterval) })
                   <svg class="size-4 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                   Continue with Apple
                 </OButton>
-              </OCard.Content>
+              </OCardContent>
             </OCard>
 
             <!-- Chart -->
             <OCard class="w-full max-w-[320px] !p-0 overflow-hidden">
-              <OCard.Header class="px-4 pt-4 pb-1">
-                <OCard.Description class="text-xs">Revenue</OCard.Description>
-                <OCard.Title class="text-lg tabular-nums">${{ chartValue.toFixed(2) }}</OCard.Title>
-              </OCard.Header>
+              <OCardHeader class="px-4 pt-4 pb-1">
+                <OCardDescription class="text-xs">Revenue</OCardDescription>
+                <OCardTitle class="text-lg tabular-nums">${{ chartValue.toFixed(2) }}</OCardTitle>
+              </OCardHeader>
               <div class="h-[140px] w-full">
                 <OChart
                   :data="chartData"

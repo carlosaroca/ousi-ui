@@ -85,9 +85,9 @@ export const timelineData: ComponentData = {
         code: `<OTimeline :items="items">
   <template #content-1="{ item }">
     <OCard>
-      <OCard.Content>
+      <OCardContent>
         <p class="font-medium">{{ item.content }}</p>
-      </OCard.Content>
+      </OCardContent>
     </OCard>
   </template>
 </OTimeline>`,

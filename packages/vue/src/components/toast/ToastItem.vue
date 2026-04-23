@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toastItemTheme, toastIndicatorTheme, toastTitleTheme } from './toast.theme'
-import type { ToastItem } from './toast.types'
+import type { ToastItem, ToastShadow } from './toast.types'
 
-defineProps<{
+withDefaults(defineProps<{
   item: ToastItem
   isFrontmost: boolean
-}>()
+  shadow?: ToastShadow
+}>(), {
+  shadow: 'lg',
+})
 
 const emit = defineEmits<{ close: [id: string] }>()
 
@@ -26,7 +29,7 @@ const spinnerSvg = '<circle cx="12" cy="12" r="10" stroke-opacity="0.25"/><path 
 
 <template>
   <div
-    :class="toastItemTheme({ variant: item.variant })"
+    :class="toastItemTheme({ variant: item.variant, shadow })"
     role="alert"
     aria-live="polite"
     aria-atomic="true"

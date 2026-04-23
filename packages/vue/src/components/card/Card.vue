@@ -5,6 +5,7 @@ import type { CardProps } from './card.types'
 
 const props = withDefaults(defineProps<CardProps>(), {
   variant: 'default',
+  shadow: 'none',
   as: 'div',
 })
 </script>
@@ -12,7 +13,7 @@ const props = withDefaults(defineProps<CardProps>(), {
 <template>
   <component
     :is="as"
-    :class="cn(cardTheme({ variant }), props.class)"
+    :class="cn(cardTheme({ variant, shadow }), props.class)"
   >
     <slot />
   </component>

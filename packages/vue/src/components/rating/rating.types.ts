@@ -1,5 +1,6 @@
 export type RatingSize = 'sm' | 'md' | 'lg'
 export type RatingColor = 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+export type RatingShadow = 'none' | 'xs' | 'sm'
 
 export interface RatingProps {
   modelValue?: number
@@ -10,6 +11,8 @@ export interface RatingProps {
   readOnly?: boolean
   disabled?: boolean
   halfStars?: boolean
+  /** Elevation shadow. Defaults to 'none'. */
+  shadow?: RatingShadow
   class?: string
 }
 

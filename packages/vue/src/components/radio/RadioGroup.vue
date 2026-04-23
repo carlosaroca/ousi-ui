@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<RadioGroupProps>(), {
   orientation: 'vertical',
   disabled: false,
   required: false,
+  shadow: 'none',
 })
 
 const emit = defineEmits<RadioGroupEmits>()
@@ -39,6 +40,7 @@ provideRadioGroup({
   selectedValue,
   disabled: computed(() => props.disabled),
   isInvalid,
+  shadow: computed(() => props.shadow),
   select: (value: string) => {
     const preset = props.haptic !== undefined ? props.haptic : 'selection' as const
     triggerHaptic(preset)

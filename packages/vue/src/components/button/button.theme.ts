@@ -28,7 +28,7 @@ export const buttonTheme = cva(
           'border border-ousi-border bg-transparent text-ousi-default-foreground',
           'hover:bg-ousi-default',
         ],
-        ghost: [
+        text: [
           'bg-transparent text-ousi-default-foreground',
           'hover:bg-ousi-default',
         ],
@@ -58,6 +58,12 @@ export const buttonTheme = cva(
         true: 'w-full',
         false: '',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
     },
     compoundVariants: [
       { size: 'sm', isIconOnly: true, class: 'w-9 md:w-8' },
@@ -68,6 +74,7 @@ export const buttonTheme = cva(
       size: 'md',
       isIconOnly: false,
       fullWidth: false,
+      shadow: 'none',
     },
   },
 )

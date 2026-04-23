@@ -13,8 +13,16 @@ export const kbdTheme = cva(
         default: 'bg-ousi-default',
         light: 'bg-transparent',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+      },
     },
-    defaultVariants: { variant: 'default' },
+    defaultVariants: {
+      variant: 'default',
+      shadow: 'none',
+    },
   },
 )
 

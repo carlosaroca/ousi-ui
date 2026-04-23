@@ -118,7 +118,7 @@ const tocItems = [
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden mb-4">
-          <CodeBlock :code="`<!-- Button variants -->\n<OButton variant=&quot;solid&quot;>Solid</OButton>\n<OButton variant=&quot;flat&quot;>Flat</OButton>\n<OButton variant=&quot;outline&quot;>Outline</OButton>\n<OButton variant=&quot;ghost&quot;>Ghost</OButton>\n<OButton variant=&quot;soft&quot;>Soft</OButton>\n\n<!-- Combine variant + size + color -->\n<OButton variant=&quot;solid&quot; size=&quot;lg&quot; color=&quot;accent&quot;>\n  Large Accent Button\n</OButton>\n\n<OButton variant=&quot;outline&quot; size=&quot;sm&quot; color=&quot;danger&quot;>\n  Small Danger Outline\n</OButton>`" show-copy />
+          <CodeBlock :code="`<!-- Button variants -->\n<OButton variant=&quot;solid&quot;>Solid</OButton>\n<OButton variant=&quot;flat&quot;>Flat</OButton>\n<OButton variant=&quot;outline&quot;>Outline</OButton>\n<OButton variant=&quot;text&quot;>Text</OButton>\n<OButton variant=&quot;soft&quot;>Soft</OButton>\n\n<!-- Combine variant + size + color -->\n<OButton variant=&quot;solid&quot; size=&quot;lg&quot; color=&quot;accent&quot;>\n  Large Accent Button\n</OButton>\n\n<OButton variant=&quot;outline&quot; size=&quot;sm&quot; color=&quot;danger&quot;>\n  Small Danger Outline\n</OButton>`" show-copy />
         </div>
 
         <div class="overflow-x-auto rounded-ousi-xl border border-ousi-border">
@@ -147,7 +147,7 @@ const tocItems = [
                 <td class="px-4 py-3 text-ousi-foreground">Secondary actions, form controls</td>
               </tr>
               <tr class="border-b border-ousi-border">
-                <td class="px-4 py-3 font-mono text-xs text-ousi-accent">ghost</td>
+                <td class="px-4 py-3 font-mono text-xs text-ousi-accent">text</td>
                 <td class="px-4 py-3 text-xs text-ousi-muted">Transparent, no border, hover fill</td>
                 <td class="px-4 py-3 text-ousi-foreground">Tertiary actions, icon buttons</td>
               </tr>
@@ -239,7 +239,7 @@ const tocItems = [
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
-          <CodeBlock :code="`<script setup>\nconst props = defineProps<{\n  title: string\n  description: string\n  icon?: string\n  action?: string\n}>()\n</script>\n\n<template>\n  <OCard class=&quot;group hover:border-ousi-accent/50 transition-colors&quot;>\n    <template #header>\n      <div class=&quot;flex items-center gap-3&quot;>\n        <div class=&quot;size-10 rounded-ousi-lg bg-ousi-accent/10 flex items-center justify-center&quot;>\n          <span class=&quot;text-ousi-accent text-lg&quot;>{{ icon }}</span>\n        </div>\n        <div>\n          <h3 class=&quot;font-semibold text-ousi-foreground&quot;>{{ title }}</h3>\n          <p class=&quot;text-xs text-ousi-muted&quot;>{{ description }}</p>\n        </div>\n      </div>\n    </template>\n\n    <slot />\n\n    <template v-if=&quot;action&quot; #footer>\n      <OButton variant=&quot;ghost&quot; size=&quot;sm&quot; class=&quot;ml-auto&quot;>\n        {{ action }}\n      </OButton>\n    </template>\n  </OCard>\n</template>`" show-copy />
+          <CodeBlock :code="`<script setup>\nconst props = defineProps<{\n  title: string\n  description: string\n  icon?: string\n  action?: string\n}>()\n</script>\n\n<template>\n  <OCard class=&quot;group hover:border-ousi-accent/50 transition-colors&quot;>\n    <template #header>\n      <div class=&quot;flex items-center gap-3&quot;>\n        <div class=&quot;size-10 rounded-ousi-lg bg-ousi-accent/10 flex items-center justify-center&quot;>\n          <span class=&quot;text-ousi-accent text-lg&quot;>{{ icon }}</span>\n        </div>\n        <div>\n          <h3 class=&quot;font-semibold text-ousi-foreground&quot;>{{ title }}</h3>\n          <p class=&quot;text-xs text-ousi-muted&quot;>{{ description }}</p>\n        </div>\n      </div>\n    </template>\n\n    <slot />\n\n    <template v-if=&quot;action&quot; #footer>\n      <OButton variant=&quot;text&quot; size=&quot;sm&quot; class=&quot;ml-auto&quot;>\n        {{ action }}\n      </OButton>\n    </template>\n  </OCard>\n</template>`" show-copy />
         </div>
       </section>
 
@@ -257,7 +257,7 @@ const tocItems = [
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden mb-4">
-          <CodeBlock :code="`<!-- Responsive button sizing -->\n<OButton size=&quot;sm&quot; class=&quot;md:size-md lg:size-lg&quot;>\n  Responsive Button\n</OButton>\n\n<!-- Stack on mobile, row on desktop -->\n<div class=&quot;flex flex-col sm:flex-row gap-2&quot;>\n  <OButton variant=&quot;solid&quot; class=&quot;w-full sm:w-auto&quot;>Confirm</OButton>\n  <OButton variant=&quot;outline&quot; class=&quot;w-full sm:w-auto&quot;>Cancel</OButton>\n</div>\n\n<!-- Responsive card grid -->\n<div class=&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4&quot;>\n  <OCard class=&quot;p-4 md:p-6&quot;>Card 1</OCard>\n  <OCard class=&quot;p-4 md:p-6&quot;>Card 2</OCard>\n  <OCard class=&quot;p-4 md:p-6&quot;>Card 3</OCard>\n</div>\n\n<!-- Hide/show elements at breakpoints -->\n<OButton variant=&quot;ghost&quot; class=&quot;md:hidden&quot;>Mobile Menu</OButton>\n<OButton variant=&quot;ghost&quot; class=&quot;hidden md:inline-flex&quot;>Desktop Nav</OButton>`" show-copy />
+          <CodeBlock :code="`<!-- Responsive button sizing -->\n<OButton size=&quot;sm&quot; class=&quot;md:size-md lg:size-lg&quot;>\n  Responsive Button\n</OButton>\n\n<!-- Stack on mobile, row on desktop -->\n<div class=&quot;flex flex-col sm:flex-row gap-2&quot;>\n  <OButton variant=&quot;solid&quot; class=&quot;w-full sm:w-auto&quot;>Confirm</OButton>\n  <OButton variant=&quot;outline&quot; class=&quot;w-full sm:w-auto&quot;>Cancel</OButton>\n</div>\n\n<!-- Responsive card grid -->\n<div class=&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4&quot;>\n  <OCard class=&quot;p-4 md:p-6&quot;>Card 1</OCard>\n  <OCard class=&quot;p-4 md:p-6&quot;>Card 2</OCard>\n  <OCard class=&quot;p-4 md:p-6&quot;>Card 3</OCard>\n</div>\n\n<!-- Hide/show elements at breakpoints -->\n<OButton variant=&quot;text&quot; class=&quot;md:hidden&quot;>Mobile Menu</OButton>\n<OButton variant=&quot;text&quot; class=&quot;hidden md:inline-flex&quot;>Desktop Nav</OButton>`" show-copy />
         </div>
 
         <div class="overflow-x-auto rounded-ousi-xl border border-ousi-border">

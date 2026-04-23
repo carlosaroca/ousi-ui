@@ -41,10 +41,31 @@ export const tooltipData: ComponentData = {
 </OTooltip>`,
       },
     },
+    {
+      id: 'directive',
+      title: 'Directive usage',
+      example: {
+        component: 'TooltipDirective',
+        code: `<!-- Simple: string value -->
+<OButton v-tooltip="'Simple tooltip'">Simple</OButton>
+
+<!-- Placement via modifier -->
+<OButton v-tooltip.bottom="'Appears below'">Bottom</OButton>
+
+<!-- Full options object -->
+<OButton v-tooltip="{ content: 'Delayed', delay: 500, shadow: 'lg' }">
+  Object options
+</OButton>
+
+<!-- Dashed modifiers work too -->
+<OButton v-tooltip.top-end="'Top-end'">Top-end</OButton>`,
+      },
+    },
   ],
 
   props: [
     { name: 'content', type: 'string', description: 'Text content of the tooltip.' },
+    { name: 'shadow', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Elevation shadow.' },
     { name: 'placement', type: 'Placement', default: "'top'", description: 'Placement relative to the trigger.' },
     { name: 'offset', type: 'number', default: '-', description: 'Offset in px from the trigger.' },
     { name: 'showArrow', type: 'boolean', default: 'false', description: 'Show an arrow pointing to the trigger.' },
@@ -71,6 +92,8 @@ export const tooltipData: ComponentData = {
   bestPractices: [
     { text: 'Use tooltips for supplementary info, not essential content.', good: true },
     { text: 'Keep tooltip text short (one line).', good: true },
+    { text: 'Prefer `v-tooltip` for simple cases — less template noise than wrapping with `<OTooltip>`.', good: true },
+    { text: 'Use `<OTooltip>` when you need the tooltip wired reactively to external state or to wrap non-element slots.', good: true },
     { text: "Don't put interactive elements inside tooltips — use a popover.", good: false },
   ],
 }

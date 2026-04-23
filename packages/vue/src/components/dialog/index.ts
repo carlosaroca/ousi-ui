@@ -1,15 +1,8 @@
-import Dialog from './Dialog.vue'
-import DialogHeader from './DialogHeader.vue'
-import DialogBody from './DialogBody.vue'
-import DialogFooter from './DialogFooter.vue'
+export { default as ODialog } from './Dialog.vue'
+export { default as ODialogHeader } from './DialogHeader.vue'
+export { default as ODialogBody } from './DialogBody.vue'
+export { default as ODialogFooter } from './DialogFooter.vue'
 
-const ODialog = Object.assign(Dialog, {
-  Header: DialogHeader,
-  Body: DialogBody,
-  Footer: DialogFooter,
-})
-
-export { ODialog }
 export type { DialogProps, DialogEmits, DialogSubProps } from './dialog.types'
 export {
   dialogBackdropTheme,

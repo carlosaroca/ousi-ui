@@ -3,11 +3,6 @@ import { OSeparator } from '@ousi-ui/vue'
 
 const credits = [
   {
-    name: 'HeroUI',
-    description: 'Design inspiration',
-    url: 'https://heroui.com/',
-  },
-  {
     name: 'Liveline',
     description: 'Charts inspiration',
     url: 'https://benji.org/liveline',

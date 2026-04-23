@@ -23,7 +23,7 @@ export const buttonData: ComponentData = {
         code: `<OButton variant="primary">Primary</OButton>
 <OButton variant="secondary">Secondary</OButton>
 <OButton variant="outline">Outline</OButton>
-<OButton variant="ghost">Ghost</OButton>
+<OButton variant="text">Text</OButton>
 <OButton variant="soft">Soft</OButton>
 <OButton variant="danger">Danger</OButton>
 <OButton variant="danger-soft">Danger Soft</OButton>`,
@@ -37,6 +37,17 @@ export const buttonData: ComponentData = {
         code: `<OButton size="sm">Small</OButton>
 <OButton size="md">Medium</OButton>
 <OButton size="lg">Large</OButton>`,
+      },
+    },
+    {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'ButtonShadows',
+        code: `<OButton shadow="none">None</OButton>   <!-- default -->
+<OButton shadow="xs">XS</OButton>
+<OButton shadow="sm">SM</OButton>
+<OButton shadow="md">MD</OButton>`,
       },
     },
     {
@@ -83,7 +94,8 @@ export const buttonData: ComponentData = {
   ],
 
   props: [
-    { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'soft' | 'danger' | 'danger-soft'", default: "'primary'", description: 'Visual style of the button.' },
+    { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'text' | 'soft' | 'danger' | 'danger-soft'", default: "'primary'", description: 'Visual style of the button.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the button.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the button.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Shows a loading spinner.' },
@@ -101,7 +113,7 @@ export const buttonData: ComponentData = {
 
   themeCode: `import { buttonTheme } from '@ousi-ui/vue'
 
-// CVA variants: primary, secondary, outline, ghost, soft, danger, danger-soft
+// CVA variants: primary, secondary, outline, text, soft, danger, danger-soft
 // CVA sizes: sm, md, lg
 // CVA booleans: fullWidth, loading`,
 

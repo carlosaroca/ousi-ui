@@ -1,8 +1,10 @@
 import { inject, provide, type Ref, type ComputedRef } from 'vue'
+import type { DropdownShadow } from './dropdown.types'
 
 interface DropdownContext {
   isOpen: Ref<boolean>
   triggerRef: Ref<HTMLElement | null>
+  shadow: ComputedRef<DropdownShadow>
   close: () => void
   toggle: () => void
 }

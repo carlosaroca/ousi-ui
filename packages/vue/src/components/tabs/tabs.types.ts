@@ -7,6 +7,7 @@ export interface TabItem {
 }
 
 export type TabsSize = 'sm' | 'md' | 'lg'
+export type TabsShadow = 'none' | 'xs' | 'sm' | 'md'
 
 export interface TabsProps {
   /** Active tab key (v-model). */
@@ -19,6 +20,8 @@ export interface TabsProps {
   variant?: 'primary' | 'secondary'
   /** Size of the tabs. */
   size?: TabsSize
+  /** Elevation shadow on the tabs list. Defaults to 'none'. */
+  shadow?: TabsShadow
   /** Layout orientation. */
   orientation?: 'horizontal' | 'vertical'
   /** Show separator lines between tabs. */

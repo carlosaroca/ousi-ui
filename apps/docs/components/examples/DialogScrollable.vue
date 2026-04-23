@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ODialog, OButton } from '@ousi-ui/vue'
+import { ODialog, ODialogHeader, ODialogBody, ODialogFooter, OButton } from '@ousi-ui/vue'
 const open = ref(false)
 </script>
 <template>
   <OButton @click="open = true">Open Scrollable</OButton>
   <ODialog v-model="open" scroll-behavior="inside">
-    <ODialog.Header>Scrollable Content</ODialog.Header>
-    <ODialog.Body>
+    <ODialogHeader>Scrollable Content</ODialogHeader>
+    <ODialogBody>
       <p v-for="i in 30" :key="i" class="mb-2">Paragraph {{ i }} of scrollable content.</p>
-    </ODialog.Body>
-    <ODialog.Footer>
+    </ODialogBody>
+    <ODialogFooter>
       <OButton @click="open = false">Close</OButton>
-    </ODialog.Footer>
+    </ODialogFooter>
   </ODialog>
 </template>

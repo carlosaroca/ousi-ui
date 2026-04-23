@@ -19,6 +19,12 @@ export const checkboxWrapperTheme = cva(
   },
 )
 
+export const checkboxControlShadowTheme = {
+  none: 'shadow-none',
+  xs: 'shadow-ousi-xs',
+  sm: 'shadow-ousi-sm',
+} as const
+
 export const checkboxContentTheme = 'flex flex-col gap-0'
 
 export const checkboxLabelTheme = 'text-sm font-medium text-ousi-foreground select-none'

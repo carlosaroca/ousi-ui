@@ -4,7 +4,7 @@ export const fileUploadAreaTheme = cva(
   [
     'relative flex flex-col items-center justify-center gap-3',
     'rounded-ousi-2xl border-2 border-dashed border-ousi-border bg-ousi-surface',
-    'transition-colors cursor-pointer',
+    'cursor-pointer motion-reduce:transition-none',
     'hover:border-ousi-accent/50 hover:bg-ousi-accent/5',
   ],
   {
@@ -18,8 +18,24 @@ export const fileUploadAreaTheme = cva(
         true: 'border-ousi-accent bg-ousi-accent/10',
         false: '',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
+      animated: {
+        true: [
+          'transition-all duration-[400ms]',
+          'ease-[cubic-bezier(0.33,1,0.68,1)]',
+          'focus-within:scale-[0.98] active:scale-[0.98]',
+        ],
+        false: [
+          'transition-colors',
+        ],
+      },
     },
-    defaultVariants: { size: 'md', active: false },
+    defaultVariants: { size: 'md', active: false, shadow: 'none', animated: false },
   },
 )
 
@@ -54,7 +70,7 @@ export const fileUploadTextTheme = cva(
 export const fileUploadInlineTheme = cva(
   [
     'flex items-center border border-dashed border-ousi-border bg-ousi-surface',
-    'transition-colors',
+    'motion-reduce:transition-none',
     'hover:border-ousi-accent/50 hover:bg-ousi-accent/5',
   ],
   {
@@ -68,8 +84,24 @@ export const fileUploadInlineTheme = cva(
         true: 'border-ousi-accent bg-ousi-accent/10',
         false: '',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
+      animated: {
+        true: [
+          'transition-all duration-[400ms]',
+          'ease-[cubic-bezier(0.33,1,0.68,1)]',
+          'focus-within:scale-[0.98] active:scale-[0.98]',
+        ],
+        false: [
+          'transition-colors',
+        ],
+      },
     },
-    defaultVariants: { size: 'md', active: false },
+    defaultVariants: { size: 'md', active: false, shadow: 'none', animated: false },
   },
 )
 

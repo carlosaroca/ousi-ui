@@ -158,7 +158,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
         <AnimatePresence>
           <Motion
             tag="div"
-            class="flex flex-col gap-3 bg-ousi-overlay text-ousi-foreground shadow-ousi-overlay border border-ousi-border/20 px-2 pt-2 pb-3 overflow-hidden"
+            class="flex flex-col gap-3 bg-ousi-overlay text-ousi-foreground shadow-ousi-xl border border-ousi-border/20 px-2 pt-2 pb-3 overflow-hidden"
             :style="{ minWidth: '248px', borderRadius: 'calc(var(--ousi-radius, 0.5rem) * 2.5)' }"
             :initial="{ opacity: 0, scale: 0.95, y: -4 }"
             :animate="{ opacity: 1, scale: 1, y: 0 }"

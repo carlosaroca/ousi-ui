@@ -66,6 +66,7 @@ export const badgeData: ComponentData = {
     { name: 'content', type: 'string | number', default: '-', description: 'Text or number inside the badge.' },
     { name: 'color', type: "'default' | 'accent' | 'success' | 'warning' | 'danger'", default: "'default'", description: 'Color scheme.' },
     { name: 'variant', type: "'primary' | 'secondary' | 'soft'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the badge.' },
     { name: 'placement', type: "'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'", default: "'top-right'", description: 'Position when anchored on an element.' },
     { name: 'showZero', type: 'boolean', default: 'false', description: 'Show badge when content is 0.' },

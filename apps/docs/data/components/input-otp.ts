@@ -88,6 +88,15 @@ export const inputOtpData: ComponentData = {
         code: '<OInputOtp disabled label="Disabled" />',
       },
     },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'InputOtpAnimated',
+        code: `<OInputOtp label="Default" />
+<OInputOtp label="Animated" animated />`,
+      },
+    },
   ],
 
   props: [
@@ -97,6 +106,8 @@ export const inputOtpData: ComponentData = {
     { name: 'groups', type: 'OtpGroup[]', default: '-', description: 'Group slots with separators between groups.' },
     { name: 'type', type: "'digit' | 'alpha' | 'alphanumeric'", default: "'digit'", description: 'Which characters to accept.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the slots.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Description text.' },

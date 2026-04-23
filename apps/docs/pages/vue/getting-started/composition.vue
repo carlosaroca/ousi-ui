@@ -57,7 +57,7 @@ const tocItems = [
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden mb-4">
-          <CodeBlock :code="`<!-- Card with named slots -->\n<OCard>\n  <template #header>\n    <div class=&quot;flex items-center justify-between&quot;>\n      <h3 class=&quot;font-semibold&quot;>Settings</h3>\n      <OChip variant=&quot;soft&quot; size=&quot;sm&quot; color=&quot;accent&quot;>Pro</OChip>\n    </div>\n  </template>\n\n  <!-- Default slot: main content -->\n  <p class=&quot;text-sm text-ousi-muted&quot;>Configure your account preferences below.</p>\n\n  <template #footer>\n    <div class=&quot;flex justify-end gap-2&quot;>\n      <OButton variant=&quot;ghost&quot;>Cancel</OButton>\n      <OButton variant=&quot;solid&quot;>Save</OButton>\n    </div>\n  </template>\n</OCard>`" show-copy />
+          <CodeBlock :code="`<!-- Card with named slots -->\n<OCard>\n  <template #header>\n    <div class=&quot;flex items-center justify-between&quot;>\n      <h3 class=&quot;font-semibold&quot;>Settings</h3>\n      <OChip variant=&quot;soft&quot; size=&quot;sm&quot; color=&quot;accent&quot;>Pro</OChip>\n    </div>\n  </template>\n\n  <!-- Default slot: main content -->\n  <p class=&quot;text-sm text-ousi-muted&quot;>Configure your account preferences below.</p>\n\n  <template #footer>\n    <div class=&quot;flex justify-end gap-2&quot;>\n      <OButton variant=&quot;text&quot;>Cancel</OButton>\n      <OButton variant=&quot;solid&quot;>Save</OButton>\n    </div>\n  </template>\n</OCard>`" show-copy />
         </div>
 
         <div class="overflow-x-auto rounded-ousi-xl border border-ousi-border">
@@ -120,7 +120,7 @@ const tocItems = [
         </div>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
-          <CodeBlock :code="`<!-- Dialog with scoped trigger -->\n<ODialog>\n  <template #trigger=&quot;{ open }&quot;>\n    <OButton @click=&quot;open&quot; variant=&quot;outline&quot;>Open Settings</OButton>\n  </template>\n\n  <template #header>\n    <h2 class=&quot;text-lg font-semibold&quot;>Settings</h2>\n  </template>\n\n  <div class=&quot;space-y-4&quot;>\n    <OInput label=&quot;Display name&quot; />\n    <OInput label=&quot;Email&quot; type=&quot;email&quot; />\n  </div>\n\n  <template #footer=&quot;{ close }&quot;>\n    <div class=&quot;flex justify-end gap-2&quot;>\n      <OButton variant=&quot;ghost&quot; @click=&quot;close&quot;>Cancel</OButton>\n      <OButton variant=&quot;solid&quot;>Save</OButton>\n    </div>\n  </template>\n</ODialog>`" show-copy />
+          <CodeBlock :code="`<!-- Dialog with scoped trigger -->\n<ODialog>\n  <template #trigger=&quot;{ open }&quot;>\n    <OButton @click=&quot;open&quot; variant=&quot;outline&quot;>Open Settings</OButton>\n  </template>\n\n  <template #header>\n    <h2 class=&quot;text-lg font-semibold&quot;>Settings</h2>\n  </template>\n\n  <div class=&quot;space-y-4&quot;>\n    <OInput label=&quot;Display name&quot; />\n    <OInput label=&quot;Email&quot; type=&quot;email&quot; />\n  </div>\n\n  <template #footer=&quot;{ close }&quot;>\n    <div class=&quot;flex justify-end gap-2&quot;>\n      <OButton variant=&quot;text&quot; @click=&quot;close&quot;>Cancel</OButton>\n      <OButton variant=&quot;solid&quot;>Save</OButton>\n    </div>\n  </template>\n</ODialog>`" show-copy />
         </div>
       </section>
 

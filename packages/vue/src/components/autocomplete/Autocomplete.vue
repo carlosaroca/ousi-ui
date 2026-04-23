@@ -22,10 +22,11 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
   disabled: false,
   readonly: false,
   required: false,
-  fullWidth: false,
   clearable: true,
   allowCustomValue: false,
   emptyMessage: 'No results found',
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<AutocompleteEmits>()
@@ -174,7 +175,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
 </script>
 
 <template>
-  <div :class="cn(autocompleteWrapperTheme({ fullWidth }), props.class)">
+  <div :class="cn(autocompleteWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
@@ -187,7 +188,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
     <!-- Trigger -->
     <div
       ref="triggerRef"
-      :class="autocompleteTriggerTheme({ variant, fullWidth })"
+      :class="autocompleteTriggerTheme({ variant, shadow, animated })"
       :data-invalid="isInvalid || undefined"
       :data-disabled="disabled || undefined"
       @click="inputRef?.focus()"

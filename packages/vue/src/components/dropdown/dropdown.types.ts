@@ -2,10 +2,13 @@ import type { HapticInput } from '@ousi-ui/haptics'
 
 export type DropdownSelectionMode = 'none' | 'single' | 'multiple'
 export type DropdownItemVariant = 'default' | 'danger'
+export type DropdownShadow = 'sm' | 'md' | 'lg' | 'xl'
 
 export interface DropdownProps {
   modelValue?: boolean
   defaultOpen?: boolean
+  /** Elevation shadow on the popover. Defaults to 'lg'. */
+  shadow?: DropdownShadow
   class?: string
 }
 

@@ -23,7 +23,7 @@ export const chipData: ComponentData = {
         code: `<OChip variant="solid">Solid</OChip>
 <OChip variant="outline">Outline</OChip>
 <OChip variant="soft">Soft</OChip>
-<OChip variant="ghost">Ghost</OChip>`,
+<OChip variant="text">Text</OChip>`,
       },
     },
     {
@@ -77,7 +77,8 @@ export const chipData: ComponentData = {
   ],
 
   props: [
-    { name: 'variant', type: "'solid' | 'outline' | 'soft' | 'ghost'", default: "'solid'", description: 'Visual style of the chip.' },
+    { name: 'variant', type: "'solid' | 'outline' | 'soft' | 'text'", default: "'solid'", description: 'Visual style of the chip.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'color', type: "'accent' | 'success' | 'warning' | 'danger' | 'default'", default: "'accent'", description: 'Color scheme.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the chip.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },

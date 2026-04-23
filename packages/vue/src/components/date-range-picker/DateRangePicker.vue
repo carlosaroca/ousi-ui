@@ -30,7 +30,8 @@ const props = withDefaults(defineProps<DateRangePickerProps>(), {
   disabled: false,
   readonly: false,
   required: false,
-  fullWidth: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<DateRangePickerEmits>()
@@ -413,7 +414,7 @@ const describedBy = computed(() =>
 </script>
 
 <template>
-  <div :class="cn(dateRangePickerWrapperTheme({ fullWidth }), props.class)">
+  <div :class="cn(dateRangePickerWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
@@ -427,7 +428,7 @@ const describedBy = computed(() =>
     <div
       ref="triggerRef"
       :id="fieldId"
-      :class="dateRangePickerTriggerTheme"
+      :class="dateRangePickerTriggerTheme({ shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"

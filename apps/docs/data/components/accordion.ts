@@ -91,6 +91,7 @@ const open = ref('sched')
     { name: 'gap', type: 'number', default: '10', description: 'Gap in px when an item separates.' },
     { name: 'showDividers', type: 'boolean', default: 'true', description: 'Show separator lines between collapsed items.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant. Secondary has no border/shadow.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md' | 'lg'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

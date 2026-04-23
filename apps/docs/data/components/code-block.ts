@@ -16,6 +16,26 @@ export const codeBlockData: ComponentData = {
       },
     },
     {
+      id: 'variants',
+      title: 'Variants',
+      example: {
+        component: 'CodeBlockVariants',
+        code: `<OCodeBlock :code="code" variant="primary" />   <!-- default: gray frame, white body -->
+<OCodeBlock :code="code" variant="secondary" /> <!-- inverted: white frame, gray body -->`,
+      },
+    },
+    {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'CodeBlockShadows',
+        code: `<OCodeBlock shadow="none" :code="code" />   <!-- default -->
+<OCodeBlock shadow="xs" :code="code" />
+<OCodeBlock shadow="sm" :code="code" />
+<OCodeBlock shadow="md" :code="code" />`,
+      },
+    },
+    {
       id: 'with-filename',
       title: 'With Filename',
       example: {
@@ -88,6 +108,8 @@ export const codeBlockData: ComponentData = {
 
   props: [
     { name: 'code', type: 'string', default: '-', description: 'Source code string to display (required).' },
+    { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant. `primary` = gray frame + white body. `secondary` = inverted (white frame, gray body).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'lang', type: 'string', default: '-', description: 'Language hint for future syntax highlighting integration.' },
     { name: 'showLineNumbers', type: 'boolean', default: 'true', description: 'Show line numbers on the left.' },
     { name: 'showCopy', type: 'boolean', default: 'true', description: 'Show a copy-to-clipboard button.' },

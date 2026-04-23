@@ -42,6 +42,7 @@ const isOpen = ref(false)
 
   props: [
     { name: 'modelValue', type: 'boolean', description: 'Controlled open state (v-model).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'defaultOpen', type: 'boolean', default: 'false', description: 'Whether the collapsible starts open.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable toggling.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },

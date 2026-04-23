@@ -23,7 +23,7 @@ import { OCalendar, OPopover, OAvatar, OButton } from '@ousi-ui/vue'
             </div>
             <div class="flex gap-2">
               <OButton size="sm" variant="soft" @click="close">Details</OButton>
-              <OButton size="sm" variant="ghost" @click="close">Dismiss</OButton>
+              <OButton size="sm" variant="text" @click="close">Dismiss</OButton>
             </div>
           </div>
         </template>

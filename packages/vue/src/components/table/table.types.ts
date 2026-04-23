@@ -1,4 +1,5 @@
 export type TableVariant = 'primary' | 'secondary'
+export type TableShadow = 'none' | 'xs' | 'sm' | 'md'
 export type SortDirection = 'asc' | 'desc' | null
 export type SelectionMode = 'none' | 'single' | 'multiple'
 
@@ -27,6 +28,8 @@ export interface TableProps {
   rowKey?: string
   /** Visual variant. */
   variant?: TableVariant
+  /** Elevation shadow. Defaults to 'none'. */
+  shadow?: TableShadow
   /** Selection mode. */
   selectionMode?: SelectionMode
   /** Controlled selected row keys. */

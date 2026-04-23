@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ODialog, OButton } from '@ousi-ui/vue'
+import { ODialog, ODialogHeader, ODialogBody, OButton } from '@ousi-ui/vue'
 const isOpen = ref(false)
 const status = ref('closed')
 </script>
@@ -10,7 +10,7 @@ const status = ref('closed')
     <span class="text-sm text-ousi-muted-foreground">Status: {{ status }}</span>
   </div>
   <ODialog v-model="isOpen" @open="status = 'open'" @close="status = 'closed'">
-    <ODialog.Header>Controlled Dialog</ODialog.Header>
-    <ODialog.Body>Events fire on open and close.</ODialog.Body>
+    <ODialogHeader>Controlled Dialog</ODialogHeader>
+    <ODialogBody>Events fire on open and close.</ODialogBody>
   </ODialog>
 </template>

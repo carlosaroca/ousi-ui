@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ODropdown, OButton } from '@ousi-ui/vue'
+import { ODropdown, ODropdownTrigger, ODropdownPopover, ODropdownMenu, ODropdownItem, ODropdownSeparator, OButton } from '@ousi-ui/vue'
 </script>
 <template>
   <ODropdown>
-    <ODropdown.Trigger>
+    <ODropdownTrigger>
       <OButton variant="outline">More</OButton>
-    </ODropdown.Trigger>
-    <ODropdown.Popover>
-      <ODropdown.Menu>
-        <ODropdown.Item id="archive">Archive</ODropdown.Item>
-        <ODropdown.Separator />
-        <ODropdown.Item id="delete" variant="danger">Delete</ODropdown.Item>
-      </ODropdown.Menu>
-    </ODropdown.Popover>
+    </ODropdownTrigger>
+    <ODropdownPopover>
+      <ODropdownMenu>
+        <ODropdownItem id="archive">Archive</ODropdownItem>
+        <ODropdownSeparator />
+        <ODropdownItem id="delete" variant="danger">Delete</ODropdownItem>
+      </ODropdownMenu>
+    </ODropdownPopover>
   </ODropdown>
 </template>

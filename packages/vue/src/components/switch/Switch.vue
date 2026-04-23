@@ -7,6 +7,7 @@ import {
   switchDescriptionTheme,
   switchContentTheme,
   switchSizes,
+  switchTrackShadowTheme,
 } from './switch.theme'
 import type { SwitchProps, SwitchEmits } from './switch.types'
 
@@ -14,6 +15,7 @@ const props = withDefaults(defineProps<SwitchProps>(), {
   size: 'md',
   disabled: false,
   readonly: false,
+  shadow: 'none',
 })
 
 const emit = defineEmits<SwitchEmits>()
@@ -87,7 +89,10 @@ const thumbStyle = computed(() => {
   >
     <!-- Track -->
     <div
-      class="relative flex shrink-0 items-center rounded-full group-focus-visible:ring-2 group-focus-visible:ring-ousi-focus group-focus-visible:ring-offset-2"
+      :class="cn(
+        'relative flex shrink-0 items-center rounded-full group-focus-visible:ring-2 group-focus-visible:ring-ousi-focus group-focus-visible:ring-offset-2',
+        switchTrackShadowTheme[shadow],
+      )"
       :style="trackStyle"
     >
       <!-- Thumb — pill shape -->

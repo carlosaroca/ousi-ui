@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, toRef } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useEscapeKey } from '@ousi-ui/core'
 import { provideDropdown } from './dropdown.context'
 import type { DropdownProps, DropdownEmits } from './dropdown.types'
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   defaultOpen: false,
+  shadow: 'lg',
 })
 const emit = defineEmits<DropdownEmits>()
 
@@ -25,7 +26,7 @@ function toggle() { setOpen(!isOpen.value) }
 
 useEscapeKey({ handler: () => close(), enabled: isOpen })
 
-provideDropdown({ isOpen, triggerRef, close, toggle })
+provideDropdown({ isOpen, triggerRef, shadow: computed(() => props.shadow), close, toggle })
 </script>
 
 <template>

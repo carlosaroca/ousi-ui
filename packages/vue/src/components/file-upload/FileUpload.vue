@@ -18,6 +18,8 @@ const props = withDefaults(defineProps<FileUploadProps>(), {
   disabled: false,
   variant: 'area',
   size: 'md',
+  shadow: 'none',
+  animated: false,
 })
 
 const emit = defineEmits<FileUploadEmits>()
@@ -116,7 +118,7 @@ function removeFile(index: number) {
     <div
       v-if="variant === 'area'"
       :class="cn(
-        fileUploadAreaTheme({ size, active: isDragActive }),
+        fileUploadAreaTheme({ size, active: isDragActive, shadow, animated }),
         disabled && 'opacity-50 pointer-events-none',
         props.class,
       )"
@@ -144,7 +146,7 @@ function removeFile(index: number) {
     <div
       v-else
       :class="cn(
-        fileUploadInlineTheme({ size, active: isDragActive }),
+        fileUploadInlineTheme({ size, active: isDragActive, shadow, animated }),
         disabled && 'opacity-50 pointer-events-none',
         props.class,
       )"

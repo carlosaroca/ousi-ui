@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<DropdownPopoverProps>(), {
   placement: 'bottom-start',
 })
 
-const { isOpen, triggerRef, close } = useDropdownContext()
+const { isOpen, triggerRef, shadow, close } = useDropdownContext()
 const isMounted = useMounted()
 const popoverRef = ref<HTMLElement | null>(null)
 
@@ -47,7 +47,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
       <AnimatePresence>
         <Motion
           tag="div"
-          :class="cn(dropdownPopoverTheme, props.class)"
+          :class="cn(dropdownPopoverTheme({ shadow }), props.class)"
           :initial="{ opacity: 0, scale: 0.95, y: isTop ? 4 : -4 }"
           :animate="{ opacity: 1, scale: 1, y: 0 }"
           :exit="{ opacity: 0, scale: 0.95 }"

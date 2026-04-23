@@ -17,6 +17,8 @@ const props = withDefaults(defineProps<TagInputProps>(), {
   allowDuplicates: false,
   disabled: false,
   required: false,
+  shadow: 'xs',
+  animated: false,
 })
 
 const emit = defineEmits<TagInputEmits>()
@@ -84,7 +86,7 @@ function handleInput(e: Event) {
 </script>
 
 <template>
-  <div :class="cn(tagInputWrapperTheme({ fullWidth: true }), props.class)">
+  <div :class="cn(tagInputWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
@@ -96,7 +98,7 @@ function handleInput(e: Event) {
 
     <!-- Field group -->
     <div
-      :class="tagInputGroupTheme({ variant, size })"
+      :class="tagInputGroupTheme({ variant, size, shadow, animated })"
       :data-invalid="isInvalid || undefined"
       :data-disabled="disabled || undefined"
       role="list"

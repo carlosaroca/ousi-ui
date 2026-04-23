@@ -1,5 +1,7 @@
 import type { Placement } from '@floating-ui/vue'
 
+export type PopoverShadow = 'sm' | 'md' | 'lg' | 'xl'
+
 export interface PopoverProps {
   /** Placement relative to the trigger. */
   placement?: Placement
@@ -9,6 +11,8 @@ export interface PopoverProps {
   showArrow?: boolean
   /** Title shown at the top of the popover. */
   title?: string
+  /** Elevation shadow. Defaults to 'lg'. */
+  shadow?: PopoverShadow
   /** Additional CSS classes on the panel. */
   class?: string
 }

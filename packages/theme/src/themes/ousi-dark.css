@@ -7,7 +7,7 @@
     --ousi-white: oklch(100% 0 0);
     --ousi-black: oklch(0% 0 0);
     --ousi-snow: oklch(0.9911 0 0);
-    --ousi-eclipse: oklch(0.2103 0.0059 285.89);
+    --ousi-eclipse: #1e1e1e;
 
     /* System */
     --ousi-spacing: 0.25rem;
@@ -44,13 +44,13 @@
     --ousi-muted: oklch(70.5% 0.015 286.067);
     --ousi-default: oklch(27.4% 0.006 286.033);
     --ousi-default-foreground: var(--ousi-snow);
-    --ousi-accent: oklch(0.6204 0.195 253.83);
+    --ousi-accent: #1b5cff;
     --ousi-accent-foreground: var(--ousi-snow);
-    --ousi-success: oklch(0.7329 0.1935 150.81);
+    --ousi-success: #46c93a;
     --ousi-success-foreground: var(--ousi-eclipse);
-    --ousi-warning: oklch(0.8203 0.1388 76.34);
+    --ousi-warning: #ffba00;
     --ousi-warning-foreground: var(--ousi-eclipse);
-    --ousi-danger: oklch(0.594 0.1967 24.63);
+    --ousi-danger: #ff4757;
     --ousi-danger-foreground: var(--ousi-snow);
     --ousi-border: oklch(28% 0.006 286.033);
     --ousi-separator: oklch(25% 0.006 286.033);
@@ -64,10 +64,40 @@
     --ousi-field-hover: oklch(0.257 0.0037 286.14);
     --ousi-field-focus: oklch(0.2103 0.0059 285.89);
 
-    /* Shadows */
-    --ousi-shadow-surface: 0 0 0 0 transparent inset;
-    --ousi-shadow-overlay: 0 0 1px 0 rgba(255,255,255,0.3) inset;
-    --ousi-shadow-field: 0 0 0 0 transparent inset;
+    /* Shadows — same Josh formula as light, but the shadow color goes to pure black
+       since on dark backgrounds a mid-gray shadow would be nearly invisible. */
+    --ousi-shadow-color: 0 0% 0%;
+
+    --ousi-shadow-xs:
+      0.5px 1px 1px hsl(var(--ousi-shadow-color) / 0.15);
+
+    --ousi-shadow-sm:
+      1px 2px 2px hsl(var(--ousi-shadow-color) / 0.25);
+
+    --ousi-shadow-md:
+      1px 2px 2px hsl(var(--ousi-shadow-color) / 0.17),
+      2px 4px 4px hsl(var(--ousi-shadow-color) / 0.17),
+      3px 6px 6px hsl(var(--ousi-shadow-color) / 0.17);
+
+    --ousi-shadow-lg:
+      1px 2px 2px hsl(var(--ousi-shadow-color) / 0.13),
+      2px 4px 4px hsl(var(--ousi-shadow-color) / 0.13),
+      4px 8px 8px hsl(var(--ousi-shadow-color) / 0.13),
+      8px 16px 16px hsl(var(--ousi-shadow-color) / 0.13);
+
+    --ousi-shadow-xl:
+      1px 2px 2px hsl(var(--ousi-shadow-color) / 0.1),
+      2px 4px 4px hsl(var(--ousi-shadow-color) / 0.1),
+      4px 8px 8px hsl(var(--ousi-shadow-color) / 0.1),
+      8px 16px 16px hsl(var(--ousi-shadow-color) / 0.1),
+      16px 32px 32px hsl(var(--ousi-shadow-color) / 0.1);
+
+    --ousi-shadow-2xl:
+      1.5px 3px 3px hsl(var(--ousi-shadow-color) / 0.09),
+      3px 6px 6px hsl(var(--ousi-shadow-color) / 0.09),
+      6px 12px 12px hsl(var(--ousi-shadow-color) / 0.09),
+      12px 24px 24px hsl(var(--ousi-shadow-color) / 0.09),
+      24px 48px 48px hsl(var(--ousi-shadow-color) / 0.09);
 
     /* Fonts */
     --ousi-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

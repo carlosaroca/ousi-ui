@@ -103,6 +103,7 @@ export const tabsData: ComponentData = {
     { name: 'defaultValue', type: 'string', description: 'Default active tab key.' },
     { name: 'items', type: 'TabItem[]', description: 'Tab items with key, label, and optional disabled.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the tabs.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation.' },
     { name: 'showSeparator', type: 'boolean', default: '-', description: 'Show separator lines between tabs.' },

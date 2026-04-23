@@ -55,6 +55,7 @@ export const contextMenuData: ComponentData = {
 
   props: [
     { name: 'items', type: 'ContextMenuItem[]', default: '[]', description: 'Array of menu items to display.' },
+    { name: 'shadow', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'lg'", description: 'Elevation shadow.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the context menu.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],

@@ -70,6 +70,7 @@ export const radioData: ComponentData = {
 
   props: [
     { name: 'value', type: 'string', default: '-', description: 'Unique value for this radio option (ORadio).' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow (ORadioGroup).' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Help text below the label (ORadio).' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the radio or entire group.' },

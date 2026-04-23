@@ -1,3 +1,5 @@
+export type NumberFieldShadow = 'none' | 'xs' | 'sm' | 'md'
+
 export interface NumberFieldProps {
   /** Current value (v-model). */
   modelValue?: number | null
@@ -21,6 +23,10 @@ export interface NumberFieldProps {
   name?: string
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow. Defaults to 'xs'. */
+  shadow?: NumberFieldShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Size. */
   size?: 'sm' | 'md' | 'lg'
   /** Disable the field. */
@@ -29,8 +35,6 @@ export interface NumberFieldProps {
   readonly?: boolean
   /** Required. */
   required?: boolean
-  /** Full width. */
-  fullWidth?: boolean
   /** Intl.NumberFormat options for display. */
   formatOptions?: Intl.NumberFormatOptions
   /** Locale for formatting. */

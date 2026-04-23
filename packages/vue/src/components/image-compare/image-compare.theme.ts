@@ -1,5 +1,20 @@
+import { cva } from 'class-variance-authority'
+
 /** Root container. */
-export const imageCompareTheme = 'relative select-none overflow-hidden'
+export const imageCompareTheme = cva('relative select-none overflow-hidden', {
+  variants: {
+    shadow: {
+      none: 'shadow-none',
+      xs: 'shadow-ousi-xs',
+      sm: 'shadow-ousi-sm',
+      md: 'shadow-ousi-md',
+      lg: 'shadow-ousi-lg',
+    },
+  },
+  defaultVariants: {
+    shadow: 'sm',
+  },
+})
 
 /** Each image layer. */
 export const imageCompareImageTheme = 'absolute inset-0 w-full h-full object-cover'

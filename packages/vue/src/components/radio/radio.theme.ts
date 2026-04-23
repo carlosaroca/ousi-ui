@@ -1,3 +1,9 @@
+export const radioControlShadowTheme = {
+  none: 'shadow-none',
+  xs: 'shadow-ousi-xs',
+  sm: 'shadow-ousi-sm',
+} as const
+
 export const radioLabelTheme = 'text-sm font-medium text-ousi-foreground select-none'
 
 export const radioDescriptionTheme = 'text-sm text-ousi-muted select-none'

@@ -95,7 +95,16 @@ export const inputData: ComponentData = {
       title: 'Full Width',
       example: {
         component: 'InputFullWidth',
-        code: '<OInput full-width placeholder="Full width input" />',
+        code: '<OInput placeholder="Full width input" />',
+      },
+    },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'InputAnimated',
+        code: `<OInput placeholder="Default — no animation" />
+<OInput placeholder="With tactile press" animated />`,
       },
     },
   ],
@@ -111,12 +120,13 @@ export const inputData: ComponentData = {
     { name: 'errorMessage', type: 'string', default: '-', description: 'Error message that activates error state.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the input.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the input is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the input is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the input is required.' },
     { name: 'clearable', type: 'boolean', default: 'false', description: 'Show a clear button when there is a value.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Show a loading spinner in the end slot.' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
     { name: 'as', type: 'string | Component', default: '-', description: 'Render wrapper as a different element.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
@@ -138,7 +148,7 @@ export const inputData: ComponentData = {
 
 // CVA variants: primary, secondary
 // CVA sizes: sm, md, lg
-// CVA booleans: fullWidth, disabled, invalid`,
+// CVA booleans: disabled, invalid`,
 
   keyboard: [
     { key: 'tab', description: 'Moves focus to the next focusable element.' },

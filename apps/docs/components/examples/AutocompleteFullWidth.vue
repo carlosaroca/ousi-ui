@@ -8,5 +8,5 @@ const options = [
 ]
 </script>
 <template>
-  <OAutocomplete full-width :options="options" placeholder="Full width" />
+  <OAutocomplete :options="options" placeholder="Full width" />
 </template>

@@ -14,11 +14,11 @@ export const dialogData: ComponentData = {
         component: 'DialogUsage',
         code: `<OButton @click="open = true">Open Dialog</OButton>
 <ODialog v-model="open">
-  <ODialog.Header>Title</ODialog.Header>
-  <ODialog.Body>Dialog content here.</ODialog.Body>
-  <ODialog.Footer>
+  <ODialogHeader>Title</ODialogHeader>
+  <ODialogBody>Dialog content here.</ODialogBody>
+  <ODialogFooter>
     <OButton @click="open = false">Close</OButton>
-  </ODialog.Footer>
+  </ODialogFooter>
 </ODialog>`,
       },
     },
@@ -43,13 +43,24 @@ export const dialogData: ComponentData = {
       },
     },
     {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'DialogShadows',
+        code: `<ODialog v-model="open" shadow="md">...</ODialog>
+<ODialog v-model="open" shadow="lg">...</ODialog>
+<ODialog v-model="open" shadow="xl">...</ODialog>   <!-- default -->
+<ODialog v-model="open" shadow="2xl">...</ODialog>`,
+      },
+    },
+    {
       id: 'scrollable',
       title: 'Scrollable',
       example: {
         component: 'DialogScrollable',
         code: `<ODialog v-model="open" scroll-behavior="inside">
-  <ODialog.Header>Scrollable Content</ODialog.Header>
-  <ODialog.Body>Long content here...</ODialog.Body>
+  <ODialogHeader>Scrollable Content</ODialogHeader>
+  <ODialogBody>Long content here...</ODialogBody>
 </ODialog>`,
       },
     },
@@ -59,8 +70,8 @@ export const dialogData: ComponentData = {
       example: {
         component: 'DialogControlled',
         code: `<ODialog v-model="isOpen" @open="onOpen" @close="onClose">
-  <ODialog.Header>Controlled Dialog</ODialog.Header>
-  <ODialog.Body>Events fire on open/close.</ODialog.Body>
+  <ODialogHeader>Controlled Dialog</ODialogHeader>
+  <ODialogBody>Events fire on open/close.</ODialogBody>
 </ODialog>`,
       },
     },
@@ -69,6 +80,7 @@ export const dialogData: ComponentData = {
   props: [
     { name: 'modelValue', type: 'boolean', description: 'Controls open/close state (v-model).' },
     { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'cover' | 'full'", default: "'md'", description: 'Size of the dialog panel.' },
+    { name: 'shadow', type: "'md' | 'lg' | 'xl' | '2xl'", default: "'xl'", description: 'Elevation shadow.' },
     { name: 'placement', type: "'auto' | 'top' | 'center' | 'bottom'", default: "'auto'", description: 'Vertical placement of the dialog.' },
     { name: 'backdrop', type: "'opaque' | 'blur' | 'transparent'", default: "'opaque'", description: 'Backdrop style.' },
     { name: 'scrollBehavior', type: "'inside' | 'outside'", default: "'outside'", description: 'How the body scrolls when content overflows.' },
@@ -77,7 +89,7 @@ export const dialogData: ComponentData = {
   ],
 
   slots: [
-    { name: 'default', type: 'slot', description: 'Dialog content (use Dialog.Header, Dialog.Body, Dialog.Footer).' },
+    { name: 'default', type: 'slot', description: 'Dialog content (use ODialogHeader, ODialogBody, ODialogFooter).' },
   ],
 
   emits: [

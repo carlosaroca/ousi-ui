@@ -10,8 +10,14 @@ export const tableRootTheme = cva(
         ],
         secondary: '',
       },
+      shadow: {
+        none: 'shadow-none',
+        xs: 'shadow-ousi-xs',
+        sm: 'shadow-ousi-sm',
+        md: 'shadow-ousi-md',
+      },
     },
-    defaultVariants: { variant: 'primary' },
+    defaultVariants: { variant: 'primary', shadow: 'none' },
   },
 )
 

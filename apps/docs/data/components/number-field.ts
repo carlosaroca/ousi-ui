@@ -111,7 +111,16 @@ export const numberFieldData: ComponentData = {
       title: 'Full Width',
       example: {
         component: 'NumberFieldFullWidth',
-        code: '<ONumberField full-width label="Amount" :default-value="100" />',
+        code: '<ONumberField label="Amount" :default-value="100" />',
+      },
+    },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'NumberFieldAnimated',
+        code: `<ONumberField label="Default" :default-value="10" />
+<ONumberField label="Animated" :default-value="10" animated />`,
       },
     },
   ],
@@ -128,11 +137,12 @@ export const numberFieldData: ComponentData = {
     { name: 'placeholder', type: 'string', default: '-', description: 'Placeholder text.' },
     { name: 'name', type: 'string', default: '-', description: 'Field name for form context.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the field.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Read-only mode.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Required.' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
     { name: 'formatOptions', type: 'Intl.NumberFormatOptions', default: '-', description: 'Intl.NumberFormat options for display.' },
     { name: 'locale', type: 'string', default: '-', description: 'Locale for formatting.' },
     { name: 'showButtons', type: 'boolean', default: 'true', description: 'Show increment/decrement buttons.' },
@@ -150,7 +160,7 @@ export const numberFieldData: ComponentData = {
 
 // CVA variants: primary, secondary
 // CVA sizes: sm, md, lg
-// CVA booleans: fullWidth, disabled, invalid`,
+// CVA booleans: disabled, invalid`,
 
   keyboard: [
     { key: 'ArrowUp', description: 'Increments the value by one step.' },

@@ -1,3 +1,5 @@
+export type TextareaShadow = 'none' | 'xs' | 'sm' | 'md'
+
 export interface TextareaProps {
   /** Controlled value (v-model). */
   modelValue?: string
@@ -25,14 +27,16 @@ export interface TextareaProps {
   resize?: 'none' | 'vertical' | 'horizontal' | 'both'
   /** Visual variant. */
   variant?: 'primary' | 'secondary'
+  /** Elevation shadow. Defaults to 'xs'. */
+  shadow?: TextareaShadow
+  /** Enable tactile press animation (scale on focus). Defaults to false. */
+  animated?: boolean
   /** Whether the textarea is disabled. */
   disabled?: boolean
   /** Whether the textarea is read-only. */
   readonly?: boolean
   /** Whether the textarea is required. */
   required?: boolean
-  /** Stretch to fill parent width. */
-  fullWidth?: boolean
   /** Additional CSS classes. */
   class?: string
 }

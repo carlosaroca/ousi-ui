@@ -59,6 +59,7 @@ export const buttonGroupData: ComponentData = {
 
   props: [
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout direction of the buttons.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch buttons to fill parent width.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],

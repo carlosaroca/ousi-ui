@@ -91,7 +91,16 @@ export const selectData: ComponentData = {
       title: 'Full Width',
       example: {
         component: 'SelectFullWidth',
-        code: '<OSelect full-width :options="options" placeholder="Full width" />',
+        code: '<OSelect :options="options" placeholder="Full width" />',
+      },
+    },
+    {
+      id: 'animated',
+      title: 'Animated',
+      example: {
+        component: 'SelectAnimated',
+        code: `<OSelect :options="options" placeholder="Default — no animation" />
+<OSelect :options="options" placeholder="With tactile press" animated />`,
       },
     },
   ],
@@ -108,9 +117,10 @@ export const selectData: ComponentData = {
     { name: 'errorMessage', type: 'string', default: '-', description: 'Error message that activates error state.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the trigger.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the select is disabled.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the select is required.' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 
@@ -125,7 +135,7 @@ export const selectData: ComponentData = {
 
 // CVA variants: primary, secondary
 // CVA sizes: sm, md, lg
-// CVA booleans: fullWidth, disabled, invalid`,
+// CVA booleans: disabled, invalid`,
 
   keyboard: [
     { key: 'enter', description: 'Opens the dropdown or selects the focused option.' },

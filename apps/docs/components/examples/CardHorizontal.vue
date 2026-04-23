@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OCard } from '@ousi-ui/vue'
+import { OCard, OCardHeader, OCardTitle, OCardDescription, OCardContent } from '@ousi-ui/vue'
 </script>
 <template>
   <OCard class="flex-row items-stretch max-w-lg" variant="secondary">
@@ -9,13 +9,13 @@ import { OCard } from '@ousi-ui/vue'
       </svg>
     </div>
     <div class="flex flex-col gap-2 py-1">
-      <OCard.Header>
-        <OCard.Title>Horizontal Card</OCard.Title>
-        <OCard.Description>Image on the left, content on the right.</OCard.Description>
-      </OCard.Header>
-      <OCard.Content>
+      <OCardHeader>
+        <OCardTitle>Horizontal Card</OCardTitle>
+        <OCardDescription>Image on the left, content on the right.</OCardDescription>
+      </OCardHeader>
+      <OCardContent>
         <p class="text-sm text-ousi-muted">Use <code class="text-ousi-accent text-xs">class="flex-row"</code> on the Card.</p>
-      </OCard.Content>
+      </OCardContent>
     </div>
   </OCard>
 </template>

@@ -6,6 +6,7 @@ import type { SkeletonProps } from './skeleton.types'
 
 const props = withDefaults(defineProps<SkeletonProps>(), {
   animation: 'shimmer',
+  shadow: 'none',
 })
 
 const isPulse = computed(() => props.animation === 'pulse')
@@ -21,7 +22,7 @@ const bgStyle = computed(() => ({
 
 <template>
   <div
-    :class="cn(skeletonBaseTheme, props.class)"
+    :class="cn(skeletonBaseTheme({ shadow }), props.class)"
     :style="bgStyle"
     role="status"
     aria-busy="true"

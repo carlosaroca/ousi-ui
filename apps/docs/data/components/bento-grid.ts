@@ -35,6 +35,21 @@ export const bentoGridData: ComponentData = {
 </OBentoGrid>`,
       },
     },
+    {
+      id: 'shadows',
+      title: 'Shadows',
+      example: {
+        component: 'BentoGridShadows',
+        code: `<OBentoGrid :cols="3" :gap="16">
+  <OBentoGridItem shadow="none">...</OBentoGridItem>   <!-- default -->
+  <OBentoGridItem shadow="xs">...</OBentoGridItem>
+  <OBentoGridItem shadow="sm">...</OBentoGridItem>
+  <OBentoGridItem shadow="md">...</OBentoGridItem>
+  <OBentoGridItem shadow="lg">...</OBentoGridItem>
+  <OBentoGridItem shadow="xl">...</OBentoGridItem>
+</OBentoGrid>`,
+      },
+    },
   ],
 
   props: [
@@ -42,6 +57,7 @@ export const bentoGridData: ComponentData = {
     { name: 'gap', type: 'number', default: '16', description: 'Gap between grid items in pixels.' },
     { name: 'colSpan', type: 'number', default: '1', description: '(OBentoGridItem) Number of columns the item spans.' },
     { name: 'rowSpan', type: 'number', default: '1', description: '(OBentoGridItem) Number of rows the item spans.' },
+    { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'none'", description: '(OBentoGridItem) Elevation shadow.' },
   ],
 
   bestPractices: [
