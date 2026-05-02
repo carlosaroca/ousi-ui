@@ -17,6 +17,14 @@ export const datePickerTriggerTheme = cva(
   ],
   {
     variants: {
+      variant: {
+        primary: '',
+        secondary: [
+          'border-transparent bg-ousi-surface-secondary',
+          'hover:not-focus-within:bg-ousi-surface-tertiary',
+          'focus-within:bg-ousi-surface-secondary',
+        ],
+      },
       shadow: {
         none: 'shadow-none',
         xs: 'shadow-ousi-xs',
@@ -34,7 +42,11 @@ export const datePickerTriggerTheme = cva(
         ],
       },
     },
+    compoundVariants: [
+      { variant: 'secondary', shadow: 'xs', class: 'shadow-none' },
+    ],
     defaultVariants: {
+      variant: 'primary',
       shadow: 'xs',
       animated: false,
     },

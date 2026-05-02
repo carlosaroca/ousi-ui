@@ -75,16 +75,38 @@ export const dialogData: ComponentData = {
 </ODialog>`,
       },
     },
+    {
+      id: 'prevent-close',
+      title: 'Prevent close',
+      example: {
+        component: 'DialogPreventClose',
+        code: `<!-- Block ESC + backdrop click. The X button still closes. -->
+<ODialog v-model="open" prevent-close>
+  <ODialogHeader>Saving changes…</ODialogHeader>
+  <ODialogBody>Please wait until the upload finishes.</ODialogBody>
+</ODialog>
+
+<!-- Force a choice — also hide the X. -->
+<ODialog v-model="open" prevent-close hide-close-button>
+  <ODialogHeader>Confirm payment</ODialogHeader>
+  <ODialogFooter>
+    <OButton variant="outline" @click="open = false">Cancel</OButton>
+    <OButton @click="open = false">Confirm</OButton>
+  </ODialogFooter>
+</ODialog>`,
+      },
+    },
   ],
 
   props: [
     { name: 'modelValue', type: 'boolean', description: 'Controls open/close state (v-model).' },
     { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'cover' | 'full'", default: "'md'", description: 'Size of the dialog panel.' },
     { name: 'shadow', type: "'md' | 'lg' | 'xl' | '2xl'", default: "'xl'", description: 'Elevation shadow.' },
-    { name: 'placement', type: "'auto' | 'top' | 'center' | 'bottom'", default: "'auto'", description: 'Vertical placement of the dialog.' },
+    { name: 'placement', type: "'auto' | 'top' | 'center' | 'bottom'", default: "'center'", description: 'Vertical placement of the dialog.' },
     { name: 'backdrop', type: "'opaque' | 'blur' | 'transparent'", default: "'opaque'", description: 'Backdrop style.' },
-    { name: 'scrollBehavior', type: "'inside' | 'outside'", default: "'outside'", description: 'How the body scrolls when content overflows.' },
+    { name: 'scrollBehavior', type: "'inside' | 'outside'", default: "'inside'", description: 'How the body scrolls when content overflows.' },
     { name: 'hideCloseButton', type: 'boolean', default: 'false', description: 'Hide the built-in close button.' },
+    { name: 'preventClose', type: 'boolean', default: 'false', description: 'Block dismissal via Escape key or backdrop click. The close button still works unless also hidden.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes on the dialog panel.' },
   ],
 

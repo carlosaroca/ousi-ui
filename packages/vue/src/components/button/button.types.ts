@@ -4,6 +4,7 @@ import type { HapticInput } from '@ousi-ui/haptics'
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'text' | 'soft' | 'danger' | 'danger-soft'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 export type ButtonShadow = 'none' | 'xs' | 'sm' | 'md'
+export type ButtonAnimationType = 'vertical' | 'scale' | 'rotate'
 
 export interface ButtonProps {
   /** Visual variant of the button. */
@@ -26,6 +27,10 @@ export interface ButtonProps {
   as?: string | Component
   /** Haptic feedback on click. Pass false to disable. */
   haptic?: HapticInput
+  /** Show a Material-style ripple from the click point. Defaults to true. */
+  ripple?: boolean
+  /** Animation used to swap default content with the `#animate` slot on hover. Defaults to 'vertical'. */
+  animationType?: ButtonAnimationType
   /** Additional CSS classes (merged, never replaced). */
   class?: string
 }
@@ -39,4 +44,6 @@ export interface ButtonSlots {
   end?: () => unknown
   /** Custom loading indicator. */
   loading?: () => unknown
+  /** Content shown on hover — replaces default with the chosen `animationType`. */
+  animate?: () => unknown
 }

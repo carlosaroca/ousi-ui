@@ -14,7 +14,7 @@ export const autocompleteInputTheme = [
 
 export const autocompletePopoverTheme = [
   'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-lg',
-  'overflow-y-auto overscroll-contain max-h-60',
+  'overflow-hidden',
   'z-50',
 ].join(' ')
 

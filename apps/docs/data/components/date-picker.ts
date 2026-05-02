@@ -16,6 +16,33 @@ export const datePickerData: ComponentData = {
       },
     },
     {
+      id: 'variants',
+      title: 'Variants',
+      example: {
+        component: 'DatePickerVariants',
+        code: `<ODatePicker variant="primary" label="Primary" />
+<ODatePicker variant="secondary" label="Secondary" />`,
+      },
+    },
+    {
+      id: 'clearable',
+      title: 'Clearable (external reset)',
+      example: {
+        component: 'DatePickerClearable',
+        code: `<script setup>
+import { ref } from 'vue'
+import type { DateFieldValue } from '@ousi-ui/vue'
+
+const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
+</script>
+
+<template>
+  <ODatePicker v-model="date" label="Date" />
+  <OButton variant="text" @click="date = null">Clear</OButton>
+</template>`,
+      },
+    },
+    {
       id: 'with-description',
       title: 'With Description',
       example: {
@@ -81,6 +108,7 @@ export const datePickerData: ComponentData = {
 
   props: [
     { name: 'modelValue', type: 'DateFieldValue | null', default: 'null', description: 'Current date value (v-model).' },
+    { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateFieldValue | null', default: 'null', description: 'Default date value.' },

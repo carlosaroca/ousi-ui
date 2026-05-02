@@ -16,6 +16,36 @@ export const dateRangePickerData: ComponentData = {
       },
     },
     {
+      id: 'variants',
+      title: 'Variants',
+      example: {
+        component: 'DateRangePickerVariants',
+        code: `<ODateRangePicker variant="primary" label="Primary" />
+<ODateRangePicker variant="secondary" label="Secondary" />`,
+      },
+    },
+    {
+      id: 'clearable',
+      title: 'Clearable (external reset)',
+      example: {
+        component: 'DateRangePickerClearable',
+        code: `<script setup>
+import { ref } from 'vue'
+import type { DateRangeValue } from '@ousi-ui/vue'
+
+const range = ref<DateRangeValue | null>({
+  start: { year: 2026, month: 5, day: 1 },
+  end:   { year: 2026, month: 5, day: 14 },
+})
+</script>
+
+<template>
+  <ODateRangePicker v-model="range" label="Trip dates" />
+  <OButton variant="text" @click="range = null">Clear</OButton>
+</template>`,
+      },
+    },
+    {
       id: 'with-description',
       title: 'With Description',
       example: {
@@ -81,6 +111,7 @@ export const dateRangePickerData: ComponentData = {
 
   props: [
     { name: 'modelValue', type: 'DateRangeValue | null', default: 'null', description: 'Current range value (v-model).' },
+    { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateRangeValue | null', default: 'null', description: 'Default range value.' },

@@ -17,6 +17,9 @@ export interface DialogProps {
   scrollBehavior?: 'inside' | 'outside'
   /** Hide the built-in close button. */
   hideCloseButton?: boolean
+  /** Block dismissal via Escape key or backdrop click. The close button still works
+   *  unless also hidden via hideCloseButton. */
+  preventClose?: boolean
   /** Haptic feedback on open. Pass false to disable. */
   haptic?: HapticInput
   /** Additional CSS classes on the dialog panel. */

@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 
 export const buttonTheme = cva(
   [
-    'relative isolate inline-flex w-fit origin-center items-center justify-center gap-2',
+    'relative isolate inline-flex w-fit origin-center items-center justify-center gap-2 overflow-hidden',
     'whitespace-nowrap select-none outline-none',
     'font-medium transition-[transform,background-color,box-shadow]',
     'duration-[250ms,100ms,100ms]',

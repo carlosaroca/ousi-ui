@@ -24,6 +24,17 @@ export const autocompleteData: ComponentData = {
       },
     },
     {
+      id: 'long-list',
+      title: 'Long List',
+      example: {
+        component: 'AutocompleteLongList',
+        code: `<OAutocomplete
+  :options="countries"
+  placeholder="Search country..."
+/>`,
+      },
+    },
+    {
       id: 'variants',
       title: 'Variants',
       example: {
@@ -131,6 +142,7 @@ export const autocompleteData: ComponentData = {
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'scrollShadow', type: 'boolean', default: 'true', description: 'Show fade shadow at top/bottom of the list when scrollable.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the field is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the field is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether a value is required.' },

@@ -75,6 +75,39 @@ export const buttonData: ComponentData = {
       },
     },
     {
+      id: 'animate-slot',
+      title: 'Animate Slot',
+      example: {
+        component: 'ButtonAnimate',
+        code: `<!-- Default content swaps with #animate slot on hover -->
+<OButton animation-type="vertical">
+  Home
+  <template #animate>
+    <HomeIcon />
+  </template>
+</OButton>
+
+<OButton variant="soft" animation-type="vertical">
+  Message
+  <template #animate>
+    <SendIcon /> Send
+  </template>
+</OButton>
+
+<OButton variant="outline" animation-type="scale">
+  <CartIcon />
+  <template #animate>Store</template>
+</OButton>
+
+<OButton variant="danger" is-icon-only animation-type="rotate">
+  <HeartOutline />
+  <template #animate>
+    <HeartFilled />
+  </template>
+</OButton>`,
+      },
+    },
+    {
       id: 'full-width',
       title: 'Full Width',
       example: {
@@ -100,6 +133,8 @@ export const buttonData: ComponentData = {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the button.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Shows a loading spinner.' },
     { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
+    { name: 'ripple', type: 'boolean', default: 'true', description: 'Material-style ripple from the click point.' },
+    { name: 'animationType', type: "'vertical' | 'scale' | 'rotate'", default: "'vertical'", description: 'Transition used to swap default content with the #animate slot on hover.' },
     { name: 'type', type: "'button' | 'submit' | 'reset'", default: "'button'", description: 'HTML button type.' },
     { name: 'as', type: 'string | Component', default: "'button'", description: 'Render as a different element.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
@@ -109,6 +144,7 @@ export const buttonData: ComponentData = {
     { name: 'default', type: 'slot', description: 'Button label content.' },
     { name: 'start', type: 'slot', description: 'Content before the label (icon).' },
     { name: 'end', type: 'slot', description: 'Content after the label (icon).' },
+    { name: 'animate', type: 'slot', description: 'Content shown on hover — replaces default with the chosen animationType.' },
   ],
 
   themeCode: `import { buttonTheme } from '@ousi-ui/vue'

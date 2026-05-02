@@ -30,6 +30,7 @@ const props = withDefaults(defineProps<DateRangePickerProps>(), {
   disabled: false,
   readonly: false,
   required: false,
+  variant: 'primary',
   shadow: 'xs',
   animated: false,
 })
@@ -119,19 +120,23 @@ function initSide(val: DateFieldValue | null | undefined): SideState {
 const startState = initSide(props.modelValue?.start ?? props.defaultValue?.start)
 const endState = initSide(props.modelValue?.end ?? props.defaultValue?.end)
 
-// Sync external value → internal state
+// Sync external value → internal state (including external clear via v-model = null)
 watch(value, (v) => {
   if (v?.start) {
     startState.year = v.start.year
     startState.month = v.start.month
     startState.day = v.start.day
     startState.filled = new Set(['year', 'month', 'day'])
+  } else {
+    startState.filled = new Set()
   }
   if (v?.end) {
     endState.year = v.end.year
     endState.month = v.end.month
     endState.day = v.end.day
     endState.filled = new Set(['year', 'month', 'day'])
+  } else {
+    endState.filled = new Set()
   }
 })
 
@@ -428,7 +433,7 @@ const describedBy = computed(() =>
     <div
       ref="triggerRef"
       :id="fieldId"
-      :class="dateRangePickerTriggerTheme({ shadow, animated })"
+      :class="dateRangePickerTriggerTheme({ variant, shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"

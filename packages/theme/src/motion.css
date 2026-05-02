@@ -108,6 +108,18 @@
   50%      { opacity: 0; }
 }
 
+/* Button ripple — expands from click point and fades */
+@keyframes ousi-btn-ripple {
+  0%   { transform: scale(0);   opacity: 0.4; }
+  100% { transform: scale(1);   opacity: 0;   }
+}
+
+.ousi-btn-ripple {
+  background: currentColor;
+  transform: scale(0);
+  animation: ousi-btn-ripple 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 /* OTP shake on error */
 @keyframes otp-shake {
   0%   { transform: translateX(0); }

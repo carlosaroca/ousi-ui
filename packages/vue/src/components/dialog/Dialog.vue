@@ -12,10 +12,11 @@ import type { DialogProps, DialogEmits } from './dialog.types'
 
 const props = withDefaults(defineProps<DialogProps>(), {
   size: 'md',
-  placement: 'auto',
+  placement: 'center',
   backdrop: 'opaque',
   scrollBehavior: 'inside',
   hideCloseButton: false,
+  preventClose: false,
   shadow: 'xl',
 })
 
@@ -32,6 +33,13 @@ function close() {
   emit('close')
 }
 
+// Implicit dismissal (Escape, backdrop click) — gated by preventClose.
+// The X button calls `close()` directly so it always works (unless also hidden).
+function tryClose() {
+  if (props.preventClose) return
+  close()
+}
+
 const { trigger: triggerHaptic } = useHaptics()
 
 watch(isOpenRef, (val) => {
@@ -44,9 +52,9 @@ watch(isOpenRef, (val) => {
 // Scroll lock
 useScrollLock(isOpenRef)
 
-// Escape key
+// Escape key — gated by preventClose
 useEscapeKey({
-  handler: () => close(),
+  handler: () => tryClose(),
   enabled: isOpenRef,
 })
 
@@ -75,41 +83,50 @@ const panelEnter = computed(() => {
           :exit="{ opacity: 0 }"
           :transition="{ duration: 0.15, ease: 'easeOut' }"
           aria-hidden="true"
-          @click.self="close"
+          @click.self="tryClose"
         >
           <!-- Container -->
           <div
             :class="dialogContainerTheme({ placement, scrollBehavior })"
-            @click.self="close"
+            @click.self="tryClose"
           >
-            <!-- Panel -->
+            <!-- Animated wrapper — holds panel + external close button. Animation lives on the wrapper
+                 so the close button (sibling of panel, positioned outside it) animates together with the
+                 panel without being clipped by the panel's overflow-hidden. -->
             <Motion
               tag="div"
-              :id="dialogId"
-              role="dialog"
-              aria-modal="true"
-              :aria-labelledby="titleId"
-              :class="cn(dialogPanelTheme({ size, placement, scrollBehavior, shadow }), props.class)"
+              class="relative pointer-events-auto"
+              :class="size === 'full' || size === 'cover' ? 'w-full h-full' : 'w-full sm:w-fit'"
               :initial="(panelEnter as any)"
               :animate="{ opacity: 1, scale: 1, y: 0 }"
               :exit="{ opacity: 0, scale: 0.95 }"
               :transition="{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }"
               @click.stop
             >
-              <!-- Close button -->
+              <!-- Panel -->
+              <div
+                :id="dialogId"
+                role="dialog"
+                aria-modal="true"
+                :aria-labelledby="titleId"
+                :class="cn(dialogPanelTheme({ size, placement, scrollBehavior, shadow }), props.class)"
+              >
+                <slot :title-id="titleId" :close="close" />
+              </div>
+
+              <!-- External close button — pops out at the top-right corner of the panel. Shadow at rest,
+                   pressed-in feel on hover (shadow drops + scale-95). -->
               <button
                 v-if="!hideCloseButton"
                 type="button"
-                class="absolute top-4 right-4 flex items-center justify-center w-8 h-8 rounded-full text-ousi-muted hover:text-ousi-foreground hover:bg-ousi-default transition-colors"
+                class="absolute -top-3 -right-3 flex items-center justify-center w-8 h-8 rounded-ousi-xl bg-ousi-surface text-ousi-foreground shadow-ousi-sm transition-[transform,box-shadow] duration-200 ease-out hover:shadow-ousi-xs hover:scale-[0.97] active:scale-[0.94] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ousi-focus"
                 aria-label="Close dialog"
                 @click="close"
               >
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </button>
-
-              <slot :title-id="titleId" :close="close" />
             </Motion>
           </div>
         </Motion>

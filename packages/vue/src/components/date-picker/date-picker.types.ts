@@ -31,6 +31,8 @@ export interface DatePickerProps {
   readonly?: boolean
   /** Mark as required (shows asterisk on label). */
   required?: boolean
+  /** Visual variant of the field. Defaults to 'primary'. */
+  variant?: 'primary' | 'secondary'
   /** Elevation shadow on the trigger. Defaults to 'xs'. */
   shadow?: DatePickerShadow
   /** Enable tactile press animation (scale on focus). Defaults to false. */

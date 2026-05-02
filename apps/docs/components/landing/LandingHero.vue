@@ -112,7 +112,7 @@ const activeAccent = ref('#1b5cff')
           </div>
            <div class="mt-6">
             <OChip variant="outline" color="default" size="sm">
-              v0.2.0 — Now in Beta
+              v0.3.0 — Now in Beta
             </OChip>
           </div>
         </div>

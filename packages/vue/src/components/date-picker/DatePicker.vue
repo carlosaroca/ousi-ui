@@ -29,6 +29,7 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
   disabled: false,
   readonly: false,
   required: false,
+  variant: 'primary',
   shadow: 'xs',
   animated: false,
 })
@@ -110,6 +111,8 @@ watch(value, (v) => {
     internalMonth.value = v.month
     internalDay.value = v.day
     filledSegments.value = new Set(['year', 'month', 'day'])
+  } else {
+    filledSegments.value = new Set()
   }
 })
 
@@ -346,7 +349,7 @@ const describedBy = computed(() =>
     <div
       ref="triggerRef"
       :id="fieldId"
-      :class="datePickerTriggerTheme({ shadow, animated })"
+      :class="datePickerTriggerTheme({ variant, shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"

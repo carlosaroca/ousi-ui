@@ -3,6 +3,7 @@ import { ref, computed, watch, toRef, onBeforeUnmount, nextTick, useId } from 'v
 import { useFloating, autoUpdate, offset, flip, shift, size as floatingSize } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useEscapeKey } from '@ousi-ui/core'
+import OScrollShadow from '../scroll-shadow/ScrollShadow.vue'
 import {
   autocompleteWrapperTheme,
   autocompleteTriggerTheme,
@@ -27,6 +28,7 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
   emptyMessage: 'No results found',
   shadow: 'xs',
   animated: false,
+  scrollShadow: true,
 })
 
 const emit = defineEmits<AutocompleteEmits>()
@@ -269,32 +271,41 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
           :exit="{ opacity: 0, scale: 0.95 }"
           :transition="{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }"
         >
-          <ul :id="listboxId" role="listbox" :aria-label="label ?? 'Options'" :class="autocompleteListboxTheme">
-            <li
-              v-for="(option, index) in filteredOptions"
-              :key="option.value"
-              role="option"
-              :aria-selected="option.value === selectedValue"
-              :aria-disabled="option.disabled || undefined"
-              :data-disabled="option.disabled || undefined"
-              :class="autocompleteOptionTheme({ selected: option.value === selectedValue || undefined, focused: focusedIndex === index || undefined })"
-              @click="selectOption(option)"
-              @mouseenter="focusedIndex = index"
-            >
-              <span class="flex-1">{{ option.label }}</span>
-              <svg
-                v-if="option.value === selectedValue"
-                class="size-3.5 shrink-0 text-ousi-accent"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          <component
+            :is="scrollShadow ? OScrollShadow : 'div'"
+            :class="[
+              'max-h-60',
+              !scrollShadow && 'overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+            ]"
+            v-bind="scrollShadow ? { size: 24 } : {}"
+          >
+            <ul :id="listboxId" role="listbox" :aria-label="label ?? 'Options'" :class="autocompleteListboxTheme">
+              <li
+                v-for="(option, index) in filteredOptions"
+                :key="option.value"
+                role="option"
+                :aria-selected="option.value === selectedValue"
+                :aria-disabled="option.disabled || undefined"
+                :data-disabled="option.disabled || undefined"
+                :class="autocompleteOptionTheme({ selected: option.value === selectedValue || undefined, focused: focusedIndex === index || undefined })"
+                @click="selectOption(option)"
+                @mouseenter="focusedIndex = index"
               >
-                <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </li>
+                <span class="flex-1">{{ option.label }}</span>
+                <svg
+                  v-if="option.value === selectedValue"
+                  class="size-3.5 shrink-0 text-ousi-accent"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                >
+                  <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </li>
 
-            <li v-if="filteredOptions.length === 0" :class="autocompleteEmptyTheme" role="option" aria-disabled="true">
-              {{ emptyMessage }}
-            </li>
-          </ul>
+              <li v-if="filteredOptions.length === 0" :class="autocompleteEmptyTheme" role="option" aria-disabled="true">
+                {{ emptyMessage }}
+              </li>
+            </ul>
+          </component>
         </Motion>
       </AnimatePresence>
     </div>

@@ -27,6 +27,8 @@ export interface AutocompleteProps {
   shadow?: AutocompleteShadow
   /** Enable tactile press animation (scale on focus). Defaults to false. */
   animated?: boolean
+  /** Show fade shadow at top/bottom of list when scrollable. Defaults to true. */
+  scrollShadow?: boolean
   /** Whether the field is disabled. */
   disabled?: boolean
   /** Whether the field is read-only. */

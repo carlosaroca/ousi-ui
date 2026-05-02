@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, watchEffect, onBeforeUnmount } from 'vue'
-import { OButton, OSelect, OTooltip, ODrawer, OColorSlider } from '@ousi-ui/vue'
+import { OButton, OSelect, OTooltip, ODrawer, OColorSlider, ODialog, ODialogHeader, ODialogBody, ODialogFooter } from '@ousi-ui/vue'
 import type { SelectOption } from '@ousi-ui/vue'
 import LandingShowcase from '~/components/landing/LandingShowcase.vue'
 
@@ -38,6 +38,7 @@ const base = computed(() =>
 const copied = ref(false)
 const linkCopied = ref(false)
 const drawerOpen = ref(false)
+const dialogOpen = ref(false)
 
 // ── URL sync ──
 let syncTimer: ReturnType<typeof setTimeout> | null = null
@@ -370,6 +371,7 @@ function copyLink() {
               <OButton variant="soft">Soft</OButton>
               <OButton variant="danger">Danger</OButton>
               <OButton variant="danger-soft">Danger Soft</OButton>
+              <OButton variant="outline" @click="dialogOpen = true">Open dialog</OButton>
             </div>
           </div>
 
@@ -377,6 +379,31 @@ function copyLink() {
         </div>
       </div>
     </div>
+
+    <!-- Dialog — for testing close-button radius adapt against --ousi-radius -->
+    <ClientOnly>
+      <ODialog v-model="dialogOpen" size="md">
+        <ODialogHeader>
+          <h2 class="text-lg font-semibold text-ousi-foreground">Lorem ipsum dialog</h2>
+        </ODialogHeader>
+        <ODialogBody>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p class="mt-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </ODialogBody>
+        <ODialogFooter>
+          <OButton variant="text" @click="dialogOpen = false">Cancel</OButton>
+          <OButton @click="dialogOpen = false">Confirm</OButton>
+        </ODialogFooter>
+      </ODialog>
+    </ClientOnly>
 
     <!-- CSS Export Drawer -->
     <ClientOnly>
