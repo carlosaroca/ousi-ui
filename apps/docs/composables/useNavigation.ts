@@ -67,6 +67,7 @@ export function useVueNavigation(): NavSection[] {
         { title: 'TimeField', path: '/vue/components/time-field' },
         { title: 'DatePicker', path: '/vue/components/date-picker' },
         { title: 'DateRangePicker', path: '/vue/components/date-range-picker' },
+        { title: 'TimePicker', path: '/vue/components/time-picker' },
       ],
     },
     {

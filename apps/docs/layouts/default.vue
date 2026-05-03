@@ -112,7 +112,7 @@ function onSearchSelect(key: string) {
               class="h-7 w-auto"
             />
             <span class="text-2xl font-extrabold tracking-tight text-ousi-foreground">Ousi</span>
-            <span class="text-xs text-ousi-muted hidden sm:inline">v0.3.0</span>
+            <span class="text-xs text-ousi-muted hidden sm:inline">v0.3.1</span>
           </NuxtLink>
 
           <!-- Search trigger -->

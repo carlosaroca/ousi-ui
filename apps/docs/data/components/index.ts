@@ -28,6 +28,7 @@ import { dateFieldData } from './date-field'
 import { timeFieldData } from './time-field'
 import { datePickerData } from './date-picker'
 import { dateRangePickerData } from './date-range-picker'
+import { timePickerData } from './time-picker'
 
 // Colors
 import { colorSwatchData } from './color-swatch'
@@ -130,6 +131,7 @@ export const componentRegistry: Record<string, ComponentData> = {
   'time-field': timeFieldData,
   'date-picker': datePickerData,
   'date-range-picker': dateRangePickerData,
+  'time-picker': timePickerData,
   'color-swatch': colorSwatchData,
   'color-field': colorFieldData,
   'color-slider': colorSliderData,

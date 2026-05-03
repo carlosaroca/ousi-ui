@@ -75,6 +75,8 @@ export * from './components/date-field'
 
 export * from './components/time-field'
 
+export * from './components/time-picker'
+
 export * from './components/date-picker'
 
 export * from './components/date-range-picker'

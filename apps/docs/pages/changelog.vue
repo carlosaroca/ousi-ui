@@ -7,6 +7,7 @@ useSeoMeta({
 })
 
 const tocItems = [
+  { id: 'v0-3-1', label: 'v0.3.1' },
   { id: 'v0-3-0', label: 'v0.3.0' },
   { id: 'v0-2-0', label: 'v0.2.0' },
   { id: 'v0-1-4', label: 'v0.1.4' },
@@ -26,13 +27,44 @@ const tocItems = [
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.3.1 -->
+    <article id="v0-3-1" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.3.1</h2>
+        <span class="text-xs text-ousi-muted">May 3, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Added</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <strong class="text-ousi-foreground">OTimePicker</strong> — new component with iOS-style wheel popover. True 3D rotation
+              (<code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">perspective</code> + per-item
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">rotateX</code>), infinite scroll on hour/minute/second wheels,
+              fade mask at the edges, mouse drag (touch keeps native momentum), haptic feedback on every value change,
+              and full <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">min</code>/<code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">max</code> enforcement
+              (out-of-range items are dimmed, struck through, and skipped on scroll).
+              Supports <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">hour12</code>,
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">granularity: 'hour' | 'minute' | 'second'</code>,
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">interval</code> for the minute wheel,
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">variant: 'primary' | 'secondary'</code>,
+              and the standard label/description/error/disabled/readonly/required field props.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <!-- v0.3.0 -->
     <article id="v0-3-0" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.3.0</h2>
         <span class="text-xs text-ousi-muted">May 2, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
 
       <div class="space-y-4">

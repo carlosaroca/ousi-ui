@@ -1,6 +1,6 @@
 {
   "name": "@ousi-ui/theme",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "CSS themes and design tokens for Ousi UI (Tailwind v4)",
   "type": "module",
   "style": "./dist/index.css",
