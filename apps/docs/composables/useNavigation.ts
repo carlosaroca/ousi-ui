@@ -28,6 +28,7 @@ export function useVueNavigation(): NavSection[] {
         { title: 'Animation', path: '/vue/getting-started/animation' },
         { title: 'Composition', path: '/vue/getting-started/composition' },
         { title: 'Haptics', path: '/vue/getting-started/haptics' },
+        { title: 'i18n', path: '/vue/getting-started/i18n' },
       ],
     },
     {

@@ -1,6 +1,7 @@
 import type { DateFieldValue } from '../date-field/date-field.types'
 
 export type DateRangePickerShadow = 'none' | 'xs' | 'sm' | 'md'
+export type DateRangePickerSize = 'sm' | 'md' | 'lg'
 
 export interface DateRangeValue {
   start: DateFieldValue | null
@@ -38,6 +39,8 @@ export interface DateRangePickerProps {
   required?: boolean
   /** Visual variant of the field. Defaults to 'primary'. */
   variant?: 'primary' | 'secondary'
+  /** Size of the field. Defaults to 'md'. */
+  size?: DateRangePickerSize
   /** Elevation shadow on the trigger. Defaults to 'xs'. */
   shadow?: DateRangePickerShadow
   /** Enable tactile press animation (scale on focus). Defaults to false. */

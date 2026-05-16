@@ -71,6 +71,16 @@ export const timePickerData: ComponentData = {
       },
     },
     {
+      id: 'sizes',
+      title: 'Sizes',
+      example: {
+        component: 'TimePickerSizes',
+        code: `<OTimePicker size="sm" label="Small" />
+<OTimePicker size="md" label="Medium" />
+<OTimePicker size="lg" label="Large" />`,
+      },
+    },
+    {
       id: 'clearable',
       title: 'Clearable (external reset)',
       example: {
@@ -101,6 +111,7 @@ const time = ref<TimeFieldValue | null>({ hour: 14, minute: 30 })
   props: [
     { name: 'modelValue', type: 'TimeFieldValue | null', default: 'null', description: 'Current time value (v-model). Shape: { hour, minute, second? }.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant of the field.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow on the trigger.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'TimeFieldValue | null', default: 'null', description: 'Default time value.' },

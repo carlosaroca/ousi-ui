@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
+import { useOusiConfig, getFirstDayOfWeekForLocale } from '../../config'
 import {
   rangeCalendarTheme,
   rangeCalendarHeaderTheme,
@@ -14,10 +15,15 @@ import {
 import type { RangeCalendarProps, RangeCalendarEmits, CalendarDate, DateRange } from './range-calendar.types'
 
 const props = withDefaults(defineProps<RangeCalendarProps>(), {
-  locale: 'en-US',
   showOutsideDays: true,
   readonly: false,
 })
+
+const config = useOusiConfig()
+const effectiveLocale = computed(() => props.locale ?? config.locale.value)
+const effectiveFirstDay = computed(() =>
+  props.firstDayOfWeek ?? config.firstDayOfWeek.value ?? getFirstDayOfWeekForLocale(effectiveLocale.value),
+)
 
 const emit = defineEmits<RangeCalendarEmits>()
 
@@ -39,14 +45,17 @@ const viewMonth = ref(range.value?.start?.month ?? today.getMonth() + 1)
 
 const headingLabel = computed(() => {
   const d = new Date(viewYear.value, viewMonth.value - 1, 1)
-  return d.toLocaleDateString(props.locale, { month: 'long', year: 'numeric' })
+  return d.toLocaleDateString(effectiveLocale.value, { month: 'long', year: 'numeric' })
 })
 
 const weekdays = computed(() => {
+  // Reference week: 2026-01-04 is a Sunday. Rotate the labels so they line up
+  // with the configured firstDayOfWeek.
   const days: string[] = []
   for (let i = 0; i < 7; i++) {
-    const d = new Date(2026, 0, 7 + i)
-    days.push(d.toLocaleDateString(props.locale, { weekday: 'short' }).slice(0, 2))
+    const dayOfWeek = (effectiveFirstDay.value + i) % 7
+    const d = new Date(2026, 0, 4 + dayOfWeek)
+    days.push(d.toLocaleDateString(effectiveLocale.value, { weekday: 'short' }).slice(0, 2))
   }
   return days
 })
@@ -63,13 +72,15 @@ const effectiveRange = computed((): DateRange => {
 const calendarDays = computed(() => {
   const year = viewYear.value
   const month = viewMonth.value
-  const firstDay = new Date(year, month - 1, 1).getDay()
+  // Offset relative to the configured firstDayOfWeek.
+  const firstDayOfMonth = new Date(year, month - 1, 1).getDay()
+  const offset = (firstDayOfMonth - effectiveFirstDay.value + 7) % 7
   const daysInMonth = new Date(year, month, 0).getDate()
   const daysInPrevMonth = new Date(year, month - 1, 0).getDate()
 
   const days: Array<ReturnType<typeof makeDay>> = []
 
-  for (let i = firstDay - 1; i >= 0; i--) {
+  for (let i = offset - 1; i >= 0; i--) {
     const day = daysInPrevMonth - i
     const pm = month === 1 ? 12 : month - 1
     const py = month === 1 ? year - 1 : year

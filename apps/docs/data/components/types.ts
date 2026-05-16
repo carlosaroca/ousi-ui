@@ -46,6 +46,8 @@ export interface ComponentData {
   slots?: PropDef[]
   /** Emits for the API tab */
   emits?: PropDef[]
+  /** Methods exposed via `defineExpose` — accessed through a template ref. */
+  methods?: PropDef[]
   /** Theme import info */
   themeCode?: string
   /** Keyboard interactions for accessibility tab */

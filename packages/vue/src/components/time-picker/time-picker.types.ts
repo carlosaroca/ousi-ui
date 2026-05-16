@@ -1,6 +1,7 @@
 import type { TimeFieldValue, TimeFieldGranularity } from '../time-field/time-field.types'
 
 export type TimePickerShadow = 'none' | 'xs' | 'sm' | 'md'
+export type TimePickerSize = 'sm' | 'md' | 'lg'
 export type TimePickerInterval = 1 | 5 | 10 | 15 | 30 | 60
 
 export interface TimePickerProps {
@@ -14,7 +15,10 @@ export interface TimePickerProps {
   description?: string
   /** Error message — replaces description when present. */
   errorMessage?: string
-  /** 12-hour format with AM/PM column. Defaults to false (24h). */
+  /** Locale for AM/PM labels and clock conventions. Falls back to the global
+   *  config (useOusiConfig). */
+  locale?: string
+  /** 12-hour format with an AM/PM column. When omitted, inferred from the locale. */
   hour12?: boolean
   /** Granularity of the picker. Defaults to 'minute'. */
   granularity?: TimeFieldGranularity
@@ -34,6 +38,8 @@ export interface TimePickerProps {
   required?: boolean
   /** Visual variant of the field. Defaults to 'primary'. */
   variant?: 'primary' | 'secondary'
+  /** Size of the field. Defaults to 'md'. */
+  size?: TimePickerSize
   /** Elevation shadow on the trigger. Defaults to 'xs'. */
   shadow?: TimePickerShadow
   /** Enable tactile press animation (scale on focus). Defaults to false. */

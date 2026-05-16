@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const nodes = [
+import { OTreeView } from '@ousi-ui/vue'
+import type { TreeNode } from '@ousi-ui/vue'
+
+const nodes: TreeNode[] = [
   {
     key: 'docs',
     label: 'Documentation',
@@ -30,6 +33,6 @@ const nodes = [
 
 <template>
   <div class="w-full max-w-sm rounded-ousi-xl border border-ousi-border bg-ousi-surface p-3">
-    <OTreeView :nodes="nodes" :default-expanded="['docs', 'guides', 'api']" />
+    <OTreeView :nodes="nodes" :default-expanded-keys="new Set(['docs', 'guides', 'api'])" />
   </div>
 </template>

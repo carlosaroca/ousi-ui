@@ -170,13 +170,18 @@ const components = {
   OAspectRatio,
 } as const
 
-export interface OusiUIPluginOptions {
+import { applyOusiConfig, type OusiConfigInit } from '../config'
+
+export interface OusiUIPluginOptions extends OusiConfigInit {
   /** Prefix for component registration. Defaults to 'O'. */
   prefix?: string
 }
 
 export function install(app: App, options: OusiUIPluginOptions = {}) {
-  const { prefix = 'O' } = options
+  const { prefix = 'O', locale, hour12, firstDayOfWeek, dir } = options
+
+  // Seed the global config singleton — useOusiConfig() will pick these up.
+  applyOusiConfig({ locale, hour12, firstDayOfWeek, dir })
 
   for (const [name, component] of Object.entries(components)) {
     const registeredName = prefix ? name.replace(/^O/, prefix) : name

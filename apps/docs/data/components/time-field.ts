@@ -16,6 +16,25 @@ export const timeFieldData: ComponentData = {
       },
     },
     {
+      id: 'variants',
+      title: 'Variants',
+      example: {
+        component: 'TimeFieldVariants',
+        code: `<OTimeField variant="primary" label="Primary" />
+<OTimeField variant="secondary" label="Secondary" />`,
+      },
+    },
+    {
+      id: 'sizes',
+      title: 'Sizes',
+      example: {
+        component: 'TimeFieldSizes',
+        code: `<OTimeField size="sm" label="Small" />
+<OTimeField size="md" label="Medium" />
+<OTimeField size="lg" label="Large" />`,
+      },
+    },
+    {
       id: 'twelve-hour',
       title: '12-Hour Format',
       example: {
@@ -52,6 +71,8 @@ export const timeFieldData: ComponentData = {
 
   props: [
     { name: 'modelValue', type: 'TimeFieldValue | null', default: 'null', description: 'Current time value (v-model).' },
+    { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'TimeFieldValue | null', default: 'null', description: 'Default time value.' },

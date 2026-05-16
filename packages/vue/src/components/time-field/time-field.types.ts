@@ -6,13 +6,18 @@ export interface TimeFieldValue {
 
 export type TimeFieldGranularity = 'hour' | 'minute' | 'second'
 export type TimeFieldShadow = 'none' | 'xs' | 'sm' | 'md'
+export type TimeFieldSize = 'sm' | 'md' | 'lg'
+export type TimeFieldVariant = 'primary' | 'secondary'
 
 export interface TimeFieldProps {
   /** Current time value (v-model). */
   modelValue?: TimeFieldValue | null
   /** Default time value. */
   defaultValue?: TimeFieldValue | null
-  /** Use 24-hour format. */
+  /** Locale used to infer hour12 when not explicitly set. Falls back to the
+   *  global config (useOusiConfig). */
+  locale?: string
+  /** 12-hour format with an AM/PM segment. When omitted, inferred from the locale. */
   hour12?: boolean
   /** Granularity of the picker. */
   granularity?: TimeFieldGranularity
@@ -20,6 +25,10 @@ export interface TimeFieldProps {
   min?: TimeFieldValue
   /** Maximum allowed time. */
   max?: TimeFieldValue
+  /** Visual variant. Defaults to 'primary'. */
+  variant?: TimeFieldVariant
+  /** Size of the field. Defaults to 'md'. */
+  size?: TimeFieldSize
   /** Elevation shadow. Defaults to 'xs'. */
   shadow?: TimeFieldShadow
   /** Enable tactile press animation (scale on focus). Defaults to false. */

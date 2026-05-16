@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, toRef, useSlots } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
+import { useOusiConfig, getFirstDayOfWeekForLocale } from '../../config'
 import {
   calendarTheme,
   calendarHeaderTheme,
@@ -17,12 +18,19 @@ import {
 import type { CalendarProps, CalendarEmits, CalendarDate } from './calendar.types'
 
 const props = withDefaults(defineProps<CalendarProps>(), {
-  locale: 'en-US',
   showOutsideDays: true,
   showYearPicker: false,
   readonly: false,
   disabled: false,
 })
+
+const config = useOusiConfig()
+// Effective locale: prop wins, then global config.
+const effectiveLocale = computed(() => props.locale ?? config.locale.value)
+// Effective first day of week: prop > config > locale-derived default.
+const effectiveFirstDay = computed(() =>
+  props.firstDayOfWeek ?? config.firstDayOfWeek.value ?? getFirstDayOfWeekForLocale(effectiveLocale.value),
+)
 
 const emit = defineEmits<CalendarEmits>()
 
@@ -51,14 +59,17 @@ const yearRange = computed(() => {
 
 const headingLabel = computed(() => {
   const d = new Date(viewYear.value, viewMonth.value - 1, 1)
-  return d.toLocaleDateString(props.locale, { month: 'long', year: 'numeric' })
+  return d.toLocaleDateString(effectiveLocale.value, { month: 'long', year: 'numeric' })
 })
 
 const weekdays = computed(() => {
+  // Reference week: 2026-01-04 is a Sunday (getDay()=0). Build labels
+  // starting at the configured firstDayOfWeek so columns align with the grid.
   const days: string[] = []
   for (let i = 0; i < 7; i++) {
-    const d = new Date(2026, 0, 7 + i)
-    days.push(d.toLocaleDateString(props.locale, { weekday: 'short' }).slice(0, 2))
+    const dayOfWeek = (effectiveFirstDay.value + i) % 7
+    const d = new Date(2026, 0, 4 + dayOfWeek)
+    days.push(d.toLocaleDateString(effectiveLocale.value, { weekday: 'short' }).slice(0, 2))
   }
   return days
 })
@@ -66,7 +77,10 @@ const weekdays = computed(() => {
 const calendarDays = computed(() => {
   const year = viewYear.value
   const month = viewMonth.value
-  const firstDay = new Date(year, month - 1, 1).getDay()
+  // Offset of the first of the month relative to the configured firstDayOfWeek.
+  // e.g., in a Monday-first locale, if the 1st is a Wednesday, offset = 2.
+  const firstDayOfMonth = new Date(year, month - 1, 1).getDay()
+  const offset = (firstDayOfMonth - effectiveFirstDay.value + 7) % 7
   const daysInMonth = new Date(year, month, 0).getDate()
   const daysInPrevMonth = new Date(year, month - 1, 0).getDate()
 
@@ -80,7 +94,7 @@ const calendarDays = computed(() => {
     hasIndicator: boolean
   }> = []
 
-  for (let i = firstDay - 1; i >= 0; i--) {
+  for (let i = offset - 1; i >= 0; i--) {
     const day = daysInPrevMonth - i
     const pm = month === 1 ? 12 : month - 1
     const py = month === 1 ? year - 1 : year

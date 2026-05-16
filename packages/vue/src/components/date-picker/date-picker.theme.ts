@@ -6,8 +6,8 @@ export const datePickerWrapperTheme = 'flex w-full flex-col gap-1'
 /** Trigger row — unified field container for segments + icon. Owns ALL field chrome. */
 export const datePickerTriggerTheme = cva(
   [
-    'inline-flex w-full items-center min-h-9 rounded-ousi-field px-3 py-2',
-    'border bg-ousi-field text-sm text-ousi-field-foreground',
+    'inline-flex w-full items-center min-h-9 rounded-ousi-field px-3',
+    'border bg-ousi-field text-ousi-field-foreground',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
     'motion-reduce:transition-none',
     'hover:not-focus-within:bg-ousi-field-hover',
@@ -24,6 +24,11 @@ export const datePickerTriggerTheme = cva(
           'hover:not-focus-within:bg-ousi-surface-tertiary',
           'focus-within:bg-ousi-surface-secondary',
         ],
+      },
+      size: {
+        sm: 'py-1 text-sm',
+        md: 'py-2 text-sm',
+        lg: 'py-2.5 text-base',
       },
       shadow: {
         none: 'shadow-none',
@@ -47,6 +52,7 @@ export const datePickerTriggerTheme = cva(
     ],
     defaultVariants: {
       variant: 'primary',
+      size: 'md',
       shadow: 'xs',
       animated: false,
     },

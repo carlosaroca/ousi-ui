@@ -17,8 +17,11 @@ export interface CalendarProps {
   unavailableDates?: CalendarDate[]
   /** Days with indicators (dots). */
   indicatorDays?: number[]
-  /** Locale for month/day names. */
+  /** Locale for month/day names. Falls back to the global config (useOusiConfig). */
   locale?: string
+  /** First day of the week — 0=Sunday, 1=Monday, ..., 6=Saturday. Falls back
+   *  to the global config, then to a locale-region heuristic. */
+  firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   /** Show days from previous/next month. */
   showOutsideDays?: boolean
   /** Enable year picker overlay. */

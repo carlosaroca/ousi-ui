@@ -2,8 +2,8 @@ import { cva } from 'class-variance-authority'
 
 export const dateFieldWrapperTheme = cva(
   [
-    'inline-flex min-h-9 items-center overflow-hidden rounded-ousi-field',
-    'border bg-ousi-field text-sm text-ousi-field-foreground outline-none',
+    'inline-flex min-h-9 items-center gap-0 overflow-hidden rounded-ousi-field',
+    'border bg-ousi-field text-ousi-field-foreground outline-none px-3',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
     'motion-reduce:transition-none',
     'hover:not-focus-within:bg-ousi-field-hover',
@@ -12,6 +12,19 @@ export const dateFieldWrapperTheme = cva(
   ],
   {
     variants: {
+      variant: {
+        primary: '',
+        secondary: [
+          'border-transparent bg-ousi-surface-secondary',
+          'hover:not-focus-within:bg-ousi-surface-tertiary',
+          'focus-within:bg-ousi-surface-secondary',
+        ],
+      },
+      size: {
+        sm: 'py-1 text-sm',
+        md: 'py-2 text-sm',
+        lg: 'py-2.5 text-base',
+      },
       shadow: {
         none: 'shadow-none',
         xs: 'shadow-ousi-xs',
@@ -29,7 +42,12 @@ export const dateFieldWrapperTheme = cva(
         ],
       },
     },
+    compoundVariants: [
+      { variant: 'secondary', shadow: 'xs', class: 'shadow-none' },
+    ],
     defaultVariants: {
+      variant: 'primary',
+      size: 'md',
       shadow: 'xs',
       animated: false,
     },

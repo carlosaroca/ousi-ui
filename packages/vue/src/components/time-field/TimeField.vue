@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, toRef, nextTick } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
+import { useOusiConfig, getHour12ForLocale } from '../../config'
 import {
   dateFieldWrapperTheme,
   dateFieldSegmentTheme,
@@ -16,13 +17,20 @@ import type {
 } from './time-field.types'
 
 const props = withDefaults(defineProps<TimeFieldProps>(), {
-  hour12: false,
   granularity: 'minute',
   disabled: false,
   readOnly: false,
+  variant: 'primary',
+  size: 'md',
   shadow: 'xs',
   animated: false,
 })
+
+const config = useOusiConfig()
+const effectiveLocale = computed(() => props.locale ?? config.locale.value)
+const effectiveHour12 = computed(() =>
+  props.hour12 ?? config.hour12.value ?? getHour12ForLocale(effectiveLocale.value),
+)
 
 const emit = defineEmits<TimeFieldEmits>()
 
@@ -63,7 +71,7 @@ const segmentOrder = computed(() => {
   const segments: TimeSegment[] = []
   const showSeconds = props.granularity === 'second'
 
-  segments.push({ type: 'hour', text: '', placeholder: props.hour12 ? 'hh' : 'HH', value: undefined })
+  segments.push({ type: 'hour', text: '', placeholder: effectiveHour12.value ? 'hh' : 'HH', value: undefined })
   segments.push({ type: 'literal', text: ':', placeholder: ':' })
   segments.push({ type: 'minute', text: '', placeholder: 'mm', value: undefined })
 
@@ -72,7 +80,7 @@ const segmentOrder = computed(() => {
     segments.push({ type: 'second', text: '', placeholder: 'ss', value: undefined })
   }
 
-  if (props.hour12) {
+  if (effectiveHour12.value) {
     segments.push({ type: 'literal', text: ' ', placeholder: ' ' })
     segments.push({ type: 'dayPeriod', text: '', placeholder: 'AM', value: undefined })
   }
@@ -87,7 +95,7 @@ const editableIndices = computed(() =>
 )
 
 function displayHour(h: number): number {
-  if (!props.hour12) return h
+  if (!effectiveHour12.value) return h
   if (h === 0) return 12
   if (h > 12) return h - 12
   return h
@@ -107,7 +115,7 @@ function clamp(val: number, min: number, max: number): number {
 }
 
 function getMinMax(type: TimeSegmentType): [number, number] {
-  if (type === 'hour') return props.hour12 ? [1, 12] : [0, 23]
+  if (type === 'hour') return effectiveHour12.value ? [1, 12] : [0, 23]
   if (type === 'minute') return [0, 59]
   if (type === 'second') return [0, 59]
   return [0, 0]
@@ -134,7 +142,7 @@ function setSegmentValue(type: TimeSegmentType, val: number | string) {
   filledSegments.value.add(type)
 
   if (type === 'hour') {
-    if (props.hour12) {
+    if (effectiveHour12.value) {
       // Convert display hour back to 24h
       let h24 = clamped
       if (internalPeriod.value === 'PM' && h24 !== 12) h24 += 12
@@ -311,7 +319,7 @@ function setRef(el: any, idx: number) {
 
 <template>
   <div
-    :class="cn(dateFieldWrapperTheme({ shadow, animated }), 'gap-0 px-3 py-2', props.class)"
+    :class="cn(dateFieldWrapperTheme({ variant, size, shadow, animated }), props.class)"
     :data-disabled="disabled || undefined"
     role="group"
     :aria-label="label ?? 'Time field'"

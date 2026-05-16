@@ -7,6 +7,8 @@ export type {
   SortDirection,
   SelectionMode,
   TableVariant,
+  TableShadow,
+  TableDensity,
 } from './table.types'
 export {
   tableRootTheme,

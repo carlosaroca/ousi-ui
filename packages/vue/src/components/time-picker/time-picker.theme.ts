@@ -6,8 +6,8 @@ export const timePickerWrapperTheme = 'flex w-full flex-col gap-1'
 /** Trigger button — looks like a field, opens the wheels popover. */
 export const timePickerTriggerTheme = cva(
   [
-    'inline-flex w-full items-center min-h-9 rounded-ousi-field px-3 py-2',
-    'border bg-ousi-field text-sm text-ousi-field-foreground',
+    'inline-flex w-full items-center min-h-9 rounded-ousi-field px-3',
+    'border bg-ousi-field text-ousi-field-foreground',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
     'cursor-[--ousi-cursor-interactive] outline-none',
     'motion-reduce:transition-none',
@@ -25,6 +25,11 @@ export const timePickerTriggerTheme = cva(
           'hover:not-focus:bg-ousi-surface-tertiary',
           'focus:bg-ousi-surface-secondary',
         ],
+      },
+      size: {
+        sm: 'py-1 text-sm',
+        md: 'py-2 text-sm',
+        lg: 'py-2.5 text-base',
       },
       shadow: {
         none: 'shadow-none',
@@ -48,6 +53,7 @@ export const timePickerTriggerTheme = cva(
     ],
     defaultVariants: {
       variant: 'primary',
+      size: 'md',
       shadow: 'xs',
       animated: false,
     },

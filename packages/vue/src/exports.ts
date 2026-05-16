@@ -140,6 +140,10 @@ export * from './components/aspect-ratio'
 export { OusiUIPlugin, install } from './plugin/install'
 export type { OusiUIPluginOptions } from './plugin/install'
 
+// Config (i18n / locale / dir)
+export { useOusiConfig, applyOusiConfig, getFirstDayOfWeekForLocale, getHour12ForLocale } from './config'
+export type { OusiConfig, OusiConfigInit, WeekDay } from './config'
+
 // Resolver
 export { OusiResolver } from './plugin/resolver'
 export type { OusiResolverOptions } from './plugin/resolver'

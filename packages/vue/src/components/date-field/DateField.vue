@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, toRef, nextTick } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
+import { useOusiConfig } from '../../config'
 import {
   dateFieldWrapperTheme,
   dateFieldSegmentTheme,
@@ -16,13 +17,17 @@ import type {
 } from './date-field.types'
 
 const props = withDefaults(defineProps<DateFieldProps>(), {
-  locale: 'en-US',
   granularity: 'day',
   disabled: false,
   readOnly: false,
+  variant: 'primary',
+  size: 'md',
   shadow: 'xs',
   animated: false,
 })
+
+const config = useOusiConfig()
+const effectiveLocale = computed(() => props.locale ?? config.locale.value)
 
 const emit = defineEmits<DateFieldEmits>()
 
@@ -44,7 +49,7 @@ const segmentRefs = ref<(HTMLElement | null)[]>([])
 const segmentOrder = computed(() => {
   const granularity = props.granularity
   try {
-    const fmt = new Intl.DateTimeFormat(props.locale, {
+    const fmt = new Intl.DateTimeFormat(effectiveLocale.value, {
       year: 'numeric',
       month: granularity === 'year' ? undefined : '2-digit',
       day: granularity === 'day' ? '2-digit' : undefined,
@@ -285,7 +290,7 @@ function setRef(el: any, idx: number) {
 
 <template>
   <div
-    :class="cn(dateFieldWrapperTheme({ shadow, animated }), 'gap-0 px-3 py-2', props.class)"
+    :class="cn(dateFieldWrapperTheme({ variant, size, shadow, animated }), props.class)"
     :data-disabled="disabled || undefined"
     role="group"
     :aria-label="label ?? 'Date field'"

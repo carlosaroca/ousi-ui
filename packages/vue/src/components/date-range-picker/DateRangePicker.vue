@@ -3,6 +3,7 @@ import { ref, computed, watch, onBeforeUnmount, toRef, nextTick, reactive } from
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
+import { useOusiConfig } from '../../config'
 import { ORangeCalendar } from '../range-calendar'
 import {
   dateFieldSegmentTheme,
@@ -24,16 +25,19 @@ import type { DateFieldValue } from '../date-field/date-field.types'
 import type { Segment, SegmentType } from '../date-field/date-field.types'
 
 const props = withDefaults(defineProps<DateRangePickerProps>(), {
-  locale: 'en-US',
   showOutsideDays: true,
   placement: 'bottom-start',
   disabled: false,
   readonly: false,
   required: false,
   variant: 'primary',
+  size: 'md',
   shadow: 'xs',
   animated: false,
 })
+
+const config = useOusiConfig()
+const effectiveLocale = computed(() => props.locale ?? config.locale.value)
 
 const emit = defineEmits<DateRangePickerEmits>()
 
@@ -60,7 +64,7 @@ const value = useControllableState<DateRangeValue | null>({
 // ── Segment ordering from Intl (shared by start and end) ──
 const segmentOrder = computed(() => {
   try {
-    const fmt = new Intl.DateTimeFormat(props.locale, {
+    const fmt = new Intl.DateTimeFormat(effectiveLocale.value, {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -433,7 +437,7 @@ const describedBy = computed(() =>
     <div
       ref="triggerRef"
       :id="fieldId"
-      :class="dateRangePickerTriggerTheme({ variant, shadow, animated })"
+      :class="dateRangePickerTriggerTheme({ variant, size, shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"
@@ -572,7 +576,7 @@ const describedBy = computed(() =>
         >
           <ORangeCalendar
             :model-value="calendarRange"
-            :locale="locale"
+            :locale="effectiveLocale"
             :min-value="minValue"
             :max-value="maxValue"
             :unavailable-dates="unavailableDates"

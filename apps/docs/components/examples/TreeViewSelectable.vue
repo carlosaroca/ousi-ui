@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { OTreeView } from '@ousi-ui/vue'
+import type { TreeNode } from '@ousi-ui/vue'
 
-const selected = ref('')
-const nodes = [
+const selected = ref<string>('')
+
+const nodes: TreeNode[] = [
   {
     key: 'src',
     label: 'src',
@@ -43,9 +46,14 @@ const nodes = [
 <template>
   <div class="flex gap-6 w-full max-w-lg">
     <div class="flex-1 rounded-ousi-xl border border-ousi-border bg-ousi-surface p-3">
-      <OTreeView :nodes="nodes" selectable :selected-key="selected" :default-expanded="['src', 'components']" @select="(key) => selected = key" />
+      <OTreeView
+        :nodes="nodes"
+        selection-mode="single"
+        v-model:selected-key="selected"
+        :default-expanded-keys="new Set(['src', 'components'])"
+      />
     </div>
-    <div v-if="selected" class="text-sm text-ousi-muted">
+    <div v-if="selected" class="text-sm text-ousi-muted shrink-0">
       Selected: <span class="text-ousi-foreground font-medium">{{ selected }}</span>
     </div>
   </div>

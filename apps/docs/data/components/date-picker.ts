@@ -25,6 +25,16 @@ export const datePickerData: ComponentData = {
       },
     },
     {
+      id: 'sizes',
+      title: 'Sizes',
+      example: {
+        component: 'DatePickerSizes',
+        code: `<ODatePicker size="sm" label="Small" />
+<ODatePicker size="md" label="Medium" />
+<ODatePicker size="lg" label="Large" />`,
+      },
+    },
+    {
       id: 'clearable',
       title: 'Clearable (external reset)',
       example: {
@@ -109,6 +119,7 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
   props: [
     { name: 'modelValue', type: 'DateFieldValue | null', default: 'null', description: 'Current date value (v-model).' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant of the field.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateFieldValue | null', default: 'null', description: 'Default date value.' },

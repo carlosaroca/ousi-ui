@@ -16,6 +16,25 @@ export const dateFieldData: ComponentData = {
       },
     },
     {
+      id: 'variants',
+      title: 'Variants',
+      example: {
+        component: 'DateFieldVariants',
+        code: `<ODateField variant="primary" label="Primary" />
+<ODateField variant="secondary" label="Secondary" />`,
+      },
+    },
+    {
+      id: 'sizes',
+      title: 'Sizes',
+      example: {
+        component: 'DateFieldSizes',
+        code: `<ODateField size="sm" label="Small" />
+<ODateField size="md" label="Medium" />
+<ODateField size="lg" label="Large" />`,
+      },
+    },
+    {
       id: 'locales',
       title: 'Locales',
       example: {
@@ -53,6 +72,8 @@ export const dateFieldData: ComponentData = {
 
   props: [
     { name: 'modelValue', type: 'DateFieldValue | null', default: 'null', description: 'Current date value (v-model).' },
+    { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateFieldValue | null', default: 'null', description: 'Default date value.' },

@@ -3,6 +3,7 @@ import { ref, computed, watch, toRef, onBeforeUnmount } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
+import { useOusiConfig, getHour12ForLocale } from '../../config'
 import {
   timePickerWrapperTheme,
   timePickerTriggerTheme,
@@ -23,7 +24,6 @@ import type { TimePickerProps, TimePickerEmits } from './time-picker.types'
 import type { TimeFieldValue } from '../time-field/time-field.types'
 
 const props = withDefaults(defineProps<TimePickerProps>(), {
-  hour12: false,
   granularity: 'minute',
   interval: 5,
   placement: 'bottom-start',
@@ -31,12 +31,36 @@ const props = withDefaults(defineProps<TimePickerProps>(), {
   readonly: false,
   required: false,
   variant: 'primary',
+  size: 'md',
   shadow: 'xs',
   animated: false,
   showNow: true,
 })
 
 const emit = defineEmits<TimePickerEmits>()
+
+// ── i18n: effective locale + hour12 (prop > config > locale-derived) ──
+const config = useOusiConfig()
+const effectiveLocale = computed(() => props.locale ?? config.locale.value)
+const effectiveHour12 = computed(() =>
+  props.hour12 ?? config.hour12.value ?? getHour12ForLocale(effectiveLocale.value),
+)
+
+// Localized AM/PM labels via formatToParts. Falls back to literal AM/PM if Intl
+// doesn't return a dayPeriod for this locale (rare edge case).
+const periodLabels = computed(() => {
+  const fmt = (hour: number): string => {
+    try {
+      const parts = new Intl.DateTimeFormat(effectiveLocale.value, { hour: 'numeric', hour12: true })
+        .formatToParts(new Date(2026, 0, 1, hour))
+      const dp = parts.find((p) => p.type === 'dayPeriod')
+      return dp?.value ?? (hour < 12 ? 'AM' : 'PM')
+    } catch {
+      return hour < 12 ? 'AM' : 'PM'
+    }
+  }
+  return { AM: fmt(6), PM: fmt(18) }
+})
 
 // Accessible IDs
 const fieldId = `tp-${generateId()}`
@@ -75,7 +99,7 @@ const maxSec = computed(() => (props.max ? tToSec(props.max) : Infinity))
 
 /** 12h display hour + period → 24h hour. */
 function effectiveHour24(displayHour: number, period: 'AM' | 'PM'): number {
-  if (!props.hour12) return displayHour
+  if (!effectiveHour12.value) return displayHour
   const h12 = displayHour === 12 ? 0 : displayHour
   return period === 'PM' ? h12 + 12 : h12
 }
@@ -91,7 +115,7 @@ function syncDraftFromValue() {
   const raw = value.value
   const clamped = raw ? clampToRange(raw) : null
   if (clamped) {
-    if (props.hour12) {
+    if (effectiveHour12.value) {
       draftPeriod.value = clamped.hour >= 12 ? 'PM' : 'AM'
       draftHour.value = clamped.hour % 12 === 0 ? 12 : clamped.hour % 12
     } else {
@@ -102,7 +126,7 @@ function syncDraftFromValue() {
   } else {
     // No initial value — start at min if present, else sensible defaults.
     const start = props.min ?? { hour: 0, minute: 0, second: 0 }
-    if (props.hour12) {
+    if (effectiveHour12.value) {
       draftPeriod.value = start.hour >= 12 ? 'PM' : 'AM'
       draftHour.value = start.hour % 12 === 0 ? 12 : start.hour % 12
     } else {
@@ -142,7 +166,7 @@ function isSecondDisabled(s: number): boolean {
 }
 
 function isPeriodDisabled(p: string): boolean {
-  if (!props.hour12) return false
+  if (!effectiveHour12.value) return false
   const range = p === 'AM' ? [0, 11] : [12, 23]
   const lowSec = range[0] * 3600
   const highSec = range[1] * 3600 + 3599
@@ -159,7 +183,7 @@ const periodPredicate = (v: number | string) => isPeriodDisabled(v as string)
 
 // Wheel item generators
 const hourItems = computed(() => {
-  const range = props.hour12
+  const range = effectiveHour12.value
     ? Array.from({ length: 12 }, (_, i) => i + 1) // 1..12
     : Array.from({ length: 24 }, (_, i) => i)     // 0..23
   return range.map((n) => ({ value: n, label: String(n).padStart(2, '0') }))
@@ -176,10 +200,10 @@ const secondItems = computed(() => {
   return range.map((n) => ({ value: n, label: String(n).padStart(2, '0') }))
 })
 
-const periodItems = [
-  { value: 'AM', label: 'AM' },
-  { value: 'PM', label: 'PM' },
-]
+const periodItems = computed(() => [
+  { value: 'AM', label: periodLabels.value.AM },
+  { value: 'PM', label: periodLabels.value.PM },
+])
 
 const showMinutes = computed(() => props.granularity !== 'hour')
 const showSeconds = computed(() => props.granularity === 'second')
@@ -188,20 +212,22 @@ const showSeconds = computed(() => props.granularity === 'second')
 const formattedValue = computed(() => {
   const v = value.value
   if (!v) return ''
-  const hh = props.hour12
+  const hh = effectiveHour12.value
     ? String(v.hour % 12 === 0 ? 12 : v.hour % 12).padStart(2, '0')
     : String(v.hour).padStart(2, '0')
   const mm = showMinutes.value ? `:${String(v.minute).padStart(2, '0')}` : ''
   const ss = showSeconds.value ? `:${String(v.second ?? 0).padStart(2, '0')}` : ''
-  const period = props.hour12 ? ` ${v.hour >= 12 ? 'PM' : 'AM'}` : ''
+  const period = effectiveHour12.value
+    ? ` ${v.hour >= 12 ? periodLabels.value.PM : periodLabels.value.AM}`
+    : ''
   return `${hh}${mm}${ss}${period}`
 })
 
 const placeholder = computed(() => {
-  const hh = props.hour12 ? 'hh' : 'HH'
+  const hh = effectiveHour12.value ? 'hh' : 'HH'
   const mm = showMinutes.value ? ':mm' : ''
   const ss = showSeconds.value ? ':ss' : ''
-  const period = props.hour12 ? ' --' : ''
+  const period = effectiveHour12.value ? ' --' : ''
   return `${hh}${mm}${ss}${period}`
 })
 
@@ -209,7 +235,7 @@ const placeholder = computed(() => {
 // When granularity hides a unit, that unit is forced to 0 in the emitted value.
 function draftToValue(): TimeFieldValue {
   let hour = draftHour.value
-  if (props.hour12) {
+  if (effectiveHour12.value) {
     const h12 = draftHour.value === 12 ? 0 : draftHour.value
     hour = draftPeriod.value === 'PM' ? h12 + 12 : h12
   }
@@ -239,7 +265,7 @@ function setNow() {
   }
   // Now might be outside [min, max] — clamp before populating wheels.
   candidate = clampToRange(candidate)
-  if (props.hour12) {
+  if (effectiveHour12.value) {
     draftPeriod.value = candidate.hour >= 12 ? 'PM' : 'AM'
     draftHour.value = candidate.hour % 12 === 0 ? 12 : candidate.hour % 12
   } else {
@@ -313,7 +339,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
       ref="triggerRef"
       :id="fieldId"
       type="button"
-      :class="timePickerTriggerTheme({ variant, shadow, animated })"
+      :class="timePickerTriggerTheme({ variant, size, shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"
@@ -399,7 +425,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
 
             <!-- AM/PM wheel (only when hour12) — NOT infinite, only 2 items -->
             <TimePickerWheel
-              v-if="hour12"
+              v-if="effectiveHour12"
               v-model="draftPeriod"
               :items="periodItems"
               label="AM or PM"

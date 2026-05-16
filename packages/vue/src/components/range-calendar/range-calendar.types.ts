@@ -18,8 +18,11 @@ export interface RangeCalendarProps {
   maxValue?: CalendarDate
   /** Dates not available. */
   unavailableDates?: CalendarDate[]
-  /** Locale for month/day names. */
+  /** Locale for month/day names. Falls back to the global config (useOusiConfig). */
   locale?: string
+  /** First day of the week — 0=Sunday..6=Saturday. Falls back to config, then
+   *  to a locale-region heuristic. */
+  firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   /** Show adjacent month days. */
   showOutsideDays?: boolean
   /** Prevent selection. */

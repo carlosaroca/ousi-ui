@@ -193,6 +193,19 @@ function resolveExample(name: string) {
         </section>
       </template>
 
+      <template v-if="data.methods?.length">
+        <OSeparator />
+        <section>
+          <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Methods</h2>
+          <p class="text-sm text-ousi-muted mb-3">
+            Exposed via <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">defineExpose</code>.
+            Access them through a template ref:
+            <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">tableRef.value?.exportCSV(...)</code>.
+          </p>
+          <PropsTable :props="data.methods" name-label="Method" hide-default />
+        </section>
+      </template>
+
       <template v-if="data.themeCode">
         <OSeparator />
         <section>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const nodes = [
+import { OTreeView } from '@ousi-ui/vue'
+import type { TreeNode } from '@ousi-ui/vue'
+
+const nodes: TreeNode[] = [
   {
     key: 'src',
     label: 'src',
@@ -26,7 +29,7 @@ function getIcon(label: string, hasChildren: boolean): string {
 
 <template>
   <div class="w-full max-w-sm rounded-ousi-xl border border-ousi-border bg-ousi-surface p-3">
-    <OTreeView :nodes="nodes" :default-expanded="['src']">
+    <OTreeView :nodes="nodes" :default-expanded-keys="new Set(['src'])">
       <template #node="{ node, hasChildren }">
         <span class="flex items-center gap-2">
           <span>{{ getIcon(node.label, hasChildren) }}</span>
