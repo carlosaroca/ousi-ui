@@ -43,6 +43,15 @@ export const tabsData: ComponentData = {
       },
     },
     {
+      id: 'secondary-no-border',
+      title: 'Secondary without track border',
+      example: {
+        component: 'TabsSecondaryNoBorder',
+        code: `<OTabs variant="secondary" :items="items">...</OTabs>
+<OTabs variant="secondary" hide-border :items="items">...</OTabs>`,
+      },
+    },
+    {
       id: 'vertical',
       title: 'Vertical',
       example: {
@@ -106,6 +115,7 @@ export const tabsData: ComponentData = {
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the tabs.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation.' },
+    { name: 'hideBorder', type: 'boolean', default: 'false', description: "Hide the secondary variant's track border (long underline / left rail). No effect on primary; active-tab indicator unaffected." },
     { name: 'showSeparator', type: 'boolean', default: '-', description: 'Show separator lines between tabs.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],

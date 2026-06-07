@@ -96,7 +96,7 @@ const panelEnter = computed(() => {
             <Motion
               tag="div"
               class="relative pointer-events-auto"
-              :class="size === 'full' || size === 'cover' ? 'w-full h-full' : 'w-full sm:w-fit'"
+              :class="size === 'full' || size === 'cover' ? 'w-full h-full' : 'w-fit max-w-full'"
               :initial="(panelEnter as any)"
               :animate="{ opacity: 1, scale: 1, y: 0 }"
               :exit="{ opacity: 0, scale: 0.95 }"

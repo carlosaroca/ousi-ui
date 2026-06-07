@@ -24,6 +24,9 @@ export interface TabsProps {
   shadow?: TabsShadow
   /** Layout orientation. */
   orientation?: 'horizontal' | 'vertical'
+  /** Hide the secondary variant's track border (the long underline / left rail).
+   *  Has no effect on `primary`. The active-tab indicator is unaffected. Defaults to `false`. */
+  hideBorder?: boolean
   /** Show separator lines between tabs. */
   showSeparator?: boolean
   /** Haptic feedback on tab switch. Pass false to disable. */

@@ -77,6 +77,25 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
       },
     },
     {
+      id: 'format',
+      title: 'Format (string v-model)',
+      example: {
+        component: 'DatePickerFormat',
+        code: `<!-- v-model emits/accepts a string in the given pattern. -->
+<ODatePicker v-model="iso" format="YYYY-MM-DD" label="API date" />
+
+<!-- Independent: format controls the value, displayFormat controls the visible segments. -->
+<ODatePicker
+  v-model="iso"
+  format="YYYY-MM-DD"
+  display-format="DD/MM/YYYY"
+  label="API date + custom display"
+/>
+
+<!-- Supported tokens: YYYY YY MM M DD D — anything else is a literal. -->`,
+      },
+    },
+    {
       id: 'min-max',
       title: 'Min & Max',
       example: {
@@ -117,12 +136,14 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
   ],
 
   props: [
-    { name: 'modelValue', type: 'DateFieldValue | null', default: 'null', description: 'Current date value (v-model).' },
+    { name: 'modelValue', type: 'DateFieldValue | string | null', default: 'null', description: 'Current date value (v-model). When `format` is set, this is a string in that pattern.' },
+    { name: 'format', type: 'string', default: '-', description: 'When set, v-model is parsed/emitted as a string in this pattern. Tokens: `YYYY YY MM M DD D` — anything else is a literal.' },
+    { name: 'displayFormat', type: 'string', default: '-', description: 'When set, the trigger renders segments in this pattern instead of deriving from `locale`. Independent from `format`.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant of the field.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
-    { name: 'defaultValue', type: 'DateFieldValue | null', default: 'null', description: 'Default date value.' },
+    { name: 'defaultValue', type: 'DateFieldValue | string | null', default: 'null', description: 'Default date value. Accepts a string when `format` is set.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Description text below the field.' },
     { name: 'errorMessage', type: 'string', default: '-', description: 'Error message — replaces description when present.' },
@@ -139,8 +160,8 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
   ],
 
   emits: [
-    { name: 'update:modelValue', type: 'DateFieldValue | null', description: 'Emitted when the date changes.' },
-    { name: 'change', type: 'DateFieldValue | null', description: 'Emitted on user-initiated change.' },
+    { name: 'update:modelValue', type: 'DateFieldValue | string | null', description: 'Emitted when the date changes. String when `format` is set, object otherwise.' },
+    { name: 'change', type: 'DateFieldValue | string | null', description: 'Emitted on user-initiated change. String when `format` is set, object otherwise.' },
   ],
 
   themeCode: `import { datePickerTheme } from '@ousi-ui/vue'`,

@@ -1,170 +1,104 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { cn } from '@ousi-ui/core'
-import {
-  contextMenuTheme,
-  contextMenuItemTheme,
-  contextMenuSeparatorTheme,
-  contextMenuShortcutTheme,
-} from './context-menu.theme'
-import type { ContextMenuProps, ContextMenuEmits, ContextMenuItem } from './context-menu.types'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import ContextMenuList from './ContextMenuList.vue'
+import type {
+  ContextMenuProps,
+  ContextMenuEmits,
+  ContextMenuItem,
+  ContextMenuExposed,
+} from './context-menu.types'
 
 const props = withDefaults(defineProps<ContextMenuProps>(), {
   disabled: false,
   shadow: 'lg',
+  submenuOffset: 4,
 })
 
 const emit = defineEmits<ContextMenuEmits>()
 
 const isOpen = ref(false)
-const menuX = ref(0)
-const menuY = ref(0)
-const menuRef = ref<HTMLElement | null>(null)
-const focusedIndex = ref(-1)
+// Virtual reference for floating-ui — a 0×0 rect at (x, y) acts as a point anchor,
+// so flip/shift middleware can reposition the menu when it would overflow the viewport.
+function pointRect(x: number, y: number) {
+  return {
+    getBoundingClientRect: () => ({
+      x, y, top: y, left: x, right: x, bottom: y, width: 0, height: 0,
+    }),
+  }
+}
+const virtualAnchor = ref(pointRect(0, 0))
 
-function getSelectableItems(): ContextMenuItem[] {
-  return props.items.filter(item => !item.separator && !item.disabled)
+function show(input?: MouseEvent | { x: number; y: number }) {
+  if (props.disabled) return
+  if (input && 'clientX' in input) {
+    virtualAnchor.value = pointRect(input.clientX, input.clientY)
+  } else if (input && 'x' in input) {
+    virtualAnchor.value = pointRect(input.x, input.y)
+  } else {
+    virtualAnchor.value = pointRect(0, 0)
+  }
+  if (!isOpen.value) {
+    isOpen.value = true
+    emit('open')
+  }
 }
 
-function getSelectableIndices(): number[] {
-  return props.items.reduce<number[]>((acc, item, i) => {
-    if (!item.separator && !item.disabled) acc.push(i)
-    return acc
-  }, [])
+function hide() {
+  if (!isOpen.value) return
+  isOpen.value = false
+  emit('close')
 }
 
-function onContextMenu(e: MouseEvent) {
+function handleContextMenu(e: MouseEvent) {
   if (props.disabled) return
   e.preventDefault()
-  menuX.value = e.clientX
-  menuY.value = e.clientY
-  isOpen.value = true
-  focusedIndex.value = -1
-  nextTick(() => {
-    menuRef.value?.focus()
-  })
+  show(e)
 }
 
-function close() {
-  isOpen.value = false
-  focusedIndex.value = -1
+function handleSelect(key: string, item: ContextMenuItem) {
+  emit('select', key, item)
 }
 
-function selectItem(item: ContextMenuItem) {
-  if (item.disabled || item.separator) return
-  emit('select', item.key, item)
-  close()
-}
-
-function onPointerDown(e: PointerEvent) {
+function handlePointerDown(e: PointerEvent) {
   if (!isOpen.value) return
-  if (menuRef.value && !menuRef.value.contains(e.target as Node)) {
-    close()
-  }
-}
-
-function onKeydown(e: KeyboardEvent) {
-  if (!isOpen.value) return
-
-  const indices = getSelectableIndices()
-  if (!indices.length) return
-
-  if (e.key === 'Escape') {
-    e.preventDefault()
-    close()
-    return
-  }
-
-  if (e.key === 'ArrowDown') {
-    e.preventDefault()
-    const currentPos = indices.indexOf(focusedIndex.value)
-    focusedIndex.value = currentPos < indices.length - 1
-      ? indices[currentPos + 1]
-      : indices[0]
-    return
-  }
-
-  if (e.key === 'ArrowUp') {
-    e.preventDefault()
-    const currentPos = indices.indexOf(focusedIndex.value)
-    focusedIndex.value = currentPos > 0
-      ? indices[currentPos - 1]
-      : indices[indices.length - 1]
-    return
-  }
-
-  if (e.key === 'Enter') {
-    e.preventDefault()
-    if (focusedIndex.value >= 0) {
-      const item = props.items[focusedIndex.value]
-      if (item) selectItem(item)
-    }
-  }
+  // Close if the click landed outside any menu surface (root + any submenu, all under [role=menu]).
+  const path = e.composedPath() as HTMLElement[]
+  const inMenu = path.some((n) => n?.getAttribute?.('role') === 'menu')
+  if (!inMenu) hide()
 }
 
 onMounted(() => {
-  document.addEventListener('pointerdown', onPointerDown)
+  document.addEventListener('pointerdown', handlePointerDown, true)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', handlePointerDown, true)
 })
 
-onBeforeUnmount(() => {
-  document.removeEventListener('pointerdown', onPointerDown)
+defineExpose<ContextMenuExposed>({
+  show,
+  hide,
+  isOpen,
 })
 </script>
 
 <template>
-  <div @contextmenu="onContextMenu">
+  <div @contextmenu="handleContextMenu">
     <slot />
   </div>
 
-  <Teleport to="body">
-    <Transition
-      enter-active-class="transition duration-150 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      enter-to-class="opacity-100 scale-100"
-      leave-active-class="transition duration-100 ease-in"
-      leave-from-class="opacity-100 scale-100"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="isOpen"
-        ref="menuRef"
-        :class="cn(contextMenuTheme({ shadow }), props.class)"
-        :style="{ position: 'fixed', left: `${menuX}px`, top: `${menuY}px` }"
-        tabindex="-1"
-        role="menu"
-        @keydown="onKeydown"
-      >
-        <template v-for="(item, index) in items" :key="item.key">
-          <div
-            v-if="item.separator"
-            :class="contextMenuSeparatorTheme"
-            role="separator"
-          />
-          <div
-            v-else
-            :class="cn(
-              contextMenuItemTheme,
-              item.danger && 'text-ousi-danger hover:bg-ousi-danger/10',
-              item.disabled && 'opacity-50 pointer-events-none',
-              focusedIndex === index && 'bg-ousi-default',
-            )"
-            role="menuitem"
-            :aria-disabled="item.disabled || undefined"
-            @click="selectItem(item)"
-            @pointerenter="!item.disabled && (focusedIndex = index)"
-            @pointerleave="focusedIndex = -1"
-          >
-            <span v-if="item.icon" :class="item.icon" aria-hidden="true" />
-            <span>{{ item.label }}</span>
-            <span
-              v-if="item.shortcut"
-              :class="contextMenuShortcutTheme"
-            >
-              {{ item.shortcut }}
-            </span>
-          </div>
-        </template>
-      </div>
-    </Transition>
-  </Teleport>
+  <ContextMenuList
+    v-if="isOpen"
+    :items="items"
+    :shadow="shadow"
+    :submenu-offset="submenuOffset"
+    :virtual-anchor="virtualAnchor"
+    :class="props.class"
+    @select="handleSelect"
+    @close="hide"
+    @close-all="hide"
+  >
+    <template #icon="{ item }">
+      <slot name="icon" :item="item" />
+    </template>
+  </ContextMenuList>
 </template>

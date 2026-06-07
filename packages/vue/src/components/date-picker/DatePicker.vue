@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount, toRef, nextTick } from 'vue'
+import { ref, computed, watch, onBeforeUnmount, nextTick } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
@@ -10,6 +10,7 @@ import {
   dateFieldLiteralTheme,
   dateFieldPlaceholderTheme,
 } from '../date-field/date-field.theme'
+import { formatDateValue, parseDateValue, patternToSegments } from '../date-field/date-format'
 import {
   datePickerWrapperTheme,
   datePickerTriggerTheme,
@@ -51,12 +52,28 @@ const triggerRef = ref<HTMLElement | null>(null)
 const popoverRef = ref<HTMLElement | null>(null)
 
 // ── Controlled value ──
+// modelValue/defaultValue may be either DateFieldValue or a formatted string
+// (when `format` is set). Internally we always work with DateFieldValue and
+// translate at the boundary.
+function toInternal(v: DateFieldValue | string | null | undefined): DateFieldValue | null {
+  if (v == null) return null
+  if (typeof v === 'string') return props.format ? parseDateValue(v, props.format) : null
+  return v
+}
+function toExternal(v: DateFieldValue | null): DateFieldValue | string | null {
+  if (v == null) return null
+  return props.format ? formatDateValue(v, props.format) : v
+}
+
+const parsedModelValue = computed<DateFieldValue | null>(() => toInternal(props.modelValue))
+
 const value = useControllableState<DateFieldValue | null>({
-  prop: toRef(props, 'modelValue') as any,
-  defaultValue: props.defaultValue ?? null,
+  prop: parsedModelValue,
+  defaultValue: toInternal(props.defaultValue) ?? null,
   onChange: (val) => {
-    emit('update:modelValue', val)
-    emit('change', val)
+    const out = toExternal(val)
+    emit('update:modelValue', out)
+    emit('change', out)
   },
 })
 
@@ -68,6 +85,11 @@ const focusedIndex = ref<number>(-1)
 const segmentRefs = ref<(HTMLElement | null)[]>([])
 
 const segmentOrder = computed(() => {
+  // Explicit displayFormat wins over locale-derived order.
+  if (props.displayFormat) {
+    const segs = patternToSegments(props.displayFormat)
+    if (segs.length) return segs
+  }
   try {
     const fmt = new Intl.DateTimeFormat(effectiveLocale.value, {
       year: 'numeric',

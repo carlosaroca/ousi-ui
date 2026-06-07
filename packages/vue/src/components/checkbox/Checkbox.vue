@@ -9,6 +9,7 @@ import {
   checkboxDescriptionTheme,
   checkboxErrorTheme,
   checkboxControlShadowTheme,
+  checkboxControlSizeMap,
 } from './checkbox.theme'
 import type { CheckboxProps, CheckboxEmits } from './checkbox.types'
 
@@ -18,6 +19,7 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   readonly: false,
   required: false,
   indeterminate: false,
+  size: 'md',
   shadow: 'none',
 })
 
@@ -66,6 +68,8 @@ function handleKeydown(e: KeyboardEvent) {
   }
 }
 
+const sizeDims = computed(() => checkboxControlSizeMap[props.size])
+
 const controlStyle = computed(() => {
   const accentColor = isInvalid.value ? 'var(--ousi-danger)' : 'var(--ousi-accent)'
   const inactiveColor = isInvalid.value ? 'var(--ousi-danger)' : 'var(--ousi-border)'
@@ -74,8 +78,8 @@ const controlStyle = computed(() => {
     : 'var(--ousi-field-background)'
 
   return {
-    width: 'var(--ousi-checkbox-size, 20px)',
-    height: 'var(--ousi-checkbox-size, 20px)',
+    width: `var(--ousi-checkbox-size, ${sizeDims.value.box}px)`,
+    height: `var(--ousi-checkbox-size, ${sizeDims.value.box}px)`,
     borderRadius: 'var(--ousi-radius-md)',
     border: `var(--ousi-border-width) solid ${isActive.value ? accentColor : inactiveColor}`,
     backgroundColor: isActive.value ? accentColor : inactiveBg,
@@ -93,7 +97,7 @@ const indicatorStyle = computed(() => ({
 <template>
   <div
     v-haptic="resolvedHaptic"
-    :class="cn(checkboxWrapperTheme({ hasDescription: !!description }), props.class)"
+    :class="cn(checkboxWrapperTheme({ hasDescription: !!description, size }), props.class)"
     :data-selected="checked || undefined"
     :data-indeterminate="indeterminate || undefined"
     :data-disabled="disabled || undefined"
@@ -121,8 +125,8 @@ const indicatorStyle = computed(() => ({
         v-if="!indeterminate"
         class="absolute"
         :style="indicatorStyle"
-        width="12"
-        height="12"
+        :width="sizeDims.indicator"
+        :height="sizeDims.indicator"
         viewBox="0 0 12 12"
         fill="none"
         stroke="white"
@@ -144,8 +148,8 @@ const indicatorStyle = computed(() => ({
         v-else
         class="absolute"
         :style="indicatorStyle"
-        width="12"
-        height="12"
+        :width="sizeDims.indicator"
+        :height="sizeDims.indicator"
         viewBox="0 0 12 12"
         fill="none"
         stroke="white"
@@ -159,7 +163,7 @@ const indicatorStyle = computed(() => ({
 
     <!-- Content -->
     <div v-if="label || description || $slots.default" :class="checkboxContentTheme">
-      <span v-if="label" :class="checkboxLabelTheme">
+      <span v-if="label" :class="checkboxLabelTheme({ size })">
         {{ label }}
         <span v-if="required" class="ml-0.5 text-ousi-danger" aria-hidden="true">*</span>
       </span>
@@ -169,7 +173,7 @@ const indicatorStyle = computed(() => ({
       <p
         v-if="description && !errorMessage"
         :id="descriptionId"
-        :class="checkboxDescriptionTheme"
+        :class="checkboxDescriptionTheme({ size })"
       >
         {{ description }}
       </p>

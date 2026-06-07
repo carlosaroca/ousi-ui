@@ -36,15 +36,21 @@ export const tabsListTheme = cva(
         sm: 'shadow-ousi-sm',
         md: 'shadow-ousi-md',
       },
+      // Whether to draw the secondary variant's track border (long underline / left rail).
+      // The active-tab indicator is rendered separately and is unaffected.
+      hideBorder: { true: '', false: '' },
     },
     compoundVariants: [
-      { variant: 'secondary', orientation: 'horizontal', class: 'border-b overflow-x-auto' },
-      { variant: 'secondary', orientation: 'vertical', class: 'border-l' },
+      // Horizontal secondary always allows overflow scroll regardless of border.
+      { variant: 'secondary', orientation: 'horizontal', class: 'overflow-x-auto' },
+      // Track border — only when not hidden.
+      { variant: 'secondary', orientation: 'horizontal', hideBorder: false, class: 'border-b' },
+      { variant: 'secondary', orientation: 'vertical', hideBorder: false, class: 'border-l' },
       { variant: 'secondary', size: 'sm', class: 'p-0' },
       { variant: 'secondary', size: 'md', class: 'p-0' },
       { variant: 'secondary', size: 'lg', class: 'p-0' },
     ],
-    defaultVariants: { variant: 'primary', size: 'md', orientation: 'horizontal', shadow: 'none' },
+    defaultVariants: { variant: 'primary', size: 'md', orientation: 'horizontal', shadow: 'none', hideBorder: false },
   },
 )
 

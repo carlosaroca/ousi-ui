@@ -25,6 +25,16 @@ export const checkboxData: ComponentData = {
       },
     },
     {
+      id: 'sizes',
+      title: 'Sizes',
+      example: {
+        component: 'CheckboxSizes',
+        code: `<OCheckbox size="sm" label="Small" />
+<OCheckbox size="md" label="Medium" />
+<OCheckbox size="lg" label="Large" />`,
+      },
+    },
+    {
       id: 'with-description',
       title: 'With Description',
       example: {
@@ -85,6 +95,7 @@ export const checkboxData: ComponentData = {
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the checkbox is read-only.' },
     { name: 'invalid', type: 'boolean', default: 'false', description: 'Force invalid state without error message.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Control box + label size.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],

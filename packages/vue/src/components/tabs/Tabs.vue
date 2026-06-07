@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<TabsProps>(), {
   size: 'md',
   orientation: 'horizontal',
   showSeparator: false,
+  hideBorder: false,
   shadow: 'none',
 })
 
@@ -125,7 +126,7 @@ function handleKeydown(e: KeyboardEvent) {
       ref="listRef"
       role="tablist"
       :aria-orientation="orientation"
-      :class="cn(tabsListTheme({ variant, size, orientation, shadow }), 'relative')"
+      :class="cn(tabsListTheme({ variant, size, orientation, shadow, hideBorder }), 'relative')"
     >
       <!-- Sliding indicator — single element, animated via CSS transition -->
       <span
