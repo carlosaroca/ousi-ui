@@ -46,6 +46,7 @@ export const buttonTheme = cva(
         ],
       },
       size: {
+        xs: 'h-8 px-2.5 text-xs md:h-7',
         sm: 'h-9 px-3 text-sm md:h-8',
         md: 'h-10 px-4 text-sm md:h-9',
         lg: 'h-11 px-5 text-base md:h-10',
@@ -66,6 +67,7 @@ export const buttonTheme = cva(
       },
     },
     compoundVariants: [
+      { size: 'xs', isIconOnly: true, class: 'w-8 md:w-7' },
       { size: 'sm', isIconOnly: true, class: 'w-9 md:w-8' },
       { size: 'lg', isIconOnly: true, class: 'w-11 md:w-10' },
     ],

@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 import type { HapticInput } from '@ousi-ui/haptics'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'text' | 'soft' | 'danger' | 'danger-soft'
-export type ButtonSize = 'sm' | 'md' | 'lg'
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ButtonShadow = 'none' | 'xs' | 'sm' | 'md'
 export type ButtonAnimationType = 'vertical' | 'scale' | 'rotate'
 
