@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
-import { useOusiConfig, getFirstDayOfWeekForLocale } from '../../config'
+import { useOusiConfig, getFirstDayOfWeekForLocale, useOusiMessages } from '../../config'
 import {
   rangeCalendarTheme,
   rangeCalendarHeaderTheme,
@@ -13,6 +13,8 @@ import {
   rangeCalendarCellButtonTheme,
 } from './range-calendar.theme'
 import type { RangeCalendarProps, RangeCalendarEmits, CalendarDate, DateRange } from './range-calendar.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<RangeCalendarProps>(), {
   showOutsideDays: true,
@@ -170,13 +172,13 @@ function nextMonth() {
   <div :class="cn(rangeCalendarTheme, props.class)" role="group">
     <!-- Header -->
     <div :class="rangeCalendarHeaderTheme">
-      <button type="button" :class="rangeCalendarNavButtonTheme" aria-label="Previous month" @click="prevMonth">
+      <button type="button" :class="rangeCalendarNavButtonTheme" :aria-label="ousiText.previousMonth" @click="prevMonth">
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
       <span :class="rangeCalendarHeadingTheme" aria-live="polite">{{ headingLabel }}</span>
-      <button type="button" :class="rangeCalendarNavButtonTheme" aria-label="Next month" @click="nextMonth">
+      <button type="button" :class="rangeCalendarNavButtonTheme" :aria-label="ousiText.nextMonth" @click="nextMonth">
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
         </svg>

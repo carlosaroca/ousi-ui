@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { cn } from '@ousi-ui/core'
 import {
   breadcrumbsTheme,
@@ -7,6 +8,8 @@ import {
   breadcrumbSeparatorTheme,
 } from './breadcrumbs.theme'
 import type { BreadcrumbsProps, BreadcrumbsEmits } from './breadcrumbs.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<BreadcrumbsProps>(), {
   separator: 'chevron',
@@ -32,7 +35,7 @@ function handleClick(item: typeof props.items[0], index: number) {
 </script>
 
 <template>
-  <nav aria-label="Breadcrumb">
+  <nav :aria-label="ousiText.breadcrumb">
     <ol :class="cn(breadcrumbsTheme, props.class)">
       <li
         v-for="(item, index) in items"

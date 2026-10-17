@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, watch, nextTick, toRef } from 'vue'
 import { cn, useControllableState, generateId } from '@ousi-ui/core'
 import {
@@ -11,6 +12,8 @@ import {
   inputOtpErrorTheme,
 } from './input-otp.theme'
 import type { InputOtpProps, InputOtpEmits } from './input-otp.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<InputOtpProps>(), {
   length: 6,
@@ -237,7 +240,7 @@ function onValueRef(el: Element | null, slotIndex: number) {
         :disabled="disabled"
         :readonly="readonly"
         :required="required"
-        :aria-label="label ?? 'OTP input'"
+        :aria-label="label ?? ousiText.otpInput"
         :aria-describedby="describedBy"
         :aria-invalid="isInvalid || undefined"
         autocomplete="one-time-code"

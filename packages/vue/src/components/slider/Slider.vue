@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import {
@@ -11,6 +12,8 @@ import {
   sliderOutputTheme,
 } from './slider.theme'
 import type { SliderProps, SliderEmits, SliderValue } from './slider.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<SliderProps>(), {
   min: 0,
@@ -220,7 +223,7 @@ const outputLabel = computed(() => {
         :data-dragging="draggingThumb === 0 || undefined"
         :data-disabled="disabled || undefined"
         role="slider"
-        :aria-label="isRange ? 'Minimum' : (label ?? 'Value')"
+        :aria-label="isRange ? ousiText.minimum : (label ?? ousiText.value)"
         :aria-valuenow="thumbs[0]"
         :aria-valuemin="min"
         :aria-valuemax="isRange ? thumbs[1] : max"
@@ -239,7 +242,7 @@ const outputLabel = computed(() => {
         :data-dragging="draggingThumb === 1 || undefined"
         :data-disabled="disabled || undefined"
         role="slider"
-        aria-label="Maximum"
+        :aria-label="ousiText.maximum"
         :aria-valuenow="thumbs[1]"
         :aria-valuemin="thumbs[0]"
         :aria-valuemax="max"

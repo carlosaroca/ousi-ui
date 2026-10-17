@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { computed, toRef, useId } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { inputGroupTheme, inputInnerTheme, labelTheme } from './input.theme'
 import { useFormContext } from '../form/form.context'
 import type { InputProps, InputEmits } from './input.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
@@ -133,7 +136,7 @@ function handleClear() {
         v-else-if="showClear"
         type="button"
         class="flex items-center pr-3 text-ousi-muted hover:text-ousi-foreground transition-colors"
-        aria-label="Clear input"
+        :aria-label="ousiText.clearInput"
         @click="handleClear"
       >
         <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

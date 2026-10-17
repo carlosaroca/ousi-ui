@@ -6,6 +6,7 @@ export { buttonTheme } from './components/button'
 export * from './components/badge'
 
 export * from './components/chip'
+export * from './components/status'
 
 export { OAvatar } from './components/avatar'
 export type { AvatarProps, AvatarSlots, AvatarSize, AvatarShape } from './components/avatar'
@@ -143,6 +144,8 @@ export type { OusiUIPluginOptions } from './plugin/install'
 // Config (i18n / locale / dir)
 export { useOusiConfig, applyOusiConfig, getFirstDayOfWeekForLocale, getHour12ForLocale } from './config'
 export type { OusiConfig, OusiConfigInit, WeekDay } from './config'
+export { useOusiMessages } from './config'
+export type { OusiMessages } from './config'
 
 // Resolver
 export { OusiResolver } from './plugin/resolver'

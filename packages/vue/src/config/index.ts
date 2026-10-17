@@ -7,3 +7,4 @@ export {
   type OusiConfigInit,
   type WeekDay,
 } from './use-ousi-config'
+export { useOusiMessages, applyOusiMessages, type OusiMessages } from './messages'

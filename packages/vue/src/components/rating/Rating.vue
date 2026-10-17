@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { ratingTheme, ratingStarTheme } from './rating.theme'
 import type { RatingProps, RatingEmits } from './rating.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<RatingProps>(), {
   max: 5,
@@ -132,7 +135,7 @@ const starPath = 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
     :aria-valuemax="props.max"
     :aria-disabled="props.disabled || undefined"
     :aria-readonly="props.readOnly || undefined"
-    aria-label="Rating"
+    :aria-label="ousiText.rating"
     @keydown="handleKeydown"
     @mouseleave="handleMouseLeave"
   >

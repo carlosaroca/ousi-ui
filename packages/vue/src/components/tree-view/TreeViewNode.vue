@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { computed, inject, type Ref, type Slots, type ComputedRef } from 'vue'
 import { cn } from '@ousi-ui/core'
 import { OCheckbox } from '../checkbox'
@@ -10,6 +11,8 @@ import {
   treeViewChevronSpacerTheme,
   treeViewIconTheme,
 } from './tree-view.theme'
+
+const ousiText = useOusiMessages()
 
 const props = defineProps<{
   node: TreeNode
@@ -109,7 +112,7 @@ function handleFocus() {
             v-if="isLoading"
             class="size-3 shrink-0 rounded-full border border-ousi-muted/30 border-t-ousi-muted animate-spin"
             role="status"
-            aria-label="Loading"
+            :aria-label="ousiText.loading"
           />
           <!-- Error: retry circle. Click reattempts the load. -->
           <svg
@@ -122,7 +125,7 @@ function handleFocus() {
             stroke-linecap="round"
             stroke-linejoin="round"
             tabindex="0"
-            aria-label="Reload children"
+            :aria-label="ousiText.reloadChildren"
             @click.stop="reload(node.key)"
             @keydown.enter.prevent="reload(node.key)"
           >

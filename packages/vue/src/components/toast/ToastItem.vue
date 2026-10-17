@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref } from 'vue'
 import { toastItemTheme, toastIndicatorTheme, toastTitleTheme } from './toast.theme'
 import type { ToastItem, ToastShadow } from './toast.types'
+
+const ousiText = useOusiMessages()
 
 withDefaults(defineProps<{
   item: ToastItem
@@ -72,7 +75,7 @@ const spinnerSvg = '<circle cx="12" cy="12" r="10" stroke-opacity="0.25"/><path 
     <button
       v-if="isFrontmost"
       type="button"
-      aria-label="Dismiss"
+      :aria-label="ousiText.dismiss"
       class="absolute -top-1.5 -right-1.5 flex size-5 items-center justify-center rounded-full border border-ousi-border bg-ousi-surface text-ousi-muted transition-all duration-150"
       :style="{
         opacity: isHovered ? '1' : '0',

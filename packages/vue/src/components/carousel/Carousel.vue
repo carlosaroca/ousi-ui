@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, toRef, watch, onMounted, onBeforeUnmount, useSlots, type VNode } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import {
@@ -10,6 +11,8 @@ import {
   carouselDotTheme,
 } from './carousel.theme'
 import type { CarouselProps, CarouselEmits } from './carousel.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<CarouselProps>(), {
   defaultValue: 0,
@@ -180,7 +183,7 @@ function onKeydown(e: KeyboardEvent) {
     tabindex="0"
     role="region"
     aria-roledescription="carousel"
-    aria-label="Carousel"
+    :aria-label="ousiText.carousel"
     @keydown="onKeydown"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
@@ -211,7 +214,7 @@ function onKeydown(e: KeyboardEvent) {
     <button
       v-if="showArrows && canGoPrev"
       :class="cn(carouselArrowTheme, 'left-3')"
-      aria-label="Previous slide"
+      :aria-label="ousiText.previousSlide"
       @click="prev"
     >
       <slot name="arrow-left" :prev="prev" :can-go-prev="canGoPrev">
@@ -233,7 +236,7 @@ function onKeydown(e: KeyboardEvent) {
     <button
       v-if="showArrows && canGoNext"
       :class="cn(carouselArrowTheme, 'right-3')"
-      aria-label="Next slide"
+      :aria-label="ousiText.nextSlide"
       @click="next"
     >
       <slot name="arrow-right" :next="next" :can-go-next="canGoNext">

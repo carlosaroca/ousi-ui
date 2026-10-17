@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { computed, toRef, useId, watch } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useScrollLock, useMounted, useEscapeKey } from '@ousi-ui/core'
@@ -9,6 +10,8 @@ import {
   dialogPanelTheme,
 } from './dialog.theme'
 import type { DialogProps, DialogEmits } from './dialog.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<DialogProps>(), {
   size: 'md',
@@ -120,7 +123,7 @@ const panelEnter = computed(() => {
                 v-if="!hideCloseButton"
                 type="button"
                 class="absolute -top-3 -right-3 flex items-center justify-center w-8 h-8 rounded-ousi-xl bg-ousi-surface text-ousi-foreground shadow-ousi-sm transition-[transform,box-shadow] duration-200 ease-out hover:shadow-ousi-xs hover:scale-[0.97] active:scale-[0.94] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ousi-focus"
-                aria-label="Close dialog"
+                :aria-label="ousiText.closeDialog"
                 @click="close"
               >
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, watch, nextTick, toRef, onMounted, onBeforeUnmount } from 'vue'
 import { cn, useScrollLock, useMounted, useEscapeKey } from '@ousi-ui/core'
 import {
@@ -12,6 +13,8 @@ import {
   commandPaletteKbdTheme,
 } from './command-palette.theme'
 import type { CommandPaletteProps, CommandPaletteEmits, CommandItem } from './command-palette.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<CommandPaletteProps>(), {
   modelValue: false,
@@ -178,7 +181,7 @@ function getFlatIndex(item: CommandItem): number {
             :class="cn(commandPaletteTheme({ shadow }), props.class)"
             role="dialog"
             aria-modal="true"
-            aria-label="Command palette"
+            :aria-label="ousiText.commandPalette"
             @keydown="handleKeydown"
           >
             <!-- Input area -->
@@ -202,7 +205,7 @@ function getFlatIndex(item: CommandItem): number {
                 :class="commandPaletteInputTheme"
                 :placeholder="placeholder"
                 type="text"
-                aria-label="Search commands"
+                :aria-label="ousiText.searchCommands"
                 autocomplete="off"
               />
             </div>

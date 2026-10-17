@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { cn } from '@ousi-ui/core'
 import {
   alertTheme,
@@ -8,6 +9,8 @@ import {
   alertContentTheme,
 } from './alert.theme'
 import type { AlertProps, AlertEmits } from './alert.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<AlertProps>(), {
   variant: 'default',
@@ -62,7 +65,7 @@ const icons: Record<string, string> = {
       v-if="closable"
       type="button"
       class="ml-auto shrink-0 flex items-center justify-center size-6 rounded-full text-ousi-muted hover:text-ousi-foreground hover:bg-ousi-default transition-colors duration-150"
-      aria-label="Dismiss alert"
+      :aria-label="ousiText.dismissAlert"
       @click="emit('close')"
     >
       <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

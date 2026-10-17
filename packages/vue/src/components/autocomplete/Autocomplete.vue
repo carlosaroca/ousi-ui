@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, watch, toRef, onBeforeUnmount, nextTick, useId } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift, size as floatingSize } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
@@ -17,6 +18,8 @@ import {
   autocompleteErrorTheme,
 } from './autocomplete.theme'
 import type { AutocompleteProps, AutocompleteEmits } from './autocomplete.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<AutocompleteProps>(), {
   variant: 'primary',
@@ -226,7 +229,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
           v-if="clearable && hasValue && !disabled"
           type="button"
           class="rounded-full p-0.5 text-ousi-muted hover:text-ousi-foreground hover:bg-ousi-default transition-colors"
-          aria-label="Clear"
+          :aria-label="ousiText.clear"
           @click.stop="clearValue"
         >
           <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -279,7 +282,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
             ]"
             v-bind="scrollShadow ? { size: 24 } : {}"
           >
-            <ul :id="listboxId" role="listbox" :aria-label="label ?? 'Options'" :class="autocompleteListboxTheme">
+            <ul :id="listboxId" role="listbox" :aria-label="label ?? ousiText.options" :class="autocompleteListboxTheme">
               <li
                 v-for="(option, index) in filteredOptions"
                 :key="option.value"

@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { computed } from 'vue'
 import { cn } from '@ousi-ui/core'
 import { skeletonBaseTheme } from './skeleton.theme'
 import type { SkeletonProps } from './skeleton.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<SkeletonProps>(), {
   animation: 'shimmer',
@@ -26,7 +29,7 @@ const bgStyle = computed(() => ({
     :style="bgStyle"
     role="status"
     aria-busy="true"
-    aria-label="Loading..."
+    :aria-label="ousiText.loading"
   >
     <!-- Shimmer overlay -->
     <div

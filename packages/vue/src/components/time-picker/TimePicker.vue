@@ -3,7 +3,7 @@ import { ref, computed, watch, toRef, onBeforeUnmount } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
-import { useOusiConfig, getHour12ForLocale } from '../../config'
+import { useOusiConfig, getHour12ForLocale, useOusiMessages } from '../../config'
 import {
   timePickerWrapperTheme,
   timePickerTriggerTheme,
@@ -22,6 +22,8 @@ import TimePickerWheel from './TimePickerWheel.vue'
 import OButton from '../button/Button.vue'
 import type { TimePickerProps, TimePickerEmits } from './time-picker.types'
 import type { TimeFieldValue } from '../time-field/time-field.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<TimePickerProps>(), {
   granularity: 'minute',
@@ -345,7 +347,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
       :aria-describedby="describedBy"
       :aria-expanded="isOpen"
       aria-haspopup="dialog"
-      :aria-label="label ?? 'Time picker'"
+      :aria-label="label ?? ousiText.timePicker"
       :disabled="disabled || readonly"
       @click="toggle"
     >
@@ -383,7 +385,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
           :transition="{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }"
           role="dialog"
           aria-modal="false"
-          aria-label="Pick a time"
+          :aria-label="ousiText.pickTime"
         >
           <!-- Wheel row -->
           <div :class="timePickerWheelRowTheme">
@@ -394,7 +396,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
             <TimePickerWheel
               v-model="draftHour"
               :items="hourItems"
-              label="Hour"
+              :label="ousiText.hour"
               infinite
               :is-disabled="hourPredicate"
             />
@@ -405,7 +407,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
               <TimePickerWheel
                 v-model="draftMinute"
                 :items="minuteItems"
-                label="Minute"
+                :label="ousiText.minute"
                 infinite
                 :is-disabled="minutePredicate"
               />
@@ -417,7 +419,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
               <TimePickerWheel
                 v-model="draftSecond"
                 :items="secondItems"
-                label="Second"
+                :label="ousiText.second"
                 infinite
                 :is-disabled="secondPredicate"
               />
@@ -428,7 +430,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
               v-if="effectiveHour12"
               v-model="draftPeriod"
               :items="periodItems"
-              label="AM or PM"
+              :label="ousiText.period"
               :is-disabled="periodPredicate"
             />
           </div>
@@ -438,8 +440,8 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
             <OButton v-if="showNow" variant="text" size="sm" @click="setNow">Now</OButton>
             <span v-else />
             <div class="flex gap-2">
-              <OButton variant="outline" size="sm" @click="cancel">Cancel</OButton>
-              <OButton size="sm" @click="commit">OK</OButton>
+              <OButton variant="outline" size="sm" @click="cancel">{{ ousiText.cancel }}</OButton>
+              <OButton size="sm" @click="commit">{{ ousiText.ok }}</OButton>
             </div>
           </div>
         </Motion>

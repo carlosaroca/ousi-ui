@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, watch, onBeforeUnmount, toRef } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
@@ -10,6 +11,8 @@ import { OColorField } from '../color-field'
 import { colorPickerTriggerTheme } from './color-picker.theme'
 import { DEFAULT_SWATCHES } from './color-picker.types'
 import type { ColorPickerProps, ColorPickerEmits, ColorPickerValue } from './color-picker.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   showAlpha: true,
@@ -139,7 +142,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
       :class="colorPickerTriggerTheme"
       :disabled="disabled"
       :aria-expanded="isOpen"
-      :aria-label="label ?? 'Pick a color'"
+      :aria-label="label ?? ousiText.pickColor"
       @click="toggle"
     >
       <OColorSwatch :color="currentColor" shape="square" size="md" class="rounded-ousi-md" />

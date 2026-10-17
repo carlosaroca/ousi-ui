@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, toRef, nextTick } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
-import { useOusiConfig, getHour12ForLocale } from '../../config'
+import { useOusiConfig, getHour12ForLocale, useOusiMessages } from '../../config'
 import {
   dateFieldWrapperTheme,
   dateFieldSegmentTheme,
@@ -15,6 +15,8 @@ import type {
   TimeSegment,
   TimeSegmentType,
 } from './time-field.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<TimeFieldProps>(), {
   granularity: 'minute',
@@ -322,7 +324,7 @@ function setRef(el: any, idx: number) {
     :class="cn(dateFieldWrapperTheme({ variant, size, shadow, animated }), props.class)"
     :data-disabled="disabled || undefined"
     role="group"
-    :aria-label="label ?? 'Time field'"
+    :aria-label="label ?? ousiText.timeField"
   >
     <template v-for="(seg, idx) in segmentOrder" :key="idx">
       <!-- Literal separator -->

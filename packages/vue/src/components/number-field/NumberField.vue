@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, toRef, onBeforeUnmount } from 'vue'
 import { cn, useControllableState, generateId } from '@ousi-ui/core'
 import { useFormContext } from '../form/form.context'
@@ -13,6 +14,8 @@ import {
   numberFieldErrorTheme,
 } from './number-field.theme'
 import type { NumberFieldProps, NumberFieldEmits } from './number-field.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<NumberFieldProps>(), {
   step: 1,
@@ -172,7 +175,7 @@ onBeforeUnmount(stopHold)
         type="button"
         :class="numberFieldDecrementTheme"
         :disabled="!canDecrement || disabled"
-        aria-label="Decrease"
+        :aria-label="ousiText.decrease"
         @mousedown="startHold('decrement')"
         @mouseup="stopHold"
         @mouseleave="stopHold"
@@ -199,7 +202,7 @@ onBeforeUnmount(stopHold)
         :disabled="disabled"
         :readonly="readonly"
         :required="required"
-        :aria-label="label ?? 'Number'"
+        :aria-label="label ?? ousiText.number"
         :aria-describedby="describedBy"
         :aria-invalid="isInvalid || undefined"
         :aria-valuenow="value ?? undefined"
@@ -217,7 +220,7 @@ onBeforeUnmount(stopHold)
         type="button"
         :class="numberFieldIncrementTheme"
         :disabled="!canIncrement || disabled"
-        aria-label="Increase"
+        :aria-label="ousiText.increase"
         @mousedown="startHold('increment')"
         @mouseup="stopHold"
         @mouseleave="stopHold"

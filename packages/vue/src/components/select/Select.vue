@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, watch, nextTick, onBeforeUnmount, useId } from 'vue'
 import {
   useFloating,
@@ -21,6 +22,8 @@ import {
 import { labelTheme } from '../input/input.theme'
 import { useFormContext } from '../form/form.context'
 import type { SelectProps, SelectEmits, SelectOption, SelectValue } from './select.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<SelectProps>(), {
   variant: 'primary',
@@ -280,7 +283,7 @@ onBeforeUnmount(() => {
         class="flex-1 text-left truncate"
         :class="!hasValue ? 'text-ousi-field-placeholder' : 'text-ousi-field-foreground'"
       >
-        {{ hasValue ? displayText : (placeholder ?? 'Select an option') }}
+        {{ hasValue ? displayText : (placeholder ?? ousiText.selectPlaceholder) }}
       </span>
 
       <!-- Chevron -->
@@ -326,7 +329,7 @@ onBeforeUnmount(() => {
           <ul
             :id="listboxId"
             role="listbox"
-            :aria-label="label ?? 'Options'"
+            :aria-label="label ?? ousiText.options"
             :aria-multiselectable="multiple || undefined"
             :class="listboxTheme"
           >

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { useMounted } from '@ousi-ui/core'
@@ -7,6 +8,8 @@ import { removeToast } from './toast'
 import { toastRegionTheme } from './toast.theme'
 import ToastItemVue from './ToastItem.vue'
 import type { ToastProviderProps } from './toast.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<ToastProviderProps>(), {
   placement: 'bottom-end',
@@ -64,7 +67,7 @@ const exitAnim = computed(() => {
       :class="toastRegionTheme({ placement })"
       :data-theme="currentTheme"
       role="region"
-      aria-label="Notifications"
+      :aria-label="ousiText.notifications"
     >
       <!-- Stack container — relative so toasts can overlap -->
       <div class="relative flex items-end justify-end" style="min-height: 60px">

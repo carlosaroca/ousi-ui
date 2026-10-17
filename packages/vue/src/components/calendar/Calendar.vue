@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, toRef, useSlots } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
-import { useOusiConfig, getFirstDayOfWeekForLocale } from '../../config'
+import { useOusiConfig, getFirstDayOfWeekForLocale, useOusiMessages } from '../../config'
 import {
   calendarTheme,
   calendarHeaderTheme,
@@ -16,6 +16,8 @@ import {
   calendarYearCellTheme,
 } from './calendar.theme'
 import type { CalendarProps, CalendarEmits, CalendarDate } from './calendar.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<CalendarProps>(), {
   showOutsideDays: true,
@@ -198,7 +200,7 @@ function handleKeydown(e: KeyboardEvent, day: typeof calendarDays.value[0]) {
   <div :class="cn(calendarTheme, disabled && 'opacity-50 pointer-events-none', props.class)" role="group">
     <!-- Header -->
     <div :class="calendarHeaderTheme">
-      <button type="button" :class="calendarNavButtonTheme" aria-label="Previous" @click="prevMonth">
+      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.previous" @click="prevMonth">
         <slot name="prev-icon">
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
@@ -228,7 +230,7 @@ function handleKeydown(e: KeyboardEvent, day: typeof calendarDays.value[0]) {
         </svg>
       </component>
 
-      <button type="button" :class="calendarNavButtonTheme" aria-label="Next" @click="nextMonth">
+      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.next" @click="nextMonth">
         <slot name="next-icon">
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />

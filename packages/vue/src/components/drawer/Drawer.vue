@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, watch, useId } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useScrollLock, useMounted, useEscapeKey } from '@ousi-ui/core'
@@ -8,6 +9,8 @@ import {
   drawerPanelTheme,
 } from './drawer.theme'
 import type { DrawerProps, DrawerEmits, DrawerPlacement } from './drawer.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<DrawerProps>(), {
   placement: 'right',
@@ -124,7 +127,7 @@ defineExpose({ open, close })
               v-if="showCloseButton"
               type="button"
               class="absolute top-4 right-4 flex items-center justify-center w-7 h-7 rounded-full text-ousi-muted hover:text-ousi-foreground hover:bg-ousi-default transition-colors"
-              aria-label="Close drawer"
+              :aria-label="ousiText.closeDrawer"
               @click="close"
             >
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

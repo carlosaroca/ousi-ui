@@ -3,7 +3,7 @@ import { ref, computed, watch, onBeforeUnmount, nextTick } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
-import { useOusiConfig } from '../../config'
+import { useOusiConfig, useOusiMessages } from '../../config'
 import { OCalendar } from '../calendar'
 import {
   dateFieldSegmentTheme,
@@ -23,6 +23,8 @@ import {
 import type { DatePickerProps, DatePickerEmits } from './date-picker.types'
 import type { DateFieldValue } from '../date-field/date-field.types'
 import type { Segment, SegmentType } from '../date-field/date-field.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   showOutsideDays: true,
@@ -380,7 +382,7 @@ const describedBy = computed(() =>
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"
       role="group"
-      :aria-label="label ?? 'Date picker'"
+      :aria-label="label ?? ousiText.datePicker"
       tabindex="-1"
     >
       <!-- Date segments rendered directly -->
@@ -416,7 +418,7 @@ const describedBy = computed(() =>
       <button
         type="button"
         :class="datePickerIndicatorTheme"
-        aria-label="Open calendar"
+        :aria-label="ousiText.openCalendar"
         :aria-expanded="isOpen"
         aria-haspopup="dialog"
         :disabled="disabled || readonly"
@@ -480,7 +482,7 @@ const describedBy = computed(() =>
           :exit="{ opacity: 0, scale: 0.95 }"
           :transition="{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }"
           role="dialog"
-          :aria-label="label ?? 'Calendar'"
+          :aria-label="label ?? ousiText.calendar"
           aria-modal="true"
         >
           <OCalendar

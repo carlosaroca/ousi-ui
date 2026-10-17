@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import {
@@ -9,6 +10,8 @@ import {
   imageCompareLabelTheme,
 } from './image-compare.theme'
 import type { ImageCompareProps, ImageCompareEmits } from './image-compare.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<ImageCompareProps>(), {
   defaultValue: 50,
@@ -163,7 +166,7 @@ function handleKeydown(e: KeyboardEvent) {
     <!-- After image (bottom layer, fully visible) -->
     <img
       :src="afterSrc"
-      :alt="afterAlt ?? 'After'"
+      :alt="afterAlt ?? ousiText.after"
       :class="imageCompareImageTheme"
       draggable="false"
     />
@@ -171,7 +174,7 @@ function handleKeydown(e: KeyboardEvent) {
     <!-- Before image (top layer, clipped to divider position) -->
     <img
       :src="beforeSrc"
-      :alt="beforeAlt ?? 'Before'"
+      :alt="beforeAlt ?? ousiText.before"
       :class="imageCompareImageTheme"
       :style="{ clipPath: beforeClip }"
       draggable="false"

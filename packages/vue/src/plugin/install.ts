@@ -2,6 +2,7 @@ import type { App } from 'vue'
 import { OButton } from '../components/button'
 import { OBadge } from '../components/badge'
 import { OChip } from '../components/chip'
+import { OStatus } from '../components/status'
 import { OAvatar } from '../components/avatar'
 import { OInput } from '../components/input'
 import { OCard, OCardHeader, OCardTitle, OCardDescription, OCardContent, OCardFooter } from '../components/card'
@@ -78,6 +79,7 @@ const components = {
   OButton,
   OBadge,
   OChip,
+  OStatus,
   OAvatar,
   OInput,
   OCard,
@@ -170,18 +172,21 @@ const components = {
   OAspectRatio,
 } as const
 
-import { applyOusiConfig, type OusiConfigInit } from '../config'
+import { applyOusiConfig, applyOusiMessages, type OusiConfigInit, type OusiMessages } from '../config'
 
 export interface OusiUIPluginOptions extends OusiConfigInit {
   /** Prefix for component registration. Defaults to 'O'. */
   prefix?: string
+  /** Replaces some of the component texts that `locale` selects (English and Spanish ship built in). */
+  messages?: Partial<OusiMessages>
 }
 
 export function install(app: App, options: OusiUIPluginOptions = {}) {
-  const { prefix = 'O', locale, hour12, firstDayOfWeek, dir } = options
+  const { prefix = 'O', locale, hour12, firstDayOfWeek, dir, messages } = options
 
   // Seed the global config singleton — useOusiConfig() will pick these up.
   applyOusiConfig({ locale, hour12, firstDayOfWeek, dir })
+  applyOusiMessages(messages)
 
   for (const [name, component] of Object.entries(components)) {
     const registeredName = prefix ? name.replace(/^O/, prefix) : name

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, toRef, nextTick } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
-import { useOusiConfig } from '../../config'
+import { useOusiConfig, useOusiMessages } from '../../config'
 import {
   dateFieldWrapperTheme,
   dateFieldSegmentTheme,
@@ -15,6 +15,8 @@ import type {
   Segment,
   SegmentType,
 } from './date-field.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<DateFieldProps>(), {
   granularity: 'day',
@@ -293,7 +295,7 @@ function setRef(el: any, idx: number) {
     :class="cn(dateFieldWrapperTheme({ variant, size, shadow, animated }), props.class)"
     :data-disabled="disabled || undefined"
     role="group"
-    :aria-label="label ?? 'Date field'"
+    :aria-label="label ?? ousiText.dateField"
   >
     <template v-for="(seg, idx) in segmentOrder" :key="idx">
       <!-- Literal separator -->

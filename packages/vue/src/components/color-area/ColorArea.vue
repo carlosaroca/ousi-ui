@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { ref, computed, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { colorAreaBaseTheme } from './color-area.theme'
 import type { ColorAreaProps, ColorAreaEmits, ColorAreaValue } from './color-area.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<ColorAreaProps>(), {
   hue: 0,
@@ -134,7 +137,7 @@ function handleKeydown(e: KeyboardEvent) {
       class="absolute outline-none focus-visible:ring-2 focus-visible:ring-ousi-focus z-10"
       :style="thumbStyle"
       role="slider"
-      aria-label="Color"
+      :aria-label="ousiText.color"
       :aria-valuenow="Math.round(value.x)"
       tabindex="0"
       @mousedown="handleDown"

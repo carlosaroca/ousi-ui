@@ -5,7 +5,7 @@ import { chipTheme } from './chip.theme'
 import type { ChipProps } from './chip.types'
 
 const props = withDefaults(defineProps<ChipProps>(), {
-  variant: 'solid',
+  variant: 'soft',
   color: 'accent',
   size: 'md',
   shadow: 'none',
@@ -26,9 +26,10 @@ const classes = computed(() =>
 )
 
 const addonSizeMap: Record<string, string> = {
-  sm: 'size-4',
-  md: 'size-5',
-  lg: 'size-6',
+  xs: 'size-3',
+  sm: 'size-3.5',
+  md: 'size-4',
+  lg: 'size-[18px]',
 }
 
 const addonSize = computed(() => addonSizeMap[props.size] || addonSizeMap.md)

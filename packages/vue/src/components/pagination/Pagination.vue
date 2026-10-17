@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useOusiMessages } from '../../config'
 import { computed, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { vHaptic } from '@ousi-ui/haptics'
@@ -10,6 +11,8 @@ import {
   paginationEllipsisTheme,
 } from './pagination.theme'
 import type { PaginationProps, PaginationEmits } from './pagination.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<PaginationProps>(), {
   defaultPage: 1,
@@ -108,7 +111,7 @@ const pages = computed((): PageItem[] => {
   <nav
     :class="cn(paginationTheme, props.class)"
     role="navigation"
-    aria-label="Pagination"
+    :aria-label="ousiText.pagination"
   >
     <!-- Summary -->
     <p v-if="showSummary" :class="paginationSummaryTheme({ size })">
@@ -124,7 +127,7 @@ const pages = computed((): PageItem[] => {
           type="button"
           :class="paginationLinkTheme({ size, nav: true })"
           :disabled="(!canPrev || disabled) || undefined"
-          aria-label="Go to previous page"
+          :aria-label="ousiText.previousPage"
           @click="prev"
         >
           <slot name="prev-icon">
@@ -169,7 +172,7 @@ const pages = computed((): PageItem[] => {
           type="button"
           :class="paginationLinkTheme({ size, nav: true })"
           :disabled="(!canNext || disabled) || undefined"
-          aria-label="Go to next page"
+          :aria-label="ousiText.nextPage"
           @click="next"
         >
           <span v-if="nextLabel">{{ nextLabel }}</span>

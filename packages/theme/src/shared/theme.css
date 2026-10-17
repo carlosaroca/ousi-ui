@@ -65,6 +65,13 @@
   --color-ousi-success-soft-foreground: var(--ousi-success);
   --color-ousi-success-soft-hover: color-mix(in oklab, var(--ousi-success) 20%, transparent);
 
+  /* Readable text on a soft background: the tone mixed with the theme foreground, so it keeps
+     the hue and reaches text contrast in light and dark themes. */
+  --color-ousi-accent-soft-strong: color-mix(in oklab, var(--ousi-accent) 62%, var(--ousi-foreground));
+  --color-ousi-danger-soft-strong: color-mix(in oklab, var(--ousi-danger) 62%, var(--ousi-foreground));
+  --color-ousi-warning-soft-strong: color-mix(in oklab, var(--ousi-warning) 62%, var(--ousi-foreground));
+  --color-ousi-success-soft-strong: color-mix(in oklab, var(--ousi-success) 62%, var(--ousi-foreground));
+
   /* ── Radius ────────────────────────────────────────────────────── */
   --radius-ousi-field: var(--ousi-radius-field);
   --radius-ousi-xs: var(--ousi-radius-xs);

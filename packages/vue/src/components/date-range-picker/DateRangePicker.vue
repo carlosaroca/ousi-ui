@@ -3,7 +3,7 @@ import { ref, computed, watch, onBeforeUnmount, toRef, nextTick, reactive } from
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
-import { useOusiConfig } from '../../config'
+import { useOusiConfig, useOusiMessages } from '../../config'
 import { ORangeCalendar } from '../range-calendar'
 import {
   dateFieldSegmentTheme,
@@ -23,6 +23,8 @@ import {
 import type { DateRangePickerProps, DateRangePickerEmits, DateRangeValue } from './date-range-picker.types'
 import type { DateFieldValue } from '../date-field/date-field.types'
 import type { Segment, SegmentType } from '../date-field/date-field.types'
+
+const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<DateRangePickerProps>(), {
   showOutsideDays: true,
@@ -442,7 +444,7 @@ const describedBy = computed(() =>
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"
       role="group"
-      :aria-label="label ?? 'Date range picker'"
+      :aria-label="label ?? ousiText.dateRangePicker"
       tabindex="-1"
     >
       <!-- Start date segments -->
@@ -507,7 +509,7 @@ const describedBy = computed(() =>
       <button
         type="button"
         :class="dateRangePickerIndicatorTheme"
-        aria-label="Open calendar"
+        :aria-label="ousiText.openCalendar"
         :aria-expanded="isOpen"
         aria-haspopup="dialog"
         :disabled="disabled || readonly"
@@ -571,7 +573,7 @@ const describedBy = computed(() =>
           :exit="{ opacity: 0, scale: 0.95 }"
           :transition="{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }"
           role="dialog"
-          :aria-label="label ?? 'Date range calendar'"
+          :aria-label="label ?? ousiText.dateRangeCalendar"
           aria-modal="true"
         >
           <ORangeCalendar
