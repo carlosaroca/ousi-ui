@@ -7,6 +7,7 @@ useSeoMeta({
 })
 
 const tocItems = [
+  { id: 'v0-6-0', label: 'v0.6.0' },
   { id: 'v0-3-1', label: 'v0.3.1' },
   { id: 'v0-3-0', label: 'v0.3.0' },
   { id: 'v0-2-0', label: 'v0.2.0' },
@@ -27,13 +28,88 @@ const tocItems = [
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.6.0 -->
+    <article id="v0-6-0" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.6.0</h2>
+        <span class="text-xs text-ousi-muted">October 19, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Added</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">Layer stack</strong>: dialogs, drawers, popovers, dropdowns, context menus, the command palette and the lists of selects, autocompletes and pickers stack in the order they open, whatever order they mounted in. Escape closes only the top layer, and a press inside a layer opened above (a select list inside a popover, a calendar inside a dialog) no longer dismisses the layers below. Available as <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">useLayer</code> in <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/core</code>.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OStatus</strong>: a dot in the tone's color plus the text, for tables and lists, in the <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">dot</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">halo</code> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">tinted</code> variants.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">#start</code> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">#end</code> slots on <strong class="text-ousi-foreground">OSelect</strong> and <strong class="text-ousi-foreground">OAutocomplete</strong>, with the same look as OInput.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">focus()</code> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">blur()</code> on every field component.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span>Built-in component texts in English and Spanish, picked by the configured locale; the plugin's <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">messages</code> option replaces any of them.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span>Dialog sizes up to 5xl, drawer sizes up to full, file upload with v-model and progress, server search in OAutocomplete, and tabs with an overflow menu.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Changed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span>Fields send <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">aria-*</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">id</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">name</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">inputmode</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">autocomplete</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">data-*</code> and the other native attributes to their real control; <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">class</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">style</code> and listeners stay on the root. A passed <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">id</code> keeps the label association.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">ONumberField</strong> formats and parses with the configured locale (or its <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">locale</code> prop) and accepts that locale's separators when typing, so in es-CO <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">1.234,5</code> reads as 1234.5. Phones get a numeric or decimal keyboard.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OChip</strong> redesigned: radius from the theme scale, soft as the default variant, sizes one step larger.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span>Dialogs and drawers close on a backdrop click only when the press started on the backdrop, and their focus trap covers the layers opened from them.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Fixed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">•</span>
+              <span>ONumberField with format options no longer reformats while typing, reads percentages as fractions and keeps the value when the field is left without edits.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">•</span>
+              <span>Nested overlays no longer unlock page scroll early, and focus returns to its trigger when a popover, dropdown, context menu or picker closes.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <!-- v0.3.1 -->
     <article id="v0-3-1" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.3.1</h2>
         <span class="text-xs text-ousi-muted">May 3, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
 
       <div class="space-y-4">
