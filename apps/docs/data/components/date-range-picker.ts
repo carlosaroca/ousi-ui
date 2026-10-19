@@ -146,6 +146,11 @@ const range = ref<DateRangeValue | null>({
     { name: 'change', type: 'DateRangeValue | null', description: 'Emitted on user-initiated change.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the first segment.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   themeCode: `import { dateRangePickerTheme } from '@ousi-ui/vue'`,
 
   keyboard: [
@@ -157,6 +162,7 @@ const range = ref<DateRangeValue | null>({
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the field group (role="group"), while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'role="group"', condition: 'always', description: 'Groups start and end date fields.' },
     { attribute: 'aria-label', condition: 'label prop set', description: 'Labels the date range picker.' },
     { attribute: 'aria-expanded', condition: 'popover open', description: 'Indicates popover visibility state.' },

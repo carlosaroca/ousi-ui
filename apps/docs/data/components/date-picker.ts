@@ -164,6 +164,11 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
     { name: 'change', type: 'DateFieldValue | string | null', description: 'Emitted on user-initiated change. String when `format` is set, object otherwise.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the first segment.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   themeCode: `import { datePickerTheme } from '@ousi-ui/vue'`,
 
   keyboard: [
@@ -175,6 +180,7 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the field group (role="group"), while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'role="group"', condition: 'always', description: 'Groups the date field segments.' },
     { attribute: 'aria-label', condition: 'label prop set', description: 'Labels the date picker.' },
     { attribute: 'aria-expanded', condition: 'popover open', description: 'Indicates popover visibility state.' },

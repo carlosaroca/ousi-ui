@@ -93,6 +93,11 @@ export const dateFieldData: ComponentData = {
     { name: 'change', type: 'DateFieldValue | null', description: 'Emitted on user-initiated change.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the first segment.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   themeCode: `import { dateFieldTheme } from '@ousi-ui/vue'`,
 
   keyboard: [

@@ -66,7 +66,7 @@ export const popoverData: ComponentData = {
   ],
 
   keyboard: [
-    { key: 'escape', description: 'Closes the popover.' },
+    { key: 'escape', description: 'Closes the popover. A field list or calendar open inside it closes first.' },
     { key: 'tab', description: 'Moves focus within the popover content.' },
   ],
 
@@ -77,6 +77,7 @@ export const popoverData: ComponentData = {
   bestPractices: [
     { text: 'Use popovers for additional context, not primary content.', good: true },
     { text: 'Keep popover content concise and focused.', good: true },
+    { text: 'Fields inside a popover work as usual: picking in their lists or calendars keeps the popover open.', good: true },
     { text: "Don't put complex forms inside popovers — use a dialog instead.", good: false },
   ],
 }

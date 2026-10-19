@@ -1,5 +1,6 @@
 import { watch, onBeforeUnmount, type Ref } from 'vue'
 import { useMounted } from './use-mounted'
+import { useLayerEntry } from './use-layer'
 import { Keys, isKey } from '../utils/keyboard'
 
 export interface UseEscapeKeyOptions {
@@ -11,37 +12,42 @@ export interface UseEscapeKeyOptions {
 
 /**
  * Listens for the Escape key and fires the handler.
+ *
+ * With `enabled`, the handler joins the layer stack while enabled and runs only while it is the
+ * top-most layer, like an overlay. Without it, the handler runs for every Escape that no open
+ * layer took.
  */
 export function useEscapeKey(options: UseEscapeKeyOptions) {
   const { handler, enabled } = options
+
+  if (enabled) {
+    useLayerEntry(enabled, {
+      z: null,
+      modal: false,
+      elements: () => [],
+      trigger: () => null,
+      onEscape: handler,
+      restoreFocus: false,
+      returnFocus: [],
+    })
+    return
+  }
+
   const isMounted = useMounted()
 
   function listener(event: KeyboardEvent) {
-    if (isKey(event, Keys.Escape)) {
-      handler(event)
-    }
+    if (isKey(event, Keys.Escape) && !event.defaultPrevented) handler(event)
   }
 
-  let cleanup: (() => void) | null = null
-
   watch(
-    [isMounted, ...(enabled ? [enabled] : [])],
-    () => {
-      cleanup?.()
-      cleanup = null
-
-      if (!isMounted.value) return
-      if (enabled && !enabled.value) return
-
-      document.addEventListener('keydown', listener, true)
-      cleanup = () => {
-        document.removeEventListener('keydown', listener, true)
-      }
+    isMounted,
+    (mounted) => {
+      if (mounted) window.addEventListener('keydown', listener)
     },
     { immediate: true },
   )
 
   onBeforeUnmount(() => {
-    cleanup?.()
+    window.removeEventListener('keydown', listener)
   })
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRef } from 'vue'
+import { computed, ref, toRef } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { useOusiConfig, getHour12ForLocale, useOusiMessages } from '../../config'
 import {
@@ -9,6 +9,7 @@ import {
   dateFieldPlaceholderTheme,
 } from '../date-field/date-field.theme'
 import { useTimeSegments } from './use-time-segments'
+import { fieldFocus, firstSegment } from '../shared/field-attrs'
 import type { TimeFieldProps, TimeFieldEmits, TimeFieldValue, TimeSegmentType } from './time-field.types'
 
 const ousiText = useOusiMessages()
@@ -66,10 +67,14 @@ function segmentLabel(type: TimeSegmentType): string {
   if (type === 'second') return ousiText.value.second
   return ousiText.value.period
 }
+
+const rootRef = ref<HTMLElement | null>(null)
+defineExpose(fieldFocus(() => firstSegment(rootRef.value), () => rootRef.value))
 </script>
 
 <template>
   <div
+    ref="rootRef"
     :class="cn(dateFieldWrapperTheme({ variant, size, shadow, animated }), props.class)"
     :data-disabled="disabled || undefined"
     role="group"

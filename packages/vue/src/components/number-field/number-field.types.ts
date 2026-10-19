@@ -35,9 +35,12 @@ export interface NumberFieldProps {
   readonly?: boolean
   /** Required. */
   required?: boolean
-  /** Intl.NumberFormat options for display. */
+  /**
+   * Intl.NumberFormat options for display. Without them the value shows with the locale's decimal
+   * separator, no grouping and no rounding; `{}` gives the locale's default grouping.
+   */
   formatOptions?: Intl.NumberFormatOptions
-  /** Locale for formatting. */
+  /** Locale for formatting and for reading typed text. Defaults to `useOusiConfig().locale`. */
   locale?: string
   /** Show increment/decrement buttons. Default: true. */
   showButtons?: boolean

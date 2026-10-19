@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, onMounted, watch } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
-import { cn } from '@ousi-ui/core'
+import { cn, useLayer } from '@ousi-ui/core'
 import {
   contextMenuTheme,
   contextMenuItemTheme,
@@ -66,6 +66,14 @@ const { floatingStyles } = useFloating(anchorRef, menuRef, {
     flip(),
     shift({ padding: 8 }),
   ],
+})
+
+// Each level is a layer while mounted: Escape closes the deepest one first, and a press outside
+// every level closes the whole tree.
+const { zIndex } = useLayer(true, {
+  elements: menuRef,
+  onEscape: () => emit('close'),
+  onPointerDownOutside: isSubmenu ? undefined : () => emit('closeAll'),
 })
 
 function isSelectable(item: ContextMenuItem): boolean {
@@ -206,7 +214,7 @@ watch(openSubmenuIndex, () => { /* no-op */ })
       <div
         ref="menuRef"
         :class="cn(contextMenuTheme({ shadow }), 'origin-top-left', props.class)"
-        :style="floatingStyles"
+        :style="[floatingStyles, { zIndex }]"
         tabindex="-1"
         role="menu"
         @keydown="handleKeydown"

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { useMounted } from '@ousi-ui/core'
+import { useMounted, useLayer } from '@ousi-ui/core'
 
 const isOpen = ref(false)
 const triggerRef = ref<HTMLElement | null>(null)
@@ -28,6 +28,11 @@ function handleLeave() {
   if (openTimer) { clearTimeout(openTimer); openTimer = null }
   closeTimer = setTimeout(() => { isOpen.value = false }, 150)
 }
+
+const { zIndex } = useLayer(isOpen, {
+  elements: popoverRef,
+  onEscape: () => { isOpen.value = false },
+})
 </script>
 
 <template>
@@ -43,8 +48,7 @@ function handleLeave() {
       <div
         v-if="isOpen && isMounted"
         ref="popoverRef"
-        :style="floatingStyles"
-        class="z-[60]"
+        :style="[floatingStyles, { zIndex }]"
         @mouseenter="handleEnter"
         @mouseleave="handleLeave"
       >

@@ -19,6 +19,8 @@ export type { UseFloatingOptions } from './composables/use-floating'
 export { usePresence } from './composables/use-presence'
 export type { UsePresenceOptions } from './composables/use-presence'
 export { useScrollLock } from './composables/use-scroll-lock'
+export { useLayer, LAYER_BASE_Z_INDEX, TOOLTIP_Z_INDEX } from './composables/use-layer'
+export type { UseLayerOptions, UseLayerReturn } from './composables/use-layer'
 
 // Stores
 export { toastStore, toast } from './stores/toast-store'

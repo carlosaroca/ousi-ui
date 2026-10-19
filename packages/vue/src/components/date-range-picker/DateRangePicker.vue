@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount, toRef, nextTick, reactive } from 'vue'
+import { ref, computed, watch, toRef, nextTick, reactive } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
+import { cn, useControllableState, useMounted, useLayer, generateId } from '@ousi-ui/core'
 import { useOusiConfig, useOusiMessages } from '../../config'
 import { ORangeCalendar } from '../range-calendar'
 import {
@@ -20,9 +20,12 @@ import {
   dateRangePickerDescriptionTheme,
   dateRangePickerErrorTheme,
 } from './date-range-picker.theme'
+import { fieldFocus, firstSegment, useFieldAttrs } from '../shared/field-attrs'
 import type { DateRangePickerProps, DateRangePickerEmits, DateRangeValue } from './date-range-picker.types'
 import type { DateFieldValue } from '../date-field/date-field.types'
 import type { Segment, SegmentType } from '../date-field/date-field.types'
+
+defineOptions({ inheritAttrs: false })
 
 const ousiText = useOusiMessages()
 
@@ -44,9 +47,11 @@ const effectiveLocale = computed(() => props.locale ?? config.locale.value)
 const emit = defineEmits<DateRangePickerEmits>()
 
 // ── Accessible IDs ──
-const fieldId = `drp-${generateId()}`
 const descId = `drp-desc-${generateId()}`
 const errorId = `drp-err-${generateId()}`
+const { rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(`drp-${generateId()}`, () =>
+  isInvalid.value ? errorId : props.description ? descId : undefined,
+)
 
 const isMounted = useMounted()
 const isOpen = ref(false)
@@ -386,20 +391,12 @@ function toggle() {
   isOpen.value ? close() : open()
 }
 
-useEscapeKey({ handler: () => { if (isOpen.value) close() }, enabled: isOpen })
-
-function handleClickOutside(e: MouseEvent) {
-  const t = e.target as Node
-  if (!triggerRef.value?.contains(t) && !popoverRef.value?.contains(t)) {
-    close()
-  }
-}
-
-watch(isOpen, (v) => {
-  if (v) document.addEventListener('pointerdown', handleClickOutside, true)
-  else document.removeEventListener('pointerdown', handleClickOutside, true)
+const { zIndex } = useLayer(isOpen, {
+  elements: popoverRef,
+  trigger: triggerRef,
+  onEscape: () => close(),
+  onPointerDownOutside: () => close(),
 })
-onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOutside, true))
 
 // ── Calendar selection ──
 function handleRangeChange(range: { start: DateFieldValue | null; end: DateFieldValue | null } | null) {
@@ -419,17 +416,16 @@ const calendarRange = computed(() => {
 })
 
 const isInvalid = computed(() => !!props.errorMessage)
-const describedBy = computed(() =>
-  isInvalid.value ? errorId : props.description ? descId : undefined,
-)
+
+defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.value))
 </script>
 
 <template>
-  <div :class="cn(dateRangePickerWrapperTheme, props.class)">
+  <div v-bind="rootAttrs" :class="cn(dateRangePickerWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
-      :for="fieldId"
+      :for="controlId"
       :class="dateRangePickerLabelTheme({ required, disabled, invalid: isInvalid })"
     >
       {{ label }}
@@ -438,14 +434,15 @@ const describedBy = computed(() =>
     <!-- Trigger — single unified field: start segments + → + end segments + icon -->
     <div
       ref="triggerRef"
-      :id="fieldId"
       :class="dateRangePickerTriggerTheme({ variant, size, shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
-      :aria-describedby="describedBy"
-      role="group"
       :aria-label="label ?? ousiText.dateRangePicker"
       tabindex="-1"
+      v-bind="controlAttrs"
+      :id="controlId"
+      role="group"
+      :aria-describedby="describedBy"
       @click="open"
     >
       <!-- Start date segments -->
@@ -561,8 +558,7 @@ const describedBy = computed(() =>
     <div
       v-if="isOpen && isMounted"
       ref="popoverRef"
-      :style="floatingStyles"
-      class="z-50"
+      :style="[floatingStyles, { zIndex }]"
     >
       <AnimatePresence>
         <Motion

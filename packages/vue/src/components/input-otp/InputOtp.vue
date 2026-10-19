@@ -11,7 +11,10 @@ import {
   inputOtpDescriptionTheme,
   inputOtpErrorTheme,
 } from './input-otp.theme'
+import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
 import type { InputOtpProps, InputOtpEmits } from './input-otp.types'
+
+defineOptions({ inheritAttrs: false })
 
 const ousiText = useOusiMessages()
 
@@ -33,9 +36,11 @@ const props = withDefaults(defineProps<InputOtpProps>(), {
 
 const emit = defineEmits<InputOtpEmits>()
 
-const inputId = `otp-${generateId()}`
 const descId = `otp-desc-${generateId()}`
 const errorId = `otp-err-${generateId()}`
+const { rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(`otp-${generateId()}`, () =>
+  isInvalid.value ? errorId : props.description ? descId : undefined,
+)
 
 const inputRef = ref<HTMLInputElement | null>(null)
 const containerRef = ref<HTMLElement | null>(null)
@@ -190,12 +195,9 @@ watch(() => props.errorMessage, async (err) => {
   }
 })
 
-defineExpose({ triggerShake, triggerClearOnError, focus: () => inputRef.value?.focus() })
+defineExpose({ triggerShake, triggerClearOnError, ...fieldFocus(() => inputRef.value) })
 
 const isInvalid = computed(() => !!props.errorMessage)
-const describedBy = computed(() =>
-  isInvalid.value ? errorId : props.description ? descId : undefined,
-)
 
 function getSlotDisplay(val: string | null): string {
   if (val === null) return ''
@@ -220,9 +222,9 @@ function onValueRef(el: Element | null, slotIndex: number) {
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div v-bind="rootAttrs" class="flex flex-col">
     <!-- Label -->
-    <label v-if="label" :for="inputId" :class="inputOtpLabelTheme">
+    <label v-if="label" :for="controlId" :class="inputOtpLabelTheme">
       {{ label }}
       <span v-if="required" class="ml-0.5 text-ousi-danger" aria-hidden="true">*</span>
     </label>
@@ -230,21 +232,22 @@ function onValueRef(el: Element | null, slotIndex: number) {
     <div class="relative" @click="handleSlotClick">
       <!-- Hidden native input -->
       <input
-        :id="inputId"
         ref="inputRef"
         type="text"
         :inputmode="type === 'digit' ? 'numeric' : 'text'"
         :pattern="type === 'digit' ? '[0-9]*' : undefined"
         :maxlength="length"
-        :value="value"
         :disabled="disabled"
         :readonly="readonly"
         :required="required"
         :aria-label="label ?? ousiText.otpInput"
-        :aria-describedby="describedBy"
         :aria-invalid="isInvalid || undefined"
         autocomplete="one-time-code"
         class="absolute inset-0 h-0 w-0 opacity-0 pointer-events-none"
+        v-bind="controlAttrs"
+        :id="controlId"
+        :value="value"
+        :aria-describedby="describedBy"
         @input="handleInput"
         @keydown="handleKeydown"
         @paste="handlePaste"

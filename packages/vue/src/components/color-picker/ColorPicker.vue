@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useOusiMessages } from '../../config'
-import { ref, computed, watch, onBeforeUnmount, toRef } from 'vue'
+import { ref, computed, toRef } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useControllableState, useMounted, useEscapeKey } from '@ousi-ui/core'
+import { cn, useControllableState, useMounted, useLayer } from '@ousi-ui/core'
 import { OColorArea } from '../color-area'
 import { OColorSlider } from '../color-slider'
 import { OColorSwatch } from '../color-swatch'
@@ -117,20 +117,12 @@ function toggle() {
   isOpen.value = !isOpen.value
 }
 
-useEscapeKey({ handler: () => { isOpen.value = false }, enabled: isOpen })
-
-function handleClickOutside(e: MouseEvent) {
-  const t = e.target as Node
-  if (!triggerRef.value?.contains(t) && !popoverRef.value?.contains(t)) {
-    isOpen.value = false
-  }
-}
-
-watch(isOpen, (v) => {
-  if (v) document.addEventListener('pointerdown', handleClickOutside, true)
-  else document.removeEventListener('pointerdown', handleClickOutside, true)
+const { zIndex } = useLayer(isOpen, {
+  elements: popoverRef,
+  trigger: triggerRef,
+  onEscape: () => { isOpen.value = false },
+  onPointerDownOutside: () => { isOpen.value = false },
 })
-onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOutside, true))
 </script>
 
 <template>
@@ -155,8 +147,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
       <div
         v-if="isOpen && isMounted"
         ref="popoverRef"
-        :style="floatingStyles"
-        class="z-50"
+        :style="[floatingStyles, { zIndex }]"
       >
         <AnimatePresence>
           <Motion

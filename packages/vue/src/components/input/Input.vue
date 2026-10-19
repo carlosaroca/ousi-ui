@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useOusiMessages } from '../../config'
-import { computed, toRef, useId } from 'vue'
+import { computed, ref, toRef, useId } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { inputGroupTheme, inputInnerTheme, labelTheme } from './input.theme'
 import { useFormContext } from '../form/form.context'
+import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
 import type { InputProps, InputEmits } from './input.types'
+
+defineOptions({ inheritAttrs: false })
 
 const ousiText = useOusiMessages()
 
@@ -23,9 +26,14 @@ const props = withDefaults(defineProps<InputProps>(), {
 
 const emit = defineEmits<InputEmits>()
 
-const inputId = useId()
 const descriptionId = useId()
 const errorId = useId()
+const { rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(useId(), () => {
+  if (isInvalid.value) return errorId
+  if (props.description) return descriptionId
+  return undefined
+})
+const inputRef = ref<HTMLInputElement | null>(null)
 
 const formCtx = useFormContext()
 
@@ -50,12 +58,6 @@ const showClear = computed(() =>
   props.clearable && !!value.value && !props.disabled && !props.readonly,
 )
 
-const describedBy = computed(() => {
-  if (isInvalid.value) return errorId
-  if (props.description) return descriptionId
-  return undefined
-})
-
 function handleInput(e: Event) {
   const target = e.target as HTMLInputElement
   const val = props.type === 'number' ? target.valueAsNumber : target.value
@@ -67,14 +69,16 @@ function handleClear() {
   value.value = ''
   emit('clear')
 }
+
+defineExpose(fieldFocus(() => inputRef.value))
 </script>
 
 <template>
-  <div :class="cn('flex w-full flex-col gap-1.5', props.class)">
+  <div v-bind="rootAttrs" :class="cn('flex w-full flex-col gap-1.5', props.class)">
     <!-- Label -->
     <label
       v-if="label"
-      :for="inputId"
+      :for="controlId"
       :class="labelTheme({
         required: required || undefined,
         disabled: disabled || undefined,
@@ -97,11 +101,10 @@ function handleClear() {
 
       <!-- Native input -->
       <input
-        :id="inputId"
+        ref="inputRef"
         :name="name"
         :class="inputInnerTheme({ size, hasStart: !!$slots.start || undefined })"
         :type="type"
-        :value="value"
         :placeholder="placeholder"
         :disabled="disabled"
         :readonly="readonly"
@@ -109,6 +112,9 @@ function handleClear() {
         :aria-invalid="isInvalid || undefined"
         :aria-required="required || undefined"
         :aria-disabled="disabled || undefined"
+        v-bind="controlAttrs"
+        :id="controlId"
+        :value="value"
         :aria-describedby="describedBy"
         data-slot="input-group-input"
         @input="handleInput"

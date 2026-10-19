@@ -131,10 +131,19 @@ const tags = ref(['Vue', 'React'])
     { name: 'remove', type: '[tag: string]', description: 'Emitted when a tag is removed.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the text input.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   keyboard: [
     { key: 'enter', description: 'Adds the current input text as a tag.' },
     { key: ',', description: 'Adds the current input text as a tag (comma separator).' },
     { key: 'backspace', description: 'Removes the last tag when input is empty.' },
+  ],
+
+  aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the text <input>, while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
   ],
 
   bestPractices: [

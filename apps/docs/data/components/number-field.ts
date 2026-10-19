@@ -143,8 +143,8 @@ export const numberFieldData: ComponentData = {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the field.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Read-only mode.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Required.' },
-    { name: 'formatOptions', type: 'Intl.NumberFormatOptions', default: '-', description: 'Intl.NumberFormat options for display.' },
-    { name: 'locale', type: 'string', default: '-', description: 'Locale for formatting.' },
+    { name: 'formatOptions', type: 'Intl.NumberFormatOptions', default: '-', description: 'Intl.NumberFormat options for display, for example currency or percent. Without them the value shows with the locale decimal separator, no grouping and no rounding; pass {} for the locale default grouping.' },
+    { name: 'locale', type: 'string', default: 'useOusiConfig().locale', description: 'Locale for formatting and for reading typed text. es-CO shows 1.234,5; en-US shows 1,234.5.' },
     { name: 'showButtons', type: 'boolean', default: 'true', description: 'Show increment/decrement buttons.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
@@ -154,6 +154,11 @@ export const numberFieldData: ComponentData = {
     { name: 'change', type: '[value: number | null]', description: 'Emitted on change.' },
     { name: 'focus', type: '[event: FocusEvent]', description: 'Emitted when the field is focused.' },
     { name: 'blur', type: '[event: FocusEvent]', description: 'Emitted when the field loses focus.' },
+  ],
+
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the input.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
   ],
 
   themeCode: `import { numberFieldTheme } from '@ousi-ui/vue'
@@ -171,6 +176,7 @@ export const numberFieldData: ComponentData = {
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the <input>, while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'role="spinbutton"', condition: 'always', description: 'Identifies the element as a spin button.' },
     { attribute: 'aria-valuenow', condition: 'always', description: 'Current value.' },
     { attribute: 'aria-valuemin', condition: 'min is set', description: 'Minimum value.' },
@@ -179,6 +185,8 @@ export const numberFieldData: ComponentData = {
   ],
 
   bestPractices: [
+    { text: 'Typed text is read with the locale separators: the decimal separator marks the decimals and group separators are dropped. A lone "." or "," (the one the locale does not use for decimals) is a thousands separator when three digits follow it, otherwise the decimal point: in es-CO "1.234" is 1234 and "12.5" is 12.5.', good: true },
+    { text: 'The mobile keyboard follows the format: inputmode "numeric" when it shows no decimals, "decimal" otherwise. Pass inputmode to override it.', good: true },
     { text: 'Always provide a label for accessibility.', good: true },
     { text: 'Set sensible min/max bounds to prevent invalid input.', good: true },
     { text: 'Use formatOptions for currency, percentage, or unit display.', good: true },

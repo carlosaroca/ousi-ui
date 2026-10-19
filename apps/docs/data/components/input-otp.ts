@@ -130,6 +130,13 @@ export const inputOtpData: ComponentData = {
     { name: 'clear', type: '[]', description: 'Emitted after auto-clear on error.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the hidden input.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+    { name: 'triggerShake', type: '() => void', description: 'Plays the error shake.' },
+    { name: 'triggerClearOnError', type: '() => Promise<void>', description: 'Clears the slots one by one, as on an error with clearOnError.' },
+  ],
+
   themeCode: `import { inputOtpTheme } from '@ousi-ui/vue'
 
 // CVA variants: primary, secondary
@@ -145,6 +152,7 @@ export const inputOtpData: ComponentData = {
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the hidden <input>, while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'role="group"', condition: 'always', description: 'Groups the OTP slots.' },
     { attribute: 'aria-label', condition: 'label is set', description: 'Describes the OTP input.' },
     { attribute: 'aria-invalid', condition: 'errorMessage is set', description: 'Indicates the input has an error.' },

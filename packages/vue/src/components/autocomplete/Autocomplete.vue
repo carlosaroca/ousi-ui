@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useOusiMessages } from '../../config'
-import { ref, computed, watch, toRef, onBeforeUnmount, nextTick, useId } from 'vue'
+import { ref, computed, toRef, onBeforeUnmount, nextTick, useId } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift, size as floatingSize } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useControllableState, useMounted, useEscapeKey } from '@ousi-ui/core'
+import { cn, useControllableState, useMounted, useLayer } from '@ousi-ui/core'
 import OScrollShadow from '../scroll-shadow/ScrollShadow.vue'
+import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
 import {
   autocompleteWrapperTheme,
   autocompleteTriggerTheme,
@@ -18,6 +19,8 @@ import {
   autocompleteErrorTheme,
 } from './autocomplete.theme'
 import type { AutocompleteOption, AutocompleteProps, AutocompleteEmits } from './autocomplete.types'
+
+defineOptions({ inheritAttrs: false })
 
 const ousiText = useOusiMessages()
 // Same prompt as OSelect when the field gives none, so choice fields read alike.
@@ -43,10 +46,14 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
 
 const emit = defineEmits<AutocompleteEmits>()
 
-const inputId = useId()
 const listboxId = useId()
 const descId = useId()
 const errorId = useId()
+const { attrs, rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(useId(), () => {
+  if (isInvalid.value) return errorId
+  if (props.description) return descId
+  return undefined
+})
 
 const isMounted = useMounted()
 const isOpen = ref(false)
@@ -130,12 +137,6 @@ const resolvedEmptyMessage = computed(() => {
 
 const isInvalid = computed(() => !!props.errorMessage)
 const hasValue = computed(() => !!selectedValue.value || !!query.value)
-
-const describedBy = computed(() => {
-  if (isInvalid.value) return errorId
-  if (props.description) return descId
-  return undefined
-})
 
 // Floating UI
 const { floatingStyles } = useFloating(triggerRef, popoverRef, {
@@ -228,26 +229,22 @@ function handleKeydown(e: KeyboardEvent) {
   }
 }
 
-useEscapeKey({ handler: () => closeDropdown(), enabled: isOpen })
-
-function handleClickOutside(e: MouseEvent) {
-  const t = e.target as Node
-  if (!triggerRef.value?.contains(t) && !popoverRef.value?.contains(t)) closeDropdown()
-}
-
-watch(isOpen, (v) => {
-  if (v) document.addEventListener('pointerdown', handleClickOutside, true)
-  else document.removeEventListener('pointerdown', handleClickOutside, true)
+const { zIndex } = useLayer(isOpen, {
+  elements: popoverRef,
+  trigger: triggerRef,
+  onEscape: () => closeDropdown(),
+  onPointerDownOutside: () => closeDropdown(),
 })
-onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOutside, true))
+
+defineExpose(fieldFocus(() => inputRef.value))
 </script>
 
 <template>
-  <div :class="cn(autocompleteWrapperTheme, props.class)">
+  <div v-bind="rootAttrs" :class="cn(autocompleteWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
-      :for="inputId"
+      :for="controlId"
       :class="autocompleteLabelTheme({ required: required || undefined, disabled: disabled || undefined, invalid: isInvalid || undefined })"
     >
       {{ label }}
@@ -261,25 +258,31 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
       :data-disabled="disabled || undefined"
       @click="inputRef?.focus()"
     >
+      <!-- Slot start -->
+      <div v-if="$slots.start" class="flex items-center pl-3 pr-1 text-ousi-muted shrink-0">
+        <slot name="start" />
+      </div>
+
       <!-- Input -->
       <input
-        :id="inputId"
         ref="inputRef"
-        :class="autocompleteInputTheme"
+        :class="cn(autocompleteInputTheme, $slots.start && 'pl-1')"
         type="text"
-        :value="query || (isOpen ? '' : selectedOption?.label ?? '')"
         :placeholder="isOpen ? (selectedOption?.label ?? resolvedPlaceholder) : resolvedPlaceholder"
         :disabled="disabled"
         :readonly="readonly"
         :required="required"
+        :aria-invalid="isInvalid || undefined"
+        :aria-busy="isLoading || undefined"
+        autocomplete="off"
+        v-bind="controlAttrs"
+        :id="controlId"
+        :value="query || (isOpen ? '' : selectedOption?.label ?? '')"
+        role="combobox"
         :aria-expanded="isOpen"
         :aria-controls="listboxId"
         aria-autocomplete="list"
-        :aria-invalid="isInvalid || undefined"
         :aria-describedby="describedBy"
-        :aria-busy="isLoading || undefined"
-        autocomplete="off"
-        role="combobox"
         @input="handleInput"
         @focus="openDropdown(); emit('focus', $event)"
         @blur="emit('blur', $event)"
@@ -288,6 +291,10 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
 
       <!-- Right controls -->
       <div class="flex items-center gap-1.5 pr-3 shrink-0">
+        <!-- Slot end, before the loading, clear and chevron controls -->
+        <span v-if="$slots.end" class="flex items-center text-ousi-muted">
+          <slot name="end" />
+        </span>
         <svg
           v-if="isLoading"
           class="size-4 animate-spin text-ousi-muted"
@@ -336,8 +343,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
     <div
       v-if="isOpen && isMounted"
       ref="popoverRef"
-      :style="floatingStyles"
-      class="z-50"
+      :style="[floatingStyles, { zIndex }]"
     >
       <AnimatePresence>
         <Motion
@@ -356,7 +362,12 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
             ]"
             v-bind="scrollShadow ? { size: 24 } : {}"
           >
-            <ul :id="listboxId" role="listbox" :aria-label="label ?? ousiText.options" :class="autocompleteListboxTheme">
+            <ul
+              :id="listboxId"
+              role="listbox"
+              :aria-label="label ?? (attrs['aria-label'] as string | undefined) ?? ousiText.options"
+              :class="autocompleteListboxTheme"
+            >
               <li
                 v-for="(option, index) in filteredOptions"
                 :key="option.value"

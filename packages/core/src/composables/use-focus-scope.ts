@@ -1,10 +1,11 @@
 import { watch, onBeforeUnmount, type Ref } from 'vue'
 import { useMounted } from './use-mounted'
+import { getLayerContaining, getLayersAbove } from './use-layer'
 
 /**
  * Returns all focusable elements within a container.
  */
-function getFocusableElements(container: HTMLElement): HTMLElement[] {
+function getFocusableElements(container: Element): HTMLElement[] {
   const selector = [
     'a[href]',
     'button:not([disabled])',
@@ -15,8 +16,31 @@ function getFocusableElements(container: HTMLElement): HTMLElement[] {
   ].join(', ')
 
   return Array.from(container.querySelectorAll<HTMLElement>(selector)).filter(
-    (el) => !el.hasAttribute('disabled') && el.tabIndex >= 0,
+    (el) =>
+      !el.hasAttribute('disabled') &&
+      el.tabIndex >= 0 &&
+      (typeof el.checkVisibility !== 'function' || el.checkVisibility({ visibilityProperty: true })),
   )
+}
+
+/**
+ * The parts of the page the trap keeps focus in: the container, then the layers opened above its
+ * own layer, like a select's list or a popover. Null while a modal layer above it has its own trap.
+ */
+function getTrapScopes(container: HTMLElement): Element[] | null {
+  const layer = getLayerContaining(container)
+  if (!layer) return [container]
+  const above = getLayersAbove(layer)
+  if (above.some((l) => l.modal)) return null
+  return [container, ...above.flatMap((l) => l.elements())]
+}
+
+function follows(from: Node, el: Node): boolean {
+  return !!(from.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING)
+}
+
+function precedes(from: Node, el: Node): boolean {
+  return !!(from.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_PRECEDING)
 }
 
 export interface UseFocusScopeOptions {
@@ -58,26 +82,48 @@ export function useFocusScope(options: UseFocusScopeOptions) {
     returnTo = null
   }
 
+  // Tab moves natively inside each scope. At a scope's edge it goes on to the next scope, and from
+  // the last one back to the first, so focus never leaves for the page behind.
   function handleKeyDown(event: KeyboardEvent) {
-    if (event.key !== 'Tab') return
+    if (event.key !== 'Tab' || event.defaultPrevented) return
 
     const container = containerRef.value
     if (!container) return
 
-    const focusable = getFocusableElements(container)
-    if (focusable.length === 0) return
+    const scopes = getTrapScopes(container)
+    if (!scopes) return
 
-    const first = focusable[0]
-    const last = focusable[focusable.length - 1]
+    const lists = scopes.map(getFocusableElements)
+    const backward = event.shiftKey
     const active = document.activeElement
+    const current = active ? scopes.findIndex((scope) => scope.contains(active)) : -1
 
-    if (event.shiftKey && active === first) {
-      event.preventDefault()
-      last.focus()
-    } else if (!event.shiftKey && active === last) {
-      event.preventDefault()
-      first.focus()
+    if (current !== -1 && active) {
+      const staysInside = backward
+        ? lists[current].some((el) => precedes(active, el))
+        : lists[current].some((el) => follows(active, el))
+      if (staysInside) return
     }
+
+    event.preventDefault()
+    const count = scopes.length
+    const start = current === -1 ? (backward ? 0 : count - 1) : current
+    for (let step = 1; step <= count; step++) {
+      const index = (start + (backward ? -step : step) + count * 2) % count
+      const list = lists[index]
+      if (list.length > 0) {
+        ;(backward ? list[list.length - 1] : list[0]).focus()
+        return
+      }
+    }
+  }
+
+  // Focus already in the container or a layer above it stays put, and so does focus under a modal
+  // layer opened above it meanwhile.
+  function needsInitialFocus(container: HTMLElement): boolean {
+    const scopes = getTrapScopes(container)
+    const active = document.activeElement
+    return !!scopes && !scopes.some((scope) => !!active && scope.contains(active))
   }
 
   watch(
@@ -97,7 +143,7 @@ export function useFocusScope(options: UseFocusScopeOptions) {
         returnTo = document.activeElement instanceof HTMLElement ? document.activeElement : null
         if (autoFocus) {
           requestAnimationFrame(() => {
-            if (!container.contains(document.activeElement)) initialFocusTarget(container).focus()
+            if (needsInitialFocus(container)) initialFocusTarget(container).focus()
           })
         }
       }

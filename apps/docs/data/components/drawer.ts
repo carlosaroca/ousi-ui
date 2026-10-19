@@ -75,8 +75,8 @@ export const drawerData: ComponentData = {
   ],
 
   keyboard: [
-    { key: 'escape', description: 'Closes the drawer.' },
-    { key: 'tab', description: 'Cycles focus within the drawer (focus trap).' },
+    { key: 'escape', description: 'Closes the drawer. A list, popover, dialog or drawer opened above it closes first.' },
+    { key: 'tab', description: 'Cycles focus within the drawer and the lists or popovers opened from it (focus trap).' },
   ],
 
   aria: [
@@ -87,6 +87,7 @@ export const drawerData: ComponentData = {
 
   bestPractices: [
     { text: 'Use drawers for secondary tasks that do not require a full page.', good: true },
+    { text: 'Overlays stack in the order they open, so a drawer opened from another one shows above it whichever mounted first.', good: true },
     { text: 'Provide a title so screen readers announce the drawer purpose.', good: true },
     { text: "Don't use drawers for critical actions that require full attention.", good: false },
   ],

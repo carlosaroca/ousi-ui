@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useOusiMessages } from '../../config'
-import { ref, computed, watch, nextTick, onBeforeUnmount, useId } from 'vue'
+import { ref, computed, watch, nextTick, useId } from 'vue'
 import {
   useFloating,
   autoUpdate,
@@ -10,7 +10,7 @@ import {
   size as floatingSize,
 } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useMounted, useEscapeKey } from '@ousi-ui/core'
+import { cn, useMounted, useLayer } from '@ousi-ui/core'
 import { useHaptics } from '@ousi-ui/haptics'
 import {
   selectWrapperTheme,
@@ -21,7 +21,10 @@ import {
 } from './select.theme'
 import { labelTheme } from '../input/input.theme'
 import { useFormContext } from '../form/form.context'
+import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
 import type { SelectProps, SelectEmits, SelectOption, SelectValue } from './select.types'
+
+defineOptions({ inheritAttrs: false })
 
 const ousiText = useOusiMessages()
 
@@ -38,10 +41,14 @@ const props = withDefaults(defineProps<SelectProps>(), {
 const emit = defineEmits<SelectEmits>()
 
 const isMounted = useMounted()
-const selectId = useId()
 const descriptionId = useId()
 const errorId = useId()
 const listboxId = useId()
+const { attrs, rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(useId(), () => {
+  if (isInvalid.value) return errorId
+  if (props.description) return descriptionId
+  return undefined
+})
 
 // Internal value — always work with arrays internally, normalize on emit
 const internalValue = ref<(string | number)[]>(normalizeToArray(props.modelValue ?? props.defaultValue))
@@ -126,11 +133,6 @@ function toggle() {
   isOpen.value ? close() : open()
 }
 
-useEscapeKey({
-  handler: () => { if (isOpen.value) close() },
-  enabled: isOpen,
-})
-
 const formCtx = useFormContext()
 
 const resolvedError = computed(() => {
@@ -143,12 +145,6 @@ const resolvedError = computed(() => {
 })
 
 const isInvalid = computed(() => !!resolvedError.value)
-
-const describedBy = computed(() => {
-  if (isInvalid.value) return errorId
-  if (props.description) return descriptionId
-  return undefined
-})
 
 // Keyboard navigation
 function handleKeydown(e: KeyboardEvent) {
@@ -224,35 +220,25 @@ const { floatingStyles } = useFloating(triggerRef, popoverRef, {
   ],
 })
 
-// Click outside
-function handleClickOutside(e: MouseEvent) {
-  const target = e.target as Node
-  if (!triggerRef.value?.contains(target) && !popoverRef.value?.contains(target)) {
-    close()
-  }
-}
-
-watch(isOpen, (val) => {
-  if (val) {
-    document.addEventListener('pointerdown', handleClickOutside, true)
-  } else {
-    document.removeEventListener('pointerdown', handleClickOutside, true)
-  }
+const { zIndex } = useLayer(isOpen, {
+  elements: popoverRef,
+  trigger: triggerRef,
+  onEscape: () => close(),
+  onPointerDownOutside: () => close(),
 })
 
-onBeforeUnmount(() => {
-  document.removeEventListener('pointerdown', handleClickOutside, true)
-})
+defineExpose(fieldFocus(() => triggerRef.value))
 </script>
 
 <template>
   <div
+    v-bind="rootAttrs"
     :class="cn(selectWrapperTheme, props.class)"
   >
     <!-- Label -->
     <label
       v-if="label"
-      :for="selectId"
+      :for="controlId"
       :class="labelTheme({
         required: required || undefined,
         disabled: disabled || undefined,
@@ -264,28 +250,42 @@ onBeforeUnmount(() => {
 
     <!-- Trigger -->
     <button
-      :id="selectId"
       ref="triggerRef"
       type="button"
-      role="combobox"
-      :aria-expanded="isOpen"
-      :aria-controls="listboxId"
       :aria-required="required || undefined"
       :aria-disabled="disabled || undefined"
       :aria-invalid="isInvalid || undefined"
-      :aria-describedby="describedBy"
-      :aria-multiselectable="multiple || undefined"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
       :class="selectTriggerTheme({ variant, size, shadow, animated })"
+      v-bind="controlAttrs"
+      :id="controlId"
+      role="combobox"
+      :aria-expanded="isOpen"
+      :aria-controls="listboxId"
+      :aria-describedby="describedBy"
+      :aria-multiselectable="multiple || undefined"
       @click="toggle"
       @keydown="handleKeydown"
     >
+      <!-- Slot start -->
+      <span v-if="$slots.start" class="flex items-center pr-1 text-ousi-muted shrink-0">
+        <slot name="start" />
+      </span>
+
       <span
         class="flex-1 text-left truncate"
-        :class="!hasValue ? 'text-ousi-field-placeholder' : 'text-ousi-field-foreground'"
+        :class="[
+          !hasValue ? 'text-ousi-field-placeholder' : 'text-ousi-field-foreground',
+          $slots.start && 'pl-1',
+        ]"
       >
         {{ hasValue ? displayText : (placeholder ?? ousiText.selectPlaceholder) }}
+      </span>
+
+      <!-- Slot end, before the chevron -->
+      <span v-if="$slots.end" class="flex items-center pl-3 text-ousi-muted shrink-0">
+        <slot name="end" />
       </span>
 
       <!-- Chevron -->
@@ -316,8 +316,7 @@ onBeforeUnmount(() => {
     <div
       v-if="isOpen && isMounted"
       ref="popoverRef"
-      :style="floatingStyles"
-      class="z-50"
+      :style="[floatingStyles, { zIndex }]"
     >
       <AnimatePresence>
         <Motion
@@ -331,7 +330,7 @@ onBeforeUnmount(() => {
           <ul
             :id="listboxId"
             role="listbox"
-            :aria-label="label ?? ousiText.options"
+            :aria-label="label ?? (attrs['aria-label'] as string | undefined) ?? ousiText.options"
             :aria-multiselectable="multiple || undefined"
             :class="listboxTheme"
           >

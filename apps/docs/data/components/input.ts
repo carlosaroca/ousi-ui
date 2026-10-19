@@ -144,6 +144,11 @@ export const inputData: ComponentData = {
     { name: 'clear', type: '[]', description: 'Emitted when the clear button is clicked.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the input.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   themeCode: `import { inputTheme } from '@ousi-ui/vue'
 
 // CVA variants: primary, secondary
@@ -156,6 +161,7 @@ export const inputData: ComponentData = {
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the <input>, while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'aria-invalid', condition: 'errorMessage is set', description: 'Indicates the input has an error.' },
     { attribute: 'aria-describedby', condition: 'description or errorMessage', description: 'Links to the description or error text.' },
     { attribute: 'aria-required', condition: 'required', description: 'Indicates the field is required.' },

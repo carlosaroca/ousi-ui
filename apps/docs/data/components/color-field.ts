@@ -86,6 +86,11 @@ export const colorFieldData: ComponentData = {
     { name: 'invalidColor', type: 'string', description: 'Emitted when an invalid color is entered.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the input.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   themeCode: `import { colorFieldTheme } from '@ousi-ui/vue'`,
 
   keyboard: [
@@ -94,6 +99,7 @@ export const colorFieldData: ComponentData = {
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the <input>, while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'aria-label', condition: 'label prop set', description: 'Labels the color input.' },
     { attribute: 'aria-invalid', condition: 'errorMessage set', description: 'Indicates a validation error.' },
     { attribute: 'aria-disabled', condition: 'disabled', description: 'Marks the field as non-interactive.' },

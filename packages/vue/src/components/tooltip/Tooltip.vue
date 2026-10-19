@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, useId } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useMounted } from '@ousi-ui/core'
+import { cn, useMounted, useLayer } from '@ousi-ui/core'
 import { tooltipTheme } from './tooltip.theme'
 import type { TooltipProps } from './tooltip.types'
 import { useTooltip } from './use-tooltip'
@@ -53,6 +53,8 @@ const {
   class: () => props.class,
 })
 
+const { zIndex } = useLayer(isOpen, { tooltip: true })
+
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') hideImmediate()
 }
@@ -76,8 +78,7 @@ function handleKeydown(e: KeyboardEvent) {
     <div
       v-if="isOpen && isMounted"
       ref="floatingRef"
-      :style="floatingStyles"
-      class="z-50"
+      :style="[floatingStyles, { zIndex }]"
     >
       <AnimatePresence>
         <Motion

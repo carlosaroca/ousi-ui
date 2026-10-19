@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { useEscapeKey } from '@ousi-ui/core'
 import { provideDropdown } from './dropdown.context'
 import type { DropdownProps, DropdownEmits } from './dropdown.types'
 
@@ -23,8 +22,6 @@ function setOpen(val: boolean) {
 
 function close() { setOpen(false); triggerRef.value?.focus() }
 function toggle() { setOpen(!isOpen.value) }
-
-useEscapeKey({ handler: () => close(), enabled: isOpen })
 
 provideDropdown({ isOpen, triggerRef, shadow: computed(() => props.shadow), close, toggle })
 </script>

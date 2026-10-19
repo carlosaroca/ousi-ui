@@ -90,10 +90,17 @@ function handleBlur() {
     inputText.value = normalized
   }
 }
+
+const inputRef = ref<InstanceType<typeof OInput> | null>(null)
+defineExpose({
+  focus: (options?: FocusOptions) => inputRef.value?.focus(options),
+  blur: () => inputRef.value?.blur(),
+})
 </script>
 
 <template>
   <OInput
+    ref="inputRef"
     :model-value="inputText"
     :label="label"
     :description="description"

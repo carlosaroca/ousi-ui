@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useOusiMessages } from '../../config'
 import { ref, computed, watch, nextTick, toRef, onMounted, onBeforeUnmount } from 'vue'
-import { cn, useScrollLock, useMounted, useEscapeKey } from '@ousi-ui/core'
+import { cn, useScrollLock, useMounted, useLayer } from '@ousi-ui/core'
 import {
   commandPaletteOverlayTheme,
   commandPaletteTheme,
@@ -36,10 +36,11 @@ const listRef = ref<HTMLDivElement | null>(null)
 // Scroll lock
 useScrollLock(isOpenRef)
 
-// Escape key
-useEscapeKey({
-  handler: () => close(),
-  enabled: isOpenRef,
+const overlayRef = ref<HTMLElement | null>(null)
+const { zIndex } = useLayer(isOpenRef, {
+  elements: overlayRef,
+  modal: true,
+  onEscape: () => close(),
 })
 
 // Cmd/Ctrl+K global shortcut
@@ -165,7 +166,9 @@ function getFlatIndex(item: CommandItem): number {
     >
       <div
         v-if="modelValue && isMounted"
+        ref="overlayRef"
         :class="commandPaletteOverlayTheme"
+        :style="{ zIndex }"
         @click="onOverlayClick"
       >
         <Transition

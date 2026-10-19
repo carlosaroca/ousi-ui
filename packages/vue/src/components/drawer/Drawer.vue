@@ -2,7 +2,7 @@
 import { useOusiConfig, useOusiMessages } from '../../config'
 import { ref, computed, watch, useId } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useScrollLock, useMounted, useEscapeKey, useFocusScope } from '@ousi-ui/core'
+import { cn, useScrollLock, useMounted, useLayer, useFocusScope } from '@ousi-ui/core'
 import {
   drawerBackdropTheme,
   drawerContentTheme,
@@ -46,10 +46,24 @@ function close() {
 
 useScrollLock(isOpen)
 
-useEscapeKey({
-  handler: () => close(),
-  enabled: isOpen,
+const rootRef = ref<HTMLElement | null>(null)
+const { zIndex, backdropZIndex } = useLayer(isOpen, {
+  elements: rootRef,
+  modal: true,
+  restoreFocus: false,
+  onEscape: () => close(),
 })
+
+// A backdrop click dismisses only when the press also started on the backdrop, so a press in a
+// layer above the drawer never closes it.
+let pressedBackdrop = false
+function onBackdropPointerDown(event: PointerEvent) {
+  pressedBackdrop = event.target === event.currentTarget
+}
+function onBackdropClick(event: MouseEvent) {
+  if (pressedBackdrop && event.target === event.currentTarget) close()
+  pressedBackdrop = false
+}
 
 // Focus moves into the drawer on open, Tab stays inside it, and focus returns to the trigger on close.
 const panelRef = ref<{ $el?: HTMLElement } | null>(null)
@@ -94,21 +108,23 @@ defineExpose({ open, close })
 
   <Teleport to="body">
     <AnimatePresence>
-      <div v-if="isOpen && isMounted" class="contents">
+      <div v-if="isOpen && isMounted" ref="rootRef" class="contents">
         <!-- Backdrop -->
         <Motion
           tag="div"
           :class="drawerBackdropTheme({ backdrop: resolvedBackdrop })"
+          :style="{ zIndex: backdropZIndex }"
           :initial="({ opacity: 0 } as any)"
           :animate="{ opacity: 1 }"
           :exit="{ opacity: 0 }"
           :transition="{ duration: 0.2 }"
           aria-hidden="true"
-          @click.self="close"
+          @pointerdown="onBackdropPointerDown"
+          @click="onBackdropClick"
         />
 
         <!-- Content wrapper -->
-        <div :class="drawerContentTheme({ placement })" style="z-index: 50">
+        <div :class="drawerContentTheme({ placement })" :style="{ zIndex }">
           <!-- Panel -->
           <Motion
             tag="div"

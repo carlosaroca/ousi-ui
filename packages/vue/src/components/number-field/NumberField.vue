@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { useOusiMessages } from '../../config'
-import { ref, computed, toRef, onBeforeUnmount } from 'vue'
+import { useOusiConfig, useOusiMessages } from '../../config'
+import { ref, computed, toRef, watch, onBeforeUnmount } from 'vue'
 import { cn, useControllableState, generateId } from '@ousi-ui/core'
 import { useFormContext } from '../form/form.context'
+import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
+import { createNumberFormat } from './number-format'
 import {
   numberFieldWrapperTheme,
   numberFieldGroupTheme,
@@ -15,6 +17,8 @@ import {
 } from './number-field.theme'
 import type { NumberFieldProps, NumberFieldEmits } from './number-field.types'
 
+defineOptions({ inheritAttrs: false })
+
 const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<NumberFieldProps>(), {
@@ -25,16 +29,17 @@ const props = withDefaults(defineProps<NumberFieldProps>(), {
   readonly: false,
   required: false,
   showButtons: true,
-  locale: 'en-US',
   shadow: 'xs',
   animated: false,
 })
 
 const emit = defineEmits<NumberFieldEmits>()
 
-const inputId = `nf-${generateId()}`
 const descId = `nf-desc-${generateId()}`
 const errorId = `nf-err-${generateId()}`
+const { rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(`nf-${generateId()}`, () =>
+  isInvalid.value ? errorId : props.description ? descId : undefined,
+)
 
 const inputRef = ref<HTMLInputElement | null>(null)
 const formCtx = useFormContext()
@@ -60,23 +65,38 @@ const resolvedError = computed(() => {
 
 const isInvalid = computed(() => !!resolvedError.value)
 
-const describedBy = computed(() =>
-  isInvalid.value ? errorId : props.description ? descId : undefined,
+const config = useOusiConfig()
+const effectiveLocale = computed(() => props.locale ?? config.locale.value)
+// Keyed by content, so an inline `formatOptions` object doesn't rebuild the format on every render.
+const formatKey = computed(() => JSON.stringify(props.formatOptions ?? null))
+const numberFormat = computed(() =>
+  createNumberFormat(effectiveLocale.value, JSON.parse(formatKey.value) ?? undefined),
 )
-
-// Formatter
-const formatter = computed(() =>
-  props.formatOptions
-    ? new Intl.NumberFormat(props.locale, props.formatOptions)
-    : null,
-)
+const inputMode = computed(() => (numberFormat.value.integerOnly ? 'numeric' : 'decimal'))
 
 function formatNumber(n: number | null | undefined): string {
-  if (n === null || n === undefined) return ''
-  return formatter.value ? formatter.value.format(n) : String(n)
+  return numberFormat.value.format(n)
 }
 
-const displayValue = computed(() => formatNumber(value.value))
+function parse(text: string): number | null {
+  return numberFormat.value.parse(text)
+}
+
+// The input keeps the user's text while it is focused and still stands for the value; any other
+// change of the value (buttons, arrows, the parent, a new locale) shows it formatted.
+const text = ref(formatNumber(value.value))
+const isFocused = ref(false)
+let typed: { value: number | null } | null = null
+
+watch(value, (v) => {
+  if (isFocused.value && typed && typed.value === v) return
+  typed = null
+  text.value = formatNumber(v)
+})
+
+watch(numberFormat, () => {
+  if (!(isFocused.value && typed)) text.value = formatNumber(value.value)
+})
 
 // Clamp
 function clamp(val: number): number {
@@ -106,13 +126,6 @@ function increment() {
   value.value = clamp((value.value ?? 0) + props.step)
 }
 
-function parse(text: string): number | null {
-  const cleaned = text.replace(/[^0-9.\-]/g, '')
-  if (cleaned === '' || cleaned === '-') return null
-  const num = parseFloat(cleaned)
-  return isNaN(num) ? null : num
-}
-
 /**
  * Refuses a keystroke or paste that can no longer become a valid number: letters, a minus sign
  * when negatives are out of range, or digits past the maximum (more digits only grow it).
@@ -121,45 +134,58 @@ function handleBeforeInput(e: InputEvent) {
   if (!e.inputType.startsWith('insert')) return
   const input = e.target as HTMLInputElement
   const inserted = e.data ?? e.dataTransfer?.getData('text/plain') ?? ''
-  if (!props.formatOptions && /[^0-9.,\-\s]/.test(inserted)) {
+  if (!props.formatOptions && ![...inserted].every(numberFormat.value.accepts)) {
     e.preventDefault()
     return
   }
   const start = input.selectionStart ?? input.value.length
   const end = input.selectionEnd ?? input.value.length
   const next = input.value.slice(0, start) + inserted + input.value.slice(end)
-  if (next.includes('-') && props.min !== undefined && props.min >= 0) {
+  if (/[-\u2212]/.test(next) && props.min !== undefined && props.min >= 0) {
     e.preventDefault()
     return
   }
   const num = parse(next)
   if (num === null) return
-  if (props.max !== undefined && num >= 0 && num > props.max) e.preventDefault()
+  if (Number.isNaN(num)) e.preventDefault()
+  else if (props.max !== undefined && num >= 0 && num > props.max) e.preventDefault()
   else if (props.min !== undefined && num < 0 && num < props.min) e.preventDefault()
 }
 
 // Values in range update the model as they are typed; one below the minimum waits for the
 // commit, since the next digit may still bring it in range ("1" on the way to "15").
 function handleInput(e: Event) {
-  const num = parse((e.target as HTMLInputElement).value)
-  if (num === null) {
-    value.value = null
-    return
-  }
-  if (clamp(num) === num) value.value = num
+  text.value = (e.target as HTMLInputElement).value
+  const num = parse(text.value)
+  if (Number.isNaN(num)) return
+  typed = { value: num }
+  if (num === null) value.value = null
+  else if (clamp(num) === num) value.value = num
 }
 
+// An untouched text keeps the exact value, which the format may round or scale.
 function commit() {
-  const input = inputRef.value
-  if (!input) return
-  const num = parse(input.value)
-  const next = num === null ? null : clamp(num)
+  let next: number | null
+  if (text.value === formatNumber(value.value)) {
+    next = value.value
+  } else {
+    const num = parse(text.value)
+    next = Number.isNaN(num) ? value.value : num
+  }
+  if (next !== null) next = clamp(next)
+  typed = null
   if (next !== value.value) value.value = next
-  input.value = formatNumber(next)
+  text.value = formatNumber(next)
+}
+
+function handleFocus(e: FocusEvent) {
+  isFocused.value = true
+  emit('focus', e)
 }
 
 function handleBlur(e: FocusEvent) {
   commit()
+  isFocused.value = false
   emit('blur', e)
 }
 
@@ -192,14 +218,16 @@ function stopHold() {
 }
 
 onBeforeUnmount(stopHold)
+
+defineExpose(fieldFocus(() => inputRef.value))
 </script>
 
 <template>
-  <div :class="cn(numberFieldWrapperTheme, props.class)">
+  <div v-bind="rootAttrs" :class="cn(numberFieldWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
-      :for="inputId"
+      :for="controlId"
       :class="numberFieldLabelTheme({ required, disabled, invalid: isInvalid })"
     >
       {{ label }}
@@ -233,27 +261,28 @@ onBeforeUnmount(stopHold)
 
       <!-- Input -->
       <input
-        :id="inputId"
         ref="inputRef"
         type="text"
-        inputmode="decimal"
+        :inputmode="inputMode"
         :name="name"
         :class="numberFieldInputTheme"
-        :value="displayValue"
         :placeholder="placeholder"
         :disabled="disabled"
         :readonly="readonly"
         :required="required"
         :aria-label="label ?? ousiText.number"
-        :aria-describedby="describedBy"
         :aria-invalid="isInvalid || undefined"
         :aria-valuenow="value ?? undefined"
         :aria-valuemin="min"
         :aria-valuemax="max"
+        v-bind="controlAttrs"
+        :id="controlId"
+        :value="text"
+        :aria-describedby="describedBy"
         @beforeinput="handleBeforeInput"
         @input="handleInput"
         @blur="handleBlur"
-        @focus="emit('focus', $event)"
+        @focus="handleFocus"
         @keydown="handleKeydown"
       />
 

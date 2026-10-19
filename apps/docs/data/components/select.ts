@@ -124,11 +124,21 @@ export const selectData: ComponentData = {
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 
+  slots: [
+    { name: 'start', type: 'slot', description: 'Icon or text before the value, styled and spaced like OInput #start. It sits inside the trigger button, so keep it non-interactive.' },
+    { name: 'end', type: 'slot', description: 'Icon or text after the value, before the chevron. Non-interactive, like #start.' },
+  ],
+
   emits: [
     { name: 'update:modelValue', type: '[value: SelectValue]', description: 'Emitted when selection changes.' },
     { name: 'change', type: '[value: SelectValue]', description: 'Emitted on change.' },
     { name: 'open', type: '[]', description: 'Emitted when the dropdown opens.' },
     { name: 'close', type: '[]', description: 'Emitted when the dropdown closes.' },
+  ],
+
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the trigger.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
   ],
 
   themeCode: `import { selectTheme } from '@ousi-ui/vue'
@@ -148,6 +158,7 @@ export const selectData: ComponentData = {
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the trigger (role="combobox"), while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'role="combobox"', condition: 'always', description: 'Identifies the select as a combobox.' },
     { attribute: 'aria-expanded', condition: 'dropdown open', description: 'Indicates whether the dropdown is open.' },
     { attribute: 'aria-invalid', condition: 'errorMessage is set', description: 'Indicates the select has an error.' },

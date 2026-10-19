@@ -173,6 +173,8 @@ export const autocompleteData: ComponentData = {
 
   slots: [
     { name: 'option', type: '{ option: AutocompleteOption, selected: boolean }', description: 'Custom content for each option, for example a code and a name.' },
+    { name: 'start', type: 'slot', description: 'Content before the input, for example a search icon. Styled and spaced like OInput #start.' },
+    { name: 'end', type: 'slot', description: 'Content after the input, before the loading, clear and chevron controls.' },
   ],
 
   emits: [
@@ -182,6 +184,11 @@ export const autocompleteData: ComponentData = {
     { name: 'focus', type: '[event: FocusEvent]', description: 'Emitted when the input is focused.' },
     { name: 'blur', type: '[event: FocusEvent]', description: 'Emitted when the input loses focus.' },
     { name: 'clear', type: '[]', description: 'Emitted when the clear button is clicked.' },
+  ],
+
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the input.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
   ],
 
   themeCode: `import { autocompleteTheme } from '@ousi-ui/vue'
@@ -198,6 +205,7 @@ export const autocompleteData: ComponentData = {
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the <input role="combobox">, while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'role="combobox"', condition: 'always', description: 'Identifies the field as a combobox.' },
     { attribute: 'aria-expanded', condition: 'dropdown open', description: 'Indicates the suggestions are visible.' },
     { attribute: 'aria-autocomplete="list"', condition: 'always', description: 'Indicates inline autocomplete behavior.' },

@@ -9,7 +9,10 @@ import {
   textareaErrorTheme,
 } from './textarea.theme'
 import { useFormContext } from '../form/form.context'
+import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
 import type { TextareaProps, TextareaEmits } from './textarea.types'
+
+defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<TextareaProps>(), {
   rows: 3,
@@ -25,9 +28,13 @@ const props = withDefaults(defineProps<TextareaProps>(), {
 
 const emit = defineEmits<TextareaEmits>()
 
-const textareaId = useId()
 const descId = useId()
 const errorId = useId()
+const { rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(useId(), () => {
+  if (isInvalid.value) return errorId
+  if (props.description) return descId
+  return undefined
+})
 const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
 const value = useControllableState<string>({
@@ -52,12 +59,6 @@ const resolvedError = computed(() => {
 
 const isInvalid = computed(() => !!resolvedError.value)
 
-const describedBy = computed(() => {
-  if (isInvalid.value) return errorId
-  if (props.description) return descId
-  return undefined
-})
-
 function adjustHeight() {
   if (!props.autoResize || !textareaRef.value) return
   const el = textareaRef.value
@@ -78,14 +79,16 @@ function handleInput(e: Event) {
 watch(() => value.value, () => {
   if (props.autoResize) nextTick(adjustHeight)
 })
+
+defineExpose(fieldFocus(() => textareaRef.value))
 </script>
 
 <template>
-  <div :class="cn(textareaWrapperTheme, props.class)">
+  <div v-bind="rootAttrs" :class="cn(textareaWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
-      :for="textareaId"
+      :for="controlId"
       :class="textareaLabelTheme({
         required: required || undefined,
         disabled: disabled || undefined,
@@ -97,11 +100,9 @@ watch(() => value.value, () => {
 
     <!-- Textarea -->
     <textarea
-      :id="textareaId"
       ref="textareaRef"
       :name="name"
       :class="textareaFieldTheme({ variant, resize: autoResize ? 'none' : resize, shadow, animated })"
-      :value="value"
       :placeholder="placeholder"
       :rows="rows"
       :disabled="disabled"
@@ -110,6 +111,9 @@ watch(() => value.value, () => {
       :aria-invalid="isInvalid || undefined"
       :aria-required="required || undefined"
       :aria-disabled="disabled || undefined"
+      v-bind="controlAttrs"
+      :id="controlId"
+      :value="value"
       :aria-describedby="describedBy"
       :data-invalid="isInvalid || undefined"
       :data-disabled="disabled || undefined"

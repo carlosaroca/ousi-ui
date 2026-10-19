@@ -141,8 +141,8 @@ app.use(OusiUIPlugin, { backdrop: 'blur' })
   ],
 
   keyboard: [
-    { key: 'escape', description: 'Closes the dialog.' },
-    { key: 'tab', description: 'Cycles focus within the dialog (focus trap).' },
+    { key: 'escape', description: 'Closes the dialog. A list, popover or dialog opened above it closes first.' },
+    { key: 'tab', description: 'Cycles focus within the dialog and the lists or popovers opened from it (focus trap).' },
   ],
 
   aria: [
@@ -154,6 +154,7 @@ app.use(OusiUIPlugin, { backdrop: 'blur' })
 
   bestPractices: [
     { text: 'Always provide a clear way to dismiss the dialog.', good: true },
+    { text: 'Overlays stack in the order they open: a dialog opened from a drawer shows above it, whichever mounted first.', good: true },
     { text: 'Use scroll-behavior="inside" for long content to keep the footer visible.', good: true },
     { text: 'Pick the size by content: sm for a confirmation, md or lg for a short form, xl and up for forms in columns or tables.', good: true },
     { text: "Don't stack multiple dialogs — consider a different UX pattern.", good: false },

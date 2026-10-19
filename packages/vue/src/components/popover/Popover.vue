@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount } from 'vue'
+import { ref, computed } from 'vue'
 import {
   useFloating,
   autoUpdate,
@@ -9,7 +9,7 @@ import {
   arrow,
 } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useMounted, useEscapeKey } from '@ousi-ui/core'
+import { cn, useMounted, useLayer } from '@ousi-ui/core'
 import {
   popoverPanelTheme,
   popoverDialogTheme,
@@ -86,18 +86,14 @@ function open() { isOpen.value = true; emit('open') }
 function close() { isOpen.value = false; emit('close') }
 function toggle() { isOpen.value ? close() : open() }
 
-useEscapeKey({ handler: () => close(), enabled: isOpen })
-
-function handleClickOutside(e: MouseEvent) {
-  const t = e.target as Node
-  if (!triggerRef.value?.contains(t) && !panelRef.value?.contains(t)) close()
-}
-
-watch(isOpen, (v) => {
-  if (v) document.addEventListener('pointerdown', handleClickOutside, true)
-  else document.removeEventListener('pointerdown', handleClickOutside, true)
+// Picks in the lists and calendars of fields inside the panel happen in layers above it, so they
+// keep it open.
+const { zIndex } = useLayer(isOpen, {
+  elements: panelRef,
+  trigger: triggerRef,
+  onEscape: () => close(),
+  onPointerDownOutside: () => close(),
 })
-onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOutside, true))
 
 defineExpose({ open, close, toggle })
 </script>
@@ -113,8 +109,7 @@ defineExpose({ open, close, toggle })
     <div
       v-if="isOpen && isMounted"
       ref="panelRef"
-      :style="floatingStyles"
-      class="z-50"
+      :style="[floatingStyles, { zIndex }]"
     >
       <AnimatePresence>
         <Motion

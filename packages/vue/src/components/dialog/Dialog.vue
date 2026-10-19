@@ -2,7 +2,7 @@
 import { useOusiConfig, useOusiMessages } from '../../config'
 import { computed, provide, ref, toRef, useId, watch } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useScrollLock, useMounted, useEscapeKey, useFocusScope } from '@ousi-ui/core'
+import { cn, useScrollLock, useMounted, useLayer, useFocusScope } from '@ousi-ui/core'
 import { useHaptics } from '@ousi-ui/haptics'
 import {
   dialogBackdropTheme,
@@ -68,10 +68,24 @@ watch(isOpenRef, (val) => {
 
 useScrollLock(isOpenRef)
 
-useEscapeKey({
-  handler: () => tryClose(),
-  enabled: isOpenRef,
+const rootRef = ref<HTMLElement | null>(null)
+const { zIndex, backdropZIndex } = useLayer(isOpenRef, {
+  elements: rootRef,
+  modal: true,
+  restoreFocus: false,
+  onEscape: () => tryClose(),
 })
+
+// A backdrop click dismisses only when the press also started on the backdrop, so a drag out of
+// the panel or a press in a layer above the dialog never closes it.
+let pressedBackdrop = false
+function onBackdropPointerDown(event: PointerEvent) {
+  pressedBackdrop = event.target === event.currentTarget
+}
+function onBackdropClick(event: MouseEvent) {
+  if (pressedBackdrop && event.target === event.currentTarget) tryClose()
+  pressedBackdrop = false
+}
 
 // Focus moves into the dialog on open, Tab stays inside it, and focus returns to the trigger on close.
 const dialogRef = ref<HTMLElement | null>(null)
@@ -92,10 +106,11 @@ const panelEnter = computed(() => {
 <template>
   <Teleport to="body">
     <AnimatePresence>
-      <div v-if="modelValue && isMounted" class="contents">
+      <div v-if="modelValue && isMounted" ref="rootRef" class="contents">
         <Motion
           tag="div"
           :class="dialogBackdropTheme({ backdrop: resolvedBackdrop })"
+          :style="{ zIndex: backdropZIndex }"
           :initial="({ opacity: 0 } as any)"
           :animate="{ opacity: 1 }"
           :exit="{ opacity: 0 }"
@@ -105,7 +120,9 @@ const panelEnter = computed(() => {
 
         <div
           :class="dialogContainerTheme({ scrollBehavior, size })"
-          @click.self="tryClose"
+          :style="{ zIndex }"
+          @pointerdown="onBackdropPointerDown"
+          @click="onBackdropClick"
         >
           <Motion
             tag="div"

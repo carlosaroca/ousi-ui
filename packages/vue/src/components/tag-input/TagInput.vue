@@ -2,6 +2,7 @@
 import { computed, ref, toRef, useId } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { OChip } from '../chip'
+import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
 import {
   tagInputWrapperTheme,
   tagInputGroupTheme,
@@ -9,6 +10,8 @@ import {
   tagInputLabelTheme,
 } from './tag-input.theme'
 import type { TagInputProps, TagInputEmits } from './tag-input.types'
+
+defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<TagInputProps>(), {
   size: 'md',
@@ -23,9 +26,12 @@ const props = withDefaults(defineProps<TagInputProps>(), {
 
 const emit = defineEmits<TagInputEmits>()
 
-const inputId = useId()
 const descId = useId()
 const errorId = useId()
+const { rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(useId(), () =>
+  isInvalid.value ? errorId : props.description ? descId : undefined,
+)
+const inputRef = ref<HTMLInputElement | null>(null)
 
 const tags = useControllableState<string[]>({
   prop: toRef(props, 'modelValue'),
@@ -36,9 +42,6 @@ const tags = useControllableState<string[]>({
 const inputValue = ref('')
 
 const isInvalid = computed(() => !!props.errorMessage)
-const describedBy = computed(() =>
-  isInvalid.value ? errorId : props.description ? descId : undefined,
-)
 
 // Map TagInput size to Chip size
 const chipSize = computed((): 'sm' | 'md' | 'lg' => {
@@ -83,14 +86,16 @@ function handleInput(e: Event) {
   }
   inputValue.value = val
 }
+
+defineExpose(fieldFocus(() => inputRef.value))
 </script>
 
 <template>
-  <div :class="cn(tagInputWrapperTheme, props.class)">
+  <div v-bind="rootAttrs" :class="cn(tagInputWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
-      :for="inputId"
+      :for="controlId"
       :class="tagInputLabelTheme({ required, disabled, invalid: isInvalid })"
     >
       {{ label }}
@@ -140,15 +145,17 @@ function handleInput(e: Event) {
 
       <!-- Input -->
       <input
-        :id="inputId"
+        ref="inputRef"
         :name="name"
         :class="tagInputInputTheme({ size })"
-        :value="inputValue"
         :placeholder="tags.length === 0 ? placeholder : undefined"
         :disabled="disabled"
-        :aria-describedby="describedBy"
         :aria-invalid="isInvalid || undefined"
         type="text"
+        v-bind="controlAttrs"
+        :id="controlId"
+        :value="inputValue"
+        :aria-describedby="describedBy"
         @input="handleInput"
         @keydown="handleKeydown"
       />

@@ -162,8 +162,13 @@ const tocItems = [
               </tr>
               <tr class="border-b border-ousi-border">
                 <td class="px-4 py-3 font-mono text-xs text-ousi-accent">useEscapeKey</td>
-                <td class="px-4 py-3 text-ousi-foreground">Handles Escape key press with stack awareness</td>
+                <td class="px-4 py-3 text-ousi-foreground">Handles Escape key press with stack awareness: with enabled, it runs only while it is the top-most layer</td>
                 <td class="px-4 py-3 font-mono text-xs text-ousi-muted">void (callback-based)</td>
+              </tr>
+              <tr class="border-b border-ousi-border">
+                <td class="px-4 py-3 font-mono text-xs text-ousi-accent">useLayer</td>
+                <td class="px-4 py-3 text-ousi-foreground">Puts an overlay on the shared layer stack while open: z-index by open order, Escape for the top-most layer only, outside presses that skip layers opened above</td>
+                <td class="px-4 py-3 font-mono text-xs text-ousi-muted">{ zIndex, backdropZIndex, isTop }</td>
               </tr>
               <tr>
                 <td class="px-4 py-3 font-mono text-xs text-ousi-accent">useFloating</td>

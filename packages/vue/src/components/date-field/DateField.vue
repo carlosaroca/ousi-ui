@@ -8,6 +8,7 @@ import {
   dateFieldLiteralTheme,
   dateFieldPlaceholderTheme,
 } from './date-field.theme'
+import { fieldFocus, firstSegment } from '../shared/field-attrs'
 import type {
   DateFieldProps,
   DateFieldEmits,
@@ -288,10 +289,14 @@ function handleBlur() {
 function setRef(el: any, idx: number) {
   segmentRefs.value[idx] = el
 }
+
+const rootRef = ref<HTMLElement | null>(null)
+defineExpose(fieldFocus(() => firstSegment(rootRef.value), () => rootRef.value))
 </script>
 
 <template>
   <div
+    ref="rootRef"
     :class="cn(dateFieldWrapperTheme({ variant, size, shadow, animated }), props.class)"
     :data-disabled="disabled || undefined"
     role="group"

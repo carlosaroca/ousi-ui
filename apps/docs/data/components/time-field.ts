@@ -91,6 +91,11 @@ export const timeFieldData: ComponentData = {
     { name: 'change', type: 'TimeFieldValue | null', description: 'Emitted on user-initiated change.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the first segment.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   themeCode: `import { timeFieldTheme } from '@ousi-ui/vue'`,
 
   keyboard: [

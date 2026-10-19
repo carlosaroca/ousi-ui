@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref } from 'vue'
 import ContextMenuList from './ContextMenuList.vue'
 import type {
   ContextMenuProps,
@@ -58,21 +58,6 @@ function handleContextMenu(e: MouseEvent) {
 function handleSelect(key: string, item: ContextMenuItem) {
   emit('select', key, item)
 }
-
-function handlePointerDown(e: PointerEvent) {
-  if (!isOpen.value) return
-  // Close if the click landed outside any menu surface (root + any submenu, all under [role=menu]).
-  const path = e.composedPath() as HTMLElement[]
-  const inMenu = path.some((n) => n?.getAttribute?.('role') === 'menu')
-  if (!inMenu) hide()
-}
-
-onMounted(() => {
-  document.addEventListener('pointerdown', handlePointerDown, true)
-})
-onBeforeUnmount(() => {
-  document.removeEventListener('pointerdown', handlePointerDown, true)
-})
 
 defineExpose<ContextMenuExposed>({
   show,

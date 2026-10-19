@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, watch, toRef, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, toRef } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useControllableState, useMounted, useEscapeKey, generateId } from '@ousi-ui/core'
+import { cn, useControllableState, useMounted, useLayer, generateId } from '@ousi-ui/core'
 import { useOusiConfig, getHour12ForLocale, useOusiMessages } from '../../config'
 import {
   timePickerWrapperTheme,
@@ -25,8 +25,11 @@ import {
 import TimePickerWheel from './TimePickerWheel.vue'
 import OButton from '../button/Button.vue'
 import { useTimeSegments } from '../time-field/use-time-segments'
+import { fieldFocus, firstSegment, useFieldAttrs } from '../shared/field-attrs'
 import type { TimePickerProps, TimePickerEmits } from './time-picker.types'
 import type { TimeFieldValue, TimeSegmentType } from '../time-field/time-field.types'
+
+defineOptions({ inheritAttrs: false })
 
 const ousiText = useOusiMessages()
 
@@ -70,9 +73,11 @@ const periodLabels = computed(() => {
 })
 
 // Accessible IDs
-const fieldId = `tp-${generateId()}`
 const descId = `tp-desc-${generateId()}`
 const errorId = `tp-err-${generateId()}`
+const { rootAttrs, controlAttrs, controlId, describedBy } = useFieldAttrs(`tp-${generateId()}`, () =>
+  isInvalid.value ? errorId : props.description ? descId : undefined,
+)
 
 const isMounted = useMounted()
 const isOpen = ref(false)
@@ -275,20 +280,12 @@ function toggle() {
   isOpen.value ? close() : open()
 }
 
-useEscapeKey({ handler: () => { if (isOpen.value) cancel() }, enabled: isOpen })
-
-function handleClickOutside(e: MouseEvent) {
-  const t = e.target as Node
-  if (!triggerRef.value?.contains(t) && !popoverRef.value?.contains(t)) {
-    cancel()
-  }
-}
-
-watch(isOpen, (v) => {
-  if (v) document.addEventListener('pointerdown', handleClickOutside, true)
-  else document.removeEventListener('pointerdown', handleClickOutside, true)
+const { zIndex } = useLayer(isOpen, {
+  elements: popoverRef,
+  trigger: triggerRef,
+  onEscape: () => cancel(),
+  onPointerDownOutside: () => cancel(),
 })
-onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOutside, true))
 
 // Floating UI
 const { floatingStyles } = useFloating(triggerRef, popoverRef, {
@@ -299,9 +296,6 @@ const { floatingStyles } = useFloating(triggerRef, popoverRef, {
 })
 
 const isInvalid = computed(() => !!props.errorMessage)
-const describedBy = computed(() =>
-  isInvalid.value ? errorId : props.description ? descId : undefined,
-)
 
 // Typing in the field while the wheels are open moves them too.
 watch(value, () => { if (isOpen.value) syncDraftFromValue() })
@@ -358,14 +352,16 @@ function onFieldFocusOut(e: FocusEvent) {
     if (tToSec(clamped) !== tToSec(value.value)) value.value = clamped
   }
 }
+
+defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.value))
 </script>
 
 <template>
-  <div :class="cn(timePickerWrapperTheme, props.class)">
+  <div v-bind="rootAttrs" :class="cn(timePickerWrapperTheme, props.class)">
     <!-- Label -->
     <label
       v-if="label"
-      :for="fieldId"
+      :for="controlId"
       :class="timePickerLabelTheme({ required, disabled, invalid: isInvalid })"
     >
       {{ label }}
@@ -374,14 +370,15 @@ function onFieldFocusOut(e: FocusEvent) {
     <!-- Field: typed segments + clock button that opens the wheels, one border -->
     <div
       ref="triggerRef"
-      :id="fieldId"
       :class="timePickerTriggerTheme({ variant, size, shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
-      :aria-describedby="describedBy"
-      role="group"
       :aria-label="label ?? ousiText.timePicker"
       tabindex="-1"
+      v-bind="controlAttrs"
+      :id="controlId"
+      role="group"
+      :aria-describedby="describedBy"
       @click="onFieldClick"
       @focusout="onFieldFocusOut"
     >
@@ -440,8 +437,7 @@ function onFieldFocusOut(e: FocusEvent) {
     <div
       v-if="isOpen && isMounted"
       ref="popoverRef"
-      :style="floatingStyles"
-      class="z-50"
+      :style="[floatingStyles, { zIndex }]"
     >
       <AnimatePresence>
         <Motion

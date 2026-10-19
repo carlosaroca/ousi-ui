@@ -136,6 +136,11 @@ const time = ref<TimeFieldValue | null>({ hour: 14, minute: 30 })
     { name: 'change', type: 'TimeFieldValue | null', description: 'Emitted on user-initiated change.' },
   ],
 
+  methods: [
+    { name: 'focus', type: '(options?: FocusOptions) => void', description: 'Focuses the first segment.' },
+    { name: 'blur', type: '() => void', description: 'Removes focus from the field.' },
+  ],
+
   themeCode: `import { timePickerTheme } from '@ousi-ui/vue'`,
 
   keyboard: [
@@ -147,6 +152,7 @@ const time = ref<TimeFieldValue | null>({ hour: 14, minute: 30 })
   ],
 
   aria: [
+    { attribute: 'aria-label, id, inputmode, data-*, …', condition: 'passed to the component', description: 'Land on the field group (role="group"), while class, style and listeners stay on the wrapper, since events from the control bubble to it. A passed id keeps the label, a passed aria-describedby joins the field description.' },
     { attribute: 'aria-haspopup="dialog"', condition: 'always', description: 'Trigger announces the popover.' },
     { attribute: 'aria-expanded', condition: 'popover open', description: 'Indicates popover visibility.' },
     { attribute: 'role="listbox"', condition: 'wheel column', description: 'Each wheel is a listbox of options.' },
