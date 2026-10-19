@@ -24,6 +24,20 @@ export const autocompleteData: ComponentData = {
       },
     },
     {
+      id: 'server-search',
+      title: 'Server search',
+      example: {
+        component: 'AutocompleteServerSearch',
+        code: `<!-- For large catalogs: only the matches travel to the browser. -->
+<OAutocomplete
+  v-model="value"
+  :options="current ? [current] : []"
+  :search="(q) => api.searchCities(q)"
+  label="City"
+/>`,
+      },
+    },
+    {
       id: 'long-list',
       title: 'Long List',
       example: {
@@ -148,8 +162,17 @@ export const autocompleteData: ComponentData = {
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether a value is required.' },
     { name: 'clearable', type: 'boolean', default: 'false', description: 'Show clear button.' },
     { name: 'allowCustomValue', type: 'boolean', default: 'false', description: 'Allow values not in the options list.' },
-    { name: 'emptyMessage', type: 'string', default: '-', description: 'Message when no results match.' },
+    { name: 'emptyMessage', type: 'string', default: "locale's no results text", description: 'Message when no results match.' },
+    { name: 'filter', type: 'boolean', default: 'true', description: 'Filter options by the typed text, ignoring accents and case. Set false when the app searches on the server and passes the results.' },
+    { name: 'loading', type: 'boolean', default: 'false', description: 'Spinner in the field and a loading row while the options are on their way.' },
+    { name: 'search', type: '(query: string) => Promise<AutocompleteOption[]>', default: '-', description: 'Search on the server instead of filtering options: runs after minChars and a debounce pause, drops late answers and shows the loading state. options then only seeds the current value.' },
+    { name: 'minChars', type: 'number', default: '2', description: 'Characters typed before search runs.' },
+    { name: 'debounce', type: 'number', default: '250', description: 'Pause in ms before search runs.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
+  ],
+
+  slots: [
+    { name: 'option', type: '{ option: AutocompleteOption, selected: boolean }', description: 'Custom content for each option, for example a code and a name.' },
   ],
 
   emits: [

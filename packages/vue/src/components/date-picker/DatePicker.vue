@@ -384,6 +384,7 @@ const describedBy = computed(() =>
       role="group"
       :aria-label="label ?? ousiText.datePicker"
       tabindex="-1"
+      @click="open"
     >
       <!-- Date segments rendered directly -->
       <template v-for="(seg, idx) in segmentOrder" :key="idx">
@@ -476,7 +477,6 @@ const describedBy = computed(() =>
         <Motion
           tag="div"
           :class="datePickerPopoverTheme"
-          :style="{ borderRadius: 'calc(var(--ousi-radius, 0.5rem) * 2.5)' }"
           :initial="{ opacity: 0, scale: 0.95, y: -4 }"
           :animate="{ opacity: 1, scale: 1, y: 0 }"
           :exit="{ opacity: 0, scale: 0.95 }"

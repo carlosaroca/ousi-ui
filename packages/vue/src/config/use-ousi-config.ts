@@ -1,4 +1,5 @@
 import { ref, type Ref } from 'vue'
+import type { OverlayBackdrop } from '../components/shared/backdrop'
 
 export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
@@ -27,6 +28,8 @@ export interface OusiConfig {
   firstDayOfWeek: Ref<WeekDay | undefined>
   /** Text direction. Defaults to 'ltr'. */
   dir: Ref<'ltr' | 'rtl'>
+  /** Backdrop of dialogs and drawers that don't set their own. Defaults to 'opaque'. */
+  backdrop: Ref<OverlayBackdrop>
 }
 
 export interface OusiConfigInit {
@@ -34,6 +37,7 @@ export interface OusiConfigInit {
   hour12?: boolean
   firstDayOfWeek?: WeekDay
   dir?: 'ltr' | 'rtl'
+  backdrop?: OverlayBackdrop
 }
 
 // Singleton — lives at the module level. One config per app instance.
@@ -42,6 +46,7 @@ const config: OusiConfig = {
   hour12: ref(undefined),
   firstDayOfWeek: ref(undefined),
   dir: ref('ltr'),
+  backdrop: ref('opaque'),
 }
 
 /**
@@ -61,6 +66,7 @@ export function applyOusiConfig(init: OusiConfigInit): void {
   if (init.hour12 !== undefined) config.hour12.value = init.hour12
   if (init.firstDayOfWeek !== undefined) config.firstDayOfWeek.value = init.firstDayOfWeek
   if (init.dir !== undefined) config.dir.value = init.dir
+  if (init.backdrop !== undefined) config.backdrop.value = init.backdrop
 }
 
 // Regions that start their week on Sunday or Saturday.

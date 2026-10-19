@@ -159,6 +159,14 @@ function nextMonth() {
   else viewMonth.value++
 }
 
+function prevYear() {
+  viewYear.value -= isYearPickerOpen.value ? 12 : 1
+}
+
+function nextYear() {
+  viewYear.value += isYearPickerOpen.value ? 12 : 1
+}
+
 function selectDay(day: typeof calendarDays.value[0]) {
   if (day.isDisabled || day.isUnavailable || props.readonly || props.disabled) return
   if (day.isOutsideMonth) {
@@ -200,7 +208,12 @@ function handleKeydown(e: KeyboardEvent, day: typeof calendarDays.value[0]) {
   <div :class="cn(calendarTheme, disabled && 'opacity-50 pointer-events-none', props.class)" role="group">
     <!-- Header -->
     <div :class="calendarHeaderTheme">
-      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.previous" @click="prevMonth">
+      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.previousYear" @click="prevYear">
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.previousMonth" @click="prevMonth">
         <slot name="prev-icon">
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
@@ -230,12 +243,17 @@ function handleKeydown(e: KeyboardEvent, day: typeof calendarDays.value[0]) {
         </svg>
       </component>
 
-      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.next" @click="nextMonth">
+      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.nextMonth" @click="nextMonth">
         <slot name="next-icon">
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </slot>
+      </button>
+      <button type="button" :class="calendarNavButtonTheme" :aria-label="ousiText.nextYear" @click="nextYear">
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M13 17l5-5-5-5M6 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </button>
     </div>
 
@@ -286,7 +304,7 @@ function handleKeydown(e: KeyboardEvent, day: typeof calendarDays.value[0]) {
           {{ day.date.day }}
           <!-- Cell indicator dot -->
           <span
-            v-if="day.hasIndicator || day.isToday"
+            v-if="day.hasIndicator"
             :class="calendarCellIndicatorTheme(day.isSelected)"
           />
         </slot>

@@ -52,6 +52,15 @@ export const tabsData: ComponentData = {
       },
     },
     {
+      id: 'full-width',
+      title: 'Full width',
+      example: {
+        component: 'TabsFullWidth',
+        code: `<OTabs variant="primary" full-width :items="items">...</OTabs>
+<OTabs variant="secondary" full-width :items="items">...</OTabs>`,
+      },
+    },
+    {
       id: 'vertical',
       title: 'Vertical',
       example: {
@@ -115,6 +124,8 @@ export const tabsData: ComponentData = {
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the tabs.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation.' },
+    { name: 'overflow', type: "'scroll' | 'menu'", default: "'scroll'", description: 'What horizontal tabs do when they do not fit: scroll sideways, or collect the ones that do not fit under a More menu that shows the active tab when it is one of them.' },
+    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch horizontal tabs to share the full width. By default each tab is as wide as its label and a secondary list scrolls when the tabs overflow.' },
     { name: 'hideBorder', type: 'boolean', default: 'false', description: "Hide the secondary variant's track border (long underline / left rail). No effect on primary; active-tab indicator unaffected." },
     { name: 'showSeparator', type: 'boolean', default: '-', description: 'Show separator lines between tabs.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },

@@ -38,6 +38,10 @@ export interface TableProps {
   shadow?: TableShadow
   /** Selection mode. */
   selectionMode?: SelectionMode
+  /** What a click (or Enter) on a row does: toggle its selection or fire `rowAction`. Defaults
+   *  to `select` when rows are selectable, else `action`. With `action` and selection on, the
+   *  checkbox column selects and the row opens. */
+  clickBehavior?: 'select' | 'action'
   /** Show the checkbox column when `selectionMode='multiple'`. When false, the
    *  checkbox column is hidden and clicking anywhere on a row toggles its
    *  selection. The select-all header checkbox is also hidden. Defaults to true. */

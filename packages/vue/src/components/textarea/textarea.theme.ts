@@ -18,7 +18,7 @@ export const textareaFieldTheme = cva(
     'focus:ring-2 focus:ring-ousi-focus',
     'focus:bg-ousi-field-focus',
     // Invalid
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
     'data-[invalid=true]:bg-ousi-field-focus',
     // Disabled
     'data-[disabled=true]:opacity-50',
@@ -32,9 +32,9 @@ export const textareaFieldTheme = cva(
       variant: {
         primary: '',
         secondary: [
-          'border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-field-secondary',
           'hover:not-focus:bg-ousi-surface-tertiary',
-          'focus:bg-ousi-surface-secondary',
+          'focus:bg-ousi-field-secondary',
         ],
       },
       resize: {

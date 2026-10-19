@@ -35,8 +35,8 @@ export const inputOtpSlotTheme = cva(
     'relative flex items-center justify-center',
     'font-semibold outline-none',
     'motion-reduce:transition-none',
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity] data-[disabled=true]:pointer-events-none',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity) data-[disabled=true]:pointer-events-none',
   ],
   {
     variants: {

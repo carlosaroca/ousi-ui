@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 export const tooltipTheme = cva(
   [
     'max-w-xs rounded-ousi-xl px-2 py-1 text-xs break-all',
-    'bg-ousi-overlay text-ousi-overlay-foreground',
+    'bg-ousi-overlay text-ousi-overlay-foreground border border-ousi-border/50',
     'pointer-events-none',
     'z-50',
   ],

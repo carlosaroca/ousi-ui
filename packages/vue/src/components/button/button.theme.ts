@@ -7,9 +7,10 @@ export const buttonTheme = cva(
     'font-medium transition-[transform,background-color,box-shadow]',
     'duration-[250ms,100ms,100ms]',
     'ease-[ease,cubic-bezier(0.32,0.72,0,1),cubic-bezier(0.32,0.72,0,1)]',
-    'cursor-[--ousi-cursor-interactive]',
-    'focus-visible:ring-2 focus-visible:ring-ousi-focus focus-visible:ring-offset-[--ousi-ring-offset-width]',
-    'disabled:opacity-[--ousi-disabled-opacity] disabled:cursor-[--ousi-cursor-disabled] disabled:pointer-events-none',
+    'cursor-(--ousi-cursor-interactive)',
+    // An outline's offset gap is transparent, so it shows whatever surface the button sits on.
+    'focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-ousi-focus focus-visible:outline-offset-(--ousi-ring-offset-width)',
+    'disabled:opacity-(--ousi-disabled-opacity) disabled:cursor-(--ousi-cursor-disabled) disabled:pointer-events-none',
     'active:scale-[0.97]',
     'rounded-ousi-4xl',
   ],
@@ -31,6 +32,10 @@ export const buttonTheme = cva(
         text: [
           'bg-transparent text-ousi-default-foreground',
           'hover:bg-ousi-default',
+        ],
+        link: [
+          'gap-1 overflow-visible bg-transparent text-ousi-accent',
+          'underline-offset-2 hover:underline',
         ],
         soft: [
           'bg-ousi-accent-soft text-ousi-accent-soft-foreground',
@@ -67,6 +72,8 @@ export const buttonTheme = cva(
       },
     },
     compoundVariants: [
+      // A link sits in running text: no box, no press scale, the ring hugs the label.
+      { variant: 'link', class: 'h-auto px-0 md:h-auto rounded-ousi-sm active:scale-100' },
       { size: 'xs', isIconOnly: true, class: 'w-8 md:w-7' },
       { size: 'sm', isIconOnly: true, class: 'w-9 md:w-8' },
       { size: 'lg', isIconOnly: true, class: 'w-11 md:w-10' },

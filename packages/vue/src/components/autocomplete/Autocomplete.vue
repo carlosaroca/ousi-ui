@@ -17,9 +17,11 @@ import {
   autocompleteDescriptionTheme,
   autocompleteErrorTheme,
 } from './autocomplete.theme'
-import type { AutocompleteProps, AutocompleteEmits } from './autocomplete.types'
+import type { AutocompleteOption, AutocompleteProps, AutocompleteEmits } from './autocomplete.types'
 
 const ousiText = useOusiMessages()
+// Same prompt as OSelect when the field gives none, so choice fields read alike.
+const resolvedPlaceholder = computed(() => props.placeholder ?? ousiText.value.selectPlaceholder)
 
 const props = withDefaults(defineProps<AutocompleteProps>(), {
   variant: 'primary',
@@ -28,7 +30,12 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
   required: false,
   clearable: true,
   allowCustomValue: false,
-  emptyMessage: 'No results found',
+  emptyMessage: undefined,
+  filter: true,
+  loading: false,
+  search: undefined,
+  minChars: 2,
+  debounce: 250,
   shadow: 'xs',
   animated: false,
   scrollShadow: true,
@@ -58,14 +65,67 @@ const selectedValue = useControllableState<string | number>({
   },
 })
 
-const selectedOption = computed(() =>
-  props.options.find((o) => o.value === selectedValue.value),
+// Server search: results replace `options` in the list; the picked option is remembered so its
+// label stays while later searches return other rows.
+const remoteOptions = ref<AutocompleteOption[] | null>(null)
+const remoteLoading = ref(false)
+const pickedOption = ref<AutocompleteOption | null>(null)
+let searchTimer: ReturnType<typeof setTimeout> | null = null
+let searchId = 0
+
+const isRemote = computed(() => !!props.search)
+const isLoading = computed(() => props.loading || remoteLoading.value)
+const queryTooShort = computed(() => isRemote.value && query.value.trim().length < props.minChars)
+
+function runSearch(text: string) {
+  if (!props.search) return
+  if (searchTimer) clearTimeout(searchTimer)
+  const term = text.trim()
+  const id = ++searchId
+  if (term.length < props.minChars) {
+    remoteOptions.value = null
+    remoteLoading.value = false
+    return
+  }
+  remoteLoading.value = true
+  searchTimer = setTimeout(async () => {
+    try {
+      const rows = await props.search!(term)
+      if (id === searchId) remoteOptions.value = rows
+    } catch {
+      if (id === searchId) remoteOptions.value = []
+    } finally {
+      if (id === searchId) remoteLoading.value = false
+    }
+  }, props.debounce)
+}
+
+onBeforeUnmount(() => {
+  if (searchTimer) clearTimeout(searchTimer)
+})
+
+const selectedOption = computed(
+  () =>
+    [...(remoteOptions.value ?? []), ...props.options].find((o) => o.value === selectedValue.value) ??
+    (pickedOption.value?.value === selectedValue.value ? pickedOption.value : undefined),
 )
 
+function normalize(text: string) {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+}
+
 const filteredOptions = computed(() => {
-  if (!query.value) return props.options
-  const q = query.value.toLowerCase()
-  return props.options.filter((o) => o.label.toLowerCase().includes(q))
+  if (isRemote.value) return queryTooShort.value ? [] : (remoteOptions.value ?? [])
+  if (!props.filter || !query.value) return props.options
+  const q = normalize(query.value)
+  return props.options.filter((o) => normalize(o.label).includes(q))
+})
+
+const resolvedEmptyMessage = computed(() => {
+  if (queryTooShort.value) {
+    return ousiText.value.typeToSearch.replace('{count}', String(props.minChars))
+  }
+  return props.emptyMessage ?? ousiText.value.noResults
 })
 
 const isInvalid = computed(() => !!props.errorMessage)
@@ -87,8 +147,9 @@ const { floatingStyles } = useFloating(triggerRef, popoverRef, {
     flip(),
     shift({ padding: 8 }),
     floatingSize({
+      // The list matches the field; long options wrap instead of widening it past the field.
       apply({ rects, elements }) {
-        Object.assign(elements.floating.style, { minWidth: `${rects.reference.width}px` })
+        Object.assign(elements.floating.style, { width: `${rects.reference.width}px` })
       },
     }),
   ],
@@ -108,8 +169,9 @@ function closeDropdown() {
   if (selectedOption.value) query.value = ''
 }
 
-function selectOption(option: typeof props.options[0]) {
+function selectOption(option: AutocompleteOption) {
   if (!option || option.disabled) return
+  pickedOption.value = option
   selectedValue.value = option.value
   query.value = ''
   closeDropdown()
@@ -126,6 +188,7 @@ function clearValue() {
 function handleInput(e: Event) {
   query.value = (e.target as HTMLInputElement).value
   emit('inputChange', query.value)
+  runSearch(query.value)
   if (!isOpen.value) openDropdown()
   focusedIndex.value = 0
 }
@@ -205,7 +268,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
         :class="autocompleteInputTheme"
         type="text"
         :value="query || (isOpen ? '' : selectedOption?.label ?? '')"
-        :placeholder="isOpen ? (selectedOption?.label ?? placeholder) : placeholder"
+        :placeholder="isOpen ? (selectedOption?.label ?? resolvedPlaceholder) : resolvedPlaceholder"
         :disabled="disabled"
         :readonly="readonly"
         :required="required"
@@ -214,6 +277,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
         aria-autocomplete="list"
         :aria-invalid="isInvalid || undefined"
         :aria-describedby="describedBy"
+        :aria-busy="isLoading || undefined"
         autocomplete="off"
         role="combobox"
         @input="handleInput"
@@ -224,6 +288,16 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
 
       <!-- Right controls -->
       <div class="flex items-center gap-1.5 pr-3 shrink-0">
+        <svg
+          v-if="isLoading"
+          class="size-4 animate-spin text-ousi-muted"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.25" stroke-width="2.5" />
+          <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
         <!-- Clear button -->
         <button
           v-if="clearable && hasValue && !disabled"
@@ -294,7 +368,9 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
                 @click="selectOption(option)"
                 @mouseenter="focusedIndex = index"
               >
-                <span class="flex-1">{{ option.label }}</span>
+                <slot name="option" :option="option" :selected="option.value === selectedValue">
+                  <span class="flex-1">{{ option.label }}</span>
+                </slot>
                 <svg
                   v-if="option.value === selectedValue"
                   class="size-3.5 shrink-0 text-ousi-accent"
@@ -305,7 +381,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', handleClickOut
               </li>
 
               <li v-if="filteredOptions.length === 0" :class="autocompleteEmptyTheme" role="option" aria-disabled="true">
-                {{ emptyMessage }}
+                {{ isLoading ? ousiText.loading : resolvedEmptyMessage }}
               </li>
             </ul>
           </component>

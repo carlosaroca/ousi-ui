@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority'
 export const contextMenuTheme = cva(
   [
     'min-w-[180px] max-w-[280px] rounded-ousi-xl p-1 z-50',
-    'bg-ousi-overlay text-ousi-overlay-foreground',
+    'bg-ousi-overlay text-ousi-overlay-foreground border border-ousi-border/50',
     'outline-none',
   ],
   {

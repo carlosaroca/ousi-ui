@@ -123,7 +123,7 @@ function handleClick(event: MouseEvent) {
     :aria-busy="loading || undefined"
     :data-loading="loading || undefined"
     :tabindex="isDisabled ? -1 : undefined"
-    :role="as !== 'button' ? 'button' : undefined"
+    :role="as !== 'button' && !$attrs.href ? 'button' : undefined"
     @pointerdown="spawnRipple"
     @click="handleClick"
   >

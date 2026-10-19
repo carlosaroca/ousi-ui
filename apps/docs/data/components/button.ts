@@ -24,6 +24,7 @@ export const buttonData: ComponentData = {
 <OButton variant="secondary">Secondary</OButton>
 <OButton variant="outline">Outline</OButton>
 <OButton variant="text">Text</OButton>
+<OButton variant="link">Link</OButton>
 <OButton variant="soft">Soft</OButton>
 <OButton variant="danger">Danger</OButton>
 <OButton variant="danger-soft">Danger Soft</OButton>`,
@@ -127,7 +128,7 @@ export const buttonData: ComponentData = {
   ],
 
   props: [
-    { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'text' | 'soft' | 'danger' | 'danger-soft'", default: "'primary'", description: 'Visual style of the button.' },
+    { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'text' | 'link' | 'soft' | 'danger' | 'danger-soft'", default: "'primary'", description: "Visual style of the button. 'link' has no padding or background, so it lines up with the text around it." },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the button.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the button.' },
@@ -136,7 +137,7 @@ export const buttonData: ComponentData = {
     { name: 'ripple', type: 'boolean', default: 'true', description: 'Material-style ripple from the click point.' },
     { name: 'animationType', type: "'vertical' | 'scale' | 'rotate'", default: "'vertical'", description: 'Transition used to swap default content with the #animate slot on hover.' },
     { name: 'type', type: "'button' | 'submit' | 'reset'", default: "'button'", description: 'HTML button type.' },
-    { name: 'as', type: 'string | Component', default: "'button'", description: 'Render as a different element.' },
+    { name: 'as', type: 'string | Component', default: "'button'", description: 'Render as a different element. With an href it keeps the link role, for example as a router link.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

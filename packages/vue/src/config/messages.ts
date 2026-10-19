@@ -23,6 +23,8 @@ export interface OusiMessages {
   next: string
   previousMonth: string
   nextMonth: string
+  previousYear: string
+  nextYear: string
   calendar: string
   openCalendar: string
   datePicker: string
@@ -32,6 +34,8 @@ export interface OusiMessages {
   timePicker: string
   timeField: string
   pickTime: string
+  openTimePicker: string
+  now: string
   hour: string
   minute: string
   second: string
@@ -54,6 +58,25 @@ export interface OusiMessages {
   reloadChildren: string
   before: string
   after: string
+  /** File upload. `{name}`, `{size}`, `{formats}` and `{count}` are replaced. */
+  dropHere: string
+  chooseFile: string
+  chooseFiles: string
+  browseFiles: string
+  acceptedFormats: string
+  maxFileSize: string
+  images: string
+  videos: string
+  audio: string
+  removeFile: string
+  retryUpload: string
+  uploadFailed: string
+  fileTypeRejected: string
+  fileTooLarge: string
+  tooManyFiles: string
+  noResults: string
+  typeToSearch: string
+  moreTabs: string
 }
 
 const en: OusiMessages = {
@@ -77,6 +100,8 @@ const en: OusiMessages = {
   next: 'Next',
   previousMonth: 'Previous month',
   nextMonth: 'Next month',
+  previousYear: 'Previous year',
+  nextYear: 'Next year',
   calendar: 'Calendar',
   openCalendar: 'Open calendar',
   datePicker: 'Date picker',
@@ -86,6 +111,8 @@ const en: OusiMessages = {
   timePicker: 'Time picker',
   timeField: 'Time field',
   pickTime: 'Pick a time',
+  openTimePicker: 'Open time picker',
+  now: 'Now',
   hour: 'Hour',
   minute: 'Minute',
   second: 'Second',
@@ -108,6 +135,24 @@ const en: OusiMessages = {
   reloadChildren: 'Reload children',
   before: 'Before',
   after: 'After',
+  dropHere: 'Drag and drop here or',
+  chooseFile: 'choose a file',
+  chooseFiles: 'choose files',
+  browseFiles: 'Choose file',
+  acceptedFormats: 'Formats: {formats}',
+  maxFileSize: 'Up to {size}',
+  images: 'Images',
+  videos: 'Videos',
+  audio: 'Audio',
+  removeFile: 'Remove {name}',
+  retryUpload: 'Retry',
+  uploadFailed: 'Upload failed',
+  fileTypeRejected: '{name}: this format is not allowed',
+  fileTooLarge: '{name} is larger than {size}',
+  tooManyFiles: 'You can add up to {count} files',
+  noResults: 'No results found',
+  typeToSearch: 'Type at least {count} characters to search',
+  moreTabs: 'More',
 }
 
 const es: OusiMessages = {
@@ -131,6 +176,8 @@ const es: OusiMessages = {
   next: 'Siguiente',
   previousMonth: 'Mes anterior',
   nextMonth: 'Mes siguiente',
+  previousYear: 'Año anterior',
+  nextYear: 'Año siguiente',
   calendar: 'Calendario',
   openCalendar: 'Abrir el calendario',
   datePicker: 'Selector de fecha',
@@ -140,6 +187,8 @@ const es: OusiMessages = {
   timePicker: 'Selector de hora',
   timeField: 'Campo de hora',
   pickTime: 'Elegir la hora',
+  openTimePicker: 'Abrir el selector de hora',
+  now: 'Ahora',
   hour: 'Hora',
   minute: 'Minuto',
   second: 'Segundo',
@@ -162,6 +211,24 @@ const es: OusiMessages = {
   reloadChildren: 'Volver a cargar',
   before: 'Antes',
   after: 'Después',
+  dropHere: 'Arrastra aquí o',
+  chooseFile: 'elige un archivo',
+  chooseFiles: 'elige archivos',
+  browseFiles: 'Elegir archivo',
+  acceptedFormats: 'Formatos: {formats}',
+  maxFileSize: 'Máximo {size}',
+  images: 'Imágenes',
+  videos: 'Videos',
+  audio: 'Audio',
+  removeFile: 'Quitar {name}',
+  retryUpload: 'Reintentar',
+  uploadFailed: 'No se pudo subir',
+  fileTypeRejected: '{name}: este formato no está permitido',
+  fileTooLarge: '{name} supera {size}',
+  tooManyFiles: 'Puedes agregar hasta {count} archivos',
+  noResults: 'Sin resultados',
+  typeToSearch: 'Escribe al menos {count} caracteres para buscar',
+  moreTabs: 'Más',
 }
 
 const catalogs: Record<string, OusiMessages> = { en, es }

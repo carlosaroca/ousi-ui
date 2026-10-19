@@ -9,7 +9,11 @@ export const cardTheme = cva(
     variants: {
       variant: {
         transparent: 'border-none bg-transparent',
-        default: 'bg-ousi-surface',
+        default: [
+          'bg-ousi-card [--ousi-field-secondary:var(--ousi-card-field)]',
+          '[--ousi-field-background:var(--ousi-surface)] [--ousi-field-hover:var(--ousi-surface-secondary)]',
+          '*:[--ousi-card:var(--ousi-surface)] *:[--ousi-card-field:var(--ousi-surface-secondary)]',
+        ],
         secondary: 'bg-ousi-surface-secondary',
         tertiary: 'bg-ousi-surface-tertiary',
       },

@@ -21,6 +21,7 @@ export * from './components/tooltip'
 export * from './components/select'
 
 export * from './components/dialog'
+export type { OverlayBackdrop } from './components/shared/backdrop'
 
 export * from './components/drawer'
 

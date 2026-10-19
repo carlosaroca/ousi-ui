@@ -446,6 +446,7 @@ const describedBy = computed(() =>
       role="group"
       :aria-label="label ?? ousiText.dateRangePicker"
       tabindex="-1"
+      @click="open"
     >
       <!-- Start date segments -->
       <template v-for="(seg, idx) in segmentOrder" :key="`start-${idx}`">
@@ -567,7 +568,6 @@ const describedBy = computed(() =>
         <Motion
           tag="div"
           :class="dateRangePickerPopoverTheme"
-          :style="{ borderRadius: 'calc(var(--ousi-radius, 0.5rem) * 2.5)' }"
           :initial="{ opacity: 0, scale: 0.95, y: -4 }"
           :animate="{ opacity: 1, scale: 1, y: 0 }"
           :exit="{ opacity: 0, scale: 0.95 }"

@@ -30,9 +30,11 @@
     --ousi-radius-md: calc(var(--ousi-radius) * 0.75);
     --ousi-radius-lg: calc(var(--ousi-radius) * 1);
     --ousi-radius-xl: calc(var(--ousi-radius) * 1.5);
-    --ousi-radius-2xl: calc(var(--ousi-radius) * 2);
-    --ousi-radius-3xl: calc(var(--ousi-radius) * 3);
-    --ousi-radius-4xl: calc(var(--ousi-radius) * 4);
+    /* The large steps stop growing past a cap, so a very round theme keeps large surfaces sane.
+       With the default 0.5rem radius no step reaches its cap. */
+    --ousi-radius-2xl: min(calc(var(--ousi-radius) * 2), 1.5rem);
+    --ousi-radius-3xl: min(calc(var(--ousi-radius) * 3), 1.75rem);
+    --ousi-radius-4xl: min(calc(var(--ousi-radius) * 4), 2rem);
 
     /* Colors */
     --ousi-background: oklch(0.9702 0 0);
@@ -40,8 +42,18 @@
     --ousi-surface: var(--ousi-white);
     --ousi-surface-secondary: oklch(0.9524 0.0013 286.37);
     --ousi-surface-tertiary: oklch(0.9373 0.0013 286.37);
+    /* Cards: white by default; a container that is itself white (an app panel) sets --ousi-card to
+       --ousi-card-soft, and --ousi-card-field to what secondary fields show inside those cards. */
+    --ousi-card: var(--ousi-surface);
+    --ousi-card-soft: oklch(0.9761 0.0013 286.37);
+    --ousi-card-field: var(--ousi-surface-secondary);
+    --ousi-field-secondary: var(--ousi-surface-secondary);
     --ousi-overlay: var(--ousi-white);
     --ousi-overlay-foreground: var(--ousi-eclipse);
+    /* Backdrops behind dialogs and drawers. */
+    --ousi-backdrop: rgb(0 0 0 / 0.5);
+    --ousi-backdrop-subtle: rgb(0 0 0 / 0.2);
+    --ousi-backdrop-glass: color-mix(in oklab, var(--ousi-background) 45%, transparent);
     --ousi-muted: oklch(0.5517 0.0138 285.94);
     --ousi-default: oklch(94% 0.001 286.375);
     --ousi-default-foreground: var(--ousi-eclipse);
@@ -53,6 +65,11 @@
     --ousi-warning-foreground: var(--ousi-eclipse);
     --ousi-danger: #ff4757;
     --ousi-danger-foreground: var(--ousi-snow);
+    /* Two more tones for statuses: orange (pending, waiting) and violet (sent, submitted). */
+    --ousi-orange: #f6623a;
+    --ousi-orange-foreground: var(--ousi-snow);
+    --ousi-violet: #7c5cff;
+    --ousi-violet-foreground: var(--ousi-snow);
     --ousi-border: oklch(90% 0.004 286.32);
     --ousi-separator: oklch(92% 0.004 286.32);
     --ousi-focus: var(--ousi-accent);

@@ -108,7 +108,7 @@ export const tableRowTheme = cva(
   {
     variants: {
       disabled: {
-        true: 'opacity-[--ousi-disabled-opacity] pointer-events-none',
+        true: 'opacity-(--ousi-disabled-opacity) pointer-events-none',
         false: '',
       },
       clickable: {

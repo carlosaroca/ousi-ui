@@ -19,7 +19,7 @@ export const treeViewNodeTheme = cva(
         false: '',
       },
       disabled: {
-        true: 'opacity-[--ousi-disabled-opacity] pointer-events-none',
+        true: 'opacity-(--ousi-disabled-opacity) pointer-events-none',
         false: '',
       },
     },

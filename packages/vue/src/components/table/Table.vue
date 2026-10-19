@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, toRef, nextTick, watch } from 'vue'
+import { ref, computed, toRef, nextTick, watch, getCurrentInstance } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { OSkeleton } from '../skeleton'
 import { OCheckbox } from '../checkbox'
@@ -335,6 +335,26 @@ function focusCell(rowIdx: number, colIdx: number) {
   })
 }
 
+const instance = getCurrentInstance()
+const rowClick = computed(
+  () => props.clickBehavior ?? (props.selectionMode !== 'none' ? 'select' : 'action'),
+)
+
+function activateRow(row: Record<string, unknown>, e: MouseEvent | KeyboardEvent) {
+  if (rowClick.value === 'select' && props.selectionMode !== 'none') {
+    toggleSelection(getRowKey(row), e)
+  } else {
+    emit('rowAction', getRowKey(row))
+  }
+}
+
+// A row looks clickable when clicking it does something: selects, expands or has a listener.
+function rowIsClickable() {
+  if (rowClick.value === 'select' && props.selectionMode !== 'none') return true
+  if (props.expandable) return true
+  return rowClick.value === 'action' && Boolean(instance?.vnode.props?.onRowAction)
+}
+
 function handleCellKeydown(e: KeyboardEvent, rowIdx: number, colIdx: number) {
   switch (e.key) {
     case 'ArrowDown':
@@ -373,10 +393,9 @@ function handleCellKeydown(e: KeyboardEvent, rowIdx: number, colIdx: number) {
         toggleExpand(getRowKey(row))
         break
       }
-      // Otherwise: toggle selection if selectable; else fire row action.
+      // Otherwise: select or fire the row action, as clickBehavior says.
       e.preventDefault()
-      if (props.selectionMode !== 'none') toggleSelection(getRowKey(row), e)
-      else emit('rowAction', getRowKey(row))
+      activateRow(row, e)
       break
     }
   }
@@ -685,7 +704,7 @@ function stickyClassesFor(key: string, isHeader: boolean): string {
               <tr
                 :class="tableRowTheme({
                   disabled: isRowDisabled(row),
-                  clickable: selectionMode !== 'none' || expandable,
+                  clickable: rowIsClickable(),
                   selectable: selectionMode === 'multiple',
                 })"
                 :data-selected="isRowSelected(row) || undefined"
@@ -747,9 +766,7 @@ function stickyClassesFor(key: string, isHeader: boolean): string {
                   :data-row="rowIdx"
                   :data-col="dataColumnsOffset + colIdx"
                   :tabindex="isCellActive(rowIdx, dataColumnsOffset + colIdx) ? 0 : -1"
-                  @click="selectionMode !== 'none'
-                    ? toggleSelection(getRowKey(row), $event)
-                    : emit('rowAction', getRowKey(row))"
+                  @click="activateRow(row, $event)"
                   @keydown="handleCellKeydown($event, rowIdx, dataColumnsOffset + colIdx)"
                   @focus="activeRow = rowIdx; activeCol = dataColumnsOffset + colIdx"
                 >

@@ -10,17 +10,17 @@ export const tagInputGroupTheme = cva(
     'motion-reduce:transition-none',
     'hover:not-focus-within:bg-ousi-field-hover',
     'focus-within:ring-2 focus-within:ring-ousi-focus focus-within:bg-ousi-field-focus',
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity] data-[disabled=true]:pointer-events-none',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity) data-[disabled=true]:pointer-events-none',
   ],
   {
     variants: {
       variant: {
         primary: '',
         secondary: [
-          'border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-field-secondary',
           'hover:not-focus-within:bg-ousi-surface-tertiary',
-          'focus-within:bg-ousi-surface-secondary',
+          'focus-within:bg-ousi-field-secondary',
         ],
       },
       size: {
@@ -71,7 +71,7 @@ export const tagInputLabelTheme = cva(
   {
     variants: {
       required: { true: 'after:ml-0.5 after:text-ousi-danger after:content-["*"]' },
-      disabled: { true: 'opacity-[--ousi-disabled-opacity]' },
+      disabled: { true: 'opacity-(--ousi-disabled-opacity)' },
       invalid: { true: 'text-ousi-danger' },
     },
   },

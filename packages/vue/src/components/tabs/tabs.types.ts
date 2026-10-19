@@ -24,6 +24,12 @@ export interface TabsProps {
   shadow?: TabsShadow
   /** Layout orientation. */
   orientation?: 'horizontal' | 'vertical'
+  /** Stretch horizontal tabs to share the full width. Defaults to `false`: each tab is as wide
+   *  as its label, and a secondary list scrolls when the tabs overflow. */
+  fullWidth?: boolean
+  /** What horizontal tabs do when they don't fit: 'scroll' sideways (default) or collect the
+   *  ones that don't fit under a "More" menu. 'menu' has no effect with `fullWidth`. */
+  overflow?: 'scroll' | 'menu'
   /** Hide the secondary variant's track border (the long underline / left rail).
    *  Has no effect on `primary`. The active-tab indicator is unaffected. Defaults to `false`. */
   hideBorder?: boolean

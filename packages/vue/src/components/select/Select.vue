@@ -213,9 +213,11 @@ const { floatingStyles } = useFloating(triggerRef, popoverRef, {
     flip(),
     shift({ padding: 8 }),
     floatingSize({
+      // At least as wide as the field; past 320px it stops growing and long options wrap.
       apply({ rects, elements }) {
         Object.assign(elements.floating.style, {
           minWidth: `${rects.reference.width}px`,
+          maxWidth: `${Math.max(rects.reference.width, 320)}px`,
         })
       },
     }),

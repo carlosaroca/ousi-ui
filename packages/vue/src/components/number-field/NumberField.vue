@@ -71,10 +71,12 @@ const formatter = computed(() =>
     : null,
 )
 
-const displayValue = computed(() => {
-  if (value.value === null || value.value === undefined) return ''
-  return formatter.value ? formatter.value.format(value.value) : String(value.value)
-})
+function formatNumber(n: number | null | undefined): string {
+  if (n === null || n === undefined) return ''
+  return formatter.value ? formatter.value.format(n) : String(n)
+}
+
+const displayValue = computed(() => formatNumber(value.value))
 
 // Clamp
 function clamp(val: number): number {
@@ -104,26 +106,66 @@ function increment() {
   value.value = clamp((value.value ?? 0) + props.step)
 }
 
+function parse(text: string): number | null {
+  const cleaned = text.replace(/[^0-9.\-]/g, '')
+  if (cleaned === '' || cleaned === '-') return null
+  const num = parseFloat(cleaned)
+  return isNaN(num) ? null : num
+}
+
+/**
+ * Refuses a keystroke or paste that can no longer become a valid number: letters, a minus sign
+ * when negatives are out of range, or digits past the maximum (more digits only grow it).
+ */
+function handleBeforeInput(e: InputEvent) {
+  if (!e.inputType.startsWith('insert')) return
+  const input = e.target as HTMLInputElement
+  const inserted = e.data ?? e.dataTransfer?.getData('text/plain') ?? ''
+  if (!props.formatOptions && /[^0-9.,\-\s]/.test(inserted)) {
+    e.preventDefault()
+    return
+  }
+  const start = input.selectionStart ?? input.value.length
+  const end = input.selectionEnd ?? input.value.length
+  const next = input.value.slice(0, start) + inserted + input.value.slice(end)
+  if (next.includes('-') && props.min !== undefined && props.min >= 0) {
+    e.preventDefault()
+    return
+  }
+  const num = parse(next)
+  if (num === null) return
+  if (props.max !== undefined && num >= 0 && num > props.max) e.preventDefault()
+  else if (props.min !== undefined && num < 0 && num < props.min) e.preventDefault()
+}
+
+// Values in range update the model as they are typed; one below the minimum waits for the
+// commit, since the next digit may still bring it in range ("1" on the way to "15").
 function handleInput(e: Event) {
-  const raw = (e.target as HTMLInputElement).value
-  if (raw === '' || raw === '-') {
+  const num = parse((e.target as HTMLInputElement).value)
+  if (num === null) {
     value.value = null
     return
   }
-  const cleaned = raw.replace(/[^0-9.\-]/g, '')
-  const num = parseFloat(cleaned)
-  if (!isNaN(num)) {
-    value.value = clamp(num)
-  }
+  if (clamp(num) === num) value.value = num
+}
+
+function commit() {
+  const input = inputRef.value
+  if (!input) return
+  const num = parse(input.value)
+  const next = num === null ? null : clamp(num)
+  if (next !== value.value) value.value = next
+  input.value = formatNumber(next)
 }
 
 function handleBlur(e: FocusEvent) {
-  if (inputRef.value) inputRef.value.value = displayValue.value
+  commit()
   emit('blur', e)
 }
 
 function handleKeydown(e: KeyboardEvent) {
   if (props.disabled || props.readonly) return
+  if (e.key === 'Enter') commit()
   if (e.key === 'ArrowUp') { e.preventDefault(); increment() }
   if (e.key === 'ArrowDown') { e.preventDefault(); decrement() }
   if (e.key === 'PageUp') { e.preventDefault(); value.value = clamp((value.value ?? 0) + props.step * 10) }
@@ -208,6 +250,7 @@ onBeforeUnmount(stopHold)
         :aria-valuenow="value ?? undefined"
         :aria-valuemin="min"
         :aria-valuemax="max"
+        @beforeinput="handleBeforeInput"
         @input="handleInput"
         @blur="handleBlur"
         @focus="emit('focus', $event)"

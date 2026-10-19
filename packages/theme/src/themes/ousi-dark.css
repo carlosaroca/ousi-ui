@@ -29,9 +29,11 @@
     --ousi-radius-md: calc(var(--ousi-radius) * 0.75);
     --ousi-radius-lg: calc(var(--ousi-radius) * 1);
     --ousi-radius-xl: calc(var(--ousi-radius) * 1.5);
-    --ousi-radius-2xl: calc(var(--ousi-radius) * 2);
-    --ousi-radius-3xl: calc(var(--ousi-radius) * 3);
-    --ousi-radius-4xl: calc(var(--ousi-radius) * 4);
+    /* The large steps stop growing past a cap, so a very round theme keeps large surfaces sane.
+       With the default 0.5rem radius no step reaches its cap. */
+    --ousi-radius-2xl: min(calc(var(--ousi-radius) * 2), 1.5rem);
+    --ousi-radius-3xl: min(calc(var(--ousi-radius) * 3), 1.75rem);
+    --ousi-radius-4xl: min(calc(var(--ousi-radius) * 4), 2rem);
 
     /* Colors */
     --ousi-background: oklch(12% 0.005 285.823);
@@ -39,8 +41,15 @@
     --ousi-surface: oklch(0.2103 0.0059 285.89);
     --ousi-surface-secondary: oklch(0.257 0.0037 286.14);
     --ousi-surface-tertiary: oklch(0.2721 0.0024 247.91);
+    --ousi-card: var(--ousi-surface);
+    --ousi-card-soft: oklch(0.235 0.005 286);
+    --ousi-card-field: var(--ousi-surface-secondary);
+    --ousi-field-secondary: var(--ousi-surface-secondary);
     --ousi-overlay: oklch(0.2103 0.0059 285.89);
     --ousi-overlay-foreground: var(--ousi-snow);
+    --ousi-backdrop: rgb(0 0 0 / 0.6);
+    --ousi-backdrop-subtle: rgb(0 0 0 / 0.35);
+    --ousi-backdrop-glass: color-mix(in oklab, var(--ousi-background) 50%, transparent);
     --ousi-muted: oklch(70.5% 0.015 286.067);
     --ousi-default: oklch(27.4% 0.006 286.033);
     --ousi-default-foreground: var(--ousi-snow);
@@ -52,6 +61,10 @@
     --ousi-warning-foreground: var(--ousi-eclipse);
     --ousi-danger: #ff4757;
     --ousi-danger-foreground: var(--ousi-snow);
+    --ousi-orange: #ff8b6c;
+    --ousi-orange-foreground: var(--ousi-eclipse);
+    --ousi-violet: #a78bfa;
+    --ousi-violet-foreground: var(--ousi-eclipse);
     --ousi-border: oklch(28% 0.006 286.033);
     --ousi-separator: oklch(25% 0.006 286.033);
     --ousi-focus: var(--ousi-accent);

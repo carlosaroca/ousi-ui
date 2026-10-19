@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 export const dropdownPopoverTheme = cva(
   [
     'max-w-[48svw] scroll-py-1 overflow-y-auto overscroll-contain',
-    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground p-0 text-sm md:min-w-[220px]',
+    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground p-0 text-sm md:min-w-[220px] border border-ousi-border/50',
     'z-50',
   ],
   {
@@ -32,10 +32,10 @@ export const dropdownSeparatorTheme = 'my-1 ml-[3%] h-px w-[94%] bg-ousi-border'
 export const dropdownItemTheme = cva(
   [
     'relative flex min-h-9 w-full items-center justify-start gap-2',
-    'rounded-ousi-2xl px-2.5 py-1.5 outline-none select-none',
+    'rounded-[max(0px,calc(var(--ousi-radius-3xl)_-_0.375rem))] px-2.5 py-1.5 outline-none select-none',
     'text-sm transition-[transform,background-color,box-shadow] duration-150',
     'ease-[ease] motion-reduce:transition-none',
-    'cursor-[--ousi-cursor-interactive]',
+    'cursor-(--ousi-cursor-interactive)',
     'focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ousi-focus',
     'hover:bg-ousi-default',
     'active:scale-[0.98]',

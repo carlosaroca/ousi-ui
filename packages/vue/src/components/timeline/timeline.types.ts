@@ -9,7 +9,7 @@ export interface TimelineItem {
   /** Opposite side content (for alternate layout). */
   opposite?: string
   /** Marker color. Uses design tokens. */
-  color?: 'accent' | 'success' | 'warning' | 'danger' | 'default'
+  color?: 'accent' | 'success' | 'warning' | 'danger' | 'orange' | 'violet' | 'default'
   /** Custom icon name (rendered via #marker slot). */
   icon?: string
 }

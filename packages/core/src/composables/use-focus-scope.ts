@@ -24,18 +24,39 @@ export interface UseFocusScopeOptions {
   containerRef: Ref<HTMLElement | null>
   /** Whether focus trapping is active. */
   enabled?: Ref<boolean>
-  /** Whether to auto-focus the first focusable element on mount. */
+  /** Move focus into the container when it activates: an `[autofocus]` element, else the first
+   *  focusable that is not a combobox (focusing one opens its list), else the container itself. */
   autoFocus?: boolean
+  /** Return focus to the element that had it before the scope activated. Defaults to true. */
+  restoreFocus?: boolean
+}
+
+function initialFocusTarget(container: HTMLElement): HTMLElement {
+  const explicit = container.querySelector<HTMLElement>('[autofocus], [data-autofocus]')
+  if (explicit) return explicit
+  return (
+    getFocusableElements(container).find((el) => el.getAttribute('role') !== 'combobox') ??
+    container
+  )
 }
 
 /**
  * Traps focus within a container element (for dialogs, modals, etc.).
  */
 export function useFocusScope(options: UseFocusScopeOptions) {
-  const { containerRef, enabled, autoFocus = true } = options
+  const { containerRef, enabled, autoFocus = true, restoreFocus = true } = options
   const isMounted = useMounted()
 
   let cleanup: (() => void) | null = null
+  let isActive = false
+  let returnTo: HTMLElement | null = null
+
+  function deactivate() {
+    if (!isActive) return
+    isActive = false
+    if (restoreFocus && returnTo?.isConnected) returnTo.focus()
+    returnTo = null
+  }
 
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key !== 'Tab') return
@@ -65,16 +86,19 @@ export function useFocusScope(options: UseFocusScopeOptions) {
       cleanup?.()
       cleanup = null
 
-      if (!isMounted.value) return
-      if (enabled && !enabled.value) return
-
       const container = containerRef.value
-      if (!container) return
+      if (!isMounted.value || (enabled && !enabled.value) || !container) {
+        deactivate()
+        return
+      }
 
-      if (autoFocus) {
-        const focusable = getFocusableElements(container)
-        if (focusable.length > 0) {
-          requestAnimationFrame(() => focusable[0].focus())
+      if (!isActive) {
+        isActive = true
+        returnTo = document.activeElement instanceof HTMLElement ? document.activeElement : null
+        if (autoFocus) {
+          requestAnimationFrame(() => {
+            if (!container.contains(document.activeElement)) initialFocusTarget(container).focus()
+          })
         }
       }
 
@@ -88,5 +112,6 @@ export function useFocusScope(options: UseFocusScopeOptions) {
 
   onBeforeUnmount(() => {
     cleanup?.()
+    deactivate()
   })
 }

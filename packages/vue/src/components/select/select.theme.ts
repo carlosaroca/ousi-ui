@@ -10,24 +10,24 @@ export const selectTriggerTheme = cva(
     'outline-none select-none',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
     'motion-reduce:transition-none',
-    'cursor-[--ousi-cursor-interactive]',
+    'cursor-(--ousi-cursor-interactive)',
     // Hover
     'hover:bg-ousi-field-hover',
     // Focus visible
     'focus-visible:ring-2 focus-visible:ring-ousi-focus',
     'focus-visible:bg-ousi-field-focus',
     // Disabled
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity]',
-    'data-[disabled=true]:cursor-[--ousi-cursor-disabled]',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity)',
+    'data-[disabled=true]:cursor-(--ousi-cursor-disabled)',
     'data-[disabled=true]:pointer-events-none',
     // Invalid
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
   ],
   {
     variants: {
       variant: {
         primary: '',
-        secondary: 'border-transparent bg-ousi-surface-secondary hover:bg-ousi-surface-tertiary',
+        secondary: 'border-transparent bg-ousi-field-secondary hover:bg-ousi-surface-tertiary',
       },
       size: {
         sm: 'min-h-8 text-xs',
@@ -65,7 +65,7 @@ export const selectTriggerTheme = cva(
 )
 
 export const selectPopoverTheme = [
-  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground',
+  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground border border-ousi-border/50',
   'shadow-ousi-lg',
   'overflow-hidden',
   'z-50',
@@ -76,10 +76,10 @@ export const listboxTheme = 'p-1.5 outline-none'
 export const menuItemTheme = cva(
   [
     'relative flex min-h-9 w-full items-center justify-start gap-3',
-    'rounded-ousi-2xl px-2 py-1.5 outline-none select-none',
+    'rounded-[max(0px,calc(var(--ousi-radius-3xl)_-_0.375rem))] px-2 py-1.5 outline-none select-none',
     'transition-[transform,box-shadow] duration-[250ms]',
     'ease-[cubic-bezier(0.165,0.84,0.44,1)] motion-reduce:transition-none',
-    'cursor-[--ousi-cursor-interactive]',
+    'cursor-(--ousi-cursor-interactive)',
     'hover:bg-ousi-default',
     'active:scale-[0.98]',
     'data-[disabled=true]:text-ousi-muted data-[disabled=true]:pointer-events-none',

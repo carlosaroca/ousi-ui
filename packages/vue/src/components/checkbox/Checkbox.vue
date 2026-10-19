@@ -80,7 +80,8 @@ const controlStyle = computed(() => {
   return {
     width: `var(--ousi-checkbox-size, ${sizeDims.value.box}px)`,
     height: `var(--ousi-checkbox-size, ${sizeDims.value.box}px)`,
-    borderRadius: 'var(--ousi-radius-md)',
+    // Capped so a checkbox always reads as a square (several choices), never as a radio.
+    borderRadius: 'min(var(--ousi-radius-md), 6px)',
     border: `var(--ousi-border-width) solid ${isActive.value ? accentColor : inactiveColor}`,
     backgroundColor: isActive.value ? accentColor : inactiveBg,
     transition: 'background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease',

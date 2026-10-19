@@ -11,18 +11,18 @@ export const numberFieldGroupTheme = cva(
     'motion-reduce:transition-none',
     'hover:not-focus-within:bg-ousi-field-hover',
     'focus-within:ring-2 focus-within:ring-ousi-focus focus-within:bg-ousi-field-focus',
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
     'data-[invalid=true]:bg-ousi-field-focus',
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity] data-[disabled=true]:pointer-events-none',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity) data-[disabled=true]:pointer-events-none',
   ],
   {
     variants: {
       variant: {
         primary: '',
         secondary: [
-          'border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-field-secondary',
           'hover:not-focus-within:bg-ousi-surface-tertiary',
-          'focus-within:bg-ousi-surface-secondary',
+          'focus-within:bg-ousi-field-secondary',
         ],
       },
       size: {
@@ -72,7 +72,7 @@ const buttonBase = [
   'motion-reduce:transition-none',
   'cursor-pointer',
   'active:bg-ousi-field-foreground/10 active:scale-[0.97]',
-  'disabled:opacity-[--ousi-disabled-opacity] disabled:pointer-events-none',
+  'disabled:opacity-(--ousi-disabled-opacity) disabled:pointer-events-none',
 ].join(' ')
 
 export const numberFieldDecrementTheme = `${buttonBase} border-r border-r-ousi-field-placeholder/15`
@@ -84,7 +84,7 @@ export const numberFieldLabelTheme = cva(
   {
     variants: {
       required: { true: 'after:ml-0.5 after:text-ousi-danger after:content-["*"]' },
-      disabled: { true: 'opacity-[--ousi-disabled-opacity]' },
+      disabled: { true: 'opacity-(--ousi-disabled-opacity)' },
       invalid: { true: 'text-ousi-danger' },
     },
   },

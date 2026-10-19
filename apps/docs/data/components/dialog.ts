@@ -27,8 +27,10 @@ export const dialogData: ComponentData = {
       title: 'Sizes',
       example: {
         component: 'DialogSizes',
-        code: `<ODialog v-model="open" size="sm">...</ODialog>
-<ODialog v-model="open" size="lg">...</ODialog>
+        code: `<!-- size is the width: xs 20rem, sm 24rem, md 28rem, lg 32rem, xl 36rem,
+     2xl 42rem, 3xl 48rem, 4xl 56rem, 5xl 64rem; never wider than the viewport. -->
+<ODialog v-model="open" size="sm">...</ODialog>
+<ODialog v-model="open" size="3xl">...</ODialog>
 <ODialog v-model="open" size="full">...</ODialog>`,
       },
     },
@@ -40,6 +42,24 @@ export const dialogData: ComponentData = {
         code: `<ODialog v-model="open" placement="top">...</ODialog>
 <ODialog v-model="open" placement="center">...</ODialog>
 <ODialog v-model="open" placement="bottom">...</ODialog>`,
+      },
+    },
+    {
+      id: 'backdrops',
+      title: 'Backdrops',
+      example: {
+        component: 'DialogBackdrops',
+        code: `<ODialog v-model="open" backdrop="opaque">...</ODialog>      <!-- dims the page -->
+<ODialog v-model="open" backdrop="subtle">...</ODialog>      <!-- light dim -->
+<ODialog v-model="open" backdrop="blur">...</ODialog>        <!-- light dim and blur -->
+<ODialog v-model="open" backdrop="glass">...</ODialog>       <!-- frosted, no dim -->
+<ODialog v-model="open" backdrop="transparent">...</ODialog> <!-- invisible, still blocks clicks -->
+
+<!-- One default for every dialog and drawer in the app -->
+app.use(OusiUIPlugin, { backdrop: 'blur' })
+
+/* Tune the colors per theme */
+--ousi-backdrop, --ousi-backdrop-subtle, --ousi-backdrop-glass`,
       },
     },
     {
@@ -100,10 +120,10 @@ export const dialogData: ComponentData = {
 
   props: [
     { name: 'modelValue', type: 'boolean', description: 'Controls open/close state (v-model).' },
-    { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'cover' | 'full'", default: "'md'", description: 'Size of the dialog panel.' },
+    { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'cover' | 'full'", default: "'md'", description: 'Width of the dialog, from 20rem (xs) to 64rem (5xl), never wider than the viewport. cover fills the viewport inside its margin; full fills it edge to edge.' },
     { name: 'shadow', type: "'md' | 'lg' | 'xl' | '2xl'", default: "'xl'", description: 'Elevation shadow.' },
     { name: 'placement', type: "'auto' | 'top' | 'center' | 'bottom'", default: "'center'", description: 'Vertical placement of the dialog.' },
-    { name: 'backdrop', type: "'opaque' | 'blur' | 'transparent'", default: "'opaque'", description: 'Backdrop style.' },
+    { name: 'backdrop', type: "'opaque' | 'subtle' | 'blur' | 'glass' | 'transparent'", default: "app config, 'opaque'", description: "Layer behind the dialog. Without it the dialog uses the plugin's backdrop option." },
     { name: 'scrollBehavior', type: "'inside' | 'outside'", default: "'inside'", description: 'How the body scrolls when content overflows.' },
     { name: 'hideCloseButton', type: 'boolean', default: 'false', description: 'Hide the built-in close button.' },
     { name: 'preventClose', type: 'boolean', default: 'false', description: 'Block dismissal via Escape key or backdrop click. The close button still works unless also hidden.' },
@@ -128,12 +148,14 @@ export const dialogData: ComponentData = {
   aria: [
     { attribute: 'role="dialog"', condition: 'always', description: 'Dialog has the dialog role.' },
     { attribute: 'aria-modal="true"', condition: 'always', description: 'Indicates the dialog is modal.' },
-    { attribute: 'aria-labelledby', condition: 'when header present', description: 'Labels the dialog with the header.' },
+    { attribute: 'aria-labelledby', condition: 'when ODialogHeader has a title', description: 'Labels the dialog with the header title; the id is wired automatically.' },
+    { attribute: 'focus', condition: 'open and close', description: 'On open, focus goes to an [autofocus] element, else the first field that is not a combobox, else the dialog. On close it returns to the element that opened it.' },
   ],
 
   bestPractices: [
     { text: 'Always provide a clear way to dismiss the dialog.', good: true },
     { text: 'Use scroll-behavior="inside" for long content to keep the footer visible.', good: true },
+    { text: 'Pick the size by content: sm for a confirmation, md or lg for a short form, xl and up for forms in columns or tables.', good: true },
     { text: "Don't stack multiple dialogs — consider a different UX pattern.", good: false },
   ],
 

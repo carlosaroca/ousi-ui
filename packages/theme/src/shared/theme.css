@@ -12,8 +12,14 @@
   --color-ousi-surface: var(--ousi-surface);
   --color-ousi-surface-secondary: var(--ousi-surface-secondary);
   --color-ousi-surface-tertiary: var(--ousi-surface-tertiary);
+  --color-ousi-card: var(--ousi-card);
+  --color-ousi-card-soft: var(--ousi-card-soft);
+  --color-ousi-field-secondary: var(--ousi-field-secondary);
   --color-ousi-overlay: var(--ousi-overlay);
   --color-ousi-overlay-foreground: var(--ousi-overlay-foreground);
+  --color-ousi-backdrop: var(--ousi-backdrop);
+  --color-ousi-backdrop-subtle: var(--ousi-backdrop-subtle);
+  --color-ousi-backdrop-glass: var(--ousi-backdrop-glass);
   --color-ousi-muted: var(--ousi-muted);
   --color-ousi-default: var(--ousi-default);
   --color-ousi-default-foreground: var(--ousi-default-foreground);
@@ -25,6 +31,10 @@
   --color-ousi-warning-foreground: var(--ousi-warning-foreground);
   --color-ousi-danger: var(--ousi-danger);
   --color-ousi-danger-foreground: var(--ousi-danger-foreground);
+  --color-ousi-orange: var(--ousi-orange);
+  --color-ousi-orange-foreground: var(--ousi-orange-foreground);
+  --color-ousi-violet: var(--ousi-violet);
+  --color-ousi-violet-foreground: var(--ousi-violet-foreground);
   --color-ousi-border: var(--ousi-border);
   --color-ousi-separator: var(--ousi-separator);
   --color-ousi-separator-secondary: color-mix(in oklab, var(--ousi-separator) 60%, transparent);
@@ -64,6 +74,12 @@
   --color-ousi-success-soft: color-mix(in oklab, var(--ousi-success) 15%, transparent);
   --color-ousi-success-soft-foreground: var(--ousi-success);
   --color-ousi-success-soft-hover: color-mix(in oklab, var(--ousi-success) 20%, transparent);
+  --color-ousi-orange-soft: color-mix(in oklab, var(--ousi-orange) 15%, transparent);
+  --color-ousi-orange-soft-foreground: var(--ousi-orange);
+  --color-ousi-orange-soft-hover: color-mix(in oklab, var(--ousi-orange) 20%, transparent);
+  --color-ousi-violet-soft: color-mix(in oklab, var(--ousi-violet) 15%, transparent);
+  --color-ousi-violet-soft-foreground: var(--ousi-violet);
+  --color-ousi-violet-soft-hover: color-mix(in oklab, var(--ousi-violet) 20%, transparent);
 
   /* Readable text on a soft background: the tone mixed with the theme foreground, so it keeps
      the hue and reaches text contrast in light and dark themes. */
@@ -71,6 +87,8 @@
   --color-ousi-danger-soft-strong: color-mix(in oklab, var(--ousi-danger) 62%, var(--ousi-foreground));
   --color-ousi-warning-soft-strong: color-mix(in oklab, var(--ousi-warning) 62%, var(--ousi-foreground));
   --color-ousi-success-soft-strong: color-mix(in oklab, var(--ousi-success) 62%, var(--ousi-foreground));
+  --color-ousi-orange-soft-strong: color-mix(in oklab, var(--ousi-orange) 62%, var(--ousi-foreground));
+  --color-ousi-violet-soft-strong: color-mix(in oklab, var(--ousi-violet) 62%, var(--ousi-foreground));
 
   /* ── Radius ────────────────────────────────────────────────────── */
   --radius-ousi-field: var(--ousi-radius-field);

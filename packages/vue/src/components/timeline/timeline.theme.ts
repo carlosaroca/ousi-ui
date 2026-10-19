@@ -66,6 +66,8 @@ export const timelineMarkerTheme = cva(
         success: 'bg-ousi-success',
         warning: 'bg-ousi-warning',
         danger: 'bg-ousi-danger',
+        orange: 'bg-ousi-orange',
+        violet: 'bg-ousi-violet',
         default: 'bg-ousi-default-foreground',
       },
       hasIcon: {

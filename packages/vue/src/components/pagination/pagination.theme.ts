@@ -27,7 +27,7 @@ export const paginationLinkTheme = cva(
     'motion-reduce:transition-none',
     'active:scale-[0.97]',
     'focus-visible:ring-2 focus-visible:ring-ousi-focus',
-    'disabled:opacity-[--ousi-disabled-opacity] disabled:pointer-events-none',
+    'disabled:opacity-(--ousi-disabled-opacity) disabled:pointer-events-none',
   ],
   {
     variants: {

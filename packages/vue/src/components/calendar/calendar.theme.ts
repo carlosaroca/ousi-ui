@@ -1,11 +1,11 @@
-export const calendarTheme = 'w-64 max-w-full'
+export const calendarTheme = 'w-72 max-w-full'
 
-export const calendarHeaderTheme = 'flex items-center justify-between px-0.5 pb-4'
+export const calendarHeaderTheme = 'flex items-center gap-1 pb-3'
 
-export const calendarHeadingTheme = 'flex-1 text-center text-sm font-medium text-ousi-foreground'
+export const calendarHeadingTheme = 'flex-1 text-center text-sm font-semibold text-ousi-foreground'
 
 export const calendarNavButtonTheme = [
-  'flex size-7 items-center justify-center rounded-full',
+  'flex size-8 shrink-0 items-center justify-center rounded-ousi-lg border border-ousi-border/70',
   'text-ousi-muted cursor-pointer',
   'transition-colors duration-150',
   'hover:bg-ousi-default hover:text-ousi-foreground',
@@ -13,10 +13,10 @@ export const calendarNavButtonTheme = [
   'disabled:opacity-50 disabled:pointer-events-none',
 ].join(' ')
 
-export const calendarGridTheme = 'grid grid-cols-7 w-full'
+export const calendarGridTheme = 'grid grid-cols-7 gap-1 w-full'
 
 export const calendarHeaderCellTheme = [
-  'flex items-center justify-center pb-2',
+  'flex items-center justify-center pb-1',
   'text-xs font-medium text-ousi-muted',
 ].join(' ')
 
@@ -31,7 +31,8 @@ export interface CellStates {
 export function calendarCellTheme(s: CellStates, customCell = false): string {
   const base = [
     'relative flex aspect-square w-full items-center justify-center',
-    'rounded-full text-center text-sm outline-none select-none',
+    'rounded-ousi-lg text-center text-sm outline-none select-none',
+    'focus-visible:ring-2 focus-visible:ring-ousi-focus',
     'transition-colors duration-150',
   ]
 
@@ -46,11 +47,11 @@ export function calendarCellTheme(s: CellStates, customCell = false): string {
   if (customCell) return base.join(' ')
 
   if (s.isOutsideMonth) {
-    base.push('text-ousi-muted opacity-40')
+    base.push('text-ousi-muted opacity-50')
   } else if (s.isSelected) {
     base.push('bg-ousi-accent text-ousi-accent-foreground font-medium')
   } else if (s.isToday) {
-    base.push('text-ousi-accent font-semibold')
+    base.push('bg-ousi-surface-secondary text-ousi-foreground font-semibold hover:bg-ousi-default')
   } else {
     base.push('text-ousi-foreground hover:bg-ousi-default')
   }
@@ -67,8 +68,8 @@ export const calendarCellIndicatorTheme = (isSelected: boolean) => [
 
 // Year picker trigger (clickable heading)
 export const calendarYearPickerTriggerTheme = [
-  'flex items-center justify-center gap-1 cursor-pointer',
-  'text-sm font-medium text-ousi-foreground',
+  'flex flex-1 items-center justify-center gap-1 cursor-pointer',
+  'text-sm font-semibold text-ousi-foreground',
   'hover:text-ousi-accent transition-colors duration-150',
 ].join(' ')
 

@@ -1,22 +1,25 @@
 <script setup lang="ts">
-import { useOusiMessages } from '../../config'
-import { computed, toRef, useId, watch } from 'vue'
+import { useOusiConfig, useOusiMessages } from '../../config'
+import { computed, provide, ref, toRef, useId, watch } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useScrollLock, useMounted, useEscapeKey } from '@ousi-ui/core'
+import { cn, useScrollLock, useMounted, useEscapeKey, useFocusScope } from '@ousi-ui/core'
 import { useHaptics } from '@ousi-ui/haptics'
 import {
   dialogBackdropTheme,
   dialogContainerTheme,
   dialogPanelTheme,
+  dialogWrapperTheme,
 } from './dialog.theme'
+import { DIALOG_CONTEXT } from './dialog-context'
 import type { DialogProps, DialogEmits } from './dialog.types'
 
 const ousiText = useOusiMessages()
+const ousiConfig = useOusiConfig()
 
 const props = withDefaults(defineProps<DialogProps>(), {
   size: 'md',
   placement: 'center',
-  backdrop: 'opaque',
+  backdrop: undefined,
   scrollBehavior: 'inside',
   hideCloseButton: false,
   preventClose: false,
@@ -30,6 +33,17 @@ const dialogId = useId()
 const titleId = useId()
 
 const isOpenRef = toRef(props, 'modelValue')
+const resolvedBackdrop = computed(() => props.backdrop ?? ousiConfig.backdrop.value)
+
+const titleCount = ref(0)
+provide(DIALOG_CONTEXT, {
+  titleId,
+  scrollBehavior: toRef(props, 'scrollBehavior'),
+  registerTitle: () => {
+    titleCount.value++
+    return () => titleCount.value--
+  },
+})
 
 function close() {
   emit('update:modelValue', false)
@@ -52,14 +66,16 @@ watch(isOpenRef, (val) => {
   }
 })
 
-// Scroll lock
 useScrollLock(isOpenRef)
 
-// Escape key — gated by preventClose
 useEscapeKey({
   handler: () => tryClose(),
   enabled: isOpenRef,
 })
+
+// Focus moves into the dialog on open, Tab stays inside it, and focus returns to the trigger on close.
+const dialogRef = ref<HTMLElement | null>(null)
+useFocusScope({ containerRef: dialogRef, enabled: isOpenRef })
 
 // Panel enter animation based on placement
 const panelEnter = computed(() => {
@@ -77,62 +93,58 @@ const panelEnter = computed(() => {
   <Teleport to="body">
     <AnimatePresence>
       <div v-if="modelValue && isMounted" class="contents">
-        <!-- Backdrop -->
         <Motion
           tag="div"
-          :class="dialogBackdropTheme({ backdrop })"
+          :class="dialogBackdropTheme({ backdrop: resolvedBackdrop })"
           :initial="({ opacity: 0 } as any)"
           :animate="{ opacity: 1 }"
           :exit="{ opacity: 0 }"
           :transition="{ duration: 0.15, ease: 'easeOut' }"
           aria-hidden="true"
+        />
+
+        <div
+          :class="dialogContainerTheme({ scrollBehavior, size })"
           @click.self="tryClose"
         >
-          <!-- Container -->
-          <div
-            :class="dialogContainerTheme({ placement, scrollBehavior })"
-            @click.self="tryClose"
+          <Motion
+            tag="div"
+            :class="dialogWrapperTheme({ size, placement, scrollBehavior })"
+            :initial="(panelEnter as any)"
+            :animate="{ opacity: 1, scale: 1, y: 0 }"
+            :exit="{ opacity: 0, scale: 0.95 }"
+            :transition="{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }"
           >
-            <!-- Animated wrapper — holds panel + external close button. Animation lives on the wrapper
-                 so the close button (sibling of panel, positioned outside it) animates together with the
-                 panel without being clipped by the panel's overflow-hidden. -->
-            <Motion
-              tag="div"
-              class="relative pointer-events-auto"
-              :class="size === 'full' || size === 'cover' ? 'w-full h-full' : 'w-fit max-w-full'"
-              :initial="(panelEnter as any)"
-              :animate="{ opacity: 1, scale: 1, y: 0 }"
-              :exit="{ opacity: 0, scale: 0.95 }"
-              :transition="{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }"
-              @click.stop
+            <!-- The dialog spans the panel and the close button, which sits outside the panel's
+                 corner so the panel's overflow doesn't clip it. -->
+            <div
+              :id="dialogId"
+              ref="dialogRef"
+              role="dialog"
+              aria-modal="true"
+              :aria-labelledby="titleCount > 0 ? titleId : undefined"
+              tabindex="-1"
+              class="relative flex min-h-0 flex-1 flex-col outline-none"
             >
-              <!-- Panel -->
-              <div
-                :id="dialogId"
-                role="dialog"
-                aria-modal="true"
-                :aria-labelledby="titleId"
-                :class="cn(dialogPanelTheme({ size, placement, scrollBehavior, shadow }), props.class)"
-              >
+              <div :class="cn(dialogPanelTheme({ size, scrollBehavior, shadow }), props.class)">
                 <slot :title-id="titleId" :close="close" />
               </div>
 
-              <!-- External close button — pops out at the top-right corner of the panel. Shadow at rest,
-                   pressed-in feel on hover (shadow drops + scale-95). -->
               <button
                 v-if="!hideCloseButton"
                 type="button"
-                class="absolute -top-3 -right-3 flex items-center justify-center w-8 h-8 rounded-ousi-xl bg-ousi-surface text-ousi-foreground shadow-ousi-sm transition-[transform,box-shadow] duration-200 ease-out hover:shadow-ousi-xs hover:scale-[0.97] active:scale-[0.94] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ousi-focus"
+                class="absolute flex items-center justify-center w-8 h-8 rounded-ousi-xl bg-ousi-surface text-ousi-foreground shadow-ousi-sm transition-[transform,box-shadow] duration-200 ease-out hover:shadow-ousi-xs hover:scale-[0.97] active:scale-[0.94] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ousi-focus"
+                :class="size === 'full' ? 'top-3 right-3' : '-top-3 -right-3'"
                 :aria-label="ousiText.closeDialog"
                 @click="close"
               >
-                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </button>
-            </Motion>
-          </div>
-        </Motion>
+            </div>
+          </Motion>
+        </div>
       </div>
     </AnimatePresence>
   </Teleport>

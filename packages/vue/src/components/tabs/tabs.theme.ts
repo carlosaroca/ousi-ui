@@ -27,9 +27,10 @@ export const tabsListTheme = cva(
         lg: 'p-1',
       },
       orientation: {
-        horizontal: 'w-full flex-row',
+        horizontal: 'max-w-full flex-row',
         vertical: 'flex-col gap-1',
       },
+      fullWidth: { true: '', false: '' },
       shadow: {
         none: 'shadow-none',
         xs: 'shadow-ousi-xs',
@@ -41,8 +42,10 @@ export const tabsListTheme = cva(
       hideBorder: { true: '', false: '' },
     },
     compoundVariants: [
-      // Horizontal secondary always allows overflow scroll regardless of border.
-      { variant: 'secondary', orientation: 'horizontal', class: 'overflow-x-auto' },
+      // Primary hugs its tabs unless stretched; secondary's track always spans the width.
+      { variant: 'primary', orientation: 'horizontal', fullWidth: false, class: 'self-start' },
+      { orientation: 'horizontal', fullWidth: true, class: 'w-full' },
+      { variant: 'secondary', orientation: 'horizontal', class: 'w-full overflow-x-auto' },
       // Track border — only when not hidden.
       { variant: 'secondary', orientation: 'horizontal', hideBorder: false, class: 'border-b' },
       { variant: 'secondary', orientation: 'vertical', hideBorder: false, class: 'border-l' },
@@ -50,17 +53,17 @@ export const tabsListTheme = cva(
       { variant: 'secondary', size: 'md', class: 'p-0' },
       { variant: 'secondary', size: 'lg', class: 'p-0' },
     ],
-    defaultVariants: { variant: 'primary', size: 'md', orientation: 'horizontal', shadow: 'none', hideBorder: false },
+    defaultVariants: { variant: 'primary', size: 'md', orientation: 'horizontal', fullWidth: false, shadow: 'none', hideBorder: false },
   },
 )
 
 export const tabTheme = cva(
   [
-    'relative z-10 flex w-full items-center justify-center',
+    'relative z-10 flex items-center justify-center whitespace-nowrap',
     'text-center font-medium text-ousi-muted outline-none select-none',
     'transition-[color,opacity] duration-150',
     'ease-[ease] motion-reduce:transition-none',
-    'cursor-[--ousi-cursor-interactive]',
+    'cursor-(--ousi-cursor-interactive)',
     'data-[disabled=true]:text-ousi-muted data-[disabled=true]:pointer-events-none data-[disabled=true]:cursor-default',
     'focus-visible:ring-2 focus-visible:ring-ousi-focus',
   ],
@@ -79,8 +82,17 @@ export const tabTheme = cva(
         true: 'text-ousi-foreground',
         false: 'hover:opacity-70',
       },
+      orientation: {
+        horizontal: '',
+        vertical: 'w-full',
+      },
+      fullWidth: { true: '', false: '' },
     },
-    defaultVariants: { variant: 'primary', size: 'md', selected: false },
+    compoundVariants: [
+      { orientation: 'horizontal', fullWidth: true, class: 'flex-1' },
+      { orientation: 'horizontal', fullWidth: false, class: 'shrink-0' },
+    ],
+    defaultVariants: { variant: 'primary', size: 'md', selected: false, orientation: 'horizontal', fullWidth: false },
   },
 )
 

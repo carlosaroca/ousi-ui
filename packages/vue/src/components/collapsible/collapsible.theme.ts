@@ -14,4 +14,5 @@ export const collapsibleTheme = cva('w-full', {
   },
 })
 
-export const collapsibleContentTheme = 'overflow-hidden'
+/** Clipped only while it animates or is closed (inline style), so focus rings show when open. */
+export const collapsibleContentTheme = ''

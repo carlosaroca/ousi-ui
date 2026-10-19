@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 
 export const popoverPanelTheme = cva(
   [
-    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground text-sm',
+    'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground text-sm border border-ousi-border/50',
     'z-50 outline-none',
   ],
   {

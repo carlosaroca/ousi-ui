@@ -7,13 +7,13 @@ export { inputGroupTheme as autocompleteTriggerTheme } from '../input/input.them
 export const autocompleteWrapperTheme = 'flex w-full flex-col gap-1.5'
 
 export const autocompleteInputTheme = [
-  'flex-1 bg-transparent outline-none border-none min-w-0',
+  'flex-1 bg-transparent outline-none border-none min-w-0 text-ellipsis',
   'text-ousi-field-foreground placeholder:text-ousi-field-placeholder',
   'text-sm px-3 py-2',
 ].join(' ')
 
 export const autocompletePopoverTheme = [
-  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-lg',
+  'rounded-ousi-3xl bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-lg border border-ousi-border/50',
   'overflow-hidden',
   'z-50',
 ].join(' ')
@@ -23,7 +23,7 @@ export const autocompleteListboxTheme = 'p-1.5 outline-none'
 export const autocompleteOptionTheme = cva(
   [
     'relative flex min-h-9 w-full items-center justify-start gap-2',
-    'rounded-ousi-2xl px-2.5 py-1.5 outline-none select-none text-sm',
+    'rounded-[max(0px,calc(var(--ousi-radius-3xl)_-_0.375rem))] px-2.5 py-1.5 outline-none select-none text-sm',
     'transition-[transform,background-color] duration-150',
     'ease-[ease] motion-reduce:transition-none',
     'cursor-pointer',

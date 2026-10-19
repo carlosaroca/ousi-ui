@@ -8,16 +8,16 @@ export const dateFieldWrapperTheme = cva(
     'motion-reduce:transition-none',
     'hover:not-focus-within:bg-ousi-field-hover',
     'focus-within:ring-2 focus-within:ring-ousi-focus focus-within:bg-ousi-field-focus',
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity] data-[disabled=true]:pointer-events-none',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity) data-[disabled=true]:pointer-events-none',
   ],
   {
     variants: {
       variant: {
         primary: '',
         secondary: [
-          'border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-field-secondary',
           'hover:not-focus-within:bg-ousi-surface-tertiary',
-          'focus-within:bg-ousi-surface-secondary',
+          'focus-within:bg-ousi-field-secondary',
         ],
       },
       size: {

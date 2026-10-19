@@ -1,4 +1,4 @@
-export type StatusColor = 'accent' | 'success' | 'warning' | 'danger' | 'default'
+export type StatusColor = 'accent' | 'success' | 'warning' | 'danger' | 'orange' | 'violet' | 'default'
 /** `dot`: colored dot, plain text. `halo`: the dot with a soft ring. `tinted`: the text takes the tone too. */
 export type StatusVariant = 'dot' | 'halo' | 'tinted'
 export type StatusSize = 'sm' | 'md'

@@ -21,6 +21,8 @@ export const chipTheme = cva(
         success: '',
         warning: '',
         danger: '',
+        orange: '',
+        violet: '',
         default: '',
       },
       shadow: {
@@ -33,31 +35,41 @@ export const chipTheme = cva(
       // Accent
       { variant: 'solid', color: 'accent', class: 'bg-ousi-accent text-ousi-accent-foreground' },
       { variant: 'outline', color: 'accent', class: 'border border-ousi-accent text-ousi-accent' },
-      { variant: 'soft', color: 'accent', class: 'font-semibold bg-ousi-accent-soft text-ousi-accent-soft-strong ring-1 ring-inset ring-ousi-accent/20' },
+      { variant: 'soft', color: 'accent', class: 'font-semibold bg-ousi-accent-soft text-ousi-accent-soft-strong' },
       { variant: 'text', color: 'accent', class: 'text-ousi-accent' },
 
       // Success
       { variant: 'solid', color: 'success', class: 'bg-ousi-success text-ousi-success-foreground' },
       { variant: 'outline', color: 'success', class: 'border border-ousi-success text-ousi-success' },
-      { variant: 'soft', color: 'success', class: 'font-semibold bg-ousi-success-soft text-ousi-success-soft-strong ring-1 ring-inset ring-ousi-success/20' },
+      { variant: 'soft', color: 'success', class: 'font-semibold bg-ousi-success-soft text-ousi-success-soft-strong' },
       { variant: 'text', color: 'success', class: 'text-ousi-success' },
 
       // Warning
       { variant: 'solid', color: 'warning', class: 'bg-ousi-warning text-ousi-warning-foreground' },
       { variant: 'outline', color: 'warning', class: 'border border-ousi-warning text-ousi-warning' },
-      { variant: 'soft', color: 'warning', class: 'font-semibold bg-ousi-warning-soft text-ousi-warning-soft-strong ring-1 ring-inset ring-ousi-warning/20' },
+      { variant: 'soft', color: 'warning', class: 'font-semibold bg-ousi-warning-soft text-ousi-warning-soft-strong' },
       { variant: 'text', color: 'warning', class: 'text-ousi-warning' },
 
       // Danger
       { variant: 'solid', color: 'danger', class: 'bg-ousi-danger text-ousi-danger-foreground' },
       { variant: 'outline', color: 'danger', class: 'border border-ousi-danger text-ousi-danger' },
-      { variant: 'soft', color: 'danger', class: 'font-semibold bg-ousi-danger-soft text-ousi-danger-soft-strong ring-1 ring-inset ring-ousi-danger/20' },
+      { variant: 'soft', color: 'danger', class: 'font-semibold bg-ousi-danger-soft text-ousi-danger-soft-strong' },
       { variant: 'text', color: 'danger', class: 'text-ousi-danger' },
+
+      { variant: 'solid', color: 'orange', class: 'bg-ousi-orange text-ousi-orange-foreground' },
+      { variant: 'outline', color: 'orange', class: 'border border-ousi-orange text-ousi-orange' },
+      { variant: 'soft', color: 'orange', class: 'font-semibold bg-ousi-orange-soft text-ousi-orange-soft-strong' },
+      { variant: 'text', color: 'orange', class: 'text-ousi-orange' },
+
+      { variant: 'solid', color: 'violet', class: 'bg-ousi-violet text-ousi-violet-foreground' },
+      { variant: 'outline', color: 'violet', class: 'border border-ousi-violet text-ousi-violet' },
+      { variant: 'soft', color: 'violet', class: 'font-semibold bg-ousi-violet-soft text-ousi-violet-soft-strong' },
+      { variant: 'text', color: 'violet', class: 'text-ousi-violet' },
 
       // Default
       { variant: 'solid', color: 'default', class: 'bg-ousi-default text-ousi-default-foreground' },
       { variant: 'outline', color: 'default', class: 'border border-ousi-border text-ousi-default-foreground' },
-      { variant: 'soft', color: 'default', class: 'font-semibold bg-ousi-default text-ousi-muted ring-1 ring-inset ring-ousi-border' },
+      { variant: 'soft', color: 'default', class: 'font-semibold bg-ousi-default text-ousi-muted' },
       { variant: 'text', color: 'default', class: 'text-ousi-default-foreground' },
     ],
     defaultVariants: {

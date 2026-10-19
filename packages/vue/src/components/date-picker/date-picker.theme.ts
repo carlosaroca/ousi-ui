@@ -6,23 +6,23 @@ export const datePickerWrapperTheme = 'flex w-full flex-col gap-1'
 /** Trigger row — unified field container for segments + icon. Owns ALL field chrome. */
 export const datePickerTriggerTheme = cva(
   [
-    'inline-flex w-full items-center min-h-9 rounded-ousi-field px-3',
+    'inline-flex w-full items-center min-h-9 rounded-ousi-field px-3 cursor-pointer',
     'border bg-ousi-field text-ousi-field-foreground',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
     'motion-reduce:transition-none',
     'hover:not-focus-within:bg-ousi-field-hover',
     'focus-within:ring-2 focus-within:ring-ousi-focus focus-within:bg-ousi-field-focus',
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity] data-[disabled=true]:pointer-events-none',
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity) data-[disabled=true]:pointer-events-none',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
   ],
   {
     variants: {
       variant: {
         primary: '',
         secondary: [
-          'border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-field-secondary',
           'hover:not-focus-within:bg-ousi-surface-tertiary',
-          'focus-within:bg-ousi-surface-secondary',
+          'focus-within:bg-ousi-field-secondary',
         ],
       },
       size: {
@@ -69,7 +69,7 @@ export const datePickerIndicatorTheme = [
 
 /** Floating popover that holds the calendar. */
 export const datePickerPopoverTheme = [
-  'bg-ousi-overlay shadow-ousi-xl',
+  'rounded-ousi-3xl bg-ousi-overlay p-3 shadow-ousi-xl border border-ousi-border/50',
   'overflow-hidden',
 ].join(' ')
 
@@ -82,7 +82,7 @@ export const datePickerLabelTheme = cva(
         true: 'after:ml-0.5 after:text-ousi-danger after:content-["*"]',
       },
       disabled: {
-        true: 'opacity-[--ousi-disabled-opacity] pointer-events-none',
+        true: 'opacity-(--ousi-disabled-opacity) pointer-events-none',
       },
       invalid: {
         true: 'text-ousi-danger',

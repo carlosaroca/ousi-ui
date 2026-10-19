@@ -3,27 +3,27 @@ import { cva } from 'class-variance-authority'
 /** Outer wrapper — stacks label, trigger, description/error vertically. */
 export const timePickerWrapperTheme = 'flex w-full flex-col gap-1'
 
-/** Trigger button — looks like a field, opens the wheels popover. */
+/** The field: typed time segments plus the clock button that opens the wheels popover. */
 export const timePickerTriggerTheme = cva(
   [
     'inline-flex w-full items-center min-h-9 rounded-ousi-field px-3',
     'border bg-ousi-field text-ousi-field-foreground',
     'border-[length:var(--ousi-field-border-width)] border-[color:var(--ousi-field-border)]',
-    'cursor-[--ousi-cursor-interactive] outline-none',
+    'cursor-pointer outline-none',
     'motion-reduce:transition-none',
-    'hover:not-focus:bg-ousi-field-hover',
-    'focus:ring-2 focus:ring-ousi-focus focus:bg-ousi-field-focus',
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity] data-[disabled=true]:pointer-events-none',
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'hover:not-focus-within:bg-ousi-field-hover',
+    'focus-within:ring-2 focus-within:ring-ousi-focus focus-within:bg-ousi-field-focus',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity) data-[disabled=true]:pointer-events-none',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
   ],
   {
     variants: {
       variant: {
         primary: '',
         secondary: [
-          'border-transparent bg-ousi-surface-secondary',
-          'hover:not-focus:bg-ousi-surface-tertiary',
-          'focus:bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-field-secondary',
+          'hover:not-focus-within:bg-ousi-surface-tertiary',
+          'focus-within:bg-ousi-field-secondary',
         ],
       },
       size: {
@@ -41,7 +41,7 @@ export const timePickerTriggerTheme = cva(
         true: [
           'transition-all duration-[400ms]',
           'ease-[cubic-bezier(0.33,1,0.68,1)]',
-          'focus:scale-[0.98]',
+          'focus-within:scale-[0.98]',
         ],
         false: [
           'transition-[background-color,border-color,box-shadow] duration-150',
@@ -65,9 +65,9 @@ export const timePickerPlaceholderTheme = 'text-ousi-field-placeholder'
 
 /** Clock icon at the right of the trigger. */
 export const timePickerIndicatorTheme = [
-  'inline-flex items-center justify-center shrink-0 ml-auto',
-  'text-ousi-field-placeholder',
-  'transition-colors duration-150',
+  'inline-flex items-center justify-center shrink-0 -mr-1 px-1',
+  'text-ousi-field-placeholder cursor-pointer outline-none',
+  'hover:text-ousi-foreground transition-colors duration-150',
 ].join(' ')
 
 /** Label above the field. */
@@ -76,7 +76,7 @@ export const timePickerLabelTheme = cva(
   {
     variants: {
       required: { true: 'after:ml-0.5 after:text-ousi-danger after:content-["*"]' },
-      disabled: { true: 'opacity-[--ousi-disabled-opacity] pointer-events-none' },
+      disabled: { true: 'opacity-(--ousi-disabled-opacity) pointer-events-none' },
       invalid: { true: 'text-ousi-danger' },
     },
   },
@@ -87,7 +87,7 @@ export const timePickerErrorTheme = 'text-xs text-ousi-danger'
 
 /** Floating popover that wraps the wheel columns. */
 export const timePickerPopoverTheme = [
-  'bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-xl',
+  'bg-ousi-overlay text-ousi-overlay-foreground shadow-ousi-xl border border-ousi-border/50',
   'rounded-ousi-3xl overflow-hidden',
   'p-3',
   'z-50',

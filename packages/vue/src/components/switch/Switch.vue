@@ -90,7 +90,7 @@ const thumbStyle = computed(() => {
     <!-- Track -->
     <div
       :class="cn(
-        'relative flex shrink-0 items-center rounded-full group-focus-visible:ring-2 group-focus-visible:ring-ousi-focus group-focus-visible:ring-offset-2',
+        'relative flex shrink-0 items-center rounded-full group-focus-visible:outline-solid group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-ousi-focus',
         switchTrackShadowTheme[shadow],
       )"
       :style="trackStyle"

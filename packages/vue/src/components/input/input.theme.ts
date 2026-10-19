@@ -13,11 +13,11 @@ export const inputGroupTheme = cva(
     'focus-within:ring-2 focus-within:ring-ousi-focus',
     'focus-within:bg-ousi-field-focus',
     // Invalid
-    'data-[invalid=true]:outline data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
+    'data-[invalid=true]:outline-solid data-[invalid=true]:outline-1 data-[invalid=true]:outline-ousi-danger',
     'data-[invalid=true]:bg-ousi-field-focus',
     // Disabled
-    'data-[disabled=true]:opacity-[--ousi-disabled-opacity]',
-    'data-[disabled=true]:cursor-[--ousi-cursor-disabled]',
+    'data-[disabled=true]:opacity-(--ousi-disabled-opacity)',
+    'data-[disabled=true]:cursor-(--ousi-cursor-disabled)',
     'data-[disabled=true]:pointer-events-none',
   ],
   {
@@ -25,9 +25,9 @@ export const inputGroupTheme = cva(
       variant: {
         primary: '',
         secondary: [
-          'border-transparent bg-ousi-surface-secondary',
+          'border-transparent bg-ousi-field-secondary',
           'hover:not-focus-within:bg-ousi-surface-tertiary',
-          'focus-within:bg-ousi-surface-secondary',
+          'focus-within:bg-ousi-field-secondary',
         ],
       },
       shadow: {
@@ -62,7 +62,7 @@ export const inputGroupTheme = cva(
 export const inputInnerTheme = cva(
   [
     'input-group__input',
-    'flex-1 rounded-none border-0 bg-transparent',
+    'flex-1 rounded-none border-0 bg-transparent text-ellipsis',
     'px-3 py-2 text-base sm:text-sm',
     'shadow-none outline-none',
     'placeholder:text-ousi-field-placeholder',
@@ -98,7 +98,7 @@ export const labelTheme = cva(
         true: 'after:ml-0.5 after:text-ousi-danger after:content-["*"]',
       },
       disabled: {
-        true: 'opacity-[--ousi-disabled-opacity] cursor-[--ousi-cursor-disabled] pointer-events-none',
+        true: 'opacity-(--ousi-disabled-opacity) cursor-(--ousi-cursor-disabled) pointer-events-none',
       },
       invalid: {
         true: 'text-ousi-danger',

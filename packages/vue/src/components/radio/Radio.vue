@@ -81,7 +81,7 @@ const dotStyle = computed(() => ({
     <!-- Control circle -->
     <div
       :class="cn(
-        'relative mt-px inline-flex shrink-0 items-center justify-center group-focus-visible:ring-2 group-focus-visible:ring-ousi-focus group-focus-visible:ring-offset-2 rounded-full',
+        'relative mt-px inline-flex shrink-0 items-center justify-center group-focus-visible:outline-solid group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-ousi-focus rounded-full',
         radioControlShadowTheme[shadow],
       )"
       :style="controlStyle"

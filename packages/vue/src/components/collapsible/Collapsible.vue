@@ -20,6 +20,9 @@ const isOpen = useControllableState<boolean>({
 
 const contentRef = ref<HTMLElement | null>(null)
 const contentStyle = ref<Record<string, string>>({})
+// Closed content stays in the DOM for the height animation; inert keeps it out of the tab order.
+const closed = ref(!(props.defaultOpen || props.modelValue))
+let closeTimer: ReturnType<typeof setTimeout> | null = null
 
 function toggle() {
   if (props.disabled) return
@@ -30,7 +33,9 @@ watch(isOpen, (open) => {
   const el = contentRef.value
   if (!el) return
 
+  if (closeTimer) clearTimeout(closeTimer)
   if (open) {
+    closed.value = false
     // Opening: measure and expand
     contentStyle.value = {
       maxHeight: '0px',
@@ -66,6 +71,9 @@ watch(isOpen, (open) => {
         }
       })
     })
+    closeTimer = setTimeout(() => {
+      if (!isOpen.value) closed.value = true
+    }, 310)
   }
 }, { flush: 'post' })
 
@@ -84,6 +92,7 @@ contentStyle.value = initStyle.value
       ref="contentRef"
       :class="collapsibleContentTheme"
       :style="contentStyle"
+      :inert="closed || undefined"
       role="region"
     >
       <slot />

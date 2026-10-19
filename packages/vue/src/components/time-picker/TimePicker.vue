@@ -7,7 +7,6 @@ import { useOusiConfig, getHour12ForLocale, useOusiMessages } from '../../config
 import {
   timePickerWrapperTheme,
   timePickerTriggerTheme,
-  timePickerPlaceholderTheme,
   timePickerIndicatorTheme,
   timePickerLabelTheme,
   timePickerDescriptionTheme,
@@ -18,10 +17,16 @@ import {
   timePickerSeparatorTheme,
   timePickerFooterTheme,
 } from './time-picker.theme'
+import {
+  dateFieldSegmentTheme,
+  dateFieldLiteralTheme,
+  dateFieldPlaceholderTheme,
+} from '../date-field/date-field.theme'
 import TimePickerWheel from './TimePickerWheel.vue'
 import OButton from '../button/Button.vue'
+import { useTimeSegments } from '../time-field/use-time-segments'
 import type { TimePickerProps, TimePickerEmits } from './time-picker.types'
-import type { TimeFieldValue } from '../time-field/time-field.types'
+import type { TimeFieldValue, TimeSegmentType } from '../time-field/time-field.types'
 
 const ousiText = useOusiMessages()
 
@@ -210,29 +215,6 @@ const periodItems = computed(() => [
 const showMinutes = computed(() => props.granularity !== 'hour')
 const showSeconds = computed(() => props.granularity === 'second')
 
-// Display string for the trigger
-const formattedValue = computed(() => {
-  const v = value.value
-  if (!v) return ''
-  const hh = effectiveHour12.value
-    ? String(v.hour % 12 === 0 ? 12 : v.hour % 12).padStart(2, '0')
-    : String(v.hour).padStart(2, '0')
-  const mm = showMinutes.value ? `:${String(v.minute).padStart(2, '0')}` : ''
-  const ss = showSeconds.value ? `:${String(v.second ?? 0).padStart(2, '0')}` : ''
-  const period = effectiveHour12.value
-    ? ` ${v.hour >= 12 ? periodLabels.value.PM : periodLabels.value.AM}`
-    : ''
-  return `${hh}${mm}${ss}${period}`
-})
-
-const placeholder = computed(() => {
-  const hh = effectiveHour12.value ? 'hh' : 'HH'
-  const mm = showMinutes.value ? ':mm' : ''
-  const ss = showSeconds.value ? ':ss' : ''
-  const period = effectiveHour12.value ? ' --' : ''
-  return `${hh}${mm}${ss}${period}`
-})
-
 // Build a TimeFieldValue from current draft, normalizing for 12/24h.
 // When granularity hides a unit, that unit is forced to 0 in the emitted value.
 function draftToValue(): TimeFieldValue {
@@ -286,7 +268,7 @@ function open() {
 
 function close() {
   isOpen.value = false
-  triggerRef.value?.focus()
+  focusFirst()
 }
 
 function toggle() {
@@ -321,8 +303,61 @@ const describedBy = computed(() =>
   isInvalid.value ? errorId : props.description ? descId : undefined,
 )
 
-// Re-sync draft when value changes externally while open (rare but possible)
+// Typing in the field while the wheels are open moves them too.
 watch(value, () => { if (isOpen.value) syncDraftFromValue() })
+
+// ── Typed entry: the field's segments edit the value directly ──
+const {
+  segments,
+  filled,
+  focusedIndex,
+  period,
+  range,
+  segmentNumber,
+  segmentText,
+  focusFirst,
+  handleKeydown,
+  handleFocus,
+  handleBlur,
+  setRef,
+} = useTimeSegments({
+  value,
+  hour12: effectiveHour12,
+  showMinutes: () => showMinutes.value,
+  showSeconds: () => showSeconds.value,
+  editable: () => !props.disabled && !props.readonly,
+})
+
+function segmentLabel(type: TimeSegmentType): string {
+  if (type === 'hour') return ousiText.value.hour
+  if (type === 'minute') return ousiText.value.minute
+  if (type === 'second') return ousiText.value.second
+  return ousiText.value.period
+}
+
+function onSegmentKeydown(e: KeyboardEvent, idx: number) {
+  if (e.altKey && e.key === 'ArrowDown') {
+    e.preventDefault()
+    open()
+    return
+  }
+  handleKeydown(e, idx)
+}
+
+function onFieldClick(e: MouseEvent) {
+  if (props.disabled || props.readonly) return
+  if (!(e.target as HTMLElement).closest('[role="spinbutton"]')) focusFirst()
+  open()
+}
+
+// A typed time outside [min, max] is clamped once the field loses focus.
+function onFieldFocusOut(e: FocusEvent) {
+  if (triggerRef.value?.contains(e.relatedTarget as Node | null)) return
+  if (value.value) {
+    const clamped = clampToRange(value.value)
+    if (tToSec(clamped) !== tToSec(value.value)) value.value = clamped
+  }
+}
 </script>
 
 <template>
@@ -336,31 +371,64 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
       {{ label }}
     </label>
 
-    <!-- Trigger button -->
-    <button
+    <!-- Field: typed segments + clock button that opens the wheels, one border -->
+    <div
       ref="triggerRef"
       :id="fieldId"
-      type="button"
       :class="timePickerTriggerTheme({ variant, size, shadow, animated })"
       :data-disabled="disabled || undefined"
       :data-invalid="isInvalid || undefined"
       :aria-describedby="describedBy"
-      :aria-expanded="isOpen"
-      aria-haspopup="dialog"
+      role="group"
       :aria-label="label ?? ousiText.timePicker"
-      :disabled="disabled || readonly"
-      @click="toggle"
+      tabindex="-1"
+      @click="onFieldClick"
+      @focusout="onFieldFocusOut"
     >
-      <span v-if="formattedValue" class="tabular-nums">{{ formattedValue }}</span>
-      <span v-else :class="timePickerPlaceholderTheme">{{ placeholder }}</span>
+      <template v-for="(seg, idx) in segments" :key="idx">
+        <span v-if="seg.type === 'literal'" :class="dateFieldLiteralTheme">{{ seg.text }}</span>
+        <span
+          v-else
+          :ref="(el) => setRef(el, idx)"
+          :class="dateFieldSegmentTheme(focusedIndex === idx)"
+          role="spinbutton"
+          :tabindex="disabled ? -1 : 0"
+          :aria-label="segmentLabel(seg.type)"
+          :aria-valuenow="seg.type === 'dayPeriod' ? undefined : segmentNumber(seg.type)"
+          :aria-valuetext="seg.type === 'dayPeriod' ? periodLabels[period] : undefined"
+          :aria-valuemin="seg.type === 'dayPeriod' ? undefined : range(seg.type)[0]"
+          :aria-valuemax="seg.type === 'dayPeriod' ? undefined : range(seg.type)[1]"
+          @keydown="onSegmentKeydown($event, idx)"
+          @focus="handleFocus(idx)"
+          @blur="handleBlur"
+        >
+          <template v-if="seg.type === 'dayPeriod'">
+            <template v-if="filled.has('hour')">{{ periodLabels[period] }}</template>
+            <span v-else :class="dateFieldPlaceholderTheme">--</span>
+          </template>
+          <template v-else-if="filled.has(seg.type)">{{ segmentText(seg.type) }}</template>
+          <span v-else :class="dateFieldPlaceholderTheme">{{ seg.placeholder }}</span>
+        </span>
+      </template>
 
-      <span :class="timePickerIndicatorTheme" aria-hidden="true">
-        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <span class="flex-1" />
+
+      <button
+        type="button"
+        :class="timePickerIndicatorTheme"
+        :aria-label="ousiText.openTimePicker"
+        :aria-expanded="isOpen"
+        aria-haspopup="dialog"
+        :disabled="disabled || readonly"
+        tabindex="-1"
+        @click.stop="toggle"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10" />
           <polyline points="12 6 12 12 16 14" />
         </svg>
-      </span>
-    </button>
+      </button>
+    </div>
 
     <!-- Description -->
     <p v-if="description && !errorMessage" :id="descId" :class="timePickerDescriptionTheme">{{ description }}</p>
@@ -437,7 +505,7 @@ watch(value, () => { if (isOpen.value) syncDraftFromValue() })
 
           <!-- Footer -->
           <div :class="timePickerFooterTheme">
-            <OButton v-if="showNow" variant="text" size="sm" @click="setNow">Now</OButton>
+            <OButton v-if="showNow" variant="text" size="sm" @click="setNow">{{ ousiText.now }}</OButton>
             <span v-else />
             <div class="flex gap-2">
               <OButton variant="outline" size="sm" @click="cancel">{{ ousiText.cancel }}</OButton>

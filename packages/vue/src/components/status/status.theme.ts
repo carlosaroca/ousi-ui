@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 export const statusTheme = cva('inline-flex items-center whitespace-nowrap text-ousi-foreground', {
   variants: {
     variant: { dot: '', halo: '', tinted: 'font-medium' },
-    color: { accent: '', success: '', warning: '', danger: '', default: '' },
+    color: { accent: '', success: '', warning: '', danger: '', orange: '', violet: '', default: '' },
     size: { sm: 'gap-1.5 text-xs', md: 'gap-2 text-sm' },
   },
   compoundVariants: [
@@ -13,6 +13,8 @@ export const statusTheme = cva('inline-flex items-center whitespace-nowrap text-
     { variant: 'tinted', color: 'success', class: 'text-ousi-success-soft-strong' },
     { variant: 'tinted', color: 'warning', class: 'text-ousi-warning-soft-strong' },
     { variant: 'tinted', color: 'danger', class: 'text-ousi-danger-soft-strong' },
+    { variant: 'tinted', color: 'orange', class: 'text-ousi-orange-soft-strong' },
+    { variant: 'tinted', color: 'violet', class: 'text-ousi-violet-soft-strong' },
     { variant: 'tinted', color: 'default', class: 'text-ousi-muted' },
   ],
   defaultVariants: { variant: 'dot', color: 'default', size: 'md' },
@@ -26,6 +28,8 @@ export const statusDotTheme = cva('shrink-0 rounded-full', {
       success: 'bg-ousi-success',
       warning: 'bg-ousi-warning',
       danger: 'bg-ousi-danger',
+      orange: 'bg-ousi-orange',
+      violet: 'bg-ousi-violet',
       default: 'bg-ousi-muted',
     },
     size: { sm: 'size-1.5', md: 'size-2' },
@@ -35,6 +39,8 @@ export const statusDotTheme = cva('shrink-0 rounded-full', {
     { variant: 'halo', color: 'success', class: 'ring-[3px] ring-ousi-success/20' },
     { variant: 'halo', color: 'warning', class: 'ring-[3px] ring-ousi-warning/20' },
     { variant: 'halo', color: 'danger', class: 'ring-[3px] ring-ousi-danger/20' },
+    { variant: 'halo', color: 'orange', class: 'ring-[3px] ring-ousi-orange/20' },
+    { variant: 'halo', color: 'violet', class: 'ring-[3px] ring-ousi-violet/20' },
     { variant: 'halo', color: 'default', class: 'ring-[3px] ring-ousi-muted/20' },
   ],
   defaultVariants: { variant: 'dot', color: 'default', size: 'md' },

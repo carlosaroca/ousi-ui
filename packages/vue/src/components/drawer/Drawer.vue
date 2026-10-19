@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useOusiMessages } from '../../config'
+import { useOusiConfig, useOusiMessages } from '../../config'
 import { ref, computed, watch, useId } from 'vue'
 import { AnimatePresence, Motion } from 'motion-v'
-import { cn, useScrollLock, useMounted, useEscapeKey } from '@ousi-ui/core'
+import { cn, useScrollLock, useMounted, useEscapeKey, useFocusScope } from '@ousi-ui/core'
 import {
   drawerBackdropTheme,
   drawerContentTheme,
@@ -14,16 +14,19 @@ const ousiText = useOusiMessages()
 
 const props = withDefaults(defineProps<DrawerProps>(), {
   placement: 'right',
-  backdrop: 'opaque',
+  backdrop: undefined,
   showHandle: false,
   showCloseButton: true,
   shadow: 'xl',
+  size: 'sm',
 })
 
 const emit = defineEmits<DrawerEmits>()
 
 const isMounted = useMounted()
 const drawerId = useId()
+const ousiConfig = useOusiConfig()
+const resolvedBackdrop = computed(() => props.backdrop ?? ousiConfig.backdrop.value)
 
 const isOpen = ref(props.modelValue ?? false)
 
@@ -47,6 +50,11 @@ useEscapeKey({
   handler: () => close(),
   enabled: isOpen,
 })
+
+// Focus moves into the drawer on open, Tab stays inside it, and focus returns to the trigger on close.
+const panelRef = ref<{ $el?: HTMLElement } | null>(null)
+const panelEl = computed(() => panelRef.value?.$el ?? null)
+useFocusScope({ containerRef: panelEl, enabled: isOpen })
 
 function getBaseDirection(p: DrawerPlacement): 'top' | 'bottom' | 'left' | 'right' | 'center' {
   if (p === 'floating-center') return 'center'
@@ -90,7 +98,7 @@ defineExpose({ open, close })
         <!-- Backdrop -->
         <Motion
           tag="div"
-          :class="drawerBackdropTheme({ backdrop })"
+          :class="drawerBackdropTheme({ backdrop: resolvedBackdrop })"
           :initial="({ opacity: 0 } as any)"
           :animate="{ opacity: 1 }"
           :exit="{ opacity: 0 }"
@@ -107,8 +115,10 @@ defineExpose({ open, close })
             :id="drawerId"
             role="dialog"
             aria-modal="true"
+            ref="panelRef"
             :aria-label="title"
-            :class="cn(drawerPanelTheme({ placement, shadow }), props.class)"
+            tabindex="-1"
+            :class="cn(drawerPanelTheme({ placement, shadow, size }), props.class)"
             :initial="(panelAnimation.initial as any)"
             :animate="(panelAnimation.animate as any)"
             :exit="(panelAnimation.exit as any)"

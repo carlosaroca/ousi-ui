@@ -1,5 +1,5 @@
 export type ChipVariant = 'solid' | 'outline' | 'soft' | 'text'
-export type ChipColor = 'accent' | 'success' | 'warning' | 'danger' | 'default'
+export type ChipColor = 'accent' | 'success' | 'warning' | 'danger' | 'orange' | 'violet' | 'default'
 export type ChipSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ChipShadow = 'none' | 'xs' | 'sm'
 

@@ -1,4 +1,4 @@
-import { ref, computed, toValue, type MaybeRefOrGetter, type Ref } from 'vue'
+import { ref, computed, toValue, watch, type MaybeRefOrGetter, type Ref } from 'vue'
 import {
   useFloating,
   autoUpdate,
@@ -91,8 +91,13 @@ export function useTooltip(
     if (closeTimeout) { clearTimeout(closeTimeout); closeTimeout = null }
   }
 
+  // A tooltip that loses its text or gets disabled while open must not linger on screen.
+  watch([disabled, content], ([isDisabled, text]) => {
+    if (isDisabled || !text) hideImmediate()
+  })
+
   function show() {
-    if (disabled.value) return
+    if (disabled.value || !content.value) return
     if (closeTimeout) { clearTimeout(closeTimeout); closeTimeout = null }
     openTimeout = setTimeout(() => { isOpen.value = true }, delay.value)
   }
@@ -103,7 +108,7 @@ export function useTooltip(
   }
 
   function showImmediate() {
-    if (disabled.value) return
+    if (disabled.value || !content.value) return
     clearTimeouts()
     isOpen.value = true
   }

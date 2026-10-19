@@ -39,8 +39,21 @@ export interface AutocompleteProps {
   clearable?: boolean
   /** Allow values not in the options list. */
   allowCustomValue?: boolean
-  /** Message when no results match. */
+  /** Message when no results match. Defaults to the locale's "no results" text. */
   emptyMessage?: string
+  /** Filter the options by the typed text (accents and case ignored). Set it to false when the
+   *  app searches on the server and passes the results as they come. Defaults to true. */
+  filter?: boolean
+  /** Shows a spinner in the field and a loading row while the options are on their way. */
+  loading?: boolean
+  /** Searches on the server instead of filtering `options`: called with the typed text once it
+   *  has `minChars` and the user pauses for `debounce` ms; late answers are dropped. `options`
+   *  then only seeds the current value (for its label). */
+  search?: (query: string) => Promise<AutocompleteOption[]>
+  /** Characters before `search` runs. Defaults to 2. */
+  minChars?: number
+  /** Pause in ms before `search` runs. Defaults to 250. */
+  debounce?: number
   /** Additional CSS classes. */
   class?: string
 }
