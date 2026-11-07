@@ -91,12 +91,11 @@ const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.labe
 
 <template>
   <div
-    :class="cn('relative inline-block', props.class)"
-    :style="{ width: `${size}px`, height: `${size}px` }"
+    :class="cn('relative inline-block max-w-full align-top', props.class)"
     role="img"
     :aria-label="ariaLabel"
   >
-    <svg viewBox="0 0 100 100" class="size-full" fill="none" aria-hidden="true">
+    <svg :width="size" :height="size" viewBox="0 0 100 100" class="block h-auto max-w-full" fill="none" aria-hidden="true">
       <g
         v-for="it in items"
         :key="it.key"

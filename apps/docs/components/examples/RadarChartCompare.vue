@@ -19,7 +19,7 @@ const avg = (k: 'ana' | 'leo') => Math.round(data.reduce((s, r) => s + r[k], 0) 
 </script>
 <template>
   <OCard class="w-full max-w-md items-center gap-4 p-5">
-    <div class="flex w-full items-center justify-between">
+    <div class="flex w-full flex-wrap items-center justify-between gap-2">
       <span class="text-sm font-medium text-ousi-muted">{{ focused == null ? 'Skills' : data[focused].label }}</span>
       <div class="flex gap-2">
         <button

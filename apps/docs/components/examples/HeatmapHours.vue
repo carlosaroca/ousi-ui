@@ -28,7 +28,7 @@ const active = computed(() => (focused.value ? rows.value[focused.value.row].val
 </script>
 <template>
   <OCard class="w-full max-w-lg gap-4 p-5">
-    <div class="flex items-start justify-between">
+    <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">
           {{ focused ? `${days[focused.row]} · ${hours[focused.col]}` : 'Active users' }}

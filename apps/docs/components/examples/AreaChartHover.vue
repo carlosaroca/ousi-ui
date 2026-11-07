@@ -16,7 +16,7 @@ const usd = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } as 
 </script>
 <template>
   <OCard class="w-full max-w-xl gap-4 p-5">
-    <div class="flex items-start justify-between">
+    <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">{{ row ? `Revenue · ${row.m}` : 'Revenue year to date' }}</div>
         <OAnimatedNumber locale="en-US"

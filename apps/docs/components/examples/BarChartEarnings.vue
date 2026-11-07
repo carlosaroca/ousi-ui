@@ -27,7 +27,7 @@ const usd = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } as 
 </script>
 <template>
   <OCard class="w-full max-w-3xl gap-5 p-5">
-    <div class="flex items-start justify-between">
+    <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">{{ active ? `Earned · ${active.l}` : 'Earned so far' }}</div>
         <div class="mt-1 flex items-center gap-3">

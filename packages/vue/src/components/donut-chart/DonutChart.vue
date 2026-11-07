@@ -99,14 +99,15 @@ function click(it: DonutItem, e: Event) {
   if (props.interactive) emit('segment-click', it, e)
 }
 
-const holeSize = computed(() => ((R.value - stroke.value / 2) * 2 * props.size) / 100)
+// Hole of the donut as a percentage of the chart, so the center follows the chart when it shrinks
+const holePct = computed(() => (R.value - stroke.value / 2) * 2)
 const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.label} ${i.percent}%`).join(', '))
 </script>
 
 <template>
   <div data-roving-root :class="cn('inline-flex flex-col items-center gap-5', props.class)">
-    <div class="relative shrink-0" :style="{ width: `${size}px`, height: `${size}px` }" role="img" :aria-label="ariaLabel">
-      <svg viewBox="0 0 100 100" class="size-full overflow-visible" fill="none">
+    <div class="relative max-w-full shrink-0" role="img" :aria-label="ariaLabel">
+      <svg :width="size" :height="size" viewBox="0 0 100 100" class="block h-auto max-w-full overflow-visible" fill="none">
         <circle v-if="items.length === 0 || total === 0" cx="50" cy="50" :r="R" stroke="var(--ousi-default)" :stroke-width="stroke" />
         <g
           v-for="(it, i) in items"
@@ -144,12 +145,12 @@ const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.labe
       <div
         v-if="variant === 'donut'"
         class="pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-center"
-        :style="{ width: `${holeSize}px`, height: `${holeSize}px` }"
+        :style="{ width: `${holePct}%`, height: `${holePct}%`, containerType: 'inline-size' }"
       >
         <slot :total="total" :formatted-total="fmt(total)" :focused-item="focusedItem">
           <div class="px-2">
-            <div class="truncate text-2xl font-semibold tabular-nums text-ousi-foreground">{{ focusedItem ? focusedItem.formatted : fmt(total) }}</div>
-            <div class="truncate text-xs text-ousi-muted">{{ focusedItem ? `${focusedItem.label} · ${focusedItem.percent}%` : 'Total' }}</div>
+            <div class="truncate font-semibold leading-tight tabular-nums text-ousi-foreground" :style="{ fontSize: 'clamp(10px, 17cqw, 30px)' }">{{ focusedItem ? focusedItem.formatted : fmt(total) }}</div>
+            <div class="truncate leading-tight text-ousi-muted" :style="{ fontSize: 'clamp(8px, 9cqw, 12px)' }">{{ focusedItem ? `${focusedItem.label} · ${focusedItem.percent}%` : 'Total' }}</div>
           </div>
         </slot>
       </div>

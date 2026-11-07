@@ -112,15 +112,17 @@ const geo = computed(() => {
   })
 })
 
+const pillFits = computed(() => width.value / Math.max(items.value.length, 1) >= 46)
+
 const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.label} ${i.formatted}`).join(', '))
 </script>
 
 <template>
-  <div data-roving-root ref="root" :class="cn('w-full', props.class)" role="group" :aria-label="ariaLabel">
+  <div data-roving-root ref="root" :class="cn('w-full min-w-0 max-w-full', props.class)" role="group" :aria-label="ariaLabel">
     <!-- Flow -->
     <template v-if="variant === 'columns'">
       <div class="relative" :style="{ height: `${height}px` }">
-        <svg :width="width" :height="height" class="block overflow-visible">
+        <svg width="100%" :height="height" class="block overflow-visible">
           <defs>
             <clipPath v-for="(g, i) in geo" :id="`${uid}-s${i}`" :key="i">
               <rect :x="g.xL + (i === 0 ? 0 : SEP / 2)" y="0" :width="g.xR - g.xL - (i === 0 ? SEP / 2 : i === geo.length - 1 ? SEP / 2 : SEP)" :height="height" />
@@ -164,7 +166,7 @@ const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.labe
           </g>
         </svg>
 
-        <template v-if="showPercent">
+        <template v-if="showPercent && pillFits">
           <div
             v-for="(g, i) in geo"
             :key="`p-${items[i].key}`"

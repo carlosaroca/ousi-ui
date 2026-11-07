@@ -68,11 +68,13 @@ const fx = (n: number) => props.formatX?.(n) ?? n.toLocaleString()
 const fy = (n: number) => props.formatY?.(n) ?? n.toLocaleString()
 const xOf = (v: number) => plot.value.x0 + ((v - xDomain.value.lo) / (xDomain.value.hi - xDomain.value.lo || 1)) * (plot.value.x1 - plot.value.x0)
 const yOf = (v: number) => plot.value.y1 - ((v - yDomain.value.lo) / (yDomain.value.hi - yDomain.value.lo || 1)) * (plot.value.y1 - plot.value.y0)
+// Dots scale down on narrow charts so a phone does not get a screen full of overlapping bubbles
+const sizeK = computed(() => Math.min(1, Math.max(0.55, width.value / 520)))
 const rOf = (p: { z?: number }) => {
   const [a, b] = props.radius
-  if (!isBubble.value || p.z == null) return Math.max(a, 6)
+  if (!isBubble.value || p.z == null) return Math.max(a, 6) * sizeK.value
   const t = (p.z - zRange.value.min) / (zRange.value.max - zRange.value.min || 1)
-  return a + Math.sqrt(t) * (b - a)
+  return (a + Math.sqrt(t) * (b - a)) * sizeK.value
 }
 
 const items = computed<ScatterItem[][]>(() =>
@@ -139,8 +141,8 @@ const ariaLabel = computed(() => props.label ?? `Scatter chart: ${props.series.m
 </script>
 
 <template>
-  <div data-roving-root ref="root" :class="cn('relative w-full select-none', props.class)" :style="{ height: `${height}px` }">
-    <svg :width="width" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
+  <div data-roving-root ref="root" :class="cn('relative w-full min-w-0 max-w-full select-none', props.class)" :style="{ height: `${height}px` }">
+    <svg width="100%" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
       <g aria-hidden="true">
         <g v-for="(t, i) in ticksY" :key="`y${i}`">
           <line v-if="grid" :x1="plot.x0" :x2="plot.x1" :y1="t.y" :y2="t.y" :stroke="chartGridColor" :stroke-dasharray="i === 0 ? undefined : '3 4'" />

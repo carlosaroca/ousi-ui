@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { cn } from '@ousi-ui/core'
-import { resolveChartColor, useChartMotion, useFocus, useRoving } from '../chart-shared'
+import { resolveChartColor, useChartMotion, useFocus, useRoving, useElementWidth, visibleLabels } from '../chart-shared'
+import { useScrollFade } from '../scroll-shadow/useScrollFade'
 import type { HeatmapCell, HeatmapFocus, HeatmapProps, HeatmapSlots } from './heatmap.types'
 
 const props = withDefaults(defineProps<HeatmapProps>(), {
   color: 'accent',
   min: 0,
   levels: 0,
+  minCellWidth: 0,
+  scrollTo: 'start',
   emptyColor: 'var(--ousi-default)',
   square: false,
   columnLabelsPosition: 'top',
@@ -74,6 +77,38 @@ const labelOf = (c: HeatmapCell) => props.cellLabel?.(c) ?? `${c.rowLabel} · ${
 
 // Tooltip anchor: the hovered cell, relative to the root
 const root = ref<HTMLElement | null>(null)
+const width = useElementWidth(root)
+
+// A grid with too many columns for the width scrolls (edge fade, no scrollbar) instead of squeezing the cells
+const ROW_LABELS = 44
+const rowLabelsW = computed(() => (props.showRowLabels ? ROW_LABELS : 0))
+const needed = computed(() =>
+  props.minCellWidth > 0 ? rowLabelsW.value + props.columns.length * props.minCellWidth + (props.columns.length - 1) * props.gap : 0,
+)
+const scrolling = computed(() => needed.value > width.value + 1)
+const scroller = ref<HTMLElement | null>(null)
+const { maskStyle: fadeStyle } = useScrollFade(scroller, {
+  orientation: () => 'horizontal',
+  size: () => 28,
+  enabled: () => scrolling.value,
+})
+function scrollToEdge() {
+  if (props.scrollTo === 'end' && scroller.value) scroller.value.scrollLeft = scroller.value.scrollWidth
+}
+onMounted(() => nextTick(scrollToEdge))
+watch(scrolling, (v) => { if (v) nextTick(scrollToEdge) })
+
+// Column labels that fit: thinned out instead of piling up
+const colShow = computed(() => {
+  const n = Math.max(props.columns.length, 1)
+  const pitch = (Math.max(width.value, needed.value) - rowLabelsW.value) / n
+  const start = props.columnLabelAlign === 'start'
+  return visibleLabels(
+    props.columns,
+    props.columns.map((_, i) => rowLabelsW.value + i * pitch + (start ? 0 : pitch / 2)),
+    { anchor: start ? 'start' : 'middle' },
+  )
+})
 const tip = ref<{ x: number; y: number } | null>(null)
 function place(e: Event) {
   const el = e.currentTarget as HTMLElement | null
@@ -111,11 +146,16 @@ const colLabelClass = (col: number) =>
 
 <template>
   <div data-roving-root ref="root" :class="cn('relative w-full', props.class)" role="grid" :aria-label="label ?? 'Heatmap'">
-    <div :style="gridStyle">
+    <div
+      ref="scroller"
+      :class="[scrolling && 'overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden', minCellWidth > 0 && '[contain:inline-size]']"
+      :style="fadeStyle"
+    >
+    <div :style="[gridStyle, scrolling ? { minWidth: `${needed}px` } : {}]">
       <!-- Column labels (top) -->
       <template v-if="showColumnLabels && columnLabelsPosition === 'top'">
         <div v-if="showRowLabels" />
-        <div v-for="(c, col) in columns" :key="`h-${col}`" :class="colLabelClass(col)">{{ c }}</div>
+        <div v-for="(c, col) in columns" :key="`h-${col}`" :class="colLabelClass(col)">{{ colShow[col] ? c : '' }}</div>
       </template>
 
       <!-- Rows -->
@@ -158,8 +198,9 @@ const colLabelClass = (col: number) =>
       <!-- Column labels (bottom) -->
       <template v-if="showColumnLabels && columnLabelsPosition === 'bottom'">
         <div v-if="showRowLabels" />
-        <div v-for="(c, col) in columns" :key="`f-${col}`" :class="colLabelClass(col)">{{ c }}</div>
+        <div v-for="(c, col) in columns" :key="`f-${col}`" :class="colLabelClass(col)">{{ colShow[col] ? c : '' }}</div>
       </template>
+    </div>
     </div>
 
     <slot name="legend">

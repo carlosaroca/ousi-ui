@@ -26,7 +26,7 @@ const active = computed(() => (focused.value == null ? null : set.value.rows[foc
 <template>
   <!-- The header is plain markup: change it however you like. -->
   <OCard class="w-full max-w-md gap-5 p-5">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
       <span class="text-sm font-medium text-ousi-muted">
         {{ active ? `Earned · ${active.l}` : 'Earned so far' }}
       </span>

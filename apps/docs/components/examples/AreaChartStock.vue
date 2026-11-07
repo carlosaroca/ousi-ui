@@ -27,7 +27,7 @@ const usd = { style: 'currency', currency: 'USD' } as const
 </script>
 <template>
   <OCard class="w-full max-w-2xl gap-4 p-5">
-    <div class="flex items-start justify-between">
+    <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">ACME · {{ focused == null ? 'Price' : rows[focused].t }}</div>
         <div class="mt-1 flex items-baseline gap-3">

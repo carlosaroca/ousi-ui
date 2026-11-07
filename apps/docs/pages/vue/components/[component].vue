@@ -82,7 +82,7 @@ function resolveExample(name: string) {
     </div>
 
     <!-- Page tabs -->
-    <div class="mb-8 w-fit">
+    <div class="mb-8 w-fit max-w-full">
       <ClientOnly>
         <OTabs v-model="pageTab" :items="pageTabs" />
       </ClientOnly>

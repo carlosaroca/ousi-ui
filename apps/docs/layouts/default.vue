@@ -2,7 +2,7 @@
 const { version } = useRuntimeConfig().public
 import { useNavigation } from '~/composables/useNavigation'
 import { useGitHubStars } from '~/composables/useGitHubStars'
-import { OToastProvider, OTabs, OCommandPalette, OTooltip, OChip } from '@ousi-ui/vue'
+import { OToastProvider, OTabs, OCommandPalette, OTooltip, OChip, useScrollFade } from '@ousi-ui/vue'
 import type { TabItem, CommandItem } from '@ousi-ui/vue'
 
 const { sections, isFlutter } = useNavigation()
@@ -47,6 +47,27 @@ const mainTabs = computed(() => {
 })
 
 const isTabActive = (path: string) => route.path.startsWith(path)
+
+// The section tabs scroll sideways on narrow screens (no scrollbar, edge fade) and keep the active one in view
+const tabsRow = ref<HTMLElement | null>(null)
+const { maskStyle: tabsFade, update: updateTabsFade } = useScrollFade(tabsRow, {
+  orientation: () => 'horizontal',
+  size: () => 24,
+})
+function revealActiveTab() {
+  nextTick(() => {
+    const row = tabsRow.value
+    const active = row?.querySelector<HTMLElement>('[data-active-tab]')
+    if (!row || !active) return
+    const r = row.getBoundingClientRect()
+    const a = active.getBoundingClientRect()
+    if (a.left < r.left + 8) row.scrollLeft -= r.left + 8 - a.left
+    else if (a.right > r.right - 8) row.scrollLeft += a.right - (r.right - 8)
+    updateTabsFade()
+  })
+}
+onMounted(revealActiveTab)
+watch(() => route.path, revealActiveTab)
 
 // ── Command Palette / Search ──
 const searchOpen = ref(false)
@@ -191,13 +212,14 @@ function onSearchSelect(key: string) {
         </div>
 
         <!-- Row 2: Section tabs -->
-        <div class="flex items-center gap-1 -mb-px">
+        <div ref="tabsRow" class="flex min-w-0 items-center gap-1 -mb-px overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" :style="tabsFade">
           <NuxtLink
             v-for="tab in mainTabs"
             :key="tab.path"
             :to="tab.defaultTo"
+            :data-active-tab="isTabActive(tab.path) || undefined"
             :class="[
-              'flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 transition-colors',
+              'flex shrink-0 items-center gap-1.5 whitespace-nowrap px-2.5 py-2 text-sm font-medium border-b-2 transition-colors sm:px-3',
               isTabActive(tab.path)
                 ? 'border-ousi-foreground text-ousi-foreground'
                 : 'border-transparent text-ousi-muted hover:text-ousi-foreground',
@@ -215,15 +237,16 @@ function onSearchSelect(key: string) {
           </NuxtLink>
           <NuxtLink
             to="/playground"
-            class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 border-transparent text-ousi-muted hover:text-ousi-foreground transition-colors"
+            class="flex shrink-0 items-center gap-1.5 whitespace-nowrap px-2.5 py-2 text-sm font-medium border-b-2 border-transparent text-ousi-muted hover:text-ousi-foreground transition-colors sm:px-3"
           >
             <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" /></svg>
             Playground
           </NuxtLink>
           <NuxtLink
             to="/changelog"
+            :data-active-tab="route.path === '/changelog' || undefined"
             :class="[
-              'flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 transition-colors',
+              'flex shrink-0 items-center gap-1.5 whitespace-nowrap px-2.5 py-2 text-sm font-medium border-b-2 transition-colors sm:px-3',
               route.path === '/changelog'
                 ? 'border-ousi-foreground text-ousi-foreground'
                 : 'border-transparent text-ousi-muted hover:text-ousi-foreground',

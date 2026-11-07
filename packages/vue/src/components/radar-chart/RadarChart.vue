@@ -117,8 +117,8 @@ const ariaLabel = computed(
 </script>
 
 <template>
-  <div data-roving-root :class="cn('relative inline-block select-none', props.class)" :style="{ width: `${box}px`, height: `${box}px` }">
-    <svg :width="box" :height="box" class="block overflow-visible" role="group" :aria-label="ariaLabel">
+  <div data-roving-root :class="cn('relative inline-block max-w-full select-none align-top', props.class)">
+    <svg :width="box" :height="box" :viewBox="`0 0 ${box} ${box}`" class="block h-auto max-w-full overflow-visible" role="group" :aria-label="ariaLabel">
       <!-- Grid -->
       <g aria-hidden="true" fill="none" :stroke="chartGridColor">
         <polygon v-for="(p, k) in gridPolys" :key="k" :points="p" />

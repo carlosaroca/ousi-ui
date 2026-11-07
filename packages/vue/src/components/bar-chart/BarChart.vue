@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useId, watch } from 'vue'
 import { cn } from '@ousi-ui/core'
-import { chartGridColor, resolveChartColor, useChartMotion, useElementWidth, useFocus, useRoving } from '../chart-shared'
+import { chartGridColor, resolveChartColor, useChartMotion, useElementWidth, useFocus, useRoving, visibleLabels } from '../chart-shared'
 import { niceDomain } from '../combo-chart/combo-chart.utils'
 import type { BarChartPoint, BarChartProps, BarChartSlots } from './bar-chart.types'
 
@@ -98,6 +98,13 @@ function rectOf(cs: number, size: number, v0: number, v1: number) {
 }
 
 const categories = computed(() => props.data.map((d) => String(d[props.categoryKey] ?? '')))
+
+// Category labels that fit: thinned out on narrow screens instead of piling up
+const showCat = computed(() =>
+  horizontal.value
+    ? categories.value.map((_, i) => i % Math.max(Math.ceil(18 / band.value), 1) === 0)
+    : visibleLabels(categories.value, categories.value.map((_, i) => catCenter(i))),
+)
 
 const points = computed<BarChartPoint[]>(() =>
   props.data.map((datum, index) => {
@@ -196,8 +203,8 @@ const ariaLabel = computed(() => props.label ?? `${resolved.value.map((s) => s.l
 </script>
 
 <template>
-  <div data-roving-root ref="root" :class="cn('relative w-full select-none', props.class)" :style="{ height: `${height}px` }">
-    <svg :width="width" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
+  <div data-roving-root ref="root" :class="cn('relative w-full min-w-0 max-w-full select-none', props.class)" :style="{ height: `${height}px` }">
+    <svg width="100%" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
       <defs v-if="stacked">
         <clipPath v-for="(b, i) in bars" :id="`${uid}-c${i}`" :key="i">
           <rect :x="b.whole.x" :y="b.whole.y" :width="b.whole.w" :height="b.whole.h" :rx="b.rx" />
@@ -219,7 +226,7 @@ const ariaLabel = computed(() => props.label ?? `${resolved.value.map((s) => s.l
         <!-- Category labels -->
         <template v-if="showXAxis">
           <text
-            v-for="p in points" :key="`c-${p.index}`"
+            v-for="p in points.filter((q) => showCat[q.index])" :key="`c-${p.index}`"
             :x="horizontal ? plot.x0 - 12 : catCenter(p.index)"
             :y="horizontal ? catCenter(p.index) : plot.y1 + 20"
             :text-anchor="horizontal ? 'end' : 'middle'"

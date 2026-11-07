@@ -91,7 +91,7 @@ const rating = computed(() => (score(current.value) >= 95 ? 'Excellent' : score(
 </script>
 <template>
   <OCard class="w-full max-w-lg gap-5 p-5">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
       <div class="text-sm font-medium text-ousi-muted">Sleep score · {{ rating }}</div>
       <div class="text-xs text-ousi-muted">{{ current.day }}</div>
     </div>

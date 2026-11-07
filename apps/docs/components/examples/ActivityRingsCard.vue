@@ -30,12 +30,12 @@ const rings = computed(() => {
       <OCardDescription>Pick a day to compare your goals</OCardDescription>
     </OCardHeader>
     <OCardContent class="flex flex-col items-center gap-5">
-      <div class="flex w-full justify-between">
+      <div class="flex w-full justify-between gap-0.5">
         <button
           v-for="d in days"
           :key="d.id"
           type="button"
-          class="rounded-full px-2.5 py-1 text-xs font-medium transition-colors"
+          class="rounded-full px-1.5 py-1 text-xs font-medium transition-colors sm:px-2.5"
           :class="day === d.id ? 'bg-ousi-foreground text-ousi-background' : 'text-ousi-muted hover:bg-ousi-default'"
           @click="day = d.id"
         >

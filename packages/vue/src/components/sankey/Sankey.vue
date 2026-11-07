@@ -2,12 +2,14 @@
 import { computed, ref, useId } from 'vue'
 import { cn } from '@ousi-ui/core'
 import { resolveChartColor, useChartMotion, useElementWidth, useFocus, useRoving } from '../chart-shared'
+import { useScrollFade } from '../scroll-shadow/useScrollFade'
 import type { SankeyLinkItem, SankeyNodeItem, SankeyProps } from './sankey.types'
 
 const props = withDefaults(defineProps<SankeyProps>(), {
   height: 320,
   nodeWidth: 14,
   nodePadding: 14,
+  minWidth: 400,
   showLabels: true,
   interactive: true,
   animated: true,
@@ -26,6 +28,15 @@ const { focused, setFocused } = useFocus(() => props.focused, (v) => emit('updat
 const roving = useRoving(() => props.nodes.length + ribbons.value.length)
 
 const uid = useId()
+// The diagram is drawn at least `minWidth` wide; a narrower container scrolls (edge fade, no scrollbar)
+const scroller = ref<HTMLElement | null>(null)
+const outerWidth = useElementWidth(scroller)
+const scrolling = computed(() => props.minWidth > 0 && outerWidth.value < props.minWidth - 1)
+const { maskStyle: fadeStyle } = useScrollFade(scroller, {
+  orientation: () => 'horizontal',
+  size: () => 28,
+  enabled: () => scrolling.value,
+})
 const root = ref<HTMLElement | null>(null)
 const width = useElementWidth(root)
 const { mounted, motion } = useChartMotion(() => props.animated)
@@ -69,9 +80,10 @@ const model = computed(() => {
   return { links, hasIn, hasOut, depth, value, inSum, outSum, cols, maxDepth, total }
 })
 
+const compact = computed(() => width.value < 480)
 const sides = computed(() => ({
-  left: props.padding?.left ?? (props.showLabels ? 110 : 8),
-  right: props.padding?.right ?? (props.showLabels ? 96 : 8),
+  left: props.padding?.left ?? (props.showLabels ? (compact.value ? 86 : 110) : 8),
+  right: props.padding?.right ?? (props.showLabels ? (compact.value ? 70 : 96) : 8),
 }))
 
 const layout = computed(() => {
@@ -185,8 +197,14 @@ const ariaLabel = computed(() => props.label ?? `Flow diagram with ${props.nodes
 </script>
 
 <template>
-  <div data-roving-root ref="root" :class="cn('relative w-full select-none', props.class)" :style="{ height: `${height}px` }">
-    <svg :width="width" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
+  <div
+    ref="scroller"
+    data-roving-root
+    :class="cn('relative w-full min-w-0 max-w-full select-none', scrolling && 'overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden', minWidth > 0 && '[contain:inline-size]', props.class)"
+    :style="fadeStyle"
+  >
+  <div ref="root" class="relative" :style="{ height: `${height}px`, minWidth: minWidth > 0 ? `${minWidth}px` : undefined }">
+    <svg width="100%" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
       <defs>
         <clipPath :id="`${uid}-clip`">
           <rect
@@ -268,5 +286,6 @@ const ariaLabel = computed(() => props.label ?? `Flow diagram with ${props.nodes
         </text>
       </g>
     </svg>
+  </div>
   </div>
 </template>

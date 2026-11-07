@@ -53,6 +53,9 @@ export interface SankeyProps {
   /** Highlighted element: `node:<index>` or `link:<index>`. Supports v-model:focused. */
   focused?: SankeyFocus | null
   animated?: boolean
+  /** Narrowest the diagram is drawn (default 400). In a narrower container it scrolls sideways instead of
+   *  squeezing the flows, with an edge fade. Set 0 to always fit the container. */
+  minWidth?: number
   /** Space for the labels on the sides, in px. */
   padding?: { left?: number; right?: number }
   label?: string

@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { cn } from '@ousi-ui/core'
 import { barPath, linearPath, monotonePath, niceDomain } from './combo-chart.utils'
-import { useFocus, useRoving } from '../chart-shared'
+import { useFocus, useRoving, visibleLabels } from '../chart-shared'
 import type { ComboChartPoint, ComboChartProps, ComboChartSlots } from './combo-chart.types'
 
 const props = withDefaults(defineProps<ComboChartProps>(), {
@@ -152,6 +152,9 @@ const linePts = computed<[number, number][]>(() =>
 )
 const lineD = computed(() => (props.curve === 'smooth' ? monotonePath(linePts.value) : linearPath(linePts.value)))
 
+// Category labels that fit: thinned out on narrow screens instead of piling up
+const showCat = computed(() => visibleLabels(points.value.map((p) => p.category), points.value.map((p) => p.x)))
+
 const focusedPoint = computed(() => (focused.value == null ? null : points.value[focused.value] ?? null))
 const focusedDot = computed(() => (focused.value == null ? null : linePts.value[focused.value] ?? null))
 
@@ -185,8 +188,8 @@ const pointLabel = (p: ComboChartPoint) =>
 </script>
 
 <template>
-  <div data-roving-root ref="root" :class="cn('relative w-full select-none', props.class)" :style="{ height: `${height}px` }">
-    <svg :width="width" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
+  <div data-roving-root ref="root" :class="cn('relative w-full min-w-0 max-w-full select-none', props.class)" :style="{ height: `${height}px` }">
+    <svg width="100%" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
       <!-- Grid + axes -->
       <g aria-hidden="true">
         <g v-for="(t, i) in ticks" :key="i">
@@ -208,7 +211,7 @@ const pointLabel = (p: ComboChartPoint) =>
           </text>
         </g>
         <text
-          v-for="p in (showXAxis ? points : [])" :key="p.index"
+          v-for="p in (showXAxis ? points.filter((q) => showCat[q.index]) : [])" :key="p.index"
           :x="p.x" :y="plot.y1 + 18" text-anchor="middle"
           class="text-[11px] transition-colors"
           :class="focused === p.index ? 'fill-ousi-foreground' : 'fill-ousi-muted'"

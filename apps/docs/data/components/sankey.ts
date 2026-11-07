@@ -71,7 +71,7 @@ const usd = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } as 
 </script>
 <template>
   <OCard class="w-full max-w-3xl gap-4 p-5">
-    <div class="flex items-start justify-between">
+    <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">{{ title }}</div>
         <OAnimatedNumber locale="en-US" :value="value" :format-options="usd" animation="count" :duration="300" class="mt-1 text-3xl font-semibold tabular-nums text-ousi-foreground" />
@@ -248,6 +248,7 @@ const links = [
     { name: 'interactive', type: 'boolean', default: 'true', description: 'Enable hover, focus and click reactions.' },
     { name: 'focused', type: 'string | null', default: 'null', description: 'Highlighted element: "node:<index>" or "link:<index>". Optional: the chart tracks hover by itself; bind v-model:focused to read or drive it.' },
     { name: 'animated', type: 'boolean', default: 'true', description: 'Animate on mount.' },
+    { name: 'minWidth', type: 'number', default: '400', description: 'Narrowest the diagram is drawn. In a narrower container it scrolls sideways (with an edge fade) instead of squeezing the flows. 0 means it always fits.' },
     { name: 'padding', type: '{ left?, right? }', default: '110 / 96', description: 'Space for the labels on the sides, in px.' },
     { name: 'label', type: 'string', description: 'Accessible label.' },
     { name: 'class', type: 'string', description: 'Additional CSS classes.' },

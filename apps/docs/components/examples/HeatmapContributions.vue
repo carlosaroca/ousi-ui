@@ -44,12 +44,12 @@ function describe(cell: { row: number; col: number; value: number }) {
 </script>
 <template>
   <OCard class="w-full max-w-3xl gap-4 p-5">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">Activity</div>
         <div class="text-xs tabular-nums text-ousi-muted"><span class="font-semibold text-ousi-foreground">{{ total }}</span> contributions</div>
       </div>
-      <div class="flex gap-4">
+      <div class="flex flex-wrap gap-x-4 gap-y-1">
         <button
           v-for="(_, name) in ranges"
           :key="name"
@@ -65,6 +65,8 @@ function describe(cell: { row: number; col: number; value: number }) {
 
     <OHeatmap
       :key="range"
+      :min-cell-width="11"
+      scroll-to="end"
       :rows="rows"
       :columns="columns"
       color="violet"

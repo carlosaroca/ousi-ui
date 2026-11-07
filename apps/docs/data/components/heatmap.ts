@@ -82,12 +82,12 @@ function describe(cell: { row: number; col: number; value: number }) {
 </script>
 <template>
   <OCard class="w-full max-w-3xl gap-4 p-5">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">Activity</div>
         <div class="text-xs tabular-nums text-ousi-muted"><span class="font-semibold text-ousi-foreground">{{ total }}</span> contributions</div>
       </div>
-      <div class="flex gap-4">
+      <div class="flex flex-wrap gap-x-4 gap-y-1">
         <button
           v-for="(_, name) in ranges"
           :key="name"
@@ -103,6 +103,8 @@ function describe(cell: { row: number; col: number; value: number }) {
 
     <OHeatmap
       :key="range"
+      :min-cell-width="11"
+      scroll-to="end"
       :rows="rows"
       :columns="columns"
       color="violet"
@@ -156,7 +158,7 @@ const active = computed(() => (focused.value ? rows.value[focused.value.row].val
 </script>
 <template>
   <OCard class="w-full max-w-lg gap-4 p-5">
-    <div class="flex items-start justify-between">
+    <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">
           {{ focused ? \`\${days[focused.row]} · \${hours[focused.col]}\` : 'Active users' }}
@@ -319,6 +321,8 @@ function toggle(c: HeatmapCell) {
     { name: 'columnLabelAlign', type: "'center' | 'start'", default: "'center'", description: 'Alignment of the column labels. start suits sparse labels such as months (use empty strings for the rest).' },
     { name: 'tooltip', type: 'boolean', default: 'true', description: 'Show a tooltip over the hovered cell.' },
     { name: 'cellLabel', type: '(cell: HeatmapCell) => string', default: '-', description: 'Text of the tooltip and aria label. Defaults to "row · column: value".' },
+    { name: 'minCellWidth', type: 'number', default: '0', description: 'Narrowest a cell is drawn, in px. When the columns would need less width, the grid scrolls sideways (with an edge fade) instead of shrinking the cells. 0 means the grid always fits.' },
+    { name: 'scrollTo', type: "'start' | 'end'", default: "'start'", description: 'Where a scrolling grid starts. end shows the latest columns first, as a calendar does.' },
     { name: 'gap', type: 'number', default: '4', description: 'Space between cells in px.' },
     { name: 'cellHeight', type: 'number', default: '32', description: 'Cell height in px. Width is fluid.' },
     { name: 'cellRadius', type: 'number', default: '8', description: 'Corner radius of the cells in px.' },

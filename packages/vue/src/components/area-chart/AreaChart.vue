@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useId } from 'vue'
 import { cn } from '@ousi-ui/core'
-import { chartGridColor, resolveChartColor, useChartMotion, useElementWidth, useFocus, useRoving } from '../chart-shared'
+import { chartGridColor, resolveChartColor, useChartMotion, useElementWidth, useFocus, useRoving, visibleLabels } from '../chart-shared'
 import { linearPath, monotonePath, niceDomain } from '../combo-chart/combo-chart.utils'
 import type { AreaChartPoint, AreaChartProps, AreaChartSlots } from './area-chart.types'
 
@@ -120,6 +120,9 @@ const points = computed<AreaChartPoint[]>(() =>
     })),
   })),
 )
+// Category labels that fit: thinned out on narrow screens instead of piling up
+const showCat = computed(() => visibleLabels(points.value.map((p) => p.category), points.value.map((p) => p.x)))
+
 const focusedPoint = computed(() => (focused.value == null ? null : points.value[focused.value] ?? null))
 
 function enter(p: AreaChartPoint, e: Event) {
@@ -148,8 +151,8 @@ const ariaLabel = computed(() => props.label ?? `${resolved.value.map((s) => s.l
 </script>
 
 <template>
-  <div data-roving-root ref="root" :class="cn('relative w-full select-none', props.class)" :style="{ height: `${height}px` }">
-    <svg :width="width" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
+  <div data-roving-root ref="root" :class="cn('relative w-full min-w-0 max-w-full select-none', props.class)" :style="{ height: `${height}px` }">
+    <svg width="100%" :height="height" class="block overflow-visible" role="group" :aria-label="ariaLabel">
       <defs>
         <linearGradient v-for="(s, i) in resolved" :id="`${uid}-g${i}`" :key="s.key" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" :stop-color="s.color" :stop-opacity="fillOpacity" />
@@ -177,7 +180,7 @@ const ariaLabel = computed(() => props.label ?? `${resolved.value.map((s) => s.l
         </g>
         <template v-if="showXAxis">
           <text
-            v-for="p in points" :key="p.index"
+            v-for="p in points.filter((q) => showCat[q.index])" :key="p.index"
             :x="p.x" :y="plot.y1 + 18" text-anchor="middle"
             class="text-[11px] transition-colors"
             :class="focused === p.index ? 'fill-ousi-foreground' : 'fill-ousi-muted'"

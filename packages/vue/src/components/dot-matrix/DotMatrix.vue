@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { cn } from '@ousi-ui/core'
-import { resolveChartColor, useChartMotion, useElementWidth, useFocus, useRoving } from '../chart-shared'
+import { resolveChartColor, useChartMotion, useElementWidth, useFocus, useRoving, visibleLabels } from '../chart-shared'
 import type { DotMatrixItem, DotMatrixProps, DotMatrixSlots } from './dot-matrix.types'
 
 const props = withDefaults(defineProps<DotMatrixProps>(), {
@@ -80,6 +80,9 @@ function dotSizeOf(it: DotMatrixItem, row: number) {
   return f > 0 && f < 1 ? base * (0.35 + 0.65 * f) : base
 }
 
+// Column labels that fit: thinned out on narrow screens instead of piling up
+const showLabel = computed(() => visibleLabels(items.value.map((i) => i.label), items.value.map((i) => i.x)))
+
 const rx = computed(() => (props.shape === 'circle' ? 1 : props.shape === 'rounded' ? 0.3 : 0))
 const isDimmed = (i: number) => focused.value != null && focused.value !== i
 
@@ -110,8 +113,8 @@ const ariaLabel = computed(() => props.label ?? `Dot matrix with ${props.data.le
 </script>
 
 <template>
-  <div data-roving-root ref="root" :class="cn('relative w-full select-none', props.class)" :style="{ height: `${height}px` }" role="group" :aria-label="ariaLabel">
-    <svg :width="width" :height="height" class="block overflow-visible">
+  <div data-roving-root ref="root" :class="cn('relative w-full min-w-0 max-w-full select-none', props.class)" :style="{ height: `${height}px` }" role="group" :aria-label="ariaLabel">
+    <svg width="100%" :height="height" class="block overflow-visible">
       <g
         v-for="it in items"
         :key="it.index"
@@ -136,7 +139,7 @@ const ariaLabel = computed(() => props.label ?? `Dot matrix with ${props.data.le
           />
         </template>
         <text
-          v-if="showLabels"
+          v-if="showLabels && showLabel[it.index]"
           :x="it.x" :y="height - 6" text-anchor="middle"
           class="text-[11px] transition-colors"
           :class="focused === it.index ? 'fill-ousi-foreground' : 'fill-ousi-muted'"

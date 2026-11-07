@@ -62,11 +62,11 @@ const items = computed<ActivityRingItem[]>(() =>
 
 const focusedRing = computed(() => items.value.find((r) => r.key === focused.value) ?? null)
 const isDimmed = (key: string) => focused.value != null && focused.value !== key
-// Diameter (px) of the free space inside the innermost ring, used to size the center slot.
-const holeSize = computed(() => {
+// Free space inside the innermost ring as a percentage of the chart, used to size the center slot.
+const holePct = computed(() => {
   const inner = radiusOf(Math.max(props.rings.length - 1, 0))
   const hole = Math.max(inner - props.strokeWidth / 2 - props.gap, 0)
-  return (hole * 2 * props.size) / 100
+  return hole * 2
 })
 const radiusOf = (i: number) => Math.max(50 - props.strokeWidth / 2 - i * (props.strokeWidth + props.gap), 0)
 
@@ -95,12 +95,11 @@ const ariaLabel = computed(
 <template>
   <div data-roving-root :class="cn('inline-flex flex-col items-center gap-5', props.class)">
     <div
-      class="relative shrink-0"
+      class="relative max-w-full shrink-0"
       role="img"
       :aria-label="ariaLabel"
-      :style="{ width: `${size}px`, height: `${size}px` }"
     >
-      <svg viewBox="0 0 100 100" class="size-full -rotate-90" fill="none" aria-hidden="true">
+      <svg :width="size" :height="size" viewBox="0 0 100 100" class="block h-auto max-w-full -rotate-90" fill="none" aria-hidden="true">
         <g
           v-for="ring in items"
           :key="ring.key"
@@ -136,7 +135,7 @@ const ariaLabel = computed(
       <div
         v-if="$slots.default"
         class="pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-        :style="{ width: `${holeSize}px`, height: `${holeSize}px` }"
+        :style="{ width: `${holePct}%`, height: `${holePct}%` }"
       >
         <slot :focused-ring="focusedRing" :rings="items" />
       </div>

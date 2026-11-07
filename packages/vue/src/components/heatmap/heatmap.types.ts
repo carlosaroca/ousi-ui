@@ -44,6 +44,11 @@ export interface HeatmapProps {
   tooltip?: boolean
   /** Text of the built-in tooltip and aria label. Defaults to "row · column: value". */
   cellLabel?: (cell: HeatmapCell) => string
+  /** Narrowest a cell is drawn, in px. When the columns would need less, the grid scrolls sideways
+   *  (with an edge fade) instead of shrinking the cells to dust. 0 means the grid always fits. */
+  minCellWidth?: number
+  /** Where a scrolling grid starts. `end` shows the latest columns first (a calendar). */
+  scrollTo?: 'start' | 'end'
   /** Space between cells in px. */
   gap?: number
   /** Cell height in px. Width is fluid. */

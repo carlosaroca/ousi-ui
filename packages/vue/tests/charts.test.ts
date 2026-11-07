@@ -425,3 +425,65 @@ describe('bar chart outline prop', () => {
     }
   })
 })
+
+describe('responsive behaviour', () => {
+  it('visibleLabels hides the labels that would touch and ignores empty ones', async () => {
+    const { visibleLabels } = await import('../src/components/chart-shared/labels')
+    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    // 12px apart: nothing fits next to anything
+    expect(visibleLabels(labels, labels.map((_, i) => i * 12)).filter(Boolean).length).toBeLessThan(labels.length)
+    // 60px apart: all fit
+    expect(visibleLabels(labels, labels.map((_, i) => i * 60))).toEqual(labels.map(() => true))
+    // sparse labels: empty ones are skipped and take no room
+    expect(visibleLabels(['Jan', '', '', 'Feb'], [0, 10, 20, 90], { anchor: 'start' })).toEqual([true, false, false, true])
+  })
+
+  it('bar chart thins its category labels when they do not fit', () => {
+    const data = Array.from({ length: 24 }, (_, i) => ({ c: `Category ${i + 1}`, a: i }))
+    const w = mount(OBarChart, { props: { data, categoryKey: 'c', series: [{ key: 'a' }] } })
+    const shown = w.findAll('text').filter((t) => t.text().startsWith('Category')).length
+    expect(shown).toBeGreaterThan(0)
+    expect(shown).toBeLessThan(24)
+  })
+
+  it('charts that measure their width use a percentage SVG, so they never push their parent wider', () => {
+    const data = [{ m: 'Jan', a: 1, b: 2 }, { m: 'Feb', a: 2, b: 3 }]
+    const bar = mount(OBarChart, { props: { data, categoryKey: 'm', series: [{ key: 'a' }] } })
+    expect(bar.find('svg').attributes('width')).toBe('100%')
+    const area = mount(OAreaChart, { props: { data, categoryKey: 'm', series: [{ key: 'a' }] } })
+    expect(area.find('svg').attributes('width')).toBe('100%')
+    const sankey = mount(OSankey, { props: { nodes: [{ name: 'A' }, { name: 'B' }], links: [{ source: 'A', target: 'B', value: 1 }] } })
+    expect(sankey.find('svg').attributes('width')).toBe('100%')
+  })
+
+  it('sankey scrolls instead of squeezing when the container is narrower than minWidth', () => {
+    const props = { nodes: [{ name: 'A' }, { name: 'B' }], links: [{ source: 'A', target: 'B', value: 1 }] }
+    // happy-dom reports no layout, so the chart assumes 640px
+    const fits = mount(OSankey, { props: { ...props, minWidth: 400 } })
+    expect(fits.classes()).not.toContain('overflow-x-auto')
+    const narrow = mount(OSankey, { props: { ...props, minWidth: 900 } })
+    expect(narrow.classes()).toContain('overflow-x-auto')
+    expect(narrow.html()).toContain('min-width: 900px')
+  })
+
+  it('heatmap scrolls when the cells would be smaller than minCellWidth', () => {
+    const rows = [{ label: 'r', values: Array.from({ length: 60 }, (_, i) => i) }]
+    const columns = Array.from({ length: 60 }, (_, i) => String(i))
+    const off = mount(OHeatmap, { props: { rows, columns, showRowLabels: false } })
+    expect(off.html()).not.toContain('overflow-x-auto')
+    const on = mount(OHeatmap, { props: { rows, columns, showRowLabels: false, minCellWidth: 20, gap: 4 } })
+    expect(on.html()).toContain('overflow-x-auto')
+    expect(on.html()).toContain('min-width: 1436px') // 60 * 20 + 59 * 4
+  })
+
+  it('circular charts keep their natural size but shrink to fit (responsive SVG)', () => {
+    const donut = mount(ODonutChart, { props: { data: [{ label: 'a', value: 1 }, { label: 'b', value: 2 }], size: 220 } })
+    const svg = donut.find('svg')
+    expect(svg.attributes('width')).toBe('220')
+    expect(svg.classes()).toContain('max-w-full')
+    const radar = mount(ORadarChart, { props: { data: [{ label: 'x', v: 1 }, { label: 'y', v: 2 }, { label: 'z', v: 3 }], series: [{ key: 'v' }] } })
+    expect(radar.find('svg').classes()).toContain('max-w-full')
+    const gauge = mount(OSegmentedGauge, { props: { segments: [{ label: 'a', value: 1, max: 2 }] } })
+    expect(gauge.find('svg').classes()).toContain('max-w-full')
+  })
+})

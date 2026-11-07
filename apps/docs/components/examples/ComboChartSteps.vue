@@ -15,7 +15,7 @@ const total = computed(() => weeks[week.value].rows.reduce((s, v) => s + v, 0))
 </script>
 <template>
   <OCard class="w-full max-w-md gap-5 p-5">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
       <span class="text-sm font-medium text-ousi-muted">Steps</span>
       <div class="flex items-center gap-2">
         <button

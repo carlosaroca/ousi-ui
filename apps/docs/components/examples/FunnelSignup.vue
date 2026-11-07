@@ -18,7 +18,7 @@ const active = computed(() => (focused.value == null ? null : stages.value[focus
 <template>
   <!-- The header is plain markup: a title, the number that follows the hovered stage, a delta chip and a period dropdown -->
   <OCard class="w-full max-w-2xl gap-4 p-5">
-    <div class="flex items-start justify-between">
+    <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <div class="text-sm font-medium text-ousi-muted">{{ active ? active.label : 'Sign-up funnel' }}</div>
         <div class="mt-1 flex items-center gap-3">
