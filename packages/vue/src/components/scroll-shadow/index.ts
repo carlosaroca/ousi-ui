@@ -1,3 +1,5 @@
 export { default as OScrollShadow } from './ScrollShadow.vue'
+export { useScrollFade } from './useScrollFade'
+export type { ScrollFadeOptions } from './useScrollFade'
 export type { ScrollShadowProps, ScrollShadowOrientation } from './scroll-shadow.types'
 export { scrollShadowTheme } from './scroll-shadow.theme'

@@ -29,6 +29,19 @@ import { OCalendar } from '../components/calendar'
 import { ORangeCalendar } from '../components/range-calendar'
 import { OProgressBar } from '../components/progress-bar'
 import { OProgressCircle } from '../components/progress-circle'
+import { OActivityRings } from '../components/activity-rings'
+import { OComboChart } from '../components/combo-chart'
+import { OFunnel } from '../components/funnel'
+import { OHeatmap } from '../components/heatmap'
+import { OAreaChart } from '../components/area-chart'
+import { ORadarChart } from '../components/radar-chart'
+import { OScatterChart } from '../components/scatter-chart'
+import { OSegmentedGauge } from '../components/segmented-gauge'
+import { OSankey } from '../components/sankey'
+import { ODotMatrix } from '../components/dot-matrix'
+import { ODonutChart } from '../components/donut-chart'
+import { OBarChart } from '../components/bar-chart'
+import { OTreemap } from '../components/treemap'
 import { OColorSwatch } from '../components/color-swatch'
 import { OColorField } from '../components/color-field'
 import { OColorSlider } from '../components/color-slider'
@@ -125,6 +138,19 @@ const components = {
   ORangeCalendar,
   OProgressBar,
   OProgressCircle,
+  OActivityRings,
+  OComboChart,
+  OFunnel,
+  OHeatmap,
+  OAreaChart,
+  ORadarChart,
+  OScatterChart,
+  OSegmentedGauge,
+  OSankey,
+  ODotMatrix,
+  ODonutChart,
+  OBarChart,
+  OTreemap,
   OColorSwatch,
   OColorField,
   OColorSlider,

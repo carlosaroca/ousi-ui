@@ -24,7 +24,7 @@ const COMPONENTS = [
   'OAutocomplete', 'OBreadcrumbs',
   'OButtonGroup', 'OButtonGroupSeparator',
   'OCalendar', 'ORangeCalendar',
-  'OProgressBar', 'OProgressCircle',
+  'OProgressBar', 'OProgressCircle', 'OActivityRings', 'OComboChart', 'OFunnel', 'OHeatmap', 'OAreaChart', 'ORadarChart', 'OScatterChart', 'OSegmentedGauge', 'OSankey', 'ODotMatrix', 'ODonutChart', 'OBarChart', 'OTreemap',
   'OColorSwatch', 'OColorField', 'OColorSlider', 'OColorArea', 'OColorPicker',
   'ODateField', 'OTimeField', 'ODatePicker', 'ODateRangePicker',
   'OForm', 'OInputOtp', 'OKbd', 'OMeter', 'ONumberField', 'OPagination', 'OTable', 'OSlider',

@@ -3,7 +3,7 @@ import type { ComponentData } from './types'
 export const chartData: ComponentData = {
   title: 'Chart',
   description: 'Real-time animated line chart, canvas-rendered at 60fps. Zero charting library dependencies.',
-  category: 'Data Display',
+  category: 'Charts',
   importCode: "import { OChart } from '@ousi-ui/vue'",
 
   sections: [

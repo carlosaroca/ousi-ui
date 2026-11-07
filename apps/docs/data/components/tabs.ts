@@ -61,6 +61,170 @@ export const tabsData: ComponentData = {
       },
     },
     {
+      id: 'overflow',
+      title: 'Many tabs',
+      example: {
+        component: 'TabsOverflow',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OTabs } from '@ousi-ui/vue'
+
+// Tabs that do not fit scroll sideways. The scrollbar is hidden, and the active tab is
+// always brought into view (try the arrow keys, or pick the last one).
+const items = ['Panel', 'People', 'Links', 'Income and travel', 'Social media', 'Sources', 'Press', 'Legal documents', 'Background'].map(
+  (label) => ({ key: label, label }),
+)
+const primary = ref('People')
+const secondary = ref('Legal documents')
+</script>
+<template>
+  <div class="flex w-full min-w-0 flex-col gap-8">
+    <div class="w-full max-w-md">
+      <p class="mb-2 text-xs text-ousi-muted">primary</p>
+      <OTabs v-model="primary" :items="items" />
+    </div>
+    <div class="w-full max-w-md">
+      <p class="mb-2 text-xs text-ousi-muted">secondary</p>
+      <OTabs v-model="secondary" variant="secondary" :items="items" />
+    </div>
+    <!-- Inside a flex parent the tabs still stay within their column -->
+    <div class="flex w-full max-w-md gap-2">
+      <OTabs variant="secondary" :items="items" />
+    </div>
+    <div class="w-full max-w-md">
+      <p class="mb-2 text-xs text-ousi-muted">overflow="menu": the tabs that do not fit go under a menu</p>
+      <OTabs variant="secondary" overflow="menu" :items="items" />
+    </div>
+  </div>
+</template>`,
+      },
+    },
+    {
+      id: 'long-lists',
+      title: 'Long lists',
+      example: {
+        component: 'TabsLong',
+        code: `<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { OTabs } from '@ousi-ui/vue'
+
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+// 24 short tabs
+const many = Array.from({ length: 24 }, (_, i) => ({ key: \`m\${i}\`, label: \`\${months[i % 12]} \${i < 12 ? 2024 : 2025}\` }))
+// A few very long labels, one disabled
+const long = [
+  { key: 'a', label: 'Overview' },
+  { key: 'b', label: 'Income and international travel over the last five years' },
+  { key: 'c', label: 'Corporate links and shareholdings' },
+  { key: 'd', label: 'Legal documents pending review', disabled: true },
+  { key: 'e', label: 'Press coverage' },
+  { key: 'f', label: 'Sources and references used in the investigation' },
+]
+
+const active = ref('m3')
+const longActive = ref('b')
+const sizes = ['sm', 'md', 'lg'] as const
+const current = computed(() => many.find((t) => t.key === active.value)?.label)
+</script>
+<template>
+  <!-- w-full min-w-0: a flex or grid child cannot be narrower than its content unless it says so,
+       and 24 tabs that never wrap are thousands of pixels wide. -->
+  <div class="flex w-full min-w-0 flex-col gap-10">
+    <!-- 24 tabs -->
+    <div>
+      <p class="mb-2 text-xs text-ousi-muted">24 tabs · primary · {{ current }} selected</p>
+      <OTabs v-model="active" :items="many" class="max-w-xl" />
+    </div>
+    <div>
+      <p class="mb-2 text-xs text-ousi-muted">24 tabs · secondary, as wide as the page</p>
+      <OTabs v-model="active" variant="secondary" :items="many" />
+    </div>
+
+    <!-- Very long labels: they never wrap, the list scrolls -->
+    <div>
+      <p class="mb-2 text-xs text-ousi-muted">long labels, one disabled · primary and secondary</p>
+      <div class="flex max-w-xl flex-col gap-4">
+        <OTabs v-model="longActive" :items="long" />
+        <OTabs v-model="longActive" variant="secondary" :items="long" />
+      </div>
+    </div>
+
+    <!-- Sizes -->
+    <div>
+      <p class="mb-2 text-xs text-ousi-muted">sizes sm · md · lg</p>
+      <div class="flex max-w-md flex-col gap-3">
+        <OTabs v-for="s in sizes" :key="s" :size="s" :items="many" />
+      </div>
+    </div>
+
+    <!-- Next to a sibling in a flex row: the tabs take what is left and scroll, they do not push the layout -->
+    <div>
+      <p class="mb-2 text-xs text-ousi-muted">inside a flex row, next to other content</p>
+      <div class="flex max-w-xl items-center gap-3 rounded-2xl border border-dashed border-ousi-border p-3">
+        <div class="shrink-0 rounded-xl bg-ousi-default px-3 py-1.5 text-sm font-medium text-ousi-foreground">Filters</div>
+        <OTabs variant="secondary" :items="many" class="min-w-0 flex-1" />
+        <div class="shrink-0 rounded-xl bg-ousi-default px-3 py-1.5 text-sm font-medium text-ousi-foreground">Export</div>
+      </div>
+    </div>
+
+    <!-- With panels, keyboard: focus a tab and use the arrows / Home / End -->
+    <div class="max-w-xl">
+      <p class="mb-2 text-xs text-ousi-muted">with panels · use ← → Home End: the selected tab always scrolls into view</p>
+      <OTabs v-model="active" variant="secondary" :items="many">
+        <template v-for="t in many" :key="t.key" #[t.key]>
+          <div class="rounded-xl bg-ousi-default px-4 py-6 text-sm text-ousi-muted">Content of <b class="text-ousi-foreground">{{ t.label }}</b>.</div>
+        </template>
+      </OTabs>
+    </div>
+
+    <!-- Menu instead of scrolling -->
+    <div>
+      <p class="mb-2 text-xs text-ousi-muted">overflow="menu" with the long labels</p>
+      <OTabs v-model="longActive" variant="secondary" overflow="menu" :items="long" class="max-w-xl" />
+    </div>
+  </div>
+</template>`,
+      },
+    },
+    {
+      id: 'contained',
+      title: 'Inside grids and cards',
+      example: {
+        component: 'TabsContained',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OCard, OTabs } from '@ousi-ui/vue'
+
+// Grid cells and cards in a flex row cannot be narrower than their content, so a long list of
+// tabs that never wrap would stretch the whole column. \`contained\` makes the tabs fill the cell
+// without asking it for width: they scroll (with an edge fade) instead.
+const people = ['Overview', 'People', 'Links', 'Income and travel', 'Social media', 'Sources', 'Press', 'Legal documents', 'Background'].map(
+  (label) => ({ key: label, label }),
+)
+const months = Array.from({ length: 12 }, (_, i) => ({
+  key: \`m\${i}\`,
+  label: new Date(2025, i, 1).toLocaleString('en-US', { month: 'long' }),
+}))
+const a = ref('People')
+const b = ref('m4')
+</script>
+<template>
+  <div class="grid w-full gap-4 md:grid-cols-2">
+    <OCard class="gap-3 p-4">
+      <div class="text-sm font-medium text-ousi-foreground">Case file</div>
+      <OTabs v-model="a" variant="secondary" contained :items="people" />
+      <p class="text-sm text-ousi-muted">Showing <b class="text-ousi-foreground">{{ a }}</b>.</p>
+    </OCard>
+    <OCard class="gap-3 p-4">
+      <div class="text-sm font-medium text-ousi-foreground">Monthly report</div>
+      <OTabs v-model="b" contained :items="months" />
+      <p class="text-sm text-ousi-muted">Showing <b class="text-ousi-foreground">{{ months.find((m) => m.key === b)?.label }}</b>.</p>
+    </OCard>
+  </div>
+</template>`,
+      },
+    },
+    {
       id: 'vertical',
       title: 'Vertical',
       example: {
@@ -124,8 +288,10 @@ export const tabsData: ComponentData = {
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the tabs.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation.' },
-    { name: 'overflow', type: "'scroll' | 'menu'", default: "'scroll'", description: 'What horizontal tabs do when they do not fit: scroll sideways, or collect the ones that do not fit under a More menu that shows the active tab when it is one of them.' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch horizontal tabs to share the full width. By default each tab is as wide as its label and a secondary list scrolls when the tabs overflow.' },
+    { name: 'overflow', type: "'scroll' | 'menu'", default: "'scroll'", description: 'What horizontal tabs do when they do not fit: scroll sideways (the active tab is kept in view), or collect the ones that do not fit under a More menu that shows the active tab when it is one of them.' },
+    { name: 'contained', type: 'boolean', default: 'false', description: 'Fill the parent without making it wider. Use it inside grid cells, cards in a flex row and other flex/grid children, where a long list of tabs would otherwise stretch its column. Needs a parent with a defined width (it collapses inside a parent that only fits its content).' },
+    { name: 'scrollFade', type: 'boolean', default: 'true', description: 'Fade the edge(s) of a scrolling horizontal list that still have tabs beyond them. Uses the same logic as OScrollShadow.' },
+    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch horizontal tabs to share the full width. By default each tab is as wide as its label; tabs that do not fit scroll sideways (scrollbar hidden) in both variants. If OTabs sits inside a grid cell or a card in a flex row, add the contained prop (or give that parent min-w-0) so a long list scrolls instead of stretching its column.' },
     { name: 'hideBorder', type: 'boolean', default: 'false', description: "Hide the secondary variant's track border (long underline / left rail). No effect on primary; active-tab indicator unaffected." },
     { name: 'showSeparator', type: 'boolean', default: '-', description: 'Show separator lines between tabs.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },

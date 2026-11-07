@@ -1,20 +1,25 @@
 import { cva } from 'class-variance-authority'
 
 export const tabsWrapperTheme = cva(
-  'flex gap-2',
+  'flex min-w-0 gap-2',
   {
     variants: {
       orientation: {
-        horizontal: 'flex-col',
+        horizontal: 'max-w-full flex-col',
         vertical: 'flex-row',
       },
+      // Zero intrinsic width + fill the parent: the tabs never push a grid or flex parent wider.
+      contained: { true: '', false: '' },
     },
-    defaultVariants: { orientation: 'horizontal' },
+    compoundVariants: [
+      { orientation: 'horizontal', contained: true, class: 'w-0 min-w-full' },
+    ],
+    defaultVariants: { orientation: 'horizontal', contained: false },
   },
 )
 
 export const tabsListTheme = cva(
-  'inline-flex bg-ousi-default',
+  'inline-flex min-w-0 bg-ousi-default',
   {
     variants: {
       variant: {
@@ -45,7 +50,9 @@ export const tabsListTheme = cva(
       // Primary hugs its tabs unless stretched; secondary's track always spans the width.
       { variant: 'primary', orientation: 'horizontal', fullWidth: false, class: 'self-start' },
       { orientation: 'horizontal', fullWidth: true, class: 'w-full' },
-      { variant: 'secondary', orientation: 'horizontal', class: 'w-full overflow-x-auto' },
+      { variant: 'secondary', orientation: 'horizontal', class: 'w-full' },
+      // Tabs that do not fit scroll sideways, with the scrollbar hidden. Both variants.
+      { orientation: 'horizontal', class: 'overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden' },
       // Track border — only when not hidden.
       { variant: 'secondary', orientation: 'horizontal', hideBorder: false, class: 'border-b' },
       { variant: 'secondary', orientation: 'vertical', hideBorder: false, class: 'border-l' },
@@ -89,7 +96,8 @@ export const tabTheme = cva(
       fullWidth: { true: '', false: '' },
     },
     compoundVariants: [
-      { orientation: 'horizontal', fullWidth: true, class: 'flex-1' },
+      // Share the width when it is enough, keep the label's own width (and scroll) when it is not.
+      { orientation: 'horizontal', fullWidth: true, class: 'flex-1 shrink-0' },
       { orientation: 'horizontal', fullWidth: false, class: 'shrink-0' },
     ],
     defaultVariants: { variant: 'primary', size: 'md', selected: false, orientation: 'horizontal', fullWidth: false },

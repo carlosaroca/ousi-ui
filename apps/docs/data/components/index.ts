@@ -51,6 +51,19 @@ import { timelineNavData } from './timeline-nav'
 import { alertData } from './alert'
 import { progressBarData } from './progress-bar'
 import { progressCircleData } from './progress-circle'
+import { activityRingsData } from './activity-rings'
+import { comboChartData } from './combo-chart'
+import { dotMatrixData } from './dot-matrix'
+import { donutChartData } from './donut-chart'
+import { barChartData } from './bar-chart'
+import { treemapData } from './treemap'
+import { funnelData } from './funnel'
+import { heatmapData } from './heatmap'
+import { areaChartData } from './area-chart'
+import { radarChartData } from './radar-chart'
+import { scatterChartData } from './scatter-chart'
+import { segmentedGaugeData } from './segmented-gauge'
+import { sankeyData } from './sankey'
 import { meterData } from './meter'
 import { skeletonData } from './skeleton'
 import { spinnerData } from './spinner'
@@ -148,6 +161,19 @@ export const componentRegistry: Record<string, ComponentData> = {
   'alert': alertData,
   'progress-bar': progressBarData,
   'progress-circle': progressCircleData,
+  'activity-rings': activityRingsData,
+  'combo-chart': comboChartData,
+  'dot-matrix': dotMatrixData,
+  'donut-chart': donutChartData,
+  'bar-chart': barChartData,
+  'treemap': treemapData,
+  'funnel': funnelData,
+  'heatmap': heatmapData,
+  'area-chart': areaChartData,
+  'radar-chart': radarChartData,
+  'scatter-chart': scatterChartData,
+  'segmented-gauge': segmentedGaugeData,
+  'sankey': sankeyData,
   'meter': meterData,
   'skeleton': skeletonData,
   'spinner': spinnerData,

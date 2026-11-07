@@ -3,6 +3,7 @@ import { ref, computed, toRef, watch, onMounted, onBeforeUnmount, nextTick, useS
 import { cn, useControllableState, useMounted } from '@ousi-ui/core'
 import { vHaptic } from '@ousi-ui/haptics'
 import { useOusiMessages } from '../../config'
+import { useScrollFade } from '../scroll-shadow/useScrollFade'
 import {
   ODropdown,
   ODropdownTrigger,
@@ -24,6 +25,8 @@ const props = withDefaults(defineProps<TabsProps>(), {
   overflow: 'scroll',
   showSeparator: false,
   hideBorder: false,
+  scrollFade: true,
+  contained: false,
   shadow: 'none',
 })
 
@@ -47,6 +50,13 @@ const activeKey = useControllableState<string>({
 // Refs for measuring tab positions
 const listRef = ref<HTMLElement | null>(null)
 const tabRefs = ref<Map<string, HTMLElement>>(new Map())
+
+// Fade the edge(s) that still have tabs beyond them (the same logic OScrollShadow uses)
+const { maskStyle: fadeStyle, update: updateFade } = useScrollFade(listRef, {
+  orientation: () => 'horizontal',
+  size: () => 28,
+  enabled: () => props.scrollFade && props.orientation === 'horizontal',
+})
 
 function setTabRef(key: string, el: any) {
   if (el) tabRefs.value.set(key, el as HTMLElement)
@@ -130,8 +140,22 @@ function updateIndicator() {
   }
 }
 
+// Keep the active tab inside the visible part of a scrolling list.
+function revealActive(smooth = true) {
+  const list = listRef.value
+  const el = activeHidden.value ? moreRef.value : tabRefs.value.get(activeKey.value)
+  if (!list || !el || props.orientation !== 'horizontal' || list.scrollWidth <= list.clientWidth) return
+  const l = list.getBoundingClientRect()
+  const t = el.getBoundingClientRect()
+  const margin = 12
+  const behavior: ScrollBehavior =
+    smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto'
+  if (t.left < l.left + margin) list.scrollTo({ left: list.scrollLeft - (l.left + margin - t.left), behavior })
+  else if (t.right > l.right - margin) list.scrollTo({ left: list.scrollLeft + (t.right - (l.right - margin)), behavior })
+}
+
 // Update indicator when active key changes
-watch(activeKey, () => nextTick(updateIndicator))
+watch(activeKey, () => nextTick(() => { updateIndicator(); revealActive() }))
 watch(() => props.variant, () => nextTick(updateIndicator))
 watch(() => props.orientation, () => nextTick(updateIndicator))
 
@@ -152,6 +176,7 @@ function relayout() {
     // The More button may now show a longer label; measure again once it rendered.
     layoutTabs()
     updateIndicator()
+    updateFade()
   })
 }
 
@@ -171,7 +196,7 @@ watch(activeKey, () => {
 })
 
 onMounted(() => {
-  nextTick(relayout)
+  nextTick(() => { relayout(); revealActive(false) })
   if (typeof ResizeObserver === 'undefined') return
   resizeObserver = new ResizeObserver(() => relayout())
   nextTick(observeSizes)
@@ -226,7 +251,7 @@ function handleKeydown(e: KeyboardEvent) {
 <template>
   <div
     ref="rootRef"
-    :class="cn(tabsWrapperTheme({ orientation }), props.class)"
+    :class="cn(tabsWrapperTheme({ orientation, contained }), props.class)"
     :data-orientation="orientation"
   >
     <!-- Tab list -->
@@ -235,6 +260,7 @@ function handleKeydown(e: KeyboardEvent) {
       role="tablist"
       :aria-orientation="orientation"
       :class="cn(tabsListTheme({ variant, size, orientation, fullWidth, shadow, hideBorder }), 'relative')"
+      :style="fadeStyle"
     >
       <!-- Sliding indicator — single element, animated via CSS transition -->
       <span
