@@ -19,7 +19,7 @@ const items: ContextMenuItem[] = [
 <template>
   <OContextMenu :items="items">
     <div class="flex items-center justify-center p-12 border border-dashed border-ousi-border rounded-ousi-xl text-sm text-ousi-muted">
-      Right-click — grouped sections
+      Right-click: grouped sections
     </div>
   </OContextMenu>
 </template>

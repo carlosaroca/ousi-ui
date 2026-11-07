@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Animation — Ousi UI',
+  title: 'Animation | Ousi UI',
   description: 'Animation system, easing functions, and motion components in Ousi UI.',
 })
 
@@ -43,19 +43,19 @@ const tocItems = [
         <ul class="space-y-2.5 text-sm text-ousi-foreground">
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <span><strong>Purposeful</strong> — every animation serves a function: guiding focus, confirming actions, or revealing relationships.</span>
+            <span><strong>Purposeful</strong>: every animation serves a function: guiding focus, confirming actions, or revealing relationships.</span>
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <span><strong>Fast</strong> — most transitions complete in 150-300ms. Nothing blocks user interaction.</span>
+            <span><strong>Fast</strong>: most transitions complete in 150-300ms. Nothing blocks user interaction.</span>
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <span><strong>Accessible</strong> — all motion respects <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">prefers-reduced-motion</code> out of the box.</span>
+            <span><strong>Accessible</strong>: all motion respects <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">prefers-reduced-motion</code> out of the box.</span>
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <span><strong>GPU-accelerated</strong> — animations use <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">transform</code> and <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">opacity</code> to stay on the compositor thread.</span>
+            <span><strong>GPU-accelerated</strong>: animations use <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">transform</code> and <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">opacity</code> to stay on the compositor thread.</span>
           </li>
         </ul>
       </section>
@@ -177,7 +177,7 @@ const tocItems = [
         </div>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
-          <CodeBlock :code="`/* Use these easings in your own components */\n.my-element {\n  /* Bounce — playful overshoot */\n  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);\n\n  /* Smooth — elegant deceleration */\n  transition: opacity 150ms cubic-bezier(0.32, 0.72, 0, 1);\n\n  /* Expo out — fast start, gentle landing */\n  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);\n}`" show-copy />
+          <CodeBlock :code="`/* Use these easings in your own components */\n.my-element {\n  /* Bounce: playful overshoot */\n  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);\n\n  /* Smooth: elegant deceleration */\n  transition: opacity 150ms cubic-bezier(0.32, 0.72, 0, 1);\n\n  /* Expo out: fast start, gentle landing */\n  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);\n}`" show-copy />
         </div>
       </section>
 

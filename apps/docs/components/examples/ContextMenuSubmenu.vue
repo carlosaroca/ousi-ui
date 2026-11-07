@@ -48,7 +48,7 @@ function onSelect(key: string) {
   <div class="space-y-3">
     <OContextMenu :items="items" @select="onSelect">
       <div class="flex items-center justify-center p-12 border border-dashed border-ousi-border rounded-ousi-xl text-sm text-ousi-muted">
-        Right-click — try the submenus
+        Right-click: try the submenus
       </div>
     </OContextMenu>
     <p v-if="lastAction" class="text-xs text-ousi-muted">

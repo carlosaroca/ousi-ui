@@ -27,7 +27,7 @@ const offsets = [0, 4, 16]
       </p>
       <OContextMenu :items="items" :submenu-offset="o">
         <div class="flex items-center justify-center p-8 border border-dashed border-ousi-border rounded-ousi-xl text-xs text-ousi-muted">
-          Right-click — hover Export
+          Right-click: hover Export
         </div>
       </OContextMenu>
     </div>

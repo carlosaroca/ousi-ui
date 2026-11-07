@@ -92,6 +92,6 @@ const sections = [
     { text: 'Use for sidebar navigation with grouped sections.', good: true },
     { text: 'Use the `@select` event to handle routing (e.g. `router.push`).', good: true },
     { text: 'Use `badge` to mark upcoming or new items without making them interactive.', good: true },
-    { text: "Don't use for more than ~50 items — the SVG line gets very tall.", good: false },
+    { text: "Don't use for more than ~50 items. The SVG line gets very tall.", good: false },
   ],
 }

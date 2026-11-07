@@ -156,6 +156,6 @@ const position = ref(30)
     { text: 'Always provide `beforeAlt` and `afterAlt` for screen readers.', good: true },
     { text: 'Use `beforeLabel` and `afterLabel` to clarify what each side represents.', good: true },
     { text: 'Both images should have the same dimensions for proper alignment.', good: true },
-    { text: "Don't use for unrelated images — the comparison should be meaningful.", good: false },
+    { text: "Don't use for unrelated images. The comparison should be meaningful.", good: false },
   ],
 }

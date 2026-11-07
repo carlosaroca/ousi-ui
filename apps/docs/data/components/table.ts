@@ -144,7 +144,7 @@ export const tableData: ComponentData = {
         code: `<!-- Pin any column to either edge via the column's "sticky" prop.
      Multiple pinned columns stack with cumulative offsets.
      Implicit columns (expand / checkbox) auto-pin when needed.
-     Set widths that fit your content — sticky cells are locked to that width. -->
+     Set widths that fit your content: sticky cells are locked to that width. -->
 <OTable
   :columns="[
     { key: 'id',     label: '#',      width: 56,  sticky: 'left' },
@@ -199,7 +199,7 @@ function handle(key) {
 &lt;/script&gt;
 
 <template>
-  <!-- Wrap the table in OContextMenu — right-click anywhere on it opens the menu. -->
+  <!-- Wrap the table in OContextMenu: right-click anywhere on it opens the menu. -->
   <OContextMenu :items="menuItems" @select="handle">
     <OTable ref="tableRef" :columns="columns" :rows="rows" />
   </OContextMenu>
@@ -303,7 +303,7 @@ function handle(key) {
     { name: 'defaultSortDescriptor', type: 'SortDescriptor', default: '-', description: 'Default sort state (single column).' },
     { name: 'sortDescriptors', type: 'SortDescriptor[]', default: '-', description: 'Controlled multi-column sort state. Used when multiSort is true.' },
     { name: 'defaultSortDescriptors', type: 'SortDescriptor[]', default: '-', description: 'Default multi-column sort state.' },
-    { name: 'multiSort', type: 'boolean', default: 'false', description: 'Allow sorting by multiple columns — shift+click adds a secondary sort.' },
+    { name: 'multiSort', type: 'boolean', default: 'false', description: 'Allow sorting by multiple columns: shift+click adds a secondary sort.' },
     { name: 'stickyHeader', type: 'boolean', default: 'false', description: 'Stick the header to the top while the body scrolls.' },
     { name: 'density', type: "'compact' | 'normal' | 'relaxed'", default: "'normal'", description: 'Row height density.' },
     { name: 'hiddenColumns', type: 'Set<string>', default: '-', description: 'Controlled set of column keys to hide. Pair with v-model:hidden-columns.' },
@@ -343,7 +343,7 @@ function handle(key) {
     {
       name: 'hiddenColumns',
       type: 'Ref<Set<string>>',
-      description: 'Reactive ref to the current set of hidden column keys. Read-only — use toggleColumn (or v-model:hidden-columns) to mutate.',
+      description: 'Reactive ref to the current set of hidden column keys. Read-only: use toggleColumn (or v-model:hidden-columns) to mutate.',
     },
   ],
 
@@ -353,7 +353,7 @@ function handle(key) {
     { key: 'home / end', description: 'Move focus to the first / last cell of the current row.' },
     { key: 'ctrl-home / ctrl-end', description: 'Move focus to the first cell of the first row / last cell of the last row.' },
     { key: 'space / enter', description: 'Toggle selection (or trigger row action when no selection mode is set).' },
-    { key: 'shift-click', description: 'Select a range of rows from the last anchor — only when selectionMode is "multiple".' },
+    { key: 'shift-click', description: 'Select a range of rows from the last anchor: only when selectionMode is "multiple".' },
     { key: 'shift-click on sortable header', description: 'Add a secondary sort column when multiSort is enabled.' },
     { key: 'arrow-left / arrow-right on focused resizer', description: 'Resize the column (Shift = 1px, Ctrl/Cmd = 24px). Requires allowsResizing.' },
   ],

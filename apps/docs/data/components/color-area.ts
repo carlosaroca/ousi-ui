@@ -59,6 +59,6 @@ export const colorAreaData: ComponentData = {
   bestPractices: [
     { text: 'Pair with a hue slider for complete color selection.', good: true },
     { text: 'Provide a text representation of the selected color nearby.', good: true },
-    { text: "Don't use color area in isolation — users need a hue control too.", good: false },
+    { text: "Don't use color area in isolation. Users need a hue control too.", good: false },
   ],
 }

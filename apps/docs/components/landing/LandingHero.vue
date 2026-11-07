@@ -48,7 +48,7 @@ const activeAccent = ref('#1b5cff')
     <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-16 md:pt-24 pb-16 md:pb-24">
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-12 lg:gap-8 items-center">
 
-        <!-- Left — copy + CTAs -->
+        <!-- Left: copy + CTAs -->
         <div class="relative">
           <span
             aria-hidden="true"
@@ -114,12 +114,12 @@ const activeAccent = ref('#1b5cff')
           </div>
            <div class="mt-6">
             <OChip variant="outline" color="default" size="sm">
-              v{{ version }} — Now in Beta
+              v{{ version }} · Now in Beta
             </OChip>
           </div>
         </div>
 
-        <!-- Right — showcase -->
+        <!-- Right: showcase -->
         <LandingShowcase />
       </div>
     </div>

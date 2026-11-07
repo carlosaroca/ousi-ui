@@ -77,7 +77,7 @@ export const radioData: ComponentData = {
     { name: 'modelValue', type: 'string', default: '-', description: 'Selected value (v-model on ORadioGroup).' },
     { name: 'defaultValue', type: 'string', default: '-', description: 'Default selected value (ORadioGroup).' },
     { name: 'orientation', type: "'vertical' | 'horizontal'", default: "'vertical'", description: 'Layout orientation (ORadioGroup).' },
-    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message — activates error state (ORadioGroup).' },
+    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message: activates error state (ORadioGroup).' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether a selection is required (ORadioGroup).' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],

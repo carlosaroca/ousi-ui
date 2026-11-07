@@ -14,12 +14,12 @@ if (!data.value) {
 }
 
 useSeoMeta({
-  title: `${data.value.title} — Ousi UI`,
+  title: `${data.value.title} | Ousi UI`,
   description: data.value.description,
-  ogTitle: `${data.value.title} — Ousi UI Component`,
+  ogTitle: `${data.value.title} | Ousi UI Component`,
   ogDescription: data.value.description,
   ogImage: '/og-image.png',
-  twitterTitle: `${data.value.title} — Ousi UI`,
+  twitterTitle: `${data.value.title} | Ousi UI`,
   twitterDescription: data.value.description,
   twitterImage: '/og-image.png',
 })

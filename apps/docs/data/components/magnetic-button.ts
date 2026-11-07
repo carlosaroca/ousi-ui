@@ -87,7 +87,7 @@ export const magneticButtonData: ComponentData = {
     { text: 'Use for hero sections, portfolios, or feature showcases.', good: true },
     { text: 'Keep popup images at least 2x the popup width for sharp display.', good: true },
     { text: 'Use the `#popup` slot for rich content (cards, videos, etc.).', good: true },
-    { text: "Don't use for primary navigation — the effect is decorative.", good: false },
-    { text: "Don't set magnetStrength above 0.5 — it becomes disorienting.", good: false },
+    { text: "Don't use for primary navigation. The effect is decorative.", good: false },
+    { text: "Don't set magnetStrength above 0.5. It becomes disorienting.", good: false },
   ],
 }

@@ -28,7 +28,7 @@ function openAtCursor(e: MouseEvent) {
     <OButton @click="openAtButton">Open menu below</OButton>
     <OButton variant="secondary" @click="openAtCursor">Open at cursor</OButton>
 
-    <!-- The menu has no trigger slot — it only opens programmatically. -->
+    <!-- The menu has no trigger slot: it only opens programmatically. -->
     <OContextMenu ref="menuRef" :items="items" />
   </div>
 </template>

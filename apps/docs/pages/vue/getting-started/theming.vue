@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Theming — Ousi UI',
+  title: 'Theming | Ousi UI',
   description: 'Customize Ousi UI with OKLCH color tokens and CSS custom properties.',
 })
 
@@ -72,13 +72,13 @@ const tocItems = [
           Ousi UI's theming system is built on <strong>CSS custom properties</strong> using the
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch" target="_blank" class="text-ousi-accent underline">OKLCH color space</a>.
           The <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">@ousi-ui/theme</code> package
-          provides all default tokens. You customize by overriding CSS variables — no build step, no config files,
+          provides all default tokens. You customize by overriding CSS variables: no build step, no config files,
           just CSS.
         </p>
         <p class="text-sm text-ousi-foreground leading-relaxed mb-4">
           OKLCH (Oklab Lightness, Chroma, Hue) is a perceptually uniform color space. Unlike HSL, equal changes
           in lightness actually look equally different to the human eye. This means a blue and a yellow at the
-          same lightness value will appear equally bright — making it ideal for design token systems.
+          same lightness value will appear equally bright: making it ideal for design token systems.
         </p>
         <p class="text-sm text-ousi-muted leading-relaxed">
           Because the tokens are standard CSS custom properties, they integrate seamlessly with
@@ -95,7 +95,7 @@ const tocItems = [
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Theme Structure</h2>
         <p class="text-sm text-ousi-muted mb-4">
           The theme is defined by a small set of semantic tokens. Every component in the library references
-          these variables — change them once, and the entire UI updates.
+          these variables: change them once, and the entire UI updates.
         </p>
 
         <!-- Live color swatches -->
@@ -154,7 +154,7 @@ const tocItems = [
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden mb-4">
-          <CodeBlock :code="`/* Automatic — system preference */
+          <CodeBlock :code="`/* Automatic: system preference */
 @media (prefers-color-scheme: dark) {
   :root {
     --ousi-background: oklch(0.13 0 0);
@@ -164,7 +164,7 @@ const tocItems = [
   }
 }
 
-/* Manual — class-based toggle */
+/* Manual: class-based toggle */
 .dark {
   --ousi-background: oklch(0.13 0 0);
   --ousi-foreground: oklch(0.93 0 0);
@@ -187,7 +187,7 @@ const tocItems = [
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Custom Theme</h2>
         <p class="text-sm text-ousi-foreground leading-relaxed mb-4">
           Creating a custom brand theme is as simple as overriding the CSS variables in your global stylesheet.
-          You only need to override the tokens you want to change — everything else falls back to the defaults.
+          You only need to override the tokens you want to change: everything else falls back to the defaults.
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden mb-4">
@@ -207,13 +207,13 @@ const tocItems = [
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden mb-4">
-          <CodeBlock :code="`/* Marketing pages — warm palette */
+          <CodeBlock :code="`/* Marketing pages: warm palette */
 .theme-marketing {
   --ousi-accent: oklch(0.7 0.2 55);
   --ousi-background: oklch(0.98 0.005 55);
 }
 
-/* Admin dashboard — cool palette */
+/* Admin dashboard: cool palette */
 .theme-admin {
   --ousi-accent: oklch(0.6 0.2 250);
   --ousi-background: oklch(0.99 0 0);
@@ -297,7 +297,7 @@ const tocItems = [
         <p class="text-sm text-ousi-foreground leading-relaxed mb-4">
           The <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">@ousi-ui/theme</code> package
           registers all tokens as Tailwind CSS v4 theme values. This means every token is available as a
-          utility class — no extra configuration needed.
+          utility class: no extra configuration needed.
         </p>
 
         <div class="overflow-x-auto rounded-ousi-xl border border-ousi-border mb-4">
@@ -361,7 +361,7 @@ const tocItems = [
           <CodeBlock :code="`@import '@ousi-ui/theme';
 
 :root {
-  /* Brand color — everything derives from this */
+  /* Brand color: everything derives from this */
   --ousi-accent: oklch(0.65 0.24 270);
 
   /* Optional: adjust the radius scale */

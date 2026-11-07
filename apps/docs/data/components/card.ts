@@ -208,16 +208,16 @@ export const cardData: ComponentData = {
   ],
 
   slots: [
-    { name: 'default', type: '-', description: 'Card content — compose with OCardHeader, OCardContent, OCardFooter.' },
+    { name: 'default', type: '-', description: 'Card content: compose with OCardHeader, OCardContent, OCardFooter.' },
   ],
 
   bestPractices: [
-    { text: 'Use `variant="secondary"` for cards with form inputs inside — it provides better contrast.', good: true },
+    { text: 'Use `variant="secondary"` for cards with form inputs inside. It provides better contrast.', good: true },
     { text: 'Use `shadow="md"` or higher for destacated/hero cards, `sm` (default) for inline content.', good: true },
     { text: 'Override `--ousi-shadow-color` on a container to tint all descendant shadows to your brand.', good: true },
     { text: 'Use `as="a"` with hover classes for clickable card links.', good: true },
     { text: 'Use `class="flex-row"` for horizontal card layouts.', good: true },
     { text: 'Use negative margins (`-mx-4 -mt-4`) for full-bleed cover images.', good: true },
-    { text: "Don't deeply nest cards — keep hierarchy flat.", good: false },
+    { text: "Don't deeply nest cards. Keep hierarchy flat.", good: false },
   ],
 }

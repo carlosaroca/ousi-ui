@@ -18,7 +18,7 @@ const row = computed(() => (focused.value == null ? null : data[focused.value]))
         <span v-for="s in series" :key="s.key" class="flex items-center gap-2">
           <span class="inline-block size-2 rounded-full" :style="{ backgroundColor: `var(--ousi-${s.color})` }" />
           <span class="text-ousi-muted">{{ s.label }}</span>
-          <span class="font-semibold text-ousi-foreground">{{ row ? row[s.key as 'a' | 'b'] : '—' }}</span>
+          <span class="font-semibold text-ousi-foreground">{{ row ? row[s.key as 'a' | 'b'] : '-' }}</span>
         </span>
       </div>
     </div>

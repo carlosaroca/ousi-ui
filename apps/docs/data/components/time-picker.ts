@@ -113,11 +113,11 @@ const time = ref<TimeFieldValue | null>({ hour: 14, minute: 30 })
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant of the field.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow on the trigger.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'defaultValue', type: 'TimeFieldValue | null', default: 'null', description: 'Default time value.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Description text below the field.' },
-    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message — replaces description when present.' },
+    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message: replaces description when present.' },
     { name: 'hour12', type: 'boolean', default: 'false', description: 'Use 12-hour format with an AM/PM column.' },
     { name: 'granularity', type: "'hour' | 'minute' | 'second'", default: "'minute'", description: 'Smallest unit displayed in the picker.' },
     { name: 'interval', type: '1 | 5 | 10 | 15 | 30 | 60', default: '5', description: 'Step in minutes for the minute wheel.' },
@@ -162,8 +162,8 @@ const time = ref<TimeFieldValue | null>({ hour: 14, minute: 30 })
 
   bestPractices: [
     { text: 'Use OTimeField for keyboard-first power users; OTimePicker for touch and visual selection.', good: true },
-    { text: 'Set a sensible interval — 1-minute precision is rarely needed for human-scheduled events.', good: true },
-    { text: 'Pair with ODatePicker when you need a full datetime — avoid combining them into a single field.', good: true },
+    { text: 'Set a sensible interval: 1-minute precision is rarely needed for human-scheduled events.', good: true },
+    { text: 'Pair with ODatePicker when you need a full datetime. Avoid combining them into a single field.', good: true },
     { text: "Don't use granularity=&apos;second&apos; for user-facing time selection unless you really need it.", good: false },
   ],
 }

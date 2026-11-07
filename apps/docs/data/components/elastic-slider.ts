@@ -102,7 +102,7 @@ export const elasticSliderData: ComponentData = {
     { text: 'Use for volume, brightness, or other visual intensity controls.', good: true },
     { text: 'Keep barCount proportional to the slider width for a clean look.', good: true },
     { text: 'Use showPercent for percentage-based values like opacity or volume.', good: true },
-    { text: "Don't use for precise numeric input — use NumberField or Slider instead.", good: false },
-    { text: "Don't set waveIntensity above 3 — the effect becomes exaggerated.", good: false },
+    { text: "Don't use for precise numeric input. Use NumberField or Slider instead.", good: false },
+    { text: "Don't set waveIntensity above 3. The effect becomes exaggerated.", good: false },
   ],
 }

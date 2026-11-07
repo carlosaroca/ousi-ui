@@ -37,7 +37,7 @@ export default defineConfig({
 })
 ```
 
-No `tailwind.config.ts` file is needed — everything is handled via CSS imports.
+No `tailwind.config.ts` file is needed: everything is handled via CSS imports.
 
 ## Available themes
 

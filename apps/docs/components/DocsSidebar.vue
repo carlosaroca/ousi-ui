@@ -50,7 +50,7 @@ const activeId = computed(() => {
   return sidebarSections[0]?.items[0]?.id ?? ''
 })
 
-// Springs — misma config que el original de V0
+// Springs: misma config que el original de V0
 const highlightY   = useSpring(0, { stiffness: 280, damping: 22, mass: 0.9 })
 const markerY      = useSpring(0, { stiffness: 180, damping: 20, mass: 0.8 })
 const markerX      = useSpring(28, { stiffness: 180, damping: 20, mass: 0.8 })

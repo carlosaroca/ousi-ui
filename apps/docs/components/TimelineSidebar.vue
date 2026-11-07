@@ -165,7 +165,7 @@ onMounted(async () => {
 <template>
   <div ref="containerRef" class="relative select-none">
 
-    <!-- Layer 1: Animated background highlight — gradient from accent to transparent -->
+    <!-- Layer 1: Animated background highlight: gradient from accent to transparent -->
     <div
       class="absolute right-0 rounded-ousi-lg pointer-events-none"
       :style="{

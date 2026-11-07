@@ -70,7 +70,7 @@ function updateIndicators() {
   }
 }
 
-// SVG path — simple vertical line with slight curves
+// SVG path: simple vertical line with slight curves
 const svgPath = computed(() => {
   const pts = positions.value
   if (pts.length < 2) return ''
@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
 <template>
   <div ref="containerRef" class="relative select-none">
 
-    <!-- Layer 1: Highlight — gradient from accent to transparent -->
+    <!-- Layer 1: Highlight: gradient from accent to transparent -->
     <div
       class="absolute left-0 right-0 rounded-ousi-lg pointer-events-none"
       :style="{

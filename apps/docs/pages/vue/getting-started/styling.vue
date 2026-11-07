@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Styling — Ousi UI',
+  title: 'Styling | Ousi UI',
   description: 'How to style, customize, and theme Ousi UI components.',
 })
 
@@ -89,7 +89,7 @@ const tocItems = [
         <p class="text-sm text-ousi-muted mb-4">
           Every Ousi UI component accepts a <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">class</code> prop.
           Classes you pass are merged with the component's internal classes using <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">cn()</code>,
-          so conflicting utilities are resolved automatically — your overrides always win.
+          so conflicting utilities are resolved automatically: your overrides always win.
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
@@ -188,7 +188,7 @@ const tocItems = [
                 <td class="px-4 py-3 font-mono text-xs text-ousi-accent">md</td>
                 <td class="px-4 py-3 text-xs text-ousi-muted">40px</td>
                 <td class="px-4 py-3 text-xs text-ousi-muted">14px</td>
-                <td class="px-4 py-3 text-ousi-foreground">Default — most common size</td>
+                <td class="px-4 py-3 text-ousi-foreground">Default: most common size</td>
               </tr>
               <tr>
                 <td class="px-4 py-3 font-mono text-xs text-ousi-accent">lg</td>
@@ -214,7 +214,7 @@ const tocItems = [
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden mb-4">
-          <CodeBlock :code="`<!-- cn() resolves conflicts — your 'rounded-full' replaces the default radius -->\n<OButton class=&quot;rounded-full&quot;>Pill Button</OButton>\n\n<!-- Override colors entirely -->\n<OButton class=&quot;bg-emerald-600 hover:bg-emerald-700 text-white&quot;>\n  Custom Color\n</OButton>\n\n<!-- Using cn() in your own components -->\n<script setup>\nimport { cn } from '@ousi-ui/core'\n\nconst props = defineProps<{ class?: string }>()\n</script>\n\n<template>\n  <div :class=&quot;cn('rounded-ousi-xl bg-ousi-surface p-4', props.class)&quot;>\n    <slot />\n  </div>\n</template>`" show-copy />
+          <CodeBlock :code="`<!-- cn() resolves conflicts: your 'rounded-full' replaces the default radius -->\n<OButton class=&quot;rounded-full&quot;>Pill Button</OButton>\n\n<!-- Override colors entirely -->\n<OButton class=&quot;bg-emerald-600 hover:bg-emerald-700 text-white&quot;>\n  Custom Color\n</OButton>\n\n<!-- Using cn() in your own components -->\n<script setup>\nimport { cn } from '@ousi-ui/core'\n\nconst props = defineProps<{ class?: string }>()\n</script>\n\n<template>\n  <div :class=&quot;cn('rounded-ousi-xl bg-ousi-surface p-4', props.class)&quot;>\n    <slot />\n  </div>\n</template>`" show-copy />
         </div>
 
         <h3 class="text-base font-semibold text-ousi-foreground mt-6 mb-3">Design Tokens</h3>

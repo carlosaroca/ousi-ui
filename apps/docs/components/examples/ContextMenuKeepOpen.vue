@@ -29,7 +29,7 @@ function onSelect(key: string) {
 <template>
   <OContextMenu :items="items" @select="onSelect">
     <div class="flex items-center justify-center p-12 border border-dashed border-ousi-border rounded-ousi-xl text-sm text-ousi-muted">
-      Right-click — toggle stays open
+      Right-click: toggle stays open
     </div>
   </OContextMenu>
 </template>

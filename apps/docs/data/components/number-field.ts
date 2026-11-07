@@ -138,7 +138,7 @@ export const numberFieldData: ComponentData = {
     { name: 'name', type: 'string', default: '-', description: 'Field name for form context.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the field.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Read-only mode.' },

@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Installation — Ousi UI',
+  title: 'Installation | Ousi UI',
   description: 'Install and configure Ousi UI in your Vue 3 project.',
 })
 
@@ -74,7 +74,7 @@ const tocItems = [
       <!-- Step 3: Usage -->
       <section id="usage">
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">3. Use components</h2>
-        <p class="text-sm text-ousi-muted mb-3">Import individual components directly — fully tree-shakeable:</p>
+        <p class="text-sm text-ousi-muted mb-3">Import individual components directly: fully tree-shakeable:</p>
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
           <div class="flex border-b border-ousi-border">
             <span class="px-4 py-2 text-xs font-medium text-ousi-muted">App.vue</span>

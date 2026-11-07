@@ -5,7 +5,7 @@ import { ODatePicker, OTimePicker, OCalendar, OSelect } from '@ousi-ui/vue'
 import type { SelectOption, TimeFieldValue, CalendarDate } from '@ousi-ui/vue'
 
 useSeoMeta({
-  title: 'Internationalization — Ousi UI',
+  title: 'Internationalization | Ousi UI',
   description: 'Set a global locale, hour format and first day of the week for every date/time component in Ousi UI.',
 })
 
@@ -22,14 +22,14 @@ const tocItems = [
 
 // Try-it playground state
 const localeOptions: SelectOption[] = [
-  { value: 'en-US', label: 'English (US) — en-US' },
-  { value: 'en-GB', label: 'English (UK) — en-GB' },
-  { value: 'es-ES', label: 'Español — es-ES' },
-  { value: 'de-DE', label: 'Deutsch — de-DE' },
-  { value: 'fr-FR', label: 'Français — fr-FR' },
-  { value: 'ja-JP', label: '日本語 — ja-JP' },
-  { value: 'zh-CN', label: '中文 — zh-CN' },
-  { value: 'ar-EG', label: 'العربية — ar-EG' },
+  { value: 'en-US', label: 'English (US): en-US' },
+  { value: 'en-GB', label: 'English (UK): en-GB' },
+  { value: 'es-ES', label: 'Español (es-ES)' },
+  { value: 'de-DE', label: 'Deutsch (de-DE)' },
+  { value: 'fr-FR', label: 'Français (fr-FR)' },
+  { value: 'ja-JP', label: '日本語 (ja-JP)' },
+  { value: 'zh-CN', label: '中文 (zh-CN)' },
+  { value: 'ar-EG', label: 'العربية (ar-EG)' },
 ]
 const tryLocale = ref<string | number>('en-US')
 const tryDate = ref<CalendarDate | null>({ year: 2026, month: 5, day: 15 })
@@ -50,7 +50,7 @@ const tryLocaleStr = computed(() => String(tryLocale.value))
       </div>
       <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight">Internationalization</h1>
       <p class="mt-1.5 text-base text-ousi-muted">
-        Set a global locale once. Every date and time component picks it up — format, weekday order,
+        Set a global locale once. Every date and time component picks it up: format, weekday order,
         AM/PM labels, all driven by <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">Intl</code>.
       </p>
     </div>
@@ -90,7 +90,7 @@ const tryLocaleStr = computed(() => String(tryLocale.value))
         <p class="text-sm text-ousi-foreground leading-relaxed mb-4">
           Set the initial locale (and any other config defaults) when you install the plugin in
           <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">main.ts</code>.
-          This is the most common pattern — works exactly like Vuetify or PrimeVue.
+          This is the most common pattern: works exactly like Vuetify or PrimeVue.
         </p>
 
         <OCodeBlock filename="main.ts" :code="`import { createApp } from 'vue'
@@ -167,7 +167,7 @@ watch(locale, (next) => {
           (a worldclock widget, a finance form forced to ISO, etc).
         </p>
 
-        <OCodeBlock :code="`&lt;!-- App in 'de-DE' globally — this one stays English. --&gt;
+        <OCodeBlock :code="`&lt;!-- App in 'de-DE' globally: this one stays English. --&gt;
 <ODatePicker v-model=&quot;date&quot; locale=&quot;en-US&quot; />
 
 &lt;!-- Force 24h regardless of locale defaults. --&gt;
@@ -267,7 +267,7 @@ watch(locale, (next) => {
       <section id="helpers">
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Locale helpers</h2>
         <p class="text-sm text-ousi-muted mb-4">
-          Two utilities exposed alongside the config — useful if you build your own locale-aware UI.
+          Two utilities exposed alongside the config: useful if you build your own locale-aware UI.
         </p>
 
         <OCodeBlock :code="`import {
@@ -303,7 +303,7 @@ getHour12ForLocale('ja-JP')          // true`" />
               <strong>The config is a singleton.</strong> Calling
               <code class="text-xs rounded bg-ousi-default px-1.5 py-0.5 font-mono">useOusiConfig()</code>
               from any component returns the same refs. You cannot scope different locales to different
-              subtrees with this API alone — if you need that, fork the prop on the boundary component.
+              subtrees with this API alone: if you need that, fork the prop on the boundary component.
             </span>
           </li>
           <li class="flex items-start gap-2">

@@ -2,7 +2,7 @@ import type { ComponentData } from './types'
 
 export const accordionData: ComponentData = {
   title: 'Accordion',
-  description: 'Accordion with fluid separation animation — items detach smoothly when expanded.',
+  description: 'Accordion with fluid separation animation: items detach smoothly when expanded.',
   category: 'Navigation',
   importCode: "import { OAccordion } from '@ousi-ui/vue'",
 
@@ -119,8 +119,8 @@ const open = ref('sched')
 
   bestPractices: [
     { text: 'Use icons in the `#icon-{key}` slot to make items visually distinct.', good: true },
-    { text: 'Keep descriptions concise — the animation works best with short content.', good: true },
+    { text: 'Keep descriptions concise. The animation works best with short content.', good: true },
     { text: 'Use `gap` prop to control the visual separation intensity.', good: true },
-    { text: "Don't use for more than 8-10 items — a regular accordion is better for long lists.", good: false },
+    { text: "Don't use for more than 8-10 items. A regular accordion is better for long lists.", good: false },
   ],
 }

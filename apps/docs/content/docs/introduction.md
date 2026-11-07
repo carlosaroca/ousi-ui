@@ -9,11 +9,11 @@ Ousi UI is a Vue 3 component library built with Tailwind CSS. It provides a set 
 
 ## Features
 
-- **Vue 3** — Built with Composition API and `<script setup>`
-- **Tailwind CSS** — Styled with utility classes and design tokens
-- **Themeable** — Multiple built-in themes with full customization support
-- **TypeScript** — Full type safety with exported prop types
-- **Accessible** — WAI-ARIA compliant components
+- **Vue 3**: Built with Composition API and `<script setup>`
+- **Tailwind CSS**: Styled with utility classes and design tokens
+- **Themeable**: Multiple built-in themes with full customization support
+- **TypeScript**: Full type safety with exported prop types
+- **Accessible**: WAI-ARIA compliant components
 
 ## Quick Start
 

@@ -68,12 +68,12 @@ export const colorFieldData: ComponentData = {
     { name: 'defaultValue', type: 'string', default: "''", description: 'Default color value.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Help text.' },
-    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message — overrides internal validation.' },
+    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message: overrides internal validation.' },
     { name: 'format', type: "'hex' | 'rgb' | 'hsl'", default: "'hex'", description: 'Output format.' },
     { name: 'showSwatch', type: 'boolean', default: 'false', description: 'Show color preview swatch.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the field is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the field is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether a value is required.' },
@@ -109,6 +109,6 @@ export const colorFieldData: ComponentData = {
   bestPractices: [
     { text: 'Always provide a label for accessibility.', good: true },
     { text: 'Use showSwatch to give immediate visual feedback on the entered color.', good: true },
-    { text: "Don't accept arbitrary text without validation — use the format prop.", good: false },
+    { text: "Don't accept arbitrary text without validation. Use the format prop.", good: false },
   ],
 }

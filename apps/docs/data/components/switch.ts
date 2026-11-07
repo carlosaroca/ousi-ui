@@ -104,7 +104,7 @@ const enabled = ref(true)
     { text: 'Use Switch for settings that take effect immediately (e.g., toggling dark mode).', good: true },
     { text: 'Always provide a label for accessibility.', good: true },
     { text: 'Use description to explain the effect of the toggle.', good: true },
-    { text: "Don't use Switch for form submissions — use Checkbox instead.", good: false },
+    { text: "Don't use Switch for form submissions. Use Checkbox instead.", good: false },
   ],
 
   haptics: {

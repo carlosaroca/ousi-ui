@@ -41,7 +41,7 @@ function onFilesChange(files: File[]) {
       title: 'Max File Size',
       example: {
         component: 'FileUploadRestricted',
-        code: `<!-- maxSize is in bytes — 5242880 = 5 MB -->
+        code: `<!-- maxSize is in bytes: 5242880 = 5 MB -->
 <OFileUpload
   :max-size="5242880"
   @error="onError"
@@ -99,11 +99,11 @@ function onFilesChange(files: File[]) {
     { name: 'multiple', type: 'boolean', default: 'false', description: 'Allow selecting multiple files.' },
     { name: 'maxSize', type: 'number', default: '-', description: 'Maximum file size in bytes.' },
     { name: 'maxFiles', type: 'number', default: '-', description: 'Maximum number of files allowed when multiple is true.' },
-    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the component — affects padding, text, icon, and the browse button.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the component: affects padding, text, icon, and the browse button.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the upload zone.' },
     { name: 'variant', type: "'area' | 'inline'", default: "'area'", description: 'Layout variant. "area" is the default tall drop zone; "inline" is a compact horizontal strip.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'none'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'fileStatus', type: '(file: File) => { progress?: number; error?: string } | undefined', default: '-', description: 'Upload state per listed file: a progress bar while under 100, a check at 100, an error with a retry button.' },
     { name: 'hideFileList', type: 'boolean', default: 'false', description: 'Hide the list of selected files.' },
     { name: 'hideHint', type: 'boolean', default: 'false', description: 'Hide the formats and max size line, which accept and maxSize fill in.' },

@@ -14,7 +14,7 @@ const items = [
       <template #tab3>Third tab content.</template>
     </OTabs>
     <OTabs variant="secondary" hide-border :items="items">
-      <template #tab1>Track border hidden — active indicator unaffected.</template>
+      <template #tab1>Track border hidden: active indicator unaffected.</template>
       <template #tab2>Second tab content.</template>
       <template #tab3>Third tab content.</template>
     </OTabs>

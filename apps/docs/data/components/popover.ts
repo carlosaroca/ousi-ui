@@ -78,6 +78,6 @@ export const popoverData: ComponentData = {
     { text: 'Use popovers for additional context, not primary content.', good: true },
     { text: 'Keep popover content concise and focused.', good: true },
     { text: 'Fields inside a popover work as usual: picking in their lists or calendars keeps the popover open.', good: true },
-    { text: "Don't put complex forms inside popovers — use a dialog instead.", good: false },
+    { text: "Don't put complex forms inside popovers. Use a dialog instead.", good: false },
   ],
 }

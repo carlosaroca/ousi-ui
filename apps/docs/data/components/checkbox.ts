@@ -128,7 +128,7 @@ export const checkboxData: ComponentData = {
     { text: 'Always provide a label for accessibility.', good: true },
     { text: 'Use indeterminate state for "select all" patterns with partial selection.', good: true },
     { text: 'Use description to provide additional context about the option.', good: true },
-    { text: "Don't use a checkbox for actions — use a Switch for on/off settings.", good: false },
+    { text: "Don't use a checkbox for actions. Use a Switch for on/off settings.", good: false },
   ],
 
   haptics: {

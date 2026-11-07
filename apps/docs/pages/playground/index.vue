@@ -5,7 +5,7 @@ import type { SelectOption } from '@ousi-ui/vue'
 import LandingShowcase from '~/components/landing/LandingShowcase.vue'
 
 definePageMeta({ layout: 'landing' })
-useSeoMeta({ title: 'Playground — Ousi UI' })
+useSeoMeta({ title: 'Playground | Ousi UI' })
 
 const DEFAULTS = {
   hue: 220, base: 240, shadow: 220,
@@ -221,7 +221,7 @@ const cssOutput = computed(() => {
   const selector = isDark ? '[data-theme="dark"]' : ':root'
 
   return `/*
- * Ousi UI — Custom Theme
+ * Ousi UI: Custom Theme
  * Generated from Playground
  */
 
@@ -272,7 +272,7 @@ function copyLink() {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-6 md:pt-10 pb-16 md:pb-24">
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-12 lg:gap-8 items-start">
 
-        <!-- ═══ LEFT — Theme controls ═══ -->
+        <!-- ═══ LEFT: Theme controls ═══ -->
         <div class="relative lg:sticky lg:top-24 max-w-sm space-y-5">
           <!-- Title + description -->
           <div>
@@ -359,9 +359,9 @@ function copyLink() {
           </div>
         </div>
 
-        <!-- ═══ RIGHT — Showcase (inherits theme from :root) ═══ -->
+        <!-- ═══ RIGHT: Showcase (inherits theme from :root) ═══ -->
         <div class="space-y-8">
-          <!-- Button variants — quick visual check across the full set -->
+          <!-- Button variants: quick visual check across the full set -->
           <div class="rounded-ousi-2xl">
             <div class="flex flex-wrap items-center gap-2.5">
               <OButton variant="primary">Primary</OButton>
@@ -380,7 +380,7 @@ function copyLink() {
       </div>
     </div>
 
-    <!-- Dialog — for testing close-button radius adapt against --ousi-radius -->
+    <!-- Dialog: for testing close-button radius adapt against --ousi-radius -->
     <ClientOnly>
       <ODialog v-model="dialogOpen" size="md">
         <ODialogHeader>

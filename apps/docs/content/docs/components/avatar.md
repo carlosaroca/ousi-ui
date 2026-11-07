@@ -59,9 +59,9 @@ When no image is provided, initials are generated from the `name` prop.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `src` | `string` | — | Image URL |
+| `src` | `string` | - | Image URL |
 | `alt` | `string` | `''` | Alt text |
-| `name` | `string` | — | Name for initials fallback |
+| `name` | `string` | - | Name for initials fallback |
 | `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Avatar size |
 | `shape` | `'circle' \| 'square'` | `'circle'` | Avatar shape |
 

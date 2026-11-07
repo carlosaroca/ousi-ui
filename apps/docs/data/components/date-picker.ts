@@ -92,7 +92,7 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
   label="API date + custom display"
 />
 
-<!-- Supported tokens: YYYY YY MM M DD D — anything else is a literal. -->`,
+<!-- Supported tokens: YYYY YY MM M DD D: anything else is a literal. -->`,
       },
     },
     {
@@ -137,16 +137,16 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
 
   props: [
     { name: 'modelValue', type: 'DateFieldValue | string | null', default: 'null', description: 'Current date value (v-model). When `format` is set, this is a string in that pattern.' },
-    { name: 'format', type: 'string', default: '-', description: 'When set, v-model is parsed/emitted as a string in this pattern. Tokens: `YYYY YY MM M DD D` — anything else is a literal.' },
+    { name: 'format', type: 'string', default: '-', description: 'When set, v-model is parsed/emitted as a string in this pattern. Tokens: `YYYY YY MM M DD D`: anything else is a literal.' },
     { name: 'displayFormat', type: 'string', default: '-', description: 'When set, the trigger renders segments in this pattern instead of deriving from `locale`. Independent from `format`.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant of the field.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateFieldValue | string | null', default: 'null', description: 'Default date value. Accepts a string when `format` is set.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Description text below the field.' },
-    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message — replaces description when present.' },
+    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message: replaces description when present.' },
     { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for segment ordering and month names.' },
     { name: 'minValue', type: 'DateFieldValue', default: '-', description: 'Minimum selectable date.' },
     { name: 'maxValue', type: 'DateFieldValue', default: '-', description: 'Maximum selectable date.' },
@@ -193,6 +193,6 @@ const date = ref<DateFieldValue | null>({ year: 2026, month: 5, day: 15 })
     { text: 'Always provide a label for the date picker.', good: true },
     { text: 'Use errorMessage to display validation feedback.', good: true },
     { text: 'Constrain dates with minValue and maxValue when there is a valid range.', good: true },
-    { text: "Don't rely solely on the calendar popover — the date field accepts keyboard input.", good: false },
+    { text: "Don't rely solely on the calendar popover. The date field accepts keyboard input.", good: false },
   ],
 }

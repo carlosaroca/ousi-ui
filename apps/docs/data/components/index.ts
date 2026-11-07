@@ -100,19 +100,19 @@ import { scrollShadowData } from './scroll-shadow'
 // Data Visualization
 import { chartData } from './chart'
 
-// Batch 2 — Trendy
+// Batch 2: Trendy
 import { marqueeData } from './marquee'
 import { typewriterData } from './typewriter'
 import { gradientTextData } from './gradient-text'
 import { confettiData } from './confetti'
 
-// Batch 3 — Complex
+// Batch 3: Complex
 import { commandPaletteData } from './command-palette'
 import { carouselData } from './carousel'
 import { stepperData } from './stepper'
 import { fileUploadData } from './file-upload'
 
-// Batch 4 — Layout/Utility
+// Batch 4: Layout/Utility
 import { treeViewData } from './tree-view'
 import { bentoGridData } from './bento-grid'
 import { resizableData } from './resizable'

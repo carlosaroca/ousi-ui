@@ -4,7 +4,7 @@ import type { TabItem } from '@ousi-ui/vue'
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Haptic Feedback — Ousi UI',
+  title: 'Haptic Feedback | Ousi UI',
   description: 'Built-in haptic feedback for mobile interactions.',
 })
 
@@ -124,7 +124,7 @@ const tocItems = [
       <section id="usage-in-components">
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Usage in Components</h2>
         <p class="text-sm text-ousi-muted mb-4">
-          Haptics are built into 10 components. Each has a sensible default — you don't need to configure anything.
+          Haptics are built into 10 components. Each has a sensible default: you don't need to configure anything.
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
@@ -195,7 +195,7 @@ const tocItems = [
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <strong>iOS</strong>: Uses a hidden checkbox click trick to activate the Taptic Engine — works on Safari, Chrome, and all iOS browsers.
+            <strong>iOS</strong>: Uses a hidden checkbox click trick to activate the Taptic Engine: works on Safari, Chrome, and all iOS browsers.
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
@@ -203,7 +203,7 @@ const tocItems = [
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <strong>Silently no-ops</strong> on desktop and SSR — zero errors, zero warnings.
+            <strong>Silently no-ops</strong> on desktop and SSR: zero errors, zero warnings.
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
@@ -211,7 +211,7 @@ const tocItems = [
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <strong>No external dependencies</strong> — pure internal implementation, zero npm packages.
+            <strong>No external dependencies</strong>: pure internal implementation, zero npm packages.
           </li>
         </ul>
       </section>

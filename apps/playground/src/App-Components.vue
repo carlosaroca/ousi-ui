@@ -81,7 +81,7 @@ const activeTab3 = ref('photos')
 const activeTab4 = ref('photos')
 const activeTab5 = ref('photos')
 
-// toast() is imported directly — imperative API
+// toast() is imported directly: imperative API
 
 function demoUpload() {
   toast.promise(
@@ -244,7 +244,7 @@ function simulateWrongOtp() {
 }
 
 function simulateClearOtp() {
-  otpClearErr.value = 'Wrong code — clearing...'
+  otpClearErr.value = 'Wrong code: clearing...'
   setTimeout(() => { otpClearErr.value = undefined }, 2000)
 }
 
@@ -423,7 +423,7 @@ function toggleTheme() {
           <span class="text-ousi-accent">Playground</span>
         </h1>
         <p class="mt-2 text-ousi-muted text-lg">
-          Design system showcase — HeroUI-inspired tokens.
+          Design system showcase: HeroUI-inspired tokens.
         </p>
       </div>
 
@@ -479,7 +479,7 @@ function toggleTheme() {
       </div>
     </section>
 
-    <!-- Button: Colors — solid & soft side by side -->
+    <!-- Button: Colors: solid & soft side by side -->
     <section class="mb-12">
       <h2 class="text-xl font-semibold text-ousi-foreground mb-4">Color Intents</h2>
       <div class="flex items-center gap-3 flex-wrap">
@@ -554,7 +554,7 @@ function toggleTheme() {
     <div class="mt-20 mb-12">
       <h1 class="text-3xl font-bold tracking-tight text-ousi-foreground">Radius Scale</h1>
       <p class="text-ousi-muted mt-1">
-        Base: <code class="text-ousi-accent">--ousi-radius: 0.5rem</code> — all values computed from base.
+        Base: <code class="text-ousi-accent">--ousi-radius: 0.5rem</code>: all values computed from base.
       </p>
       <div class="h-px bg-ousi-border mt-2" />
     </div>
@@ -1659,7 +1659,7 @@ function toggleTheme() {
     <!-- Drawer: Floating variants (Ousi exclusive) -->
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Floating Variants</h2>
-      <p class="text-sm text-ousi-muted mb-4">Exclusive to Ousi UI — detached from edges with rounded corners on all sides.</p>
+      <p class="text-sm text-ousi-muted mb-4">Exclusive to Ousi UI: detached from edges with rounded corners on all sides.</p>
       <div class="flex items-center gap-3 flex-wrap">
         <ODrawer placement="floating-center" title="Floating Center" description="Centered with zoom animation." backdrop="blur">
           <template #trigger>
@@ -1722,7 +1722,7 @@ function toggleTheme() {
           <template #trigger>
             <OButton variant="secondary" size="sm">Transparent</OButton>
           </template>
-          <p>No visible backdrop — the page remains fully visible.</p>
+          <p>No visible backdrop: the page remains fully visible.</p>
         </ODrawer>
       </div>
     </section>
@@ -1795,9 +1795,9 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Vertical</h2>
       <OTabs v-model="activeTab2" :items="tabItems" orientation="vertical" class="max-w-lg">
-        <template #photos><p class="text-sm text-ousi-muted">Photos panel — vertical orientation.</p></template>
-        <template #videos><p class="text-sm text-ousi-muted">Videos panel — vertical orientation.</p></template>
-        <template #music><p class="text-sm text-ousi-muted">Music panel — vertical orientation.</p></template>
+        <template #photos><p class="text-sm text-ousi-muted">Photos panel: vertical orientation.</p></template>
+        <template #videos><p class="text-sm text-ousi-muted">Videos panel: vertical orientation.</p></template>
+        <template #music><p class="text-sm text-ousi-muted">Music panel: vertical orientation.</p></template>
       </OTabs>
     </section>
 
@@ -1841,9 +1841,9 @@ function toggleTheme() {
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Secondary Vertical</h2>
       <OTabs v-model="activeTab4" :items="tabItems" variant="secondary" orientation="vertical" class="max-w-lg">
-        <template #photos><p class="text-sm text-ousi-muted">Photos — secondary vertical.</p></template>
-        <template #videos><p class="text-sm text-ousi-muted">Videos — secondary vertical.</p></template>
-        <template #music><p class="text-sm text-ousi-muted">Music — secondary vertical.</p></template>
+        <template #photos><p class="text-sm text-ousi-muted">Photos: secondary vertical.</p></template>
+        <template #videos><p class="text-sm text-ousi-muted">Videos: secondary vertical.</p></template>
+        <template #music><p class="text-sm text-ousi-muted">Music: secondary vertical.</p></template>
       </OTabs>
     </section>
 
@@ -2197,7 +2197,7 @@ function toggleTheme() {
       <p class="text-xs text-ousi-muted mt-2 font-mono">placement: "{{ toastPlacement }}"</p>
     </section>
 
-    <!-- Toast Provider — placement is reactive -->
+    <!-- Toast Provider: placement is reactive -->
     <OToastProvider :placement="toastPlacement as any" :max-visible="5" />
 
     <!-- ═══════════ CHECKBOX ═══════════ -->
@@ -3635,9 +3635,9 @@ function toggleTheme() {
       </OCard>
     </section>
 
-    <!-- Calendar: Custom Cell — Prices -->
+    <!-- Calendar: Custom Cell: Prices -->
     <section class="mb-10">
-      <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Custom Cell — Prices</h2>
+      <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Custom Cell: Prices</h2>
       <p class="text-sm text-ousi-muted mb-3">The <code class="text-ousi-accent">#cell</code> slot lets you add prices, badges, or any content per day.</p>
       <OCalendar>
         <template #cell="{ day, isSelected, isToday, isOutsideMonth }">
@@ -3660,9 +3660,9 @@ function toggleTheme() {
       </OCalendar>
     </section>
 
-    <!-- Calendar: Custom Cell — Soft Background -->
+    <!-- Calendar: Custom Cell: Soft Background -->
     <section class="mb-10">
-      <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Custom Cell — Soft Background</h2>
+      <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Custom Cell: Soft Background</h2>
       <p class="text-sm text-ousi-muted mb-3">Add a soft colored background to event days using the slot.</p>
       <OCalendar>
         <template #cell="{ day, isSelected, isToday, isOutsideMonth }">
@@ -3693,7 +3693,7 @@ function toggleTheme() {
       </div>
     </section>
 
-    <!-- Calendar: Custom Cell — Tooltip -->
+    <!-- Calendar: Custom Cell: Tooltip -->
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Cell with Tooltip</h2>
       <p class="text-sm text-ousi-muted mb-3">Every cell gets a tooltip on hover. Event days show details.</p>
@@ -3721,7 +3721,7 @@ function toggleTheme() {
       </OCalendar>
     </section>
 
-    <!-- Calendar: Custom Cell — Popover on Click -->
+    <!-- Calendar: Custom Cell: Popover on Click -->
     <section class="mb-10">
       <h2 class="text-lg font-semibold text-ousi-foreground mb-4">Cell with Popover</h2>
       <p class="text-sm text-ousi-muted mb-3">Click an event day to see details in a popover. Non-event days select normally.</p>
@@ -4568,7 +4568,7 @@ function toggleTheme() {
           <ODateRangePicker v-model="drpRange1" label="Date range" />
           <p class="text-xs text-ousi-muted">
             Start: {{ drpRange1?.start ? `${drpRange1.start.year}-${String(drpRange1.start.month).padStart(2,'0')}-${String(drpRange1.start.day).padStart(2,'0')}` : 'None' }}
-            — End: {{ drpRange1?.end ? `${drpRange1.end.year}-${String(drpRange1.end.month).padStart(2,'0')}-${String(drpRange1.end.day).padStart(2,'0')}` : 'None' }}
+           · End: {{ drpRange1?.end ? `${drpRange1.end.year}-${String(drpRange1.end.month).padStart(2,'0')}-${String(drpRange1.end.day).padStart(2,'0')}` : 'None' }}
           </p>
         </div>
 
@@ -4769,7 +4769,7 @@ function toggleTheme() {
         </ODisclosure>
       </div>
 
-      <!-- DisclosureGroup — single (accordion) -->
+      <!-- DisclosureGroup: single (accordion) -->
       <div class="space-y-2 max-w-xl">
         <h3 class="text-sm font-semibold text-ousi-foreground">Accordion (single)</h3>
         <ODisclosureGroup class="rounded-ousi-2xl border border-ousi-border divide-y divide-ousi-border overflow-hidden">
@@ -4780,7 +4780,7 @@ function toggleTheme() {
         </ODisclosureGroup>
       </div>
 
-      <!-- DisclosureGroup — multiple -->
+      <!-- DisclosureGroup: multiple -->
       <div class="space-y-2 max-w-xl">
         <h3 class="text-sm font-semibold text-ousi-foreground">Multiple open</h3>
         <ODisclosureGroup :allow-multiple="true" class="flex flex-col gap-2">
@@ -4799,7 +4799,7 @@ function toggleTheme() {
         </ODisclosureGroup>
       </div>
 
-      <!-- DisclosureGroup — controlled with checkboxes -->
+      <!-- DisclosureGroup: controlled with checkboxes -->
       <div class="space-y-2 max-w-xl">
         <h3 class="text-sm font-semibold text-ousi-foreground">Controlled group with filters</h3>
         <ODisclosureGroup v-model="disclosureGroupKeys" :allow-multiple="true">
@@ -5252,17 +5252,17 @@ function toggleTheme() {
         <!-- AutoColor: high = good (battery) -->
         <div class="space-y-3">
           <h3 class="text-sm font-semibold text-ousi-foreground">Auto color (high = good)</h3>
-          <OMeter :value="85" :auto-color="true" label="85% — Good" :show-value-label="true" />
-          <OMeter :value="40" :auto-color="true" label="40% — Warning" :show-value-label="true" />
-          <OMeter :value="15" :auto-color="true" label="15% — Critical" :show-value-label="true" />
+          <OMeter :value="85" :auto-color="true" label="85%: Good" :show-value-label="true" />
+          <OMeter :value="40" :auto-color="true" label="40%: Warning" :show-value-label="true" />
+          <OMeter :value="15" :auto-color="true" label="15%: Critical" :show-value-label="true" />
         </div>
 
         <!-- AutoColor: low = good (CPU) -->
         <div class="space-y-3">
           <h3 class="text-sm font-semibold text-ousi-foreground">Auto color (low = good)</h3>
-          <OMeter :value="20" :auto-color="true" :optimum="0" label="20% — Good" :show-value-label="true" />
-          <OMeter :value="55" :auto-color="true" :optimum="0" label="55% — Warning" :show-value-label="true" />
-          <OMeter :value="88" :auto-color="true" :optimum="0" label="88% — Critical" :show-value-label="true" />
+          <OMeter :value="20" :auto-color="true" :optimum="0" label="20%: Good" :show-value-label="true" />
+          <OMeter :value="55" :auto-color="true" :optimum="0" label="55%: Warning" :show-value-label="true" />
+          <OMeter :value="88" :auto-color="true" :optimum="0" label="88%: Critical" :show-value-label="true" />
         </div>
 
         <!-- Custom range + format -->
@@ -5862,7 +5862,7 @@ function toggleTheme() {
     <!-- Footer -->
     <footer class="pt-8 border-t border-ousi-border">
       <p class="text-sm text-ousi-muted">
-        Ousi UI v0.0.1 — Vue 3 Component Library
+        Ousi UI v0.0.1: Vue 3 Component Library
       </p>
     </footer>
   </div>

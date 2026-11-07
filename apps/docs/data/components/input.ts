@@ -103,7 +103,7 @@ export const inputData: ComponentData = {
       title: 'Animated',
       example: {
         component: 'InputAnimated',
-        code: `<OInput placeholder="Default — no animation" />
+        code: `<OInput placeholder="Default: no animation" />
 <OInput placeholder="With tactile press" animated />`,
       },
     },
@@ -121,7 +121,7 @@ export const inputData: ComponentData = {
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the input.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the input is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the input is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the input is required.' },
@@ -173,6 +173,6 @@ export const inputData: ComponentData = {
     { text: 'Use description to give users additional context about the expected input.', good: true },
     { text: 'Use error-message to explain what went wrong and how to fix it.', good: true },
     { text: "Don't use placeholder as a replacement for a label.", good: false },
-    { text: "Don't remove the focus ring — essential for keyboard navigation.", good: false },
+    { text: "Don't remove the focus ring. Essential for keyboard navigation.", good: false },
   ],
 }

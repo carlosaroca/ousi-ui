@@ -129,13 +129,13 @@ export const timelineData: ComponentData = {
   ],
 
   aria: [
-    { attribute: 'role', condition: 'Default', description: 'No ARIA role — the timeline is a visual layout, not an interactive widget.' },
+    { attribute: 'role', condition: 'Default', description: 'No ARIA role: the timeline is a visual layout, not an interactive widget.' },
   ],
 
   bestPractices: [
     { text: 'Use `alternate` alignment for balanced layouts with dates and descriptions.', good: true },
     { text: 'Use semantic colors: `success` for completed, `warning` for pending, `danger` for failed.', good: true },
     { text: 'Use the `#content-{key}` slot to render cards or rich content per item.', good: true },
-    { text: "Don't use horizontal layout for more than 6-8 items — it gets hard to read.", good: false },
+    { text: "Don't use horizontal layout for more than 6-8 items. It gets hard to read.", good: false },
   ],
 }

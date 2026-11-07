@@ -41,13 +41,13 @@ function handle(key: string) {
 <template>
   <div class="space-y-3">
     <p class="text-xs text-ousi-muted">
-      <strong>Right-click</strong> anywhere on the table. The menu is yours to define —
+      <strong>Right-click</strong> anywhere on the table. The menu is yours to define:
       mix custom actions (like "View" or "Duplicate") with the table's exposed
       <code class="text-xs rounded bg-ousi-default px-1 font-mono">toggleColumn</code> and
       <code class="text-xs rounded bg-ousi-default px-1 font-mono">exportCSV</code> methods.
     </p>
 
-    <!-- Wrap the table in OContextMenu — right-click anywhere on it opens the menu. -->
+    <!-- Wrap the table in OContextMenu: right-click anywhere on it opens the menu. -->
     <OContextMenu :items="menuItems" @select="handle">
       <OTable ref="tableRef" :columns="columns" :rows="rows" />
     </OContextMenu>

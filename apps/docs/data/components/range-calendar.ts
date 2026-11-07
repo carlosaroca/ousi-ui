@@ -86,6 +86,6 @@ export const rangeCalendarData: ComponentData = {
   bestPractices: [
     { text: 'Use minValue and maxValue to prevent selecting impossible ranges.', good: true },
     { text: 'Provide clear visual feedback for the selected range and hover preview.', good: true },
-    { text: "Don't use range calendar for single date selection — use Calendar instead.", good: false },
+    { text: "Don't use range calendar for single date selection. Use Calendar instead.", good: false },
   ],
 }

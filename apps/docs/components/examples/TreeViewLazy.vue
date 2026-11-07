@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { OTreeView, OButton, OSwitch } from '@ousi-ui/vue'
 import type { TreeNode } from '@ousi-ui/vue'
 
-// "Server" responses keyed by parent — simulates a real API.
+// "Server" responses keyed by parent: simulates a real API.
 const remote: Record<string, TreeNode[]> = {
   '/': [
     { key: '/projects', label: 'projects', isAsync: true },
@@ -48,8 +48,8 @@ async function loadChildren(node: TreeNode): Promise<TreeNode[]> {
   <div class="space-y-3">
     <div class="flex items-center justify-between flex-wrap gap-3">
       <p class="text-xs text-ousi-muted max-w-prose">
-        Expand any folder — the tree calls <code class="text-xs bg-ousi-default px-1 rounded font-mono">loadChildren</code>
-        and shows a spinner while it resolves. Toggle the switch to simulate a fetch failure —
+        Expand any folder: the tree calls <code class="text-xs bg-ousi-default px-1 rounded font-mono">loadChildren</code>
+        and shows a spinner while it resolves. Toggle the switch to simulate a fetch failure:
         the chevron becomes a retry button.
       </p>
       <div class="flex items-center gap-2 shrink-0">

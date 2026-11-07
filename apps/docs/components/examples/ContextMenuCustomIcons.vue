@@ -3,7 +3,7 @@ import { h } from 'vue'
 import { OContextMenu } from '@ousi-ui/vue'
 import type { ContextMenuItem } from '@ousi-ui/vue'
 
-// Inline SVG components — replace with any icon library (Hugeicons, Lucide, Iconify, etc.)
+// Inline SVG components: replace with any icon library (Hugeicons, Lucide, Iconify, etc.)
 const CopyIcon = () =>
   h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('rect', { x: 9, y: 9, width: 13, height: 13, rx: 2 }),
@@ -36,7 +36,7 @@ const items: ContextMenuItem[] = [
 <template>
   <OContextMenu :items="items">
     <div class="flex items-center justify-center p-12 border border-dashed border-ousi-border rounded-ousi-xl text-sm text-ousi-muted">
-      Right-click — custom icons
+      Right-click: custom icons
     </div>
   </OContextMenu>
 </template>

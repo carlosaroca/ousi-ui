@@ -61,7 +61,7 @@ export const meterData: ComponentData = {
     { name: 'autoColor', type: 'boolean', default: 'false', description: 'Automatically change color based on thresholds.' },
     { name: 'low', type: 'number', default: '25', description: 'Low threshold (default: 25% of range).' },
     { name: 'high', type: 'number', default: '75', description: 'High threshold (default: 75% of range).' },
-    { name: 'optimum', type: 'number', default: '-', description: 'Optimum value — determines whether high or low is "good".' },
+    { name: 'optimum', type: 'number', default: '-', description: 'Optimum value: determines whether high or low is "good".' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the meter.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],

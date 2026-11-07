@@ -2,7 +2,7 @@ import type { ComponentData } from './types'
 
 export const commandPaletteData: ComponentData = {
   title: 'CommandPalette',
-  description: 'A structured command menu with grouped items, keyboard navigation, shortcut badges, and built-in search filtering. Ideal for executing actions and navigating — like VS Code\'s command palette or Linear\'s Cmd+K.',
+  description: 'A structured command menu with grouped items, keyboard navigation, shortcut badges, and built-in search filtering. Ideal for executing actions and navigating, like VS Code\'s command palette or Linear\'s Cmd+K.',
   category: 'Overlays',
   importCode: "import { OCommandPalette } from '@ousi-ui/vue'",
 

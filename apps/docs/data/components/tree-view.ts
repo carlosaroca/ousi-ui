@@ -2,7 +2,7 @@ import type { ComponentData } from './types'
 
 export const treeViewData: ComponentData = {
   title: 'TreeView',
-  description: 'A hierarchical tree structure for displaying nested data — with full keyboard nav, ARIA roles, single and multi selection.',
+  description: 'A hierarchical tree structure for displaying nested data: with full keyboard nav, ARIA roles, single and multi selection.',
   category: 'Navigation',
   importCode: "import { OTreeView } from '@ousi-ui/vue'",
 
@@ -164,7 +164,7 @@ const selected = ref('')
     { key: 'arrow-right', description: 'Expand a collapsed parent. If already expanded, focus the first child.' },
     { key: 'arrow-left', description: 'Collapse an expanded parent. If already collapsed or a leaf, focus the parent.' },
     { key: 'home / end', description: 'Move focus to the first / last visible node.' },
-    { key: 'enter / space', description: 'Activate the focused node — select it, or toggle expansion if selection is off.' },
+    { key: 'enter / space', description: 'Activate the focused node: select it, or toggle expansion if selection is off.' },
     { key: '*', description: 'Expand every sibling at the same level as the focused node.' },
   ],
 
@@ -179,9 +179,9 @@ const selected = ref('')
   ],
 
   bestPractices: [
-    { text: 'Use meaningful keys — they are visible to screen readers via aria attributes and used for focus/selection state.', good: true },
+    { text: 'Use meaningful keys. They are visible to screen readers via aria attributes and used for focus/selection state.', good: true },
     { text: 'Expand commonly-used branches by default to improve discoverability.', good: true },
-    { text: 'Keep nesting shallow when possible — add search or filtering past 3 levels.', good: false },
-    { text: "Don't put long labels in a TreeView — they truncate. Consider a separate detail pane.", good: false },
+    { text: 'Keep nesting shallow when possible. Add search or filtering past 3 levels.', good: false },
+    { text: "Don't put long labels in a TreeView. They truncate. Consider a separate detail pane.", good: false },
   ],
 }

@@ -99,13 +99,13 @@ toast.success('Download complete', {
       title: 'Callbacks',
       example: {
         component: 'ToastCallbacks',
-        code: `// onClose — fires when user dismisses
+        code: `// onClose: fires when user dismisses
 toast('Dismiss me', {
   timeout: 0,
   onClose: () => console.log('dismissed'),
 })
 
-// onAutoClose — fires when timeout expires
+// onAutoClose: fires when timeout expires
 toast('Auto-close in 2s', {
   timeout: 2000,
   onAutoClose: () => console.log('auto-closed'),
@@ -117,7 +117,7 @@ toast('Auto-close in 2s', {
       title: 'Persistent & Controls',
       example: {
         component: 'ToastPersistent',
-        code: `// Persistent — stays until dismissed
+        code: `// Persistent: stays until dismissed
 toast('Important', { timeout: 0 })
 
 // Short timeout
@@ -175,7 +175,7 @@ toast.info('Info')
 toast.warning('Warning!')
 toast.danger('Error!')
 
-// Promise — auto loading → success/error
+// Promise: auto loading → success/error
 toast.promise(asyncFn(), {
   loading: 'Loading...',
   success: 'Done!',
@@ -203,7 +203,7 @@ toast.clear()     // Clear all toasts`,
     { text: 'Use `toast.promise()` for async operations to show loading → success/error.', good: true },
     { text: 'Use `action` to let users undo or take follow-up action.', good: true },
     { text: 'Use custom `icon` SVG paths to match the context (download, team invite, etc.).', good: true },
-    { text: "Don't use toasts for critical errors that require user action — use a Dialog instead.", good: false },
+    { text: "Don't use toasts for critical errors that require user action. Use a Dialog instead.", good: false },
   ],
 
   haptics: {

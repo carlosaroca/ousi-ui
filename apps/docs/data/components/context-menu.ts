@@ -2,7 +2,7 @@ import type { ComponentData } from './types'
 
 export const contextMenuData: ComponentData = {
   title: 'ContextMenu',
-  description: 'A menu triggered by right-clicking on an element — supports nested submenus, toggle items, section headings, custom icons, and an imperative show() API.',
+  description: 'A menu triggered by right-clicking on an element: supports nested submenus, toggle items, section headings, custom icons, and an imperative show() API.',
   category: 'Overlays',
   importCode: "import { OContextMenu } from '@ousi-ui/vue'",
 
@@ -67,7 +67,7 @@ const items: ContextMenuItem[] = [
     },
     {
       id: 'imperative',
-      title: 'Imperative show() — open programmatically',
+      title: 'Imperative show(): open programmatically',
       example: {
         component: 'ContextMenuImperative',
         code: `<script setup lang="ts">
@@ -76,7 +76,7 @@ import { OContextMenu } from '@ousi-ui/vue'
 
 const menuRef = ref<InstanceType<typeof OContextMenu>>()
 
-// Open anchored to the clicked element (use event.currentTarget — works with
+// Open anchored to the clicked element (use event.currentTarget: works with
 // any component without needing a template ref to the DOM node):
 function openAtButton(e: MouseEvent) {
   const btn = e.currentTarget as HTMLElement
@@ -94,17 +94,17 @@ function openAtCursor(e: MouseEvent) {
   <OButton @click="openAtButton">Open menu below</OButton>
   <OButton @click="openAtCursor">Open at cursor</OButton>
 
-  <!-- No trigger slot needed — the menu opens via the ref. -->
+  <!-- No trigger slot needed: the menu opens via the ref. -->
   <OContextMenu ref="menuRef" :items="items" />
 </template>`,
       },
     },
     {
       id: 'keep-open',
-      title: 'keepOpen — toggle items',
+      title: 'keepOpen: toggle items',
       example: {
         component: 'ContextMenuKeepOpen',
-        code: `// Items with \`keepOpen: true\` don't close the menu when clicked —
+        code: `// Items with \`keepOpen: true\` don't close the menu when clicked:
 // useful for column visibility toggles, switches, etc.
 const items: ContextMenuItem[] = [
   { key: 'columns', label: 'Columns', heading: true },
@@ -121,7 +121,7 @@ const items: ContextMenuItem[] = [
       title: 'Section headings',
       example: {
         component: 'ContextMenuHeadings',
-        code: `// Items with \`heading: true\` render as uppercase muted section labels —
+        code: `// Items with \`heading: true\` render as uppercase muted section labels:
 // non-interactive and skipped in keyboard navigation.
 const items: ContextMenuItem[] = [
   { key: 'edit', label: 'Edit', heading: true },
@@ -139,7 +139,7 @@ const items: ContextMenuItem[] = [
       title: 'Custom icons',
       example: {
         component: 'ContextMenuCustomIcons',
-        code: `// \`icon\` accepts a Vue component — pass any icon library (Hugeicons, Lucide, etc.):
+        code: `// \`icon\` accepts a Vue component: pass any icon library (Hugeicons, Lucide, etc.):
 import { CopyIcon, ShareIcon, TrashIcon } from 'your-icon-library'
 
 const items: ContextMenuItem[] = [
@@ -206,7 +206,7 @@ const items: ContextMenuItem[] = [
     { text: 'Use `heading` to group related actions instead of relying only on separators.', good: true },
     { text: 'Put destructive actions at the bottom with `danger: true`.', good: true },
     { text: 'Use `keepOpen` for toggles (column visibility, switches) so the user can toggle several at once.', good: true },
-    { text: "Don't nest submenus more than 2 levels deep — discoverability drops fast.", good: false },
-    { text: "Don't rely solely on context menus for important actions — always provide a visible alternative.", good: false },
+    { text: "Don't nest submenus more than 2 levels deep. Discoverability drops fast.", good: false },
+    { text: "Don't rely solely on context menus for important actions. Always provide a visible alternative.", good: false },
   ],
 }

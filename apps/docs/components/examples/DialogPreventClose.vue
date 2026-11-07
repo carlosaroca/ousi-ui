@@ -40,7 +40,7 @@ function choose(value: 'confirmed' | 'cancelled') {
     </div>
 
     <p class="text-xs text-ousi-muted">
-      Try clicking the backdrop or pressing Esc — the dialog stays open. The first one still has its X button;
+      Try clicking the backdrop or pressing Esc: the dialog stays open. The first one still has its X button;
       the second hides it, so you have to choose Cancel or Confirm.
     </p>
   </div>
@@ -49,7 +49,7 @@ function choose(value: 'confirmed' | 'cancelled') {
   <ODialog v-model="savingOpen" size="sm" prevent-close>
     <ODialogHeader>
       <h2 class="text-base font-semibold text-ousi-foreground">Uploading assets…</h2>
-      <p class="text-xs text-ousi-muted mt-0.5">Don&rsquo;t close this window — we&rsquo;ll dismiss it automatically.</p>
+      <p class="text-xs text-ousi-muted mt-0.5">Don&rsquo;t close this window: we&rsquo;ll dismiss it automatically.</p>
     </ODialogHeader>
     <ODialogBody>
       <OProgressBar :value="progress" />
@@ -65,7 +65,7 @@ function choose(value: 'confirmed' | 'cancelled') {
     </ODialogHeader>
     <ODialogBody>
       <div class="rounded-ousi-2xl border border-ousi-border bg-ousi-surface-secondary/50 px-4 py-3 space-y-2 text-sm">
-        <div class="flex justify-between"><span class="text-ousi-muted">Plan</span><span class="font-medium">Team — Monthly</span></div>
+        <div class="flex justify-between"><span class="text-ousi-muted">Plan</span><span class="font-medium">Team: Monthly</span></div>
         <div class="flex justify-between"><span class="text-ousi-muted">Renewal</span><span class="font-medium">Jun 1, 2026</span></div>
         <div class="flex justify-between text-base pt-1 border-t border-ousi-border"><span class="font-semibold">Total</span><span class="font-semibold">$48.00</span></div>
       </div>

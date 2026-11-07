@@ -95,7 +95,7 @@ const tags = ref(['Vue', 'React'])
       title: 'Animated',
       example: {
         component: 'TagInputAnimated',
-        code: `<OTagInput v-model="tags" placeholder="Default — no animation" />
+        code: `<OTagInput v-model="tags" placeholder="Default: no animation" />
 <OTagInput v-model="tags" placeholder="With tactile press" animated />`,
       },
     },
@@ -107,13 +107,13 @@ const tags = ref(['Vue', 'React'])
     { name: 'placeholder', type: 'string', default: '-', description: 'Placeholder when no tags and input is empty.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text above the field.' },
     { name: 'description', type: 'string', default: '-', description: 'Helper text below the field.' },
-    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message — activates error state.' },
+    { name: 'errorMessage', type: 'string', default: '-', description: 'Error message: activates error state.' },
     { name: 'name', type: 'string', default: '-', description: 'Field name for form context.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field and tag chips.' },
     { name: 'color', type: "'accent' | 'success' | 'warning' | 'danger' | 'default'", default: "'accent'", description: 'Color of the tag chips.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant (matches Input).' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'maxTags', type: 'number', default: '-', description: 'Maximum number of tags allowed.' },
     { name: 'allowDuplicates', type: 'boolean', default: 'false', description: 'Allow duplicate tags.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Show required asterisk on label.' },

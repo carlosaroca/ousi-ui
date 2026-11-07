@@ -92,8 +92,8 @@ export const tooltipData: ComponentData = {
   bestPractices: [
     { text: 'Use tooltips for supplementary info, not essential content.', good: true },
     { text: 'Keep tooltip text short (one line).', good: true },
-    { text: 'Prefer `v-tooltip` for simple cases — less template noise than wrapping with `<OTooltip>`.', good: true },
+    { text: 'Prefer `v-tooltip` for simple cases. Less template noise than wrapping with `<OTooltip>`.', good: true },
     { text: 'Use `<OTooltip>` when you need the tooltip wired reactively to external state or to wrap non-element slots.', good: true },
-    { text: "Don't put interactive elements inside tooltips — use a popover.", good: false },
+    { text: "Don't put interactive elements inside tooltips. Use a popover.", good: false },
   ],
 }

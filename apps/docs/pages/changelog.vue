@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Changelog — Ousi UI',
+  title: 'Changelog | Ousi UI',
   description: 'Release history and changes for Ousi UI.',
 })
 
@@ -186,7 +186,7 @@ const tocItems = [
           <ul class="space-y-1.5 text-sm text-ousi-muted">
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              <strong class="text-ousi-foreground">OTimePicker</strong> — new component with iOS-style wheel popover. True 3D rotation
+              <strong class="text-ousi-foreground">OTimePicker</strong>: new component with iOS-style wheel popover. True 3D rotation
               (<code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">perspective</code> + per-item
               <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">rotateX</code>), infinite scroll on hour/minute/second wheels,
               fade mask at the edges, mouse drag (touch keeps native momentum), haptic feedback on every value change,
@@ -217,31 +217,31 @@ const tocItems = [
           <ul class="space-y-1.5 text-sm text-ousi-muted">
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              OButton — <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">ripple</code> prop (default <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">true</code>) — Material-style ripple from the click point
+              OButton: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">ripple</code> prop (default <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">true</code>): Material-style ripple from the click point
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              OButton — <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">animationType</code> prop with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">#animate</code> slot — swap default content on hover with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">vertical</code> / <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">scale</code> / <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">rotate</code>
+              OButton: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">animationType</code> prop with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">#animate</code> slot: swap default content on hover with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">vertical</code> / <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">scale</code> / <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">rotate</code>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              ODialog — <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">preventClose</code> prop — block dismissal via Escape and backdrop click. The X button still works unless also hidden via <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">hideCloseButton</code>
+              ODialog: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">preventClose</code> prop: block dismissal via Escape and backdrop click. The X button still works unless also hidden via <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">hideCloseButton</code>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              ODialog — close button repositioned outside the panel with shadow at rest and press-in feel on hover. Radius adapts to <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">--ousi-radius</code> via <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">rounded-ousi-xl</code>
+              ODialog: close button repositioned outside the panel with shadow at rest and press-in feel on hover. Radius adapts to <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">--ousi-radius</code> via <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">rounded-ousi-xl</code>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              OAutocomplete — <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">scrollShadow</code> prop (default <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">true</code>) — fade indicator at top/bottom of long option lists, native scrollbar hidden
+              OAutocomplete: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">scrollShadow</code> prop (default <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">true</code>): fade indicator at top/bottom of long option lists, native scrollbar hidden
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              ODatePicker and ODateRangePicker — new <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">variant: 'primary' | 'secondary'</code> prop matching the rest of the field family
+              ODatePicker and ODateRangePicker: new <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">variant: 'primary' | 'secondary'</code> prop matching the rest of the field family
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              Docs — Dialog examples rewritten with realistic content (confirm-delete, pricing, rename, terms, prevent-close); long-list demo for Autocomplete; Variants and Clearable sections for date pickers; Animate Slot demo for Button
+              Docs: Dialog examples rewritten with realistic content (confirm-delete, pricing, rename, terms, prevent-close); long-list demo for Autocomplete; Variants and Clearable sections for date pickers; Animate Slot demo for Button
             </li>
           </ul>
         </div>
@@ -251,7 +251,7 @@ const tocItems = [
           <ul class="space-y-1.5 text-sm text-ousi-muted">
             <li class="flex items-start gap-2">
               <span class="text-ousi-warning mt-0.5">~</span>
-              ODialog — default <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">placement</code> changed from <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">'auto'</code> to <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">'center'</code>. Mobile no longer sticks dialogs to the bottom by default
+              ODialog: default <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">placement</code> changed from <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">'auto'</code> to <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">'center'</code>. Mobile no longer sticks dialogs to the bottom by default
             </li>
           </ul>
         </div>
@@ -261,11 +261,11 @@ const tocItems = [
           <ul class="space-y-1.5 text-sm text-ousi-muted">
             <li class="flex items-start gap-2">
               <span class="text-ousi-warning mt-0.5">~</span>
-              ODatePicker and ODateRangePicker — setting <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">v-model</code> to <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">null</code> now clears the displayed segments. Previously the watcher only handled non-null values
+              ODatePicker and ODateRangePicker: setting <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">v-model</code> to <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">null</code> now clears the displayed segments. Previously the watcher only handled non-null values
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-warning mt-0.5">~</span>
-              OAutocomplete — native scrollbar no longer clashes with the rounded popover edges on long lists
+              OAutocomplete: native scrollbar no longer clashes with the rounded popover edges on long lists
             </li>
           </ul>
         </div>
@@ -290,11 +290,11 @@ const tocItems = [
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-danger mt-0.5">!</span>
-              Compound components flattened — <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">OCard.Header</code> → <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">OCardHeader</code> across Card, Dialog, Dropdown, ButtonGroup, BentoGrid
+              Compound components flattened: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">OCard.Header</code> → <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">OCardHeader</code> across Card, Dialog, Dropdown, ButtonGroup, BentoGrid
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-danger mt-0.5">!</span>
-              Removed <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">fullWidth</code> prop from 13 field components — fields always stretch now
+              Removed <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">fullWidth</code> prop from 13 field components: fields always stretch now
             </li>
           </ul>
         </div>
@@ -304,7 +304,7 @@ const tocItems = [
           <ul class="space-y-1.5 text-sm text-ousi-muted">
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              Layered shadow system with tintable <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">--ousi-shadow-color</code> token — xs/sm/md/lg/xl/2xl
+              Layered shadow system with tintable <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">--ousi-shadow-color</code> token: xs/sm/md/lg/xl/2xl
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
@@ -312,7 +312,7 @@ const tocItems = [
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">animated</code> prop on fields — iOS-style tactile scale on focus
+              <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">animated</code> prop on fields: iOS-style tactile scale on focus
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
@@ -338,7 +338,7 @@ const tocItems = [
           <ul class="space-y-1.5 text-sm text-ousi-muted">
             <li class="flex items-start gap-2">
               <span class="text-ousi-warning mt-0.5">~</span>
-              Tooltip no longer breaks child layouts — uses <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">display: contents</code> wrapper instead of <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">inline-flex</code>
+              Tooltip no longer breaks child layouts: uses <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">display: contents</code> wrapper instead of <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">inline-flex</code>
             </li>
           </ul>
         </div>
@@ -355,11 +355,11 @@ const tocItems = [
       <ul class="space-y-1.5 text-sm text-ousi-muted">
         <li class="flex items-start gap-2">
           <span class="text-ousi-warning mt-0.5">~</span>
-          Fixed Card border-radius — reduced from 4xl to 3xl for better visual consistency
+          Fixed Card border-radius: reduced from 4xl to 3xl for better visual consistency
         </li>
         <li class="flex items-start gap-2">
           <span class="text-ousi-accent mt-0.5">+</span>
-          Theme now auto-scans @ousi-ui/vue classes — no manual @source needed in Tailwind v4
+          Theme now auto-scans @ousi-ui/vue classes: no manual @source needed in Tailwind v4
         </li>
       </ul>
     </article>
@@ -374,7 +374,7 @@ const tocItems = [
       <ul class="space-y-1.5 text-sm text-ousi-muted">
         <li class="flex items-start gap-2">
           <span class="text-ousi-warning mt-0.5">~</span>
-          Fixed npm/yarn install — bundled @ousi-ui/core and @ousi-ui/haptics into @ousi-ui/vue to eliminate workspace:* protocol errors
+          Fixed npm/yarn install: bundled @ousi-ui/core and @ousi-ui/haptics into @ousi-ui/vue to eliminate workspace:* protocol errors
         </li>
         <li class="flex items-start gap-2">
           <span class="text-ousi-accent mt-0.5">+</span>
@@ -393,7 +393,7 @@ const tocItems = [
       <ul class="space-y-1.5 text-sm text-ousi-muted">
         <li class="flex items-start gap-2">
           <span class="text-ousi-accent mt-0.5">+</span>
-          New OTimelineNav component — animated sidebar navigation with SVG curved line
+          New OTimelineNav component: animated sidebar navigation with SVG curved line
         </li>
         <li class="flex items-start gap-2">
           <span class="text-ousi-accent mt-0.5">+</span>
@@ -429,7 +429,7 @@ const tocItems = [
         </li>
         <li class="flex items-start gap-2">
           <span class="text-ousi-warning mt-0.5">~</span>
-          Fixed MagneticButton — now uses OButton internally
+          Fixed MagneticButton: now uses OButton internally
         </li>
         <li class="flex items-start gap-2">
           <span class="text-ousi-danger mt-0.5">-</span>
@@ -468,7 +468,7 @@ const tocItems = [
         </li>
         <li class="flex items-start gap-2">
           <span class="text-ousi-warning mt-0.5">~</span>
-          Fixed Switch pill shape — now fully rounded
+          Fixed Switch pill shape: now fully rounded
         </li>
         <li class="flex items-start gap-2">
           <span class="text-ousi-warning mt-0.5">~</span>
@@ -486,7 +486,7 @@ const tocItems = [
         <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">First Release</span>
       </div>
       <p class="text-sm text-ousi-muted mb-3">
-        The first public release of Ousi UI — a component library for Vue & Flutter.
+        The first public release of Ousi UI: a component library for Vue & Flutter.
       </p>
       <div class="space-y-4">
         <div>
@@ -510,7 +510,7 @@ const tocItems = [
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>
-              OChart — real-time canvas chart (line, candlestick, multi-series)
+              OChart: real-time canvas chart (line, candlestick, multi-series)
             </li>
             <li class="flex items-start gap-2">
               <span class="text-ousi-accent mt-0.5">+</span>

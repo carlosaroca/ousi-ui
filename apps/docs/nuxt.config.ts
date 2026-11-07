@@ -17,7 +17,7 @@ export default defineNuxtConfig({
     '@nuxt/content',
   ],
 
-  // SPA mode — OG meta tags are in app.head (static HTML)
+  // SPA mode: OG meta tags are in app.head (static HTML)
   ssr: false,
 
   // ── SEO ──

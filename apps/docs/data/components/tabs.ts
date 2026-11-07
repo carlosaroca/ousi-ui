@@ -327,7 +327,7 @@ const b = ref('m4')
   bestPractices: [
     { text: 'Use short, descriptive tab labels.', good: true },
     { text: 'Keep tab count manageable (2-6 tabs).', good: true },
-    { text: "Don't use tabs for sequential steps — use a stepper instead.", good: false },
+    { text: "Don't use tabs for sequential steps. Use a stepper instead.", good: false },
   ],
 
   haptics: {

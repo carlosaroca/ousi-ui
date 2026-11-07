@@ -26,7 +26,7 @@
 
 <p align="center">
   <a href="https://ousiui.com/playground">
-    <img src="playground.png" alt="Ousi UI — Theme Playground" width="100%" style="border-radius: 12px;" />
+    <img src="playground.png" alt="Ousi UI: Theme Playground" width="100%" style="border-radius: 12px;" />
   </a>
 </p>
 
@@ -34,15 +34,15 @@
 
 ## Features
 
-- **88+ Components** — Buttons, forms, date pickers, charts, color pickers, modals, and more
-- **Vue 3 + Flutter** — Vue ready today, Flutter coming soon
-- **Tailwind CSS v4** — CSS-first configuration, no JS config files
-- **Dark Mode** — Every component adapts via `data-theme` attribute
-- **OKLCH Color System** — Perceptually uniform colors with `color-mix()` for hover/soft states
-- **TypeScript** — Full type safety with exported prop types, emits, and slots
-- **Accessible** — WAI-ARIA compliant, keyboard navigation, screen reader support
-- **Tree-Shakeable** — Import only what you use
-- **Theme Playground** — Customize accent, radius, font, and export CSS tokens
+- **88+ Components**: Buttons, forms, date pickers, charts, color pickers, modals, and more
+- **Vue 3 + Flutter**: Vue ready today, Flutter coming soon
+- **Tailwind CSS v4**: CSS-first configuration, no JS config files
+- **Dark Mode**: Every component adapts via `data-theme` attribute
+- **OKLCH Color System**: Perceptually uniform colors with `color-mix()` for hover/soft states
+- **TypeScript**: Full type safety with exported prop types, emits, and slots
+- **Accessible**: WAI-ARIA compliant, keyboard navigation, screen reader support
+- **Tree-Shakeable**: Import only what you use
+- **Theme Playground**: Customize accent, radius, font, and export CSS tokens
 
 ## Quick Start
 
@@ -151,15 +151,15 @@ pnpm dev --filter @ousi-ui/playground
 
 ## Tech Stack
 
-- **Vue 3.5+** — Composition API, `<script setup>`
-- **Tailwind CSS v4** — `@theme inline`, CSS-first
-- **CVA** — Class Variance Authority for type-safe variants
-- **motion-v** — Vue port of Framer Motion for animations
-- **@floating-ui/vue** — Positioning for tooltips, popovers, dropdowns
-- **clsx + tailwind-merge** — Class merging via `cn()` utility
-- **Vite** — Build tooling
-- **pnpm** — Package manager with workspaces
-- **Turborepo** — Monorepo orchestration
+- **Vue 3.5+**: Composition API, `<script setup>`
+- **Tailwind CSS v4**: `@theme inline`, CSS-first
+- **CVA**: Class Variance Authority for type-safe variants
+- **motion-v**: Vue port of Framer Motion for animations
+- **@floating-ui/vue**: Positioning for tooltips, popovers, dropdowns
+- **clsx + tailwind-merge**: Class merging via `cn()` utility
+- **Vite**: Build tooling
+- **pnpm**: Package manager with workspaces
+- **Turborepo**: Monorepo orchestration
 
 ## Contributing
 

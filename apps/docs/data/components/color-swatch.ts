@@ -57,6 +57,6 @@ export const colorSwatchData: ComponentData = {
 
   bestPractices: [
     { text: 'Pair with a text label when color identification is important.', good: true },
-    { text: "Don't rely on color alone to convey meaning — add text or icons.", good: false },
+    { text: "Don't rely on color alone to convey meaning. Add text or icons.", good: false },
   ],
 }

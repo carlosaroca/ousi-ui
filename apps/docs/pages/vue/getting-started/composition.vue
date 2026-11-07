@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Composition — Ousi UI',
+  title: 'Composition | Ousi UI',
   description: 'Composition patterns, slots, composables, and compound components in Ousi UI.',
 })
 

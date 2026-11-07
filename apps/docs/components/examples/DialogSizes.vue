@@ -15,12 +15,12 @@ const plans = [
 </script>
 <template>
   <div class="flex flex-wrap gap-3">
-    <OButton variant="outline" @click="xsOpen = true">XS — Sign out</OButton>
-    <OButton variant="outline" @click="smOpen = true">SM — Rename file</OButton>
-    <OButton variant="outline" @click="lgOpen = true">LG — Pick a plan</OButton>
+    <OButton variant="outline" @click="xsOpen = true">XS: Sign out</OButton>
+    <OButton variant="outline" @click="smOpen = true">SM: Rename file</OButton>
+    <OButton variant="outline" @click="lgOpen = true">LG: Pick a plan</OButton>
   </div>
 
-  <!-- XS — quick confirm -->
+  <!-- XS: quick confirm -->
   <ODialog v-model="xsOpen" size="xs">
     <ODialogBody>
       <p class="text-sm text-ousi-foreground text-center py-2">Sign out of your account?</p>
@@ -31,7 +31,7 @@ const plans = [
     </ODialogFooter>
   </ODialog>
 
-  <!-- SM — single-input form -->
+  <!-- SM: single-input form -->
   <ODialog v-model="smOpen" size="sm">
     <ODialogHeader>
       <h2 class="text-base font-semibold text-ousi-foreground">Rename file</h2>
@@ -46,7 +46,7 @@ const plans = [
     </ODialogFooter>
   </ODialog>
 
-  <!-- LG — pricing comparison -->
+  <!-- LG: pricing comparison -->
   <ODialog v-model="lgOpen" size="lg">
     <ODialogHeader>
       <div class="flex items-start justify-between gap-4">

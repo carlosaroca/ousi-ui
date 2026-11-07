@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { ODialog, ODialogHeader, ODialogBody, ODialogFooter, OButton, OTextarea } from '@ousi-ui/vue'
 
 const open = ref(false)
-const note = ref('Hey team — pushing the v0.2 release tomorrow morning. Final review needed on the dialog and button changes.')
+const note = ref('Hey team: pushing the v0.2 release tomorrow morning. Final review needed on the dialog and button changes.')
 const events = ref<{ ts: string; label: string }[]>([])
 
 function log(label: string) {

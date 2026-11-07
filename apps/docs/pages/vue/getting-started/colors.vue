@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Colors — Ousi UI',
+  title: 'Colors | Ousi UI',
   description: 'OKLCH-based color system for consistent, accessible color across your entire UI.',
 })
 
@@ -69,7 +69,7 @@ const tocItems = [
         <p class="text-sm text-ousi-foreground leading-relaxed mb-4">
           Ousi UI uses the
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch" target="_blank" class="text-ousi-accent underline">OKLCH</a>
-          color space for all design tokens. Unlike HSL or RGB, OKLCH is <strong>perceptually uniform</strong> —
+          color space for all design tokens. Unlike HSL or RGB, OKLCH is <strong>perceptually uniform</strong>,
           meaning equal numeric changes produce equal visual changes. A blue and a yellow at the same
           lightness value will actually look equally bright to the human eye.
         </p>
@@ -124,7 +124,7 @@ oklch(0.65 0.24 250)
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Semantic Colors</h2>
         <p class="text-sm text-ousi-muted mb-4">
           Ousi UI defines colors by their <strong>purpose</strong>, not their hue. This keeps the system
-          flexible — change the accent hue and every component updates automatically.
+          flexible: change the accent hue and every component updates automatically.
         </p>
 
         <!-- Live swatches -->
@@ -349,7 +349,7 @@ oklch(0.65 0.24 250)
           </li>
           <li class="flex items-start gap-2">
             <svg class="size-4 text-ousi-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <span><strong>Test both modes</strong>: Custom dark mode overrides should be tested separately — OKLCH lightness behaves differently on dark backgrounds.</span>
+            <span><strong>Test both modes</strong>: Custom dark mode overrides should be tested separately: OKLCH lightness behaves differently on dark backgrounds.</span>
           </li>
         </ul>
       </section>
@@ -378,7 +378,7 @@ oklch(0.65 0.24 250)
   --ousi-accent: #7c3aed;  /* or any hex, rgb, hsl, oklch */
 }
 
-/* Dark mode — eclipse is reused for surfaces, snow for text */
+/* Dark mode: eclipse is reused for surfaces, snow for text */
 [data-theme='dark'] {
   --ousi-background: oklch(0.13 0 0);
   --ousi-foreground: var(--ousi-snow);

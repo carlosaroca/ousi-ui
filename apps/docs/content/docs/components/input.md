@@ -104,12 +104,12 @@ import { OInput } from '@ousi-ui/vue'
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `modelValue` | `string \| number` | — | Bound value (v-model) |
+| `modelValue` | `string \| number` | - | Bound value (v-model) |
 | `type` | `'text' \| 'email' \| 'password' \| 'number' \| 'search' \| 'tel' \| 'url'` | `'text'` | Input type |
-| `placeholder` | `string` | — | Placeholder text |
-| `label` | `string` | — | Label text |
-| `description` | `string` | — | Helper text below the input |
-| `errorMessage` | `string` | — | Error message (activates error state) |
+| `placeholder` | `string` | - | Placeholder text |
+| `label` | `string` | - | Label text |
+| `description` | `string` | - | Helper text below the input |
+| `errorMessage` | `string` | - | Error message (activates error state) |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Input size |
 | `variant` | `'primary' \| 'secondary'` | `'primary'` | Visual style |
 | `disabled` | `boolean` | `false` | Disable the input |
@@ -134,4 +134,4 @@ import { OInput } from '@ousi-ui/vue'
 | `change` | `Event` | Native change event |
 | `focus` | `FocusEvent` | Input focused |
 | `blur` | `FocusEvent` | Input blurred |
-| `clear` | — | Clear button clicked |
+| `clear` | - | Clear button clicked |

@@ -97,7 +97,7 @@ export const dropdownData: ComponentData = {
   bestPractices: [
     { text: 'Group related actions using ODropdownSection.', good: true },
     { text: 'Place destructive actions at the end with variant="danger".', good: true },
-    { text: "Don't put too many items in a single dropdown — consider grouping.", good: false },
+    { text: "Don't put too many items in a single dropdown. Consider grouping.", good: false },
   ],
 
   haptics: {

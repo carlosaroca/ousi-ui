@@ -107,7 +107,7 @@ export const inputOtpData: ComponentData = {
     { name: 'type', type: "'digit' | 'alpha' | 'alphanumeric'", default: "'digit'", description: 'Which characters to accept.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the slots.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'description', type: 'string', default: '-', description: 'Description text.' },
@@ -163,6 +163,6 @@ export const inputOtpData: ComponentData = {
     { text: 'Use mask for sensitive codes like PINs.', good: true },
     { text: 'Use groups to visually separate segments (e.g., 3-3 for a 6-digit code).', good: true },
     { text: 'Listen for the complete event to auto-submit the form.', good: true },
-    { text: "Don't make OTP fields too long — 4 to 8 slots is standard.", good: false },
+    { text: "Don't make OTP fields too long: 4 to 8 slots is standard.", good: false },
   ],
 }

@@ -109,6 +109,6 @@ const rating = ref(3)
   bestPractices: [
     { text: 'Use read-only mode when displaying aggregated ratings.', good: true },
     { text: 'Enable half-stars for more granular feedback.', good: true },
-    { text: "Don't use more than 10 stars — it overwhelms users.", good: false },
+    { text: "Don't use more than 10 stars. It overwhelms users.", good: false },
   ],
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({ title: 'Flutter — Ousi UI (Coming Soon)' })
+useSeoMeta({ title: 'Flutter | Ousi UI (Coming Soon)' })
 </script>
 
 <template>

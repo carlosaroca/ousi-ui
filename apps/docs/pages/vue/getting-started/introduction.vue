@@ -2,7 +2,7 @@
 import TimelineToc from '~/components/TimelineToc.vue'
 
 useSeoMeta({
-  title: 'Introduction — Ousi UI',
+  title: 'Introduction | Ousi UI',
   description: 'A beautiful, accessible Vue 3 component library built with Tailwind CSS v4.',
 })
 
@@ -32,11 +32,11 @@ const tocItems = [
           Ousi UI is an open-source component library for Vue 3, built on top of
           <a href="https://tailwindcss.com" target="_blank" class="text-ousi-accent underline font-medium">Tailwind CSS v4</a>
           and <strong>class-variance-authority (CVA)</strong>. It provides a comprehensive set of components
-          with smooth animations, polished interactions, and built-in accessibility — ready to drop into
+          with smooth animations, polished interactions, and built-in accessibility: ready to drop into
           any project.
         </p>
         <p class="text-sm text-ousi-muted leading-relaxed">
-          Every component is fully customizable through props, slots, and theming — no fighting with
+          Every component is fully customizable through props, slots, and theming: no fighting with
           opinionated styles. The OKLCH-based color system adapts to any brand with a single accent hue change.
         </p>
       </section>
@@ -53,7 +53,7 @@ const tocItems = [
               </svg>
             </div>
             <h3 class="text-sm font-semibold text-ousi-foreground">Themeable</h3>
-            <p class="text-xs text-ousi-muted mt-1">OKLCH color tokens, CSS variables, dark mode — change the entire look with a few lines of CSS.</p>
+            <p class="text-xs text-ousi-muted mt-1">OKLCH color tokens, CSS variables, dark mode: change the entire look with a few lines of CSS.</p>
           </div>
           <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface p-4">
             <div class="size-8 rounded-ousi-lg bg-ousi-success/10 flex items-center justify-center mb-2">

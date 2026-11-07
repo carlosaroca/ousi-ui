@@ -99,7 +99,7 @@ export const selectData: ComponentData = {
       title: 'Animated',
       example: {
         component: 'SelectAnimated',
-        code: `<OSelect :options="options" placeholder="Default — no animation" />
+        code: `<OSelect :options="options" placeholder="Default: no animation" />
 <OSelect :options="options" placeholder="With tactile press" animated />`,
       },
     },
@@ -118,7 +118,7 @@ export const selectData: ComponentData = {
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the trigger.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the select is disabled.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the select is required.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
@@ -169,7 +169,7 @@ export const selectData: ComponentData = {
     { text: 'Always provide a label for accessibility.', good: true },
     { text: 'Use placeholder to guide users on what to select.', good: true },
     { text: 'Mark disabled options clearly so users understand they are unavailable.', good: true },
-    { text: "Don't use Select for fewer than 3 options — use Radio or Checkbox instead.", good: false },
+    { text: "Don't use Select for fewer than 3 options. Use Radio or Checkbox instead.", good: false },
   ],
 
   haptics: {

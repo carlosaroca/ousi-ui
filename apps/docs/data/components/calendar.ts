@@ -72,7 +72,7 @@ export const calendarData: ComponentData = {
     },
     {
       id: 'custom-cell-prices',
-      title: 'Custom Cell — Prices',
+      title: 'Custom Cell: Prices',
       example: {
         component: 'CalendarCustomCellPrices',
         code: `<OCalendar>
@@ -88,7 +88,7 @@ export const calendarData: ComponentData = {
     },
     {
       id: 'custom-cell-colors',
-      title: 'Custom Cell — Colored Events',
+      title: 'Custom Cell: Colored Events',
       example: {
         component: 'CalendarCustomCellColors',
         code: `<OCalendar>
@@ -222,6 +222,6 @@ export const calendarData: ComponentData = {
   bestPractices: [
     { text: 'Provide minValue/maxValue to constrain selection to valid ranges.', good: true },
     { text: 'Use locale prop for internationalization instead of manually translating labels.', good: true },
-    { text: "Don't remove keyboard navigation — essential for screen reader users.", good: false },
+    { text: "Don't remove keyboard navigation. Essential for screen reader users.", good: false },
   ],
 }

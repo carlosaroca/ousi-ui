@@ -67,7 +67,7 @@ onUnmounted(() => clearInterval(interval))
 <OChart :data="data" :value="value" momentum="up" />
 <OChart :data="data" :value="value" momentum="down" />
 
-<!-- Degen mode — particles + shake on swings -->
+<!-- Degen mode: particles + shake on swings -->
 <OChart :data="data" :value="value" :degen="true" exaggerate />`,
       },
     },
@@ -203,18 +203,18 @@ onUnmounted(() => clearInterval(interval))
 <OChart :data="data" :value="value" theme="light" color="#22c55e" />
 
 <!-- The palette is derived from the accent color automatically:
-     line, fill gradient, grid, crosshair, badge, dot — all adapt. -->`,
+     line, fill gradient, grid, crosshair, badge, dot: all adapt. -->`,
       },
     },
   ],
 
   props: [
     { name: 'data', type: 'ChartPoint[]', description: 'Array of { time, value } points. Time in unix seconds.' },
-    { name: 'value', type: 'number', description: 'Current live value — smoothly lerped to the tip of the line.' },
+    { name: 'value', type: 'number', description: 'Current live value: smoothly lerped to the tip of the line.' },
     { name: 'theme', type: "'light' | 'dark'", default: "'dark'", description: 'Color scheme for the chart palette.' },
     { name: 'color', type: 'string', default: "'#3b82f6'", description: 'Accent color for the line, fill, dot, and badge.' },
-    { name: 'series', type: 'ChartSeries[]', default: '-', description: 'Multi-series mode — array of { id, data, value, color, label }. Overrides data/value/color.' },
-    { name: 'mode', type: "'line' | 'candle'", default: "'line'", description: 'Chart type — line or candlestick.' },
+    { name: 'series', type: 'ChartSeries[]', default: '-', description: 'Multi-series mode: array of { id, data, value, color, label }. Overrides data/value/color.' },
+    { name: 'mode', type: "'line' | 'candle'", default: "'line'", description: 'Chart type: line or candlestick.' },
     { name: 'candles', type: 'CandlePoint[]', default: '-', description: 'OHLC candle data (required when mode="candle").' },
     { name: 'candleWidth', type: 'number', default: '-', description: 'Seconds per candle (required when mode="candle").' },
     { name: 'liveCandle', type: 'CandlePoint', default: '-', description: 'Current live candle with real-time OHLC updates.' },
@@ -226,10 +226,10 @@ onUnmounted(() => clearInterval(interval))
     { name: 'pulse', type: 'boolean', default: 'true', description: 'Pulsing ring animation on the live dot.' },
     { name: 'momentum', type: "boolean | 'up' | 'down' | 'flat'", default: 'true', description: 'Auto-detect or override momentum direction. Shows chevron arrows.' },
     { name: 'scrub', type: 'boolean', default: 'true', description: 'Enable crosshair scrubbing on hover/touch.' },
-    { name: 'exaggerate', type: 'boolean', default: 'false', description: 'Tight Y-axis range — small moves fill chart height.' },
+    { name: 'exaggerate', type: 'boolean', default: 'false', description: 'Tight Y-axis range: small moves fill chart height.' },
     { name: 'showValue', type: 'boolean', default: 'false', description: 'Show live value as a DOM text overlay.' },
     { name: 'valueMomentumColor', type: 'boolean', default: 'false', description: 'Color the value text green/red by momentum.' },
-    { name: 'degen', type: 'boolean | ChartDegenOptions', default: 'false', description: 'Degen mode — particle bursts + shake on momentum swings.' },
+    { name: 'degen', type: 'boolean | ChartDegenOptions', default: 'false', description: 'Degen mode: particle bursts + shake on momentum swings.' },
     { name: 'window', type: 'number', default: '30', description: 'Visible time window in seconds.' },
     { name: 'windows', type: 'ChartWindowOption[]', default: '-', description: 'Array of { label, secs } for time window buttons.' },
     { name: 'windowStyle', type: "'default' | 'rounded' | 'text'", default: "'default'", description: 'Style of the time window buttons.' },
@@ -255,11 +255,11 @@ onUnmounted(() => clearInterval(interval))
   ],
 
   bestPractices: [
-    { text: 'Always provide `data` and `value` — `data` is the historical series, `value` is the live tip.', good: true },
+    { text: 'Always provide `data` and `value`: `data` is the historical series, `value` is the live tip.', good: true },
     { text: 'Use unix seconds (not milliseconds) for `time` in `ChartPoint`.', good: true },
-    { text: 'Give the container a fixed height — the chart fills 100% of its parent.', good: true },
+    { text: 'Give the container a fixed height. The chart fills 100% of its parent.', good: true },
     { text: 'Use `exaggerate` for financial data where small movements matter.', good: true },
-    { text: 'Don\'t pass thousands of data points — trim to ~2x the visible window.', good: true },
+    { text: 'Don\'t pass thousands of data points. Trim to ~2x the visible window.', good: true },
     { text: 'Don\'t use `degen` mode in production dashboards.', good: false },
   ],
 }

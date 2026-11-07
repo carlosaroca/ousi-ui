@@ -131,13 +131,13 @@ export const codeBlockData: ComponentData = {
   themeCode: `import { codeBlockTheme, codeBlockHeaderTheme } from '@ousi-ui/vue'
 
 // Tokens used:
-// bg-ousi-surface-secondary — code background
-// border-ousi-border — container border
-// text-ousi-foreground — code text
-// text-ousi-muted — line numbers, fade
-// text-emerald-600 — string literals
-// text-violet-500 — keywords, directives
-// text-rose-500 — HTML/component tags`,
+// bg-ousi-surface-secondary: code background
+// border-ousi-border: container border
+// text-ousi-foreground: code text
+// text-ousi-muted: line numbers, fade
+// text-emerald-600: string literals
+// text-violet-500: keywords, directives
+// text-rose-500: HTML/component tags`,
 
   keyboard: [
     { key: 'tab', description: 'Moves focus to the copy button.' },
@@ -152,6 +152,6 @@ export const codeBlockData: ComponentData = {
     { text: 'Use the `filename` prop to indicate the file type or source.', good: true },
     { text: 'Enable `collapsible` for code blocks longer than 5-6 lines.', good: true },
     { text: 'Custom `expandLabel`/`collapseLabel` for localization.', good: true },
-    { text: "Don't disable both `showLineNumbers` and `showCopy` — leave at least one visual aid.", good: false },
+    { text: "Don't disable both `showLineNumbers` and `showCopy`. Leave at least one visual aid.", good: false },
   ],
 }

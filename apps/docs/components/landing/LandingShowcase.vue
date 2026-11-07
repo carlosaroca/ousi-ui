@@ -19,7 +19,7 @@ import {
 import type { ChartPoint, SelectOption, AccordionItem, DateFieldValue } from '@ousi-ui/vue'
 
 /**
- * Landing-page component showcase — masonry collage on desktop, stacked cards on mobile.
+ * Landing-page component showcase: masonry collage on desktop, stacked cards on mobile.
  * Inherits theme from parent via CSS variables (--ousi-accent etc).
  */
 
@@ -67,7 +67,7 @@ const selectedName = ref('bruno')
 const accordionItems: AccordionItem[] = [
   { key: 'included',   title: "What's included?",    description: '88+ Vue 3 components.' },
   { key: 'theming',    title: 'How does theming work?', description: 'CSS vars + Tailwind v4.' },
-  { key: 'license',    title: 'Is it free?',          description: 'Yes — MIT licensed.' },
+  { key: 'license',    title: 'Is it free?',          description: 'Yes: MIT licensed.' },
 ]
 const accordionKey = ref<string | null>('theming')
 
@@ -144,7 +144,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
 
     <!-- Desktop masonry collage (≥lg) -->
     <div class="collage-wrap hidden lg:block relative h-[900px] w-full">
-      <!-- TILE 1 — Invite card -->
+      <!-- TILE 1: Invite card -->
       <div class="tile tile-a absolute top-[10px] left-[10px] w-[300px] rounded-ousi-3xl bg-ousi-surface p-4 shadow-ousi-xl">
         <div class="flex items-start gap-3">
           <div class="relative shrink-0">
@@ -164,7 +164,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         </div>
       </div>
 
-      <!-- TILE 2 — Widget Pro product -->
+      <!-- TILE 2: Widget Pro product -->
       <div class="tile tile-b absolute top-[20px] left-[360px] w-[140px] rounded-ousi-3xl bg-ousi-surface p-2.5 shadow-ousi-xl">
         <div class="aspect-square rounded-ousi-2xl bg-gradient-to-br from-emerald-100 to-emerald-300 flex items-center justify-center overflow-hidden mb-2">
           <svg class="size-14 text-emerald-700/70" viewBox="0 0 24 24" fill="currentColor">
@@ -175,7 +175,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         <OButton size="sm" class="w-full mt-2">Buy now</OButton>
       </div>
 
-      <!-- TILE 3 — Dark mode switch -->
+      <!-- TILE 3: Dark mode switch -->
       <div class="tile tile-c absolute top-[50px] right-[20px] w-[170px] rounded-ousi-3xl bg-ousi-surface px-4 py-3 shadow-ousi-md">
         <div class="flex items-center justify-between gap-3">
           <div class="flex-1 min-w-0">
@@ -209,7 +209,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         <OButton size="sm" class="w-full">Let's Go!</OButton>
       </OCard>
 
-      <!-- TILE 6 — Chart dashboard -->
+      <!-- TILE 6: Chart dashboard -->
       <div class="tile tile-f absolute top-[240px] left-[275px] w-[260px] rounded-ousi-3xl bg-ousi-surface p-4 shadow-ousi-xl">
         <div class="flex items-baseline justify-between mb-0.5">
           <span class="text-[10px] font-semibold text-ousi-muted uppercase tracking-wider">Revenue</span>
@@ -263,7 +263,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         </div>
       </div>
 
-      <!-- TILE 7 — Ousi UI info card -->
+      <!-- TILE 7 | Ousi UI info card -->
       <div class="tile tile-h absolute top-[180px] right-[-50px] w-[210px] rounded-ousi-3xl bg-ousi-surface p-4 shadow-ousi-xl">
         <div class="flex items-start justify-between mb-3">
           <div class="size-9 rounded-ousi-xl bg-gradient-to-br from-ousi-accent-soft to-ousi-accent/10 flex items-center justify-center">
@@ -279,12 +279,12 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         </p>
       </div>
 
-      <!-- TILE 9 — Progress circle -->
+      <!-- TILE 9: Progress circle -->
       <div class="tile tile-i absolute top-[430px] right-[0px] size-[100px] rounded-ousi-3xl bg-ousi-surface shadow-ousi-lg flex items-center justify-center">
         <OProgressCircle :value="65" size="md" />
       </div>
 
-      <!-- TILE 10 — Get Started card -->
+      <!-- TILE 10: Get Started card -->
       <div class="tile tile-j absolute top-[560px] right-[20px] w-[270px] rounded-ousi-3xl bg-ousi-surface shadow-ousi-xl overflow-hidden">
         <div class="h-[80px] bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center relative">
           <svg class="size-9 text-white/80" viewBox="0 0 24 24" fill="currentColor">
@@ -317,12 +317,12 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         </div>
       </div>
 
-      <!-- TILE 11 — Accordion -->
+      <!-- TILE 11: Accordion -->
       <div class="tile tile-k absolute top-[500px] left-[0px] w-[260px] rounded-ousi-3xl">
         <OAccordion v-model="accordionKey" :items="accordionItems" />
       </div>
 
-      <!-- TILE 12 — Slider card -->
+      <!-- TILE 12: Slider card -->
       <div class="tile tile-l absolute top-[740px] left-[100px] w-[230px] rounded-ousi-3xl bg-ousi-surface px-4 py-3 shadow-ousi-lg">
         <div class="flex items-baseline justify-between mb-1">
           <span class="text-[11px] font-semibold text-ousi-foreground">Volume</span>
@@ -331,7 +331,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         <OSlider v-model="sliderValue" :min="0" :max="100" />
       </div>
 
-      <!-- TILE 13 — Date picker -->
+      <!-- TILE 13: Date picker -->
       <div class="tile tile-m absolute top-[840px] left-[60px] w-[200px]">
         <ODatePicker
           v-model="selectedDate"
@@ -340,7 +340,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         />
       </div>
 
-      <!-- TILE 14 — Names select -->
+      <!-- TILE 14: Names select -->
       <div class="tile tile-n absolute top-[840px] left-[320px] w-[210px]">
         <OSelect
           v-model="selectedName"

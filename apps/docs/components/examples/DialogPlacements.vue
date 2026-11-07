@@ -8,12 +8,12 @@ const bottomOpen = ref(false)
 </script>
 <template>
   <div class="flex flex-wrap gap-3">
-    <OButton variant="outline" @click="topOpen = true">Top — Update available</OButton>
-    <OButton variant="outline" @click="centerOpen = true">Center — Settings</OButton>
-    <OButton variant="outline" @click="bottomOpen = true">Bottom — Cookie consent</OButton>
+    <OButton variant="outline" @click="topOpen = true">Top: Update available</OButton>
+    <OButton variant="outline" @click="centerOpen = true">Center: Settings</OButton>
+    <OButton variant="outline" @click="bottomOpen = true">Bottom: Cookie consent</OButton>
   </div>
 
-  <!-- TOP — system notification -->
+  <!-- TOP: system notification -->
   <ODialog v-model="topOpen" placement="top" size="sm">
     <ODialogBody>
       <div class="flex items-start gap-3">
@@ -21,7 +21,7 @@ const bottomOpen = ref(false)
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
         </div>
         <div class="flex-1">
-          <p class="text-sm font-semibold text-ousi-foreground">Update available — v0.2.1</p>
+          <p class="text-sm font-semibold text-ousi-foreground">Update available: v0.2.1</p>
           <p class="text-xs text-ousi-muted mt-0.5">Includes new shadow tokens and a fix for the date picker.</p>
         </div>
       </div>
@@ -32,7 +32,7 @@ const bottomOpen = ref(false)
     </ODialogFooter>
   </ODialog>
 
-  <!-- CENTER — typical settings -->
+  <!-- CENTER: typical settings -->
   <ODialog v-model="centerOpen" placement="center" size="sm">
     <ODialogHeader>
       <h2 class="text-base font-semibold text-ousi-foreground">Notifications</h2>
@@ -61,7 +61,7 @@ const bottomOpen = ref(false)
     </ODialogFooter>
   </ODialog>
 
-  <!-- BOTTOM — cookie / consent banner-style -->
+  <!-- BOTTOM: cookie / consent banner-style -->
   <ODialog v-model="bottomOpen" placement="bottom" size="md">
     <ODialogHeader>
       <h2 class="text-base font-semibold text-ousi-foreground">We use cookies</h2>

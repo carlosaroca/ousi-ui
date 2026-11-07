@@ -97,7 +97,7 @@ export const textareaData: ComponentData = {
       title: 'Animated',
       example: {
         component: 'TextareaAnimated',
-        code: `<OTextarea placeholder="Default — no animation" />
+        code: `<OTextarea placeholder="Default: no animation" />
 <OTextarea placeholder="With tactile press" animated />`,
       },
     },
@@ -118,7 +118,7 @@ export const textareaData: ComponentData = {
     { name: 'resize', type: "'none' | 'vertical' | 'horizontal' | 'both'", default: "'vertical'", description: 'CSS resize behavior.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the textarea is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the textarea is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the textarea is required.' },

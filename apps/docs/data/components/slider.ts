@@ -131,6 +131,6 @@ export const sliderData: ComponentData = {
     { text: 'Always provide a label for accessibility.', good: true },
     { text: 'Use showOutput so users can see the exact value.', good: true },
     { text: 'Use step values that make sense for the domain (e.g., 5 for percentages).', good: true },
-    { text: "Don't use Slider when exact input is needed — use NumberField instead.", good: false },
+    { text: "Don't use Slider when exact input is needed. Use NumberField instead.", good: false },
   ],
 }

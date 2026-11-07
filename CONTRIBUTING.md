@@ -36,10 +36,10 @@ The docs site runs at `http://localhost:3000`. The playground is at `/playground
 ```
 ousi-ui/
 ├── packages/
-│   ├── vue/          # @ousi-ui/vue — 88+ Vue 3 components
-│   ├── core/         # @ousi-ui/core — Composables & utilities
-│   ├── theme/        # @ousi-ui/theme — CSS themes & tokens
-│   ├── tokens/       # @ousi-ui/tokens — TypeScript token definitions
+│   ├── vue/          # @ousi-ui/vue: 88+ Vue 3 components
+│   ├── core/         # @ousi-ui/core: Composables & utilities
+│   ├── theme/        # @ousi-ui/theme: CSS themes & tokens
+│   ├── tokens/       # @ousi-ui/tokens: TypeScript token definitions
 │   └── ...
 ├── apps/
 │   ├── docs/         # Documentation site (Nuxt 3)
@@ -84,7 +84,7 @@ Every component lives in `packages/vue/src/components/<name>/` and follows this 
 
 ```
 my-component/
-├── MyComponent.vue       # SFC — <script setup lang="ts">
+├── MyComponent.vue       # SFC: <script setup lang="ts">
 ├── my-component.types.ts # Props, Emits, Slots interfaces
 ├── my-component.theme.ts # CVA styling
 └── index.ts              # Barrel export
@@ -92,7 +92,7 @@ my-component/
 
 ### Step by step
 
-**1. Types** — Define the API:
+**1. Types**: Define the API:
 
 ```typescript
 // my-component.types.ts
@@ -100,11 +100,11 @@ export interface MyComponentProps {
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
-  class?: string  // always include — merged via cn()
+  class?: string  // always include: merged via cn()
 }
 ```
 
-**2. Theme** — Use CVA for variants:
+**2. Theme**: Use CVA for variants:
 
 ```typescript
 // my-component.theme.ts
@@ -129,7 +129,7 @@ export const myComponentTheme = cva(
 )
 ```
 
-**3. Component** — Composition API with `<script setup>`:
+**3. Component**: Composition API with `<script setup>`:
 
 ```vue
 <script setup lang="ts">
@@ -156,7 +156,7 @@ const classes = computed(() =>
 </template>
 ```
 
-**4. Export** — Barrel file:
+**4. Export**: Barrel file:
 
 ```typescript
 // index.ts
@@ -165,9 +165,9 @@ export type { MyComponentProps } from './my-component.types'
 export { myComponentTheme } from './my-component.theme'
 ```
 
-**5. Register** — Add to `exports.ts` and `plugin/install.ts`
+**5. Register**: Add to `exports.ts` and `plugin/install.ts`
 
-**6. Document** — Create data file in `apps/docs/data/components/` and example components in `apps/docs/components/examples/`
+**6. Document**: Create data file in `apps/docs/data/components/` and example components in `apps/docs/components/examples/`
 
 ---
 
@@ -175,12 +175,12 @@ export { myComponentTheme } from './my-component.theme'
 
 ### General Rules
 
-- **`<script setup lang="ts">`** — Always use Composition API
-- **`cn()`** — Always merge classes with `cn()` from `@ousi-ui/core`
-- **`withDefaults(defineProps<T>())`** — Always provide defaults
-- **`class` prop** — Every component accepts a `class` prop (merged, never replaced)
-- **No Options API** — Not in components, not in examples
-- **No hardcoded colors** — Use `--ousi-*` CSS variables via Tailwind utilities
+- **`<script setup lang="ts">`**: Always use Composition API
+- **`cn()`**: Always merge classes with `cn()` from `@ousi-ui/core`
+- **`withDefaults(defineProps<T>())`**: Always provide defaults
+- **`class` prop**: Every component accepts a `class` prop (merged, never replaced)
+- **No Options API**: Not in components, not in examples
+- **No hardcoded colors**: Use `--ousi-*` CSS variables via Tailwind utilities
 
 ### Naming Conventions
 
@@ -232,12 +232,12 @@ chore: rename oasi → ousi
 
 ## Pull Request Guidelines
 
-1. **One PR per feature/fix** — Don't bundle unrelated changes
-2. **Descriptive title** — `feat: add size prop to OTabs` not `update tabs`
-3. **Description** — What changed and why
-4. **Screenshots** — For visual changes, include before/after
-5. **Test locally** — Run `pnpm build` and verify in docs
-6. **No dist files** — Don't commit `dist/` folders
+1. **One PR per feature/fix**: Don't bundle unrelated changes
+2. **Descriptive title**: `feat: add size prop to OTabs` not `update tabs`
+3. **Description**: What changed and why
+4. **Screenshots**: For visual changes, include before/after
+5. **Test locally**: Run `pnpm build` and verify in docs
+6. **No dist files**: Don't commit `dist/` folders
 
 ### PR Template
 

@@ -27,7 +27,7 @@ const rows = [
   <div class="space-y-3">
     <p class="text-xs text-ousi-muted">
       Scroll the table horizontally. The first two columns (<strong>#</strong> and <strong>Name</strong>)
-      stay pinned to the left, and <strong>Salary</strong> stays pinned to the right —
+      stay pinned to the left, and <strong>Salary</strong> stays pinned to the right,
       each with a subtle 1px edge line when content scrolls behind.
     </p>
     <OTable :columns="columns" :rows="rows" />

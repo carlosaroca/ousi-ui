@@ -1,4 +1,4 @@
-# Ousi UI — Migration Prompt: v0.1.x → v0.3.0
+# Ousi UI Migration Prompt: v0.1.x → v0.3.0
 
 > Copy this entire file as a prompt to your AI coding agent (Claude Code, Cursor,
 > etc.) and point it at the project that consumes `@ousi-ui/vue`. The agent
@@ -25,11 +25,11 @@ After applying changes:
    to `^0.3.0` in `package.json`.
 
 Do **not** change unrelated code. Do **not** introduce new dependencies. Do
-**not** create commits — leave changes staged for the human to review.
+**not** create commits: leave changes staged for the human to review.
 
 ---
 
-## Change 1 — `variant="ghost"` → `variant="text"`
+## Change 1: `variant="ghost"` → `variant="text"`
 
 The `ghost` variant was renamed to `text` on three components to align with
 standard naming.
@@ -81,7 +81,7 @@ toast({ title: 'Saved', action: { label: 'Undo', onClick: ..., variant: 'text' }
 
 ---
 
-## Change 2 — Compound components flattened (no more dot-notation)
+## Change 2: Compound components flattened (no more dot-notation)
 
 Five compound components were flattened from `OParent.Child` (Object.assign-style
 sub-components) to flat `OParentChild` exports. This makes them easier to
@@ -127,7 +127,7 @@ auto-import, lint, and tree-shake.
 
 Three places per usage site:
 
-1. **The import statement** — add the flat sub-components alongside the parent:
+1. **The import statement**: add the flat sub-components alongside the parent:
 
    ```ts
    // Before
@@ -139,7 +139,7 @@ Three places per usage site:
 
    Only import the sub-components actually used in the file.
 
-2. **The template** — rewrite each dot-notation tag:
+2. **The template**: rewrite each dot-notation tag:
 
    ```vue
    <!-- Before -->
@@ -161,7 +161,7 @@ Three places per usage site:
    </OCard>
    ```
 
-3. **JSX/TSX usage** (if the project uses render functions or JSX) — rewrite
+3. **JSX/TSX usage** (if the project uses render functions or JSX): rewrite
    `<OCard.Header>` → `<OCardHeader>` the same way.
 
 ### Important caveats
@@ -171,12 +171,12 @@ Three places per usage site:
 - If a project uses dynamic `<component :is="...">` and references `OCard.Header`
   via a variable, switch the variable to the flat name.
 - Auto-import projects (Nuxt, `unplugin-vue-components`) need no manual import
-  changes — just rewrite the templates. The flat names auto-resolve.
+  changes: just rewrite the templates. The flat names auto-resolve.
 - If the project also uses `@ousi-ui/nuxt`, no config changes are required.
 
 ---
 
-## Change 3 — `fullWidth` removed from all field components
+## Change 3: `fullWidth` removed from all field components
 
 Field components now always stretch to fill their parent. The `fullWidth` /
 `full-width` prop has been removed from all of them. To constrain width, wrap
@@ -188,7 +188,7 @@ the field in a sized container.
 `ODateField`, `OTimeField`, `ODatePicker`, `ODateRangePicker`, `OInputOtp`,
 `OTagInput`, `OCheckbox` (and any other field component the project uses).
 
-The `fullWidth` prop **remains** on `OButton` and `OButtonGroup` — those are not
+The `fullWidth` prop **remains** on `OButton` and `OButtonGroup`: those are not
 fields and the prop still has meaning there. Don't touch them.
 
 ### Find / replace patterns
@@ -208,16 +208,16 @@ Apply the same pattern to every field component listed above.
   width, **wrap the field** in a container with the desired width:
 
   ```vue
-  <!-- Before — field would render at intrinsic width -->
+  <!-- Before: field would render at intrinsic width -->
   <OInput :full-width="false" placeholder="Search" />
 
-  <!-- After — wrap to constrain -->
+  <!-- After: wrap to constrain -->
   <div class="w-64">
     <OInput placeholder="Search" />
   </div>
   ```
 
-- Do **not** remove `full-width` from `<OButton>` or `<OButtonGroup>` —
+- Do **not** remove `full-width` from `<OButton>` or `<OButtonGroup>`:
   those still accept the prop.
 
 ---
@@ -233,7 +233,7 @@ Apply the same pattern to every field component listed above.
 - [ ] Project lints cleanly.
 - [ ] `package.json` has `"@ousi-ui/vue": "^0.3.0"` (and any related
       `@ousi-ui/*` packages bumped to `^0.3.0`).
-- [ ] Visual smoke test of any page that uses the migrated components — fields
+- [ ] Visual smoke test of any page that uses the migrated components: fields
       render full-width, buttons styled with `text` look right, dropdowns and
       cards still compose correctly.
 
@@ -247,7 +247,7 @@ Apply the same pattern to every field component listed above.
   `danger`, and `danger-soft` are unchanged.
 - The CSS theme tokens (`--ousi-accent`, `--ousi-radius`, etc.) are unchanged.
   Brand defaults shifted (accent now `#1b5cff`, success `#46c93a`, warning
-  `#ffba00`, danger `#ff4757`), but they read from CSS custom properties — if
+  `#ffba00`, danger `#ff4757`), but they read from CSS custom properties: if
   the project overrides them, those overrides still work.
 - Component event names (`update:modelValue`, `change`, `clear`, etc.) are
   unchanged.

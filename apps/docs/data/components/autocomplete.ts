@@ -139,7 +139,7 @@ export const autocompleteData: ComponentData = {
       title: 'Animated',
       example: {
         component: 'AutocompleteAnimated',
-        code: `<OAutocomplete :options="options" placeholder="Default — no animation" />
+        code: `<OAutocomplete :options="options" placeholder="Default: no animation" />
 <OAutocomplete :options="options" placeholder="With tactile press" animated />`,
       },
     },
@@ -155,7 +155,7 @@ export const autocompleteData: ComponentData = {
     { name: 'errorMessage', type: 'string', default: '-', description: 'Error message that activates error state.' },
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'scrollShadow', type: 'boolean', default: 'true', description: 'Show fade shadow at top/bottom of the list when scrollable.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the field is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the field is read-only.' },
@@ -216,6 +216,6 @@ export const autocompleteData: ComponentData = {
     { text: 'Always provide a label for accessibility.', good: true },
     { text: 'Use emptyMessage to guide users when no options match.', good: true },
     { text: 'Enable clearable for optional fields.', good: true },
-    { text: "Don't use Autocomplete when there are fewer than 5 options — use Select instead.", good: false },
+    { text: "Don't use Autocomplete when there are fewer than 5 options. Use Select instead.", good: false },
   ],
 }

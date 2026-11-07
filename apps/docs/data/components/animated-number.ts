@@ -81,7 +81,7 @@ export const animatedNumberData: ComponentData = {
     { text: 'Use "roll" for dashboard counters, stats, and scoreboards.', good: true },
     { text: 'Use "count" for progress values or financial figures.', good: true },
     { text: 'Use formatOptions for locale-aware currency and percentage display.', good: true },
-    { text: "Don't use very short durations (<100ms) — the animation won't be perceptible.", good: false },
+    { text: "Don't use very short durations (<100ms). The animation won't be perceptible.", good: false },
     { text: "Don't animate numbers that change every frame (use count mode for real-time).", good: false },
   ],
 }

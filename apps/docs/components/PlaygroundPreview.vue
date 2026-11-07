@@ -82,7 +82,7 @@ const tabItems2: TabItem[] = [
   { key: 'emails', label: 'Emails' },
 ]
 
-// ── Animated Numbers — cycle through 5 animations ──
+// ── Animated Numbers: cycle through 5 animations ──
 const animations = ['roll', 'count', 'slide', 'fade', 'flip'] as const
 const animIndex = ref(0)
 const animValue = ref(1284)
@@ -253,7 +253,7 @@ onUnmounted(() => { if (chartInterval) clearInterval(chartInterval) })
                 v-model="accordionKey"
                 :items="[
                   { key: 'features', title: 'What\'s included?', description: '88+ accessible components for Vue 3 and Flutter, with dark mode, OKLCH colors, and tree-shaking support.' },
-                  { key: 'theming', title: 'How does theming work?', description: 'CSS custom properties with Tailwind v4. Switch themes via data-theme attribute — no rebuild needed.' },
+                  { key: 'theming', title: 'How does theming work?', description: 'CSS custom properties with Tailwind v4. Switch themes via data-theme attribute: no rebuild needed.' },
                   { key: 'license', title: 'Is it free to use?', description: 'Yes! Ousi UI is open source under the MIT license. Use it in personal and commercial projects.' },
                 ]"
               />

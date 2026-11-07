@@ -17,7 +17,7 @@ export interface AriaDef {
 }
 
 export interface ExampleDef {
-  /** Matches a component in components/examples/ — e.g. 'ButtonVariants' */
+  /** Matches a component in components/examples/: e.g. 'ButtonVariants' */
   component: string
   /** Source code shown in the code block */
   code: string
@@ -46,7 +46,7 @@ export interface ComponentData {
   slots?: PropDef[]
   /** Emits for the API tab */
   emits?: PropDef[]
-  /** Methods exposed via `defineExpose` — accessed through a template ref. */
+  /** Methods exposed via `defineExpose`: accessed through a template ref. */
   methods?: PropDef[]
   /** Theme import info */
   themeCode?: string
@@ -56,7 +56,7 @@ export interface ComponentData {
   aria?: AriaDef[]
   /** Best practices for accessibility tab */
   bestPractices?: { text: string; good: boolean }[]
-  /** Haptic feedback info — shown in a dedicated section */
+  /** Haptic feedback info: shown in a dedicated section */
   haptics?: {
     /** Default preset for this component */
     defaultPreset: string

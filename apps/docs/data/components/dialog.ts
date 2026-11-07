@@ -106,7 +106,7 @@ app.use(OusiUIPlugin, { backdrop: 'blur' })
   <ODialogBody>Please wait until the upload finishes.</ODialogBody>
 </ODialog>
 
-<!-- Force a choice — also hide the X. -->
+<!-- Force a choice: also hide the X. -->
 <ODialog v-model="open" prevent-close hide-close-button>
   <ODialogHeader>Confirm payment</ODialogHeader>
   <ODialogFooter>
@@ -157,7 +157,7 @@ app.use(OusiUIPlugin, { backdrop: 'blur' })
     { text: 'Overlays stack in the order they open: a dialog opened from a drawer shows above it, whichever mounted first.', good: true },
     { text: 'Use scroll-behavior="inside" for long content to keep the footer visible.', good: true },
     { text: 'Pick the size by content: sm for a confirmation, md or lg for a short form, xl and up for forms in columns or tables.', good: true },
-    { text: "Don't stack multiple dialogs — consider a different UX pattern.", good: false },
+    { text: "Don't stack multiple dialogs. Consider a different UX pattern.", good: false },
   ],
 
   haptics: {

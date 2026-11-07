@@ -49,7 +49,7 @@ import { OButton, OInput, ODialog } from '@ousi-ui/vue'
 
 ## Components
 
-Buttons, Forms, Date Pickers, Color Pickers, Charts, Modals, Tooltips, Toasts, Tables, Tabs, Accordions, and 60+ more — all with dark mode, keyboard navigation, and ARIA support.
+Buttons, Forms, Date Pickers, Color Pickers, Charts, Modals, Tooltips, Toasts, Tables, Tabs, Accordions, and 60+ more: all with dark mode, keyboard navigation, and ARIA support.
 
 [View all components →](https://ousiui.com/vue/components/button)
 

@@ -145,7 +145,7 @@ export const buttonData: ComponentData = {
     { name: 'default', type: 'slot', description: 'Button label content.' },
     { name: 'start', type: 'slot', description: 'Content before the label (icon).' },
     { name: 'end', type: 'slot', description: 'Content after the label (icon).' },
-    { name: 'animate', type: 'slot', description: 'Content shown on hover — replaces default with the chosen animationType.' },
+    { name: 'animate', type: 'slot', description: 'Content shown on hover: replaces default with the chosen animationType.' },
   ],
 
   themeCode: `import { buttonTheme } from '@ousi-ui/vue'
@@ -176,7 +176,7 @@ export const buttonData: ComponentData = {
     { text: 'Provide meaningful text or aria-label for icon-only buttons.', good: true },
     { text: 'Use type="submit" inside forms.', good: true },
     { text: 'Loading state automatically sets aria-busy.', good: true },
-    { text: "Don't remove the focus ring — essential for keyboard navigation.", good: false },
-    { text: "Don't disable buttons without explanation — use tooltip or helper text.", good: false },
+    { text: "Don't remove the focus ring. Essential for keyboard navigation.", good: false },
+    { text: "Don't disable buttons without explanation. Use tooltip or helper text.", good: false },
   ],
 }

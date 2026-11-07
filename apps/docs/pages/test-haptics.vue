@@ -64,7 +64,7 @@ onMounted(() => {
     <!-- Test: useHaptics composable (Android only) -->
     <div class="space-y-2">
       <p class="text-xs font-bold text-purple-600 uppercase tracking-wide">useHaptics() composable</p>
-      <p class="text-xs text-ousi-muted">Uses navigator.vibrate — works on Android only.</p>
+      <p class="text-xs text-ousi-muted">Uses navigator.vibrate: works on Android only.</p>
       <button class="w-full px-4 py-3 bg-purple-500 text-white rounded-lg active:scale-95 transition-transform text-sm font-medium" @click="trigger('heavy')">
         trigger('heavy')
       </button>

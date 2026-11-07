@@ -75,7 +75,7 @@ export const dateFieldData: ComponentData = {
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'defaultValue', type: 'DateFieldValue | null', default: 'null', description: 'Default date value.' },
     { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for segment ordering (e.g. "en-US", "ja-JP").' },
     { name: 'granularity', type: "'day' | 'month' | 'year'", default: "'day'", description: 'Granularity of the date field.' },

@@ -74,7 +74,7 @@ export const timeFieldData: ComponentData = {
     { name: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the field.' },
     { name: 'shadow', type: "'none' | 'xs' | 'sm' | 'md'", default: "'xs'", description: 'Elevation shadow.' },
-    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation — scales to 98% on focus.' },
+    { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'defaultValue', type: 'TimeFieldValue | null', default: 'null', description: 'Default time value.' },
     { name: 'hour12', type: 'boolean', default: 'false', description: 'Use 12-hour format with AM/PM.' },
     { name: 'granularity', type: "'hour' | 'minute' | 'second'", default: "'minute'", description: 'Granularity of the time field.' },
