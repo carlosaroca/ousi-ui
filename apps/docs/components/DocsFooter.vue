@@ -12,7 +12,7 @@
             <span class="text-xl font-extrabold tracking-tight text-ousi-foreground">Ousi UI</span>
           </div>
           <p class="text-sm text-ousi-muted leading-relaxed">
-            A beautiful, accessible component library for Vue and Flutter. 74+ components with dark mode, OKLCH colors, and full TypeScript support.
+            A beautiful, accessible component library for Vue and Flutter. 88+ components with dark mode, OKLCH colors, and full TypeScript support.
           </p>
           <div class="flex items-center gap-3 mt-1">
             <!-- GitHub -->

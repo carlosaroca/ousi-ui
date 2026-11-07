@@ -252,7 +252,7 @@ onUnmounted(() => { if (chartInterval) clearInterval(chartInterval) })
               <OAccordion
                 v-model="accordionKey"
                 :items="[
-                  { key: 'features', title: 'What\'s included?', description: '74+ accessible components for Vue 3 and Flutter, with dark mode, OKLCH colors, and tree-shaking support.' },
+                  { key: 'features', title: 'What\'s included?', description: '88+ accessible components for Vue 3 and Flutter, with dark mode, OKLCH colors, and tree-shaking support.' },
                   { key: 'theming', title: 'How does theming work?', description: 'CSS custom properties with Tailwind v4. Switch themes via data-theme attribute — no rebuild needed.' },
                   { key: 'license', title: 'Is it free to use?', description: 'Yes! Ousi UI is open source under the MIT license. Use it in personal and commercial projects.' },
                 ]"

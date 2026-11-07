@@ -36,7 +36,7 @@ The docs site runs at `http://localhost:3000`. The playground is at `/playground
 ```
 ousi-ui/
 ├── packages/
-│   ├── vue/          # @ousi-ui/vue — 74+ Vue 3 components
+│   ├── vue/          # @ousi-ui/vue — 88+ Vue 3 components
 │   ├── core/         # @ousi-ui/core — Composables & utilities
 │   ├── theme/        # @ousi-ui/theme — CSS themes & tokens
 │   ├── tokens/       # @ousi-ui/tokens — TypeScript token definitions

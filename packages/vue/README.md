@@ -5,7 +5,7 @@
 <h1 align="center">@ousi-ui/vue</h1>
 
 <p align="center">
-  74+ beautiful, accessible Vue 3 components.<br/>
+  88+ beautiful, accessible Vue 3 components.<br/>
   Built with Tailwind CSS v4, TypeScript, and OKLCH colors.
 </p>
 

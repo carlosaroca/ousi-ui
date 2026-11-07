@@ -7,6 +7,7 @@ useSeoMeta({
 })
 
 const tocItems = [
+  { id: 'v0-7-0', label: 'v0.7.0' },
   { id: 'v0-6-0', label: 'v0.6.0' },
   { id: 'v0-3-1', label: 'v0.3.1' },
   { id: 'v0-3-0', label: 'v0.3.0' },
@@ -28,13 +29,80 @@ const tocItems = [
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.7.0 -->
+    <article id="v0-7-0" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.7.0</h2>
+        <span class="text-xs text-ousi-muted">November 6, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Added</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">Charts</strong>: a new menu section with 13 components, none of them needing a charting library: <strong class="text-ousi-foreground">OBarChart</strong> (vertical or horizontal, grouped or stacked, with a track behind each bar, a ring on the hovered one and custom ticks), <strong class="text-ousi-foreground">OComboChart</strong> (bars and a line on two axes), <strong class="text-ousi-foreground">OAreaChart</strong>, <strong class="text-ousi-foreground">ODonutChart</strong> (donut or pie), <strong class="text-ousi-foreground">ORadarChart</strong>, <strong class="text-ousi-foreground">OScatterChart</strong> (bubbles when a point has a size), <strong class="text-ousi-foreground">OFunnel</strong> (a continuous flow or rows of pills), <strong class="text-ousi-foreground">OHeatmap</strong> (also as a contribution calendar), <strong class="text-ousi-foreground">OTreemap</strong>, <strong class="text-ousi-foreground">OSankey</strong>, <strong class="text-ousi-foreground">OSegmentedGauge</strong>, <strong class="text-ousi-foreground">OActivityRings</strong> and <strong class="text-ousi-foreground">ODotMatrix</strong>.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span>Every chart reacts to hover and keyboard focus out of the box and also takes <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">v-model:focused</code> to read or drive the highlight, emits events (<code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">point-enter</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">point-click</code>…), exposes scoped slots for the tooltip, center, legend or labels, accepts any CSS color or a theme token, animates in (and respects reduced motion) and has no card of its own, so you wrap it as you like. The docs add recipes with a header, a period switch and an animated number.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OTabs</strong>: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">scrollFade</code> fades the edge of a scrolling list that still has tabs beyond it, and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">contained</code> makes the list fill its parent without stretching it, for grid cells and cards in a flex row.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">useScrollFade</code> in <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/vue</code>, the edge fade behind OScrollShadow and OTabs.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/nuxt</code> 0.6.0 auto-imports the new components.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Changed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OTabs</strong> scroll sideways when they do not fit, in both variants and with the scrollbar hidden, and the selected tab is brought into view, also from the keyboard. Before, the primary variant overflowed its container.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span>Charts with many items are a single tab stop: the arrow keys, Home and End move between items, and Enter or Space activate the focused one.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OScrollShadow</strong> now shares its fade logic with OTabs. Nothing changes in how it looks or behaves.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span>The docs menu groups every chart under Charts, and the version in the header and on the home page is read from the package instead of being typed by hand.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Fixed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-ousi-accent mt-0.5">•</span>
+              <span>OTabs inside a grid cell or a card in a flex row no longer stretch their column when they have many tabs (use the contained prop).</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <!-- v0.6.0 -->
     <article id="v0-6-0" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.6.0</h2>
         <span class="text-xs text-ousi-muted">October 19, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
 
       <div class="space-y-4">

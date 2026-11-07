@@ -1,10 +1,18 @@
+import { readFileSync } from 'node:fs'
 import tailwindcss from '@tailwindcss/vite'
+
+// The version shown in the site comes from the package, so a release never leaves it stale.
+const { version } = JSON.parse(readFileSync(new URL('../../packages/vue/package.json', import.meta.url), 'utf8'))
 
 const siteUrl = 'https://ousiui.com'
 const siteName = 'Ousi UI'
-const siteDescription = 'A beautiful, accessible component library for Vue and Flutter. 74+ components built with Tailwind CSS v4, TypeScript, OKLCH color tokens, and dark mode support.'
+const siteDescription = 'A beautiful, accessible component library for Vue and Flutter. 88+ components built with Tailwind CSS v4, TypeScript, OKLCH color tokens, and dark mode support.'
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: { version },
+  },
+
   modules: [
     '@nuxt/content',
   ],
@@ -41,7 +49,7 @@ export default defineNuxtConfig({
         { property: 'og:image', content: `${siteUrl}/og-image.png` },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: `${siteName} | 74+ components for Vue & Flutter` },
+        { property: 'og:image:alt', content: `${siteName} | 88+ components for Vue & Flutter` },
         { property: 'og:locale', content: 'en_US' },
 
         // Twitter / X
@@ -49,7 +57,7 @@ export default defineNuxtConfig({
         { name: 'twitter:title', content: `${siteName} | Component Library for Vue & Flutter` },
         { name: 'twitter:description', content: siteDescription },
         { name: 'twitter:image', content: `${siteUrl}/og-image.png` },
-        { name: 'twitter:image:alt', content: `${siteName} | 74+ components for Vue & Flutter` },
+        { name: 'twitter:image:alt', content: `${siteName} | 88+ components for Vue & Flutter` },
         { name: 'twitter:creator', content: '@CarlosArocaC' },
       ],
       link: [

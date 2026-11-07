@@ -6,7 +6,7 @@
 
 <p align="center">
   A beautiful, accessible component library for <strong>Vue</strong> and <strong>Flutter</strong>.<br/>
-  74+ components. Dark mode. OKLCH colors. TypeScript-first.
+  88+ components. Dark mode. OKLCH colors. TypeScript-first.
 </p>
 
 <p align="center">
@@ -34,7 +34,7 @@
 
 ## Features
 
-- **74+ Components** — Buttons, forms, date pickers, charts, color pickers, modals, and more
+- **88+ Components** — Buttons, forms, date pickers, charts, color pickers, modals, and more
 - **Vue 3 + Flutter** — Vue ready today, Flutter coming soon
 - **Tailwind CSS v4** — CSS-first configuration, no JS config files
 - **Dark Mode** — Every component adapts via `data-theme` attribute
@@ -89,7 +89,8 @@ import { OButton } from '@ousi-ui/vue'
 | **Forms** | Input, Textarea, Select, Autocomplete, Checkbox, Radio, Switch, Slider, ElasticSlider, NumberField, InputOtp, TagInput, Rating, FileUpload, Form |
 | **Date & Time** | Calendar, RangeCalendar, DateField, TimeField, DatePicker, DateRangePicker |
 | **Colors** | ColorSwatch, ColorField, ColorSlider, ColorArea, ColorPicker |
-| **Data Display** | Badge, Chip, Table, Kbd, Chart, CodeBlock, AnimatedNumber, Timeline |
+| **Data Display** | Badge, Chip, Table, Kbd, CodeBlock, AnimatedNumber, Timeline |
+| **Charts** | Chart, BarChart, ComboChart, AreaChart, DonutChart, RadarChart, ScatterChart, Funnel, Heatmap, Treemap, Sankey, SegmentedGauge, ActivityRings, DotMatrix |
 | **Feedback** | Alert, ProgressBar, ProgressCircle, Meter, Skeleton, Spinner, Toast |
 | **Layout** | Card, Separator, BentoGrid, AspectRatio, Resizable |
 | **Media** | Avatar, Carousel, ImageCompare |

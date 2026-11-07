@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { OButton, OChip, OTypewriter } from '@ousi-ui/vue'
 import LandingShowcase from './LandingShowcase.vue'
 
+const { version } = useRuntimeConfig().public
+
 useHead({
   link: [
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
@@ -11,7 +13,7 @@ useHead({
 })
 
 const subtitles = [      
-    '70+ accessible components.',
+    '88+ accessible components.',
     'Production-ready out of the box.',       
     'Vue 3 & Nuxt, native.',              
     'SSR-ready. Zero config.',                  
@@ -112,7 +114,7 @@ const activeAccent = ref('#1b5cff')
           </div>
            <div class="mt-6">
             <OChip variant="outline" color="default" size="sm">
-              v0.3.1 — Now in Beta
+              v{{ version }} — Now in Beta
             </OChip>
           </div>
         </div>

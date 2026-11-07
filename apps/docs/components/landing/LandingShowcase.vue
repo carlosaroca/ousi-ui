@@ -65,7 +65,7 @@ const nameOptions: SelectOption[] = [
 const selectedName = ref('bruno')
 
 const accordionItems: AccordionItem[] = [
-  { key: 'included',   title: "What's included?",    description: '70+ Vue 3 components.' },
+  { key: 'included',   title: "What's included?",    description: '88+ Vue 3 components.' },
   { key: 'theming',    title: 'How does theming work?', description: 'CSS vars + Tailwind v4.' },
   { key: 'license',    title: 'Is it free?',          description: 'Yes — MIT licensed.' },
 ]
@@ -275,7 +275,7 @@ const selectedDate = ref<DateFieldValue | null>({ year: 2026, month: 6, day: 15 
         </div>
         <p class="text-sm font-semibold text-ousi-foreground mb-1">Ousi UI</p>
         <p class="text-[11px] text-ousi-muted leading-snug">
-          70+ accessible Vue 3 components. Tree-shakeable, type-safe, SSR-ready.
+          88+ accessible Vue 3 components. Tree-shakeable, type-safe, SSR-ready.
         </p>
       </div>
 

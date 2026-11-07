@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { version } = useRuntimeConfig().public
 import { useNavigation } from '~/composables/useNavigation'
 import { useGitHubStars } from '~/composables/useGitHubStars'
 import { OToastProvider, OTabs, OCommandPalette, OTooltip, OChip } from '@ousi-ui/vue'
@@ -112,7 +113,7 @@ function onSearchSelect(key: string) {
               class="h-7 w-auto"
             />
             <span class="text-2xl font-extrabold tracking-tight text-ousi-foreground">Ousi</span>
-            <span class="text-xs text-ousi-muted hidden sm:inline">v0.3.1</span>
+            <span class="text-xs text-ousi-muted hidden sm:inline">v{{ version }}</span>
           </NuxtLink>
 
           <!-- Search trigger -->
