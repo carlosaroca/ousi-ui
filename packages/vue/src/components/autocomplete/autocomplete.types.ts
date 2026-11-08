@@ -35,6 +35,8 @@ export interface AutocompleteProps {
   readonly?: boolean
   /** Whether a value is required. */
   required?: boolean
+  /** Pick the only enabled option when the field is empty. Defaults to the global `autoSelectSingle` config for required fields. */
+  autoSelectSingle?: boolean
   /** Show clear button. */
   clearable?: boolean
   /** Allow values not in the options list. */

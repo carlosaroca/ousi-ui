@@ -208,10 +208,10 @@ export interface OusiUIPluginOptions extends OusiConfigInit {
 }
 
 export function install(app: App, options: OusiUIPluginOptions = {}) {
-  const { prefix = 'O', locale, hour12, firstDayOfWeek, dir, backdrop, messages } = options
+  const { prefix = 'O', locale, hour12, firstDayOfWeek, dir, backdrop, autoSelectSingle, messages } = options
 
   // Seed the global config singleton — useOusiConfig() will pick these up.
-  applyOusiConfig({ locale, hour12, firstDayOfWeek, dir, backdrop })
+  applyOusiConfig({ locale, hour12, firstDayOfWeek, dir, backdrop, autoSelectSingle })
   applyOusiMessages(messages)
 
   for (const [name, component] of Object.entries(components)) {

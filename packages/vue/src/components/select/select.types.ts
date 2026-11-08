@@ -41,6 +41,8 @@ export interface SelectProps {
   disabled?: boolean
   /** Whether the select is required. */
   required?: boolean
+  /** Pick the only enabled option when the field is empty. Defaults to the global `autoSelectSingle` config for required fields. */
+  autoSelectSingle?: boolean
   /** Haptic feedback on option select. Pass false to disable. */
   haptic?: HapticInput
   /** Additional CSS classes on the outer container. */

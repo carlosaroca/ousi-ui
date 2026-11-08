@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useOusiMessages } from '../../config'
-import { ref, computed, toRef, onBeforeUnmount, nextTick, useId } from 'vue'
+import { useOusiConfig, useOusiMessages } from '../../config'
+import { ref, computed, toRef, watch, onBeforeUnmount, nextTick, useId } from 'vue'
 import { useFloating, autoUpdate, offset, flip, shift, size as floatingSize } from '@floating-ui/vue'
 import { AnimatePresence, Motion } from 'motion-v'
 import { cn, useControllableState, useMounted, useLayer } from '@ousi-ui/core'
@@ -31,6 +31,7 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
   disabled: false,
   readonly: false,
   required: false,
+  autoSelectSingle: undefined,
   clearable: true,
   allowCustomValue: false,
   emptyMessage: undefined,
@@ -83,6 +84,26 @@ let searchId = 0
 const isRemote = computed(() => !!props.search)
 const isLoading = computed(() => props.loading || remoteLoading.value)
 const queryTooShort = computed(() => isRemote.value && query.value.trim().length < props.minChars)
+
+const ousiConfig = useOusiConfig()
+const shouldAutoSelect = computed(
+  () =>
+    !isRemote.value &&
+    !props.disabled &&
+    !props.readonly &&
+    (props.autoSelectSingle ?? (props.required && ousiConfig.autoSelectSingle.value)),
+)
+
+watch(
+  () => [shouldAutoSelect.value, props.options, selectedValue.value] as const,
+  () => {
+    if (!shouldAutoSelect.value || (selectedValue.value !== '' && selectedValue.value !== undefined && selectedValue.value !== null)) return
+    const enabled = (props.options ?? []).filter((o) => !o.disabled)
+    if (enabled.length !== 1) return
+    selectedValue.value = enabled[0]!.value
+  },
+  { immediate: true },
+)
 
 function runSearch(text: string) {
   if (!props.search) return

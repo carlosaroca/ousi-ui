@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useOusiMessages } from '../../config'
+import { useOusiConfig, useOusiMessages } from '../../config'
 import { ref, computed, watch, nextTick, useId } from 'vue'
 import {
   useFloating,
@@ -34,6 +34,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   multiple: false,
   disabled: false,
   required: false,
+  autoSelectSingle: undefined,
   shadow: 'xs',
   animated: false,
 })
@@ -70,6 +71,23 @@ function emitValue(arr: (string | number)[]) {
   emit('update:modelValue', out)
   emit('change', out)
 }
+
+const ousiConfig = useOusiConfig()
+const shouldAutoSelect = computed(
+  () => !props.multiple && !props.disabled && (props.autoSelectSingle ?? (props.required && ousiConfig.autoSelectSingle.value)),
+)
+
+watch(
+  () => [shouldAutoSelect.value, props.options, internalValue.value.length] as const,
+  () => {
+    if (!shouldAutoSelect.value || internalValue.value.length > 0) return
+    const enabled = props.options.filter((o) => !o.disabled)
+    if (enabled.length !== 1) return
+    internalValue.value = [enabled[0]!.value]
+    emitValue(internalValue.value)
+  },
+  { immediate: true },
+)
 
 function isSelected(optionValue: string | number): boolean {
   return internalValue.value.includes(optionValue)

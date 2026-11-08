@@ -30,6 +30,8 @@ export interface OusiConfig {
   dir: Ref<'ltr' | 'rtl'>
   /** Backdrop of dialogs and drawers that don't set their own. Defaults to 'opaque'. */
   backdrop: Ref<OverlayBackdrop>
+  /** Required OSelect and OAutocomplete fields with exactly one option pick it. Defaults to false. */
+  autoSelectSingle: Ref<boolean>
 }
 
 export interface OusiConfigInit {
@@ -38,6 +40,7 @@ export interface OusiConfigInit {
   firstDayOfWeek?: WeekDay
   dir?: 'ltr' | 'rtl'
   backdrop?: OverlayBackdrop
+  autoSelectSingle?: boolean
 }
 
 // Singleton — lives at the module level. One config per app instance.
@@ -47,6 +50,7 @@ const config: OusiConfig = {
   firstDayOfWeek: ref(undefined),
   dir: ref('ltr'),
   backdrop: ref('opaque'),
+  autoSelectSingle: ref(false),
 }
 
 /**
@@ -67,6 +71,7 @@ export function applyOusiConfig(init: OusiConfigInit): void {
   if (init.firstDayOfWeek !== undefined) config.firstDayOfWeek.value = init.firstDayOfWeek
   if (init.dir !== undefined) config.dir.value = init.dir
   if (init.backdrop !== undefined) config.backdrop.value = init.backdrop
+  if (init.autoSelectSingle !== undefined) config.autoSelectSingle.value = init.autoSelectSingle
 }
 
 // Regions that start their week on Sunday or Saturday.
