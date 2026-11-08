@@ -29,6 +29,12 @@ export interface OusiMessages {
   openCalendar: string
   datePicker: string
   dateField: string
+  year: string
+  month: string
+  day: string
+  yearPlaceholder: string
+  monthPlaceholder: string
+  dayPlaceholder: string
   dateRangePicker: string
   dateRangeCalendar: string
   timePicker: string
@@ -106,6 +112,12 @@ const en: OusiMessages = {
   openCalendar: 'Open calendar',
   datePicker: 'Date picker',
   dateField: 'Date field',
+  year: 'Year',
+  month: 'Month',
+  day: 'Day',
+  yearPlaceholder: 'yyyy',
+  monthPlaceholder: 'mm',
+  dayPlaceholder: 'dd',
   dateRangePicker: 'Date range picker',
   dateRangeCalendar: 'Date range calendar',
   timePicker: 'Time picker',
@@ -182,6 +194,12 @@ const es: OusiMessages = {
   openCalendar: 'Abrir el calendario',
   datePicker: 'Selector de fecha',
   dateField: 'Campo de fecha',
+  year: 'Año',
+  month: 'Mes',
+  day: 'Día',
+  yearPlaceholder: 'aaaa',
+  monthPlaceholder: 'mm',
+  dayPlaceholder: 'dd',
   dateRangePicker: 'Selector de rango de fechas',
   dateRangeCalendar: 'Calendario de rango de fechas',
   timePicker: 'Selector de hora',

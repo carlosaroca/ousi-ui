@@ -107,11 +107,11 @@ const segmentOrder = computed(() => {
     const segments: Segment[] = []
     for (const part of parts) {
       if (part.type === 'year') {
-        segments.push({ type: 'year', text: '', placeholder: 'yyyy', value: undefined })
+        segments.push({ type: 'year', text: '', placeholder: ousiText.value.yearPlaceholder, value: undefined })
       } else if (part.type === 'month') {
-        segments.push({ type: 'month', text: '', placeholder: 'mm', value: undefined })
+        segments.push({ type: 'month', text: '', placeholder: ousiText.value.monthPlaceholder, value: undefined })
       } else if (part.type === 'day') {
-        segments.push({ type: 'day', text: '', placeholder: 'dd', value: undefined })
+        segments.push({ type: 'day', text: '', placeholder: ousiText.value.dayPlaceholder, value: undefined })
       } else if (part.type === 'literal') {
         segments.push({ type: 'literal', text: part.value, placeholder: part.value })
       }
@@ -119,11 +119,11 @@ const segmentOrder = computed(() => {
     return segments
   } catch {
     return [
-      { type: 'month' as SegmentType, text: '', placeholder: 'mm', value: undefined },
+      { type: 'month' as SegmentType, text: '', placeholder: ousiText.value.monthPlaceholder, value: undefined },
       { type: 'literal' as SegmentType, text: '/', placeholder: '/' },
-      { type: 'day' as SegmentType, text: '', placeholder: 'dd', value: undefined },
+      { type: 'day' as SegmentType, text: '', placeholder: ousiText.value.dayPlaceholder, value: undefined },
       { type: 'literal' as SegmentType, text: '/', placeholder: '/' },
-      { type: 'year' as SegmentType, text: '', placeholder: 'yyyy', value: undefined },
+      { type: 'year' as SegmentType, text: '', placeholder: ousiText.value.yearPlaceholder, value: undefined },
     ]
   }
 })
@@ -161,6 +161,18 @@ function daysInMonth(y: number, m: number): number {
   return new Date(y, m, 0).getDate()
 }
 
+function maxDay(): number {
+  if (!filledSegments.value.has('month')) return 31
+  return daysInMonth(filledSegments.value.has('year') ? internalYear.value : 2000, internalMonth.value)
+}
+
+function segmentLabel(type: SegmentType): string {
+  if (type === 'year') return ousiText.value.year
+  if (type === 'month') return ousiText.value.month
+  if (type === 'day') return ousiText.value.day
+  return ''
+}
+
 function clamp(val: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, val))
 }
@@ -168,7 +180,7 @@ function clamp(val: number, min: number, max: number): number {
 function getMinMax(type: SegmentType): [number, number] {
   if (type === 'year') return [1, 9999]
   if (type === 'month') return [1, 12]
-  if (type === 'day') return [1, daysInMonth(internalYear.value, internalMonth.value)]
+  if (type === 'day') return [1, maxDay()]
   return [0, 0]
 }
 
@@ -181,9 +193,9 @@ function setSegmentValue(type: SegmentType, val: number) {
   else if (type === 'month') internalMonth.value = clamped
   else if (type === 'day') internalDay.value = clamped
 
-  if (type === 'month' || type === 'year') {
-    const maxDay = daysInMonth(internalYear.value, internalMonth.value)
-    if (internalDay.value > maxDay) internalDay.value = maxDay
+  if (type === 'month' || (type === 'year' && clamped >= 1000)) {
+    const limit = maxDay()
+    if (filledSegments.value.has('day') && internalDay.value > limit) internalDay.value = limit
   }
 
   emitIfComplete()
@@ -394,7 +406,7 @@ defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.v
           :class="dateFieldSegmentTheme(focusedIndex === idx)"
           role="spinbutton"
           tabindex="0"
-          :aria-label="seg.type"
+          :aria-label="segmentLabel(seg.type)"
           :aria-valuenow="filledSegments.has(seg.type) ? (seg.type === 'year' ? internalYear : seg.type === 'month' ? internalMonth : internalDay) : undefined"
           :aria-valuemin="getMinMax(seg.type)[0]"
           :aria-valuemax="getMinMax(seg.type)[1]"

@@ -61,11 +61,11 @@ const segmentOrder = computed(() => {
     const segments: Segment[] = []
     for (const part of parts) {
       if (part.type === 'year') {
-        segments.push({ type: 'year', text: '', placeholder: props.placeholder?.year ?? 'yyyy', value: undefined })
+        segments.push({ type: 'year', text: '', placeholder: props.placeholder?.year ?? ousiText.value.yearPlaceholder, value: undefined })
       } else if (part.type === 'month' && granularity !== 'year') {
-        segments.push({ type: 'month', text: '', placeholder: props.placeholder?.month ?? 'mm', value: undefined })
+        segments.push({ type: 'month', text: '', placeholder: props.placeholder?.month ?? ousiText.value.monthPlaceholder, value: undefined })
       } else if (part.type === 'day' && granularity === 'day') {
-        segments.push({ type: 'day', text: '', placeholder: props.placeholder?.day ?? 'dd', value: undefined })
+        segments.push({ type: 'day', text: '', placeholder: props.placeholder?.day ?? ousiText.value.dayPlaceholder, value: undefined })
       } else if (part.type === 'literal') {
         segments.push({ type: 'literal', text: part.value, placeholder: part.value })
       }
@@ -74,15 +74,15 @@ const segmentOrder = computed(() => {
   } catch {
     // Fallback: yyyy/mm/dd
     const segs: Segment[] = [
-      { type: 'year', text: '', placeholder: 'yyyy', value: undefined },
+      { type: 'year', text: '', placeholder: ousiText.value.yearPlaceholder, value: undefined },
     ]
     if (granularity !== 'year') {
       segs.push({ type: 'literal', text: '/', placeholder: '/' })
-      segs.push({ type: 'month', text: '', placeholder: 'mm', value: undefined })
+      segs.push({ type: 'month', text: '', placeholder: ousiText.value.monthPlaceholder, value: undefined })
     }
     if (granularity === 'day') {
       segs.push({ type: 'literal', text: '/', placeholder: '/' })
-      segs.push({ type: 'day', text: '', placeholder: 'dd', value: undefined })
+      segs.push({ type: 'day', text: '', placeholder: ousiText.value.dayPlaceholder, value: undefined })
     }
     return segs
   }
@@ -120,6 +120,18 @@ function daysInMonth(y: number, m: number): number {
   return new Date(y, m, 0).getDate()
 }
 
+function maxDay(): number {
+  if (!filledSegments.value.has('month')) return 31
+  return daysInMonth(filledSegments.value.has('year') ? internalYear.value : 2000, internalMonth.value)
+}
+
+function segmentLabel(type: SegmentType): string {
+  if (type === 'year') return ousiText.value.year
+  if (type === 'month') return ousiText.value.month
+  if (type === 'day') return ousiText.value.day
+  return ''
+}
+
 function clamp(val: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, val))
 }
@@ -127,7 +139,7 @@ function clamp(val: number, min: number, max: number): number {
 function getMinMax(type: SegmentType): [number, number] {
   if (type === 'year') return [1, 9999]
   if (type === 'month') return [1, 12]
-  if (type === 'day') return [1, daysInMonth(internalYear.value, internalMonth.value)]
+  if (type === 'day') return [1, maxDay()]
   return [0, 0]
 }
 
@@ -141,9 +153,9 @@ function setSegmentValue(type: SegmentType, val: number) {
   else if (type === 'day') internalDay.value = clamped
 
   // Clamp day if month changed
-  if (type === 'month' || type === 'year') {
-    const maxDay = daysInMonth(internalYear.value, internalMonth.value)
-    if (internalDay.value > maxDay) internalDay.value = maxDay
+  if (type === 'month' || (type === 'year' && clamped >= 1000)) {
+    const limit = maxDay()
+    if (filledSegments.value.has('day') && internalDay.value > limit) internalDay.value = limit
   }
 
   emitIfComplete()
@@ -315,7 +327,7 @@ defineExpose(fieldFocus(() => firstSegment(rootRef.value), () => rootRef.value))
         :class="dateFieldSegmentTheme(focusedIndex === idx)"
         role="spinbutton"
         tabindex="0"
-        :aria-label="seg.type"
+        :aria-label="segmentLabel(seg.type)"
         :aria-valuenow="filledSegments.has(seg.type) ? (seg.type === 'year' ? internalYear : seg.type === 'month' ? internalMonth : internalDay) : undefined"
         :aria-valuemin="getMinMax(seg.type)[0]"
         :aria-valuemax="getMinMax(seg.type)[1]"
