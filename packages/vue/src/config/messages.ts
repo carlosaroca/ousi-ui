@@ -17,6 +17,10 @@ export interface OusiMessages {
   notifications: string
   breadcrumb: string
   pagination: string
+  /** `{page}` and `{total}` are replaced. */
+  pageOf: string
+  /** `{page}` is replaced. */
+  goToPage: string
   previousPage: string
   nextPage: string
   previous: string
@@ -100,6 +104,8 @@ const en: OusiMessages = {
   notifications: 'Notifications',
   breadcrumb: 'Breadcrumb',
   pagination: 'Pagination',
+  pageOf: 'Page {page} of {total}',
+  goToPage: 'Go to page {page}',
   previousPage: 'Go to previous page',
   nextPage: 'Go to next page',
   previous: 'Previous',
@@ -182,6 +188,8 @@ const es: OusiMessages = {
   notifications: 'Notificaciones',
   breadcrumb: 'Ruta de navegación',
   pagination: 'Paginación',
+  pageOf: 'Página {page} de {total}',
+  goToPage: 'Ir a la página {page}',
   previousPage: 'Ir a la página anterior',
   nextPage: 'Ir a la página siguiente',
   previous: 'Anterior',

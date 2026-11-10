@@ -3,6 +3,7 @@ import { mount, type VueWrapper } from '@vue/test-utils'
 import { defineComponent, h, nextTick, ref } from 'vue'
 import ODateField from '../src/components/date-field/DateField.vue'
 import ODatePicker from '../src/components/date-picker/DatePicker.vue'
+import ODateRangePicker from '../src/components/date-range-picker/DateRangePicker.vue'
 import { useOusiConfig } from '../src/config'
 
 type DateValue = { year: number; month: number; day: number } | null
@@ -16,8 +17,8 @@ afterEach(() => {
   config.locale.value = 'en-US'
 })
 
-function mountField(component: typeof ODateField | typeof ODatePicker) {
-  const model = ref<DateValue>(null)
+function mountField(component: typeof ODateField | typeof ODatePicker, initial: DateValue = null) {
+  const model = ref<DateValue>(initial)
   const Host = defineComponent({
     setup: () => () =>
       h(component as never, {
@@ -76,5 +77,58 @@ describe.each([
     const labels = wrapper!.findAll('[role="spinbutton"]').map((s) => s.attributes('aria-label'))
     expect(labels).toEqual(['Día', 'Mes', 'Año'])
     expect(wrapper!.text()).toContain('aaaa')
+  })
+
+  it('over a date of a 30-day month, a typed 31 waits for the month', async () => {
+    config.locale.value = 'es-CO'
+    const { model, segment } = mountField(component, { year: 2026, month: 11, day: 9 })
+    await type(segment('Día'), '31')
+    await type(segment('Mes'), '12')
+    await type(segment('Año'), '2026')
+    expect(model.value).toEqual({ year: 2026, month: 12, day: 31 })
+  })
+
+  it('over a February date, a typed 3 waits for its second digit', async () => {
+    config.locale.value = 'es-CO'
+    const { model, segment } = mountField(component, { year: 2026, month: 2, day: 10 })
+    await type(segment('Día'), '30')
+    await type(segment('Mes'), '04')
+    expect(model.value).toEqual({ year: 2026, month: 4, day: 30 })
+  })
+})
+
+describe('ODatePicker with a display format', () => {
+  it('uses the Spanish placeholders (n2:22)', async () => {
+    config.locale.value = 'es-CO'
+    wrapper = mount(ODatePicker, {
+      props: { format: 'YYYY-MM-DD', displayFormat: 'DD/MM/YYYY', modelValue: null },
+      attachTo: document.body,
+    })
+    await nextTick()
+    expect(wrapper.text()).toContain('aaaa')
+    expect(wrapper.text()).not.toContain('yyyy')
+  })
+})
+
+describe('ODateRangePicker segments', () => {
+  it('use the Spanish placeholders and keep day 31 typed before the month', async () => {
+    config.locale.value = 'es-CO'
+    const model = ref<{ start: DateValue; end: DateValue } | null>(null)
+    const Host = defineComponent({
+      setup: () => () =>
+        h(ODateRangePicker as never, {
+          'modelValue': model.value,
+          'onUpdate:modelValue': (v: typeof model.value) => (model.value = v),
+          'locale': 'es-CO',
+        }),
+    })
+    wrapper = mount(Host, { attachTo: document.body })
+    await nextTick()
+    expect(wrapper.text()).toContain('aaaa')
+    const start = (part: string) => wrapper!.find(`[role="spinbutton"][aria-label="Start ${part}"]`)
+    await type(start('day'), '31')
+    await type(start('month'), '12')
+    await type(start('year'), '2026')
+    expect(model.value?.start).toEqual({ year: 2026, month: 12, day: 31 })
   })
 })

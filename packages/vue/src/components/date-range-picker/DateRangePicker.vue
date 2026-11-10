@@ -80,11 +80,11 @@ const segmentOrder = computed(() => {
     const segments: Segment[] = []
     for (const part of parts) {
       if (part.type === 'year') {
-        segments.push({ type: 'year', text: '', placeholder: 'yyyy', value: undefined })
+        segments.push({ type: 'year', text: '', placeholder: ousiText.value.yearPlaceholder, value: undefined })
       } else if (part.type === 'month') {
-        segments.push({ type: 'month', text: '', placeholder: 'mm', value: undefined })
+        segments.push({ type: 'month', text: '', placeholder: ousiText.value.monthPlaceholder, value: undefined })
       } else if (part.type === 'day') {
-        segments.push({ type: 'day', text: '', placeholder: 'dd', value: undefined })
+        segments.push({ type: 'day', text: '', placeholder: ousiText.value.dayPlaceholder, value: undefined })
       } else if (part.type === 'literal') {
         segments.push({ type: 'literal', text: part.value, placeholder: part.value })
       }
@@ -92,11 +92,11 @@ const segmentOrder = computed(() => {
     return segments
   } catch {
     return [
-      { type: 'month' as SegmentType, text: '', placeholder: 'mm', value: undefined },
+      { type: 'month' as SegmentType, text: '', placeholder: ousiText.value.monthPlaceholder, value: undefined },
       { type: 'literal' as SegmentType, text: '/', placeholder: '/' },
-      { type: 'day' as SegmentType, text: '', placeholder: 'dd', value: undefined },
+      { type: 'day' as SegmentType, text: '', placeholder: ousiText.value.dayPlaceholder, value: undefined },
       { type: 'literal' as SegmentType, text: '/', placeholder: '/' },
-      { type: 'year' as SegmentType, text: '', placeholder: 'yyyy', value: undefined },
+      { type: 'year' as SegmentType, text: '', placeholder: ousiText.value.yearPlaceholder, value: undefined },
     ]
   }
 })
@@ -116,6 +116,8 @@ interface SideState {
   year: number
   month: number
   day: number
+  /** The day as typed, kept while the month or year still change. */
+  typedDay: number | null
 }
 
 function initSide(val: DateFieldValue | null | undefined): SideState {
@@ -125,6 +127,7 @@ function initSide(val: DateFieldValue | null | undefined): SideState {
     year: val?.year ?? now.getFullYear(),
     month: val?.month ?? now.getMonth() + 1,
     day: val?.day ?? now.getDate(),
+    typedDay: null,
   })
 }
 
@@ -132,7 +135,13 @@ const startState = initSide(props.modelValue?.start ?? props.defaultValue?.start
 const endState = initSide(props.modelValue?.end ?? props.defaultValue?.end)
 
 // Sync external value → internal state (including external clear via v-model = null)
+function sameDay(s: SideState, d: DateFieldValue) {
+  return s.year === d.year && s.month === d.month && s.day === d.day
+}
+
 watch(value, (v) => {
+  if (v?.start && !sameDay(startState, v.start)) startState.typedDay = null
+  if (v?.end && !sameDay(endState, v.end)) endState.typedDay = null
   if (v?.start) {
     startState.year = v.start.year
     startState.month = v.start.month
@@ -176,8 +185,14 @@ function getMinMax(side: 'start' | 'end', type: SegmentType): [number, number] {
   const s = getSide(side)
   if (type === 'year') return [1, 9999]
   if (type === 'month') return [1, 12]
-  if (type === 'day') return [1, daysInMonth(s.year, s.month)]
+  if (type === 'day') return [1, maxDayOf(s)]
   return [0, 0]
+}
+
+// Without a month yet, any day up to 31 is valid; the year defaults to a leap one.
+function maxDayOf(s: SideState): number {
+  if (!s.filled.has('month')) return 31
+  return daysInMonth(s.filled.has('year') ? s.year : 2000, s.month)
 }
 
 function getSegmentDisplay(side: 'start' | 'end', type: SegmentType): string {
@@ -200,17 +215,19 @@ function getSegmentNow(side: 'start' | 'end', type: SegmentType): number | undef
 
 function setSegmentValue(side: 'start' | 'end', type: SegmentType, val: number) {
   const s = getSide(side)
-  const [min, max] = getMinMax(side, type)
+  const [min, max] = type === 'day' ? [1, 31] : getMinMax(side, type)
   const clamped = clamp(val, min, max)
   s.filled.add(type)
 
   if (type === 'year') s.year = clamped
   else if (type === 'month') s.month = clamped
-  else if (type === 'day') s.day = clamped
+  else if (type === 'day') {
+    s.typedDay = clamped
+    s.day = Math.min(clamped, maxDayOf(s))
+  }
 
-  if (type === 'month' || type === 'year') {
-    const maxDay = daysInMonth(s.year, s.month)
-    if (s.day > maxDay) s.day = maxDay
+  if ((type === 'month' || (type === 'year' && clamped >= 1000)) && s.filled.has('day')) {
+    s.day = Math.min(s.typedDay ?? s.day, maxDayOf(s))
   }
 
   emitIfComplete()
@@ -343,7 +360,7 @@ function handleDigit(side: 'start' | 'end', type: 'year' | 'month' | 'day', digi
     return
   }
 
-  const [, max] = getMinMax(side, type)
+  const max = type === 'day' ? 31 : getMinMax(side, type)[1]
   if (num * 10 > max && type !== 'year') {
     setSegmentValue(side, type, num)
     digitBuf.value = ''

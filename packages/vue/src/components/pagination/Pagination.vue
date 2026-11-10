@@ -115,7 +115,7 @@ const pages = computed((): PageItem[] => {
   >
     <!-- Summary -->
     <p v-if="showSummary" :class="paginationSummaryTheme({ size })">
-      Page {{ currentPage }} of {{ total }}
+      {{ ousiText.pageOf.replace('{page}', String(currentPage)).replace('{total}', String(total)) }}
     </p>
 
     <!-- Content -->
@@ -157,7 +157,7 @@ const pages = computed((): PageItem[] => {
           type="button"
           :class="paginationLinkTheme({ size, active: page === currentPage })"
           :disabled="disabled || undefined"
-          :aria-label="`Go to page ${page}`"
+          :aria-label="ousiText.goToPage.replace('{page}', String(page))"
           :aria-current="page === currentPage ? 'page' : undefined"
           @click="goTo(page as number)"
         >

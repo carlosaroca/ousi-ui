@@ -94,7 +94,11 @@ const segmentRefs = ref<(HTMLElement | null)[]>([])
 const segmentOrder = computed(() => {
   // Explicit displayFormat wins over locale-derived order.
   if (props.displayFormat) {
-    const segs = patternToSegments(props.displayFormat)
+    const segs = patternToSegments(props.displayFormat, {
+      year: ousiText.value.yearPlaceholder,
+      month: ousiText.value.monthPlaceholder,
+      day: ousiText.value.dayPlaceholder,
+    })
     if (segs.length) return segs
   }
   try {
@@ -137,9 +141,14 @@ const editableIndices = computed(() =>
 const internalYear = ref(value.value?.year ?? new Date().getFullYear())
 const internalMonth = ref(value.value?.month ?? new Date().getMonth() + 1)
 const internalDay = ref(value.value?.day ?? new Date().getDate())
+// The day as typed: 31 over a November date stays 31 until the month or year say otherwise.
+const typedDay = ref<number | null>(null)
+let emitted: DateFieldValue | null = null
 
 watch(value, (v) => {
   if (v) {
+    const own = emitted && emitted.year === v.year && emitted.month === v.month && emitted.day === v.day
+    if (!own) typedDay.value = null
     internalYear.value = v.year
     internalMonth.value = v.month
     internalDay.value = v.day
@@ -185,17 +194,22 @@ function getMinMax(type: SegmentType): [number, number] {
 }
 
 function setSegmentValue(type: SegmentType, val: number) {
-  const [min, max] = getMinMax(type)
+  const [min, max] = type === 'day' ? [1, 31] : getMinMax(type)
   const clamped = clamp(val, min, max)
   filledSegments.value.add(type)
 
   if (type === 'year') internalYear.value = clamped
   else if (type === 'month') internalMonth.value = clamped
-  else if (type === 'day') internalDay.value = clamped
+  else if (type === 'day') {
+    typedDay.value = clamped
+    internalDay.value = Math.min(clamped, maxDay())
+  }
 
+  // A month or year change fits the day to it, giving back the typed day when it fits again.
   if (type === 'month' || (type === 'year' && clamped >= 1000)) {
-    const limit = maxDay()
-    if (filledSegments.value.has('day') && internalDay.value > limit) internalDay.value = limit
+    if (filledSegments.value.has('day')) {
+      internalDay.value = Math.min(typedDay.value ?? internalDay.value, maxDay())
+    }
   }
 
   emitIfComplete()
@@ -204,11 +218,8 @@ function setSegmentValue(type: SegmentType, val: number) {
 function emitIfComplete() {
   const needed = ['year', 'month', 'day']
   if (needed.every((s) => filledSegments.value.has(s))) {
-    value.value = {
-      year: internalYear.value,
-      month: internalMonth.value,
-      day: internalDay.value,
-    }
+    emitted = { year: internalYear.value, month: internalMonth.value, day: internalDay.value }
+    value.value = { ...emitted }
   }
 }
 
@@ -298,7 +309,8 @@ function handleDigit(type: 'year' | 'month' | 'day', digit: string) {
     return
   }
 
-  const [, max] = getMinMax(type)
+  // A day waits for its second digit up to 31, whatever month the field shows now.
+  const max = type === 'day' ? 31 : getMinMax(type)[1]
   if (num * 10 > max && type !== 'year') {
     setSegmentValue(type, num)
     digitBuf.value = ''

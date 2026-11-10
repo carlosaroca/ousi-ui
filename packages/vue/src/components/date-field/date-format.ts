@@ -67,7 +67,19 @@ export function parseDateValue(input: string, pattern: string): DateFieldValue |
   return { year, month, day }
 }
 
-export function patternToSegments(pattern: string): Segment[] {
+export interface SegmentPlaceholders {
+  year: string
+  month: string
+  day: string
+}
+
+const DEFAULT_PLACEHOLDERS: SegmentPlaceholders = { year: 'yyyy', month: 'mm', day: 'dd' }
+
+/** Segments of a display pattern; placeholders come from the locale messages (`aaaa` in Spanish). */
+export function patternToSegments(
+  pattern: string,
+  placeholders: SegmentPlaceholders = DEFAULT_PLACEHOLDERS,
+): Segment[] {
   const segments: Segment[] = []
   let literalBuf = ''
   const flushLiteral = () => {
@@ -83,9 +95,9 @@ export function patternToSegments(pattern: string): Segment[] {
     if (m) {
       flushLiteral()
       const token = m[0]
-      if (token[0] === 'Y') segments.push({ type: 'year', text: '', placeholder: 'yyyy', value: undefined })
-      else if (token[0] === 'M') segments.push({ type: 'month', text: '', placeholder: 'mm', value: undefined })
-      else segments.push({ type: 'day', text: '', placeholder: 'dd', value: undefined })
+      if (token[0] === 'Y') segments.push({ type: 'year', text: '', placeholder: placeholders.year, value: undefined })
+      else if (token[0] === 'M') segments.push({ type: 'month', text: '', placeholder: placeholders.month, value: undefined })
+      else segments.push({ type: 'day', text: '', placeholder: placeholders.day, value: undefined })
       i += token.length
     } else {
       literalBuf += pattern[i]
