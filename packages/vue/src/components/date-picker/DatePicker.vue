@@ -252,6 +252,9 @@ function handleKeydown(e: KeyboardEvent, idx: number) {
 
   const type = seg.type as 'year' | 'month' | 'day'
 
+  // Typing means the calendar is not wanted: it would only cover what comes after the field.
+  if (/^\d$/.test(e.key) || e.key === 'Backspace') isOpen.value = false
+
   if (e.key === 'ArrowUp') {
     e.preventDefault()
     const current = filledSegments.value.has(type)
@@ -362,6 +365,20 @@ function toggle() {
   isOpen.value ? close() : open()
 }
 
+// A press on a segment is for typing; the rest of the field opens the calendar.
+function handleTriggerClick(e: MouseEvent) {
+  if ((e.target as HTMLElement | null)?.closest('[role="spinbutton"]')) return
+  open()
+}
+
+// Leaving the field and its calendar with the keyboard closes the calendar.
+function handleFocusOut(e: FocusEvent) {
+  const next = e.relatedTarget as Node | null
+  if (!next) return
+  if (triggerRef.value?.contains(next) || popoverRef.value?.contains(next)) return
+  isOpen.value = false
+}
+
 const { zIndex } = useLayer(isOpen, {
   elements: popoverRef,
   trigger: triggerRef,
@@ -405,7 +422,8 @@ defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.v
       :id="controlId"
       role="group"
       :aria-describedby="describedBy"
-      @click="open"
+      @click="handleTriggerClick"
+      @focusout="handleFocusOut"
     >
       <!-- Date segments rendered directly -->
       <template v-for="(seg, idx) in segmentOrder" :key="idx">
@@ -492,6 +510,7 @@ defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.v
       v-if="isOpen && isMounted"
       ref="popoverRef"
       :style="[floatingStyles, { zIndex }]"
+      @focusout="handleFocusOut"
     >
       <AnimatePresence>
         <Motion

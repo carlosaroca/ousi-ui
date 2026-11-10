@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, toRef, useSlots } from 'vue'
+import { ref, computed, toRef, useSlots, watch } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { useOusiConfig, getFirstDayOfWeekForLocale, useOusiMessages } from '../../config'
 import {
@@ -51,6 +51,16 @@ const selectedDate = useControllableState<CalendarDate | null>({
 const today = new Date()
 const viewYear = ref(selectedDate.value?.year ?? today.getFullYear())
 const viewMonth = ref(selectedDate.value?.month ?? today.getMonth() + 1)
+
+// A value set from outside (typed in a date field) brings its month into view.
+watch(
+  () => selectedDate.value && `${selectedDate.value.year}-${selectedDate.value.month}`,
+  () => {
+    if (!selectedDate.value) return
+    viewYear.value = selectedDate.value.year
+    viewMonth.value = selectedDate.value.month
+  },
+)
 const isYearPickerOpen = ref(false)
 
 // Year picker range (12 years centered on current view year)

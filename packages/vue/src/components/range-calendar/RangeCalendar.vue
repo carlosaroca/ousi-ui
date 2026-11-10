@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, toRef } from 'vue'
+import { ref, computed, toRef, watch } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { useOusiConfig, getFirstDayOfWeekForLocale, useOusiMessages } from '../../config'
 import {
@@ -44,6 +44,17 @@ const hoverDate = ref<CalendarDate | null>(null)
 const today = new Date()
 const viewYear = ref(range.value?.start?.year ?? today.getFullYear())
 const viewMonth = ref(range.value?.start?.month ?? today.getMonth() + 1)
+
+// A start set from outside (typed in a date field) brings its month into view.
+watch(
+  () => range.value?.start && `${range.value.start.year}-${range.value.start.month}`,
+  () => {
+    const start = range.value?.start
+    if (!start) return
+    viewYear.value = start.year
+    viewMonth.value = start.month
+  },
+)
 
 const headingLabel = computed(() => {
   const d = new Date(viewYear.value, viewMonth.value - 1, 1)

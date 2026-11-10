@@ -132,3 +132,61 @@ describe('ODateRangePicker segments', () => {
     expect(model.value?.start).toEqual({ year: 2026, month: 12, day: 31 })
   })
 })
+
+describe('ODatePicker calendar (ips1:6, n343:23)', () => {
+  const calendar = () => document.querySelector('[role="dialog"][aria-modal="true"]')
+
+  it('does not open the calendar when a segment is pressed to type', async () => {
+    config.locale.value = 'es-CO'
+    const { segment } = mountField(ODatePicker)
+    await segment('Día').trigger('click')
+    expect(calendar()).toBeNull()
+    await wrapper!.find('[aria-haspopup="dialog"]').trigger('click')
+    expect(calendar()).not.toBeNull()
+  })
+
+  it('closes the calendar when a digit is typed', async () => {
+    config.locale.value = 'es-CO'
+    const { model, segment } = mountField(ODatePicker)
+    await wrapper!.find('[aria-haspopup="dialog"]').trigger('click')
+    expect(calendar()).not.toBeNull()
+    await type(segment('Día'), '31')
+    await type(segment('Mes'), '12')
+    await type(segment('Año'), '2026')
+    expect(calendar()).toBeNull()
+    expect(model.value).toEqual({ year: 2026, month: 12, day: 31 })
+  })
+
+  it('closes the calendar when focus leaves the field', async () => {
+    config.locale.value = 'es-CO'
+    const outside = document.createElement('input')
+    document.body.appendChild(outside)
+    mountField(ODatePicker)
+    await wrapper!.find('[aria-haspopup="dialog"]').trigger('click')
+    expect(calendar()).not.toBeNull()
+    await wrapper!.find('[role="group"]').trigger('focusout', { relatedTarget: outside })
+    expect(calendar()).toBeNull()
+    outside.remove()
+  })
+
+  it('shows the month of the typed date', async () => {
+    config.locale.value = 'es-CO'
+    const { segment } = mountField(ODatePicker)
+    await type(segment('Día'), '15')
+    await type(segment('Mes'), '10')
+    await type(segment('Año'), '2028')
+    await wrapper!.find('[aria-haspopup="dialog"]').trigger('click')
+    expect(calendar()?.textContent).toContain('2028')
+    expect(calendar()?.textContent?.toLowerCase()).toContain('octubre')
+  })
+
+  it('moves an open calendar to a date set from outside', async () => {
+    config.locale.value = 'es-CO'
+    const { model } = mountField(ODatePicker, { year: 2026, month: 11, day: 10 })
+    await wrapper!.find('[aria-haspopup="dialog"]').trigger('click')
+    model.value = { year: 2028, month: 10, day: 15 }
+    await nextTick()
+    await nextTick()
+    expect(calendar()?.textContent?.toLowerCase()).toContain('octubre')
+  })
+})
