@@ -7,6 +7,7 @@ useSeoMeta({
 })
 
 const tocItems = [
+  { id: 'v0-7-3', label: 'v0.7.3' },
   { id: 'v0-7-2', label: 'v0.7.2' },
   { id: 'v0-7-1', label: 'v0.7.1' },
   { id: 'v0-7-0', label: 'v0.7.0' },
@@ -31,14 +32,39 @@ const tocItems = [
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.7.3 -->
+    <article id="v0-7-3" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.7.3</h2>
+        <span class="text-xs text-ousi-muted">November 9, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Fixed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">ODateField</strong>, <strong class="text-ousi-foreground">ODatePicker</strong> and <strong class="text-ousi-foreground">ODateRangePicker</strong>: placeholders follow the locale everywhere (dd / mm / aaaa in Spanish), and typing day 31 over a date that is already filled keeps 31.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OPagination</strong>: the page summary follows the locale (Página 1 de 201) instead of a fixed English text.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <!-- v0.7.2 -->
     <article id="v0-7-2" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.7.2</h2>
         <span class="text-xs text-ousi-muted">November 9, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
-      </div>
+              </div>
 
       <div class="space-y-4">
         <div>
