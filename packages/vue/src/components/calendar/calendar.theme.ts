@@ -2,7 +2,7 @@ export const calendarTheme = 'w-72 max-w-full'
 
 export const calendarHeaderTheme = 'flex items-center gap-1 pb-3'
 
-export const calendarHeadingTheme = 'flex-1 text-center text-sm font-semibold text-ousi-foreground'
+export const calendarHeadingTheme = 'flex-1 whitespace-nowrap text-center text-sm font-semibold text-ousi-foreground'
 
 export const calendarNavButtonTheme = [
   'flex size-8 shrink-0 items-center justify-center rounded-ousi-lg border border-ousi-border/70',
@@ -68,7 +68,7 @@ export const calendarCellIndicatorTheme = (isSelected: boolean) => [
 
 // Year picker trigger (clickable heading)
 export const calendarYearPickerTriggerTheme = [
-  'flex flex-1 items-center justify-center gap-1 cursor-pointer',
+  'flex flex-1 items-center justify-center gap-1 whitespace-nowrap cursor-pointer',
   'text-sm font-semibold text-ousi-foreground',
   'hover:text-ousi-accent transition-colors duration-150',
 ].join(' ')

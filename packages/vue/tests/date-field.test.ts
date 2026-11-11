@@ -240,3 +240,17 @@ describe('Date and time popovers stay out of the way', () => {
     outside.remove()
   })
 })
+
+describe('Calendar heading', () => {
+  it('shows the month and the year on one line, without joining words', async () => {
+    config.locale.value = 'es-CO'
+    const { segment } = mountField(ODatePicker)
+    await type(segment('Día'), '30')
+    await type(segment('Mes'), '09')
+    await type(segment('Año'), '2026')
+    await wrapper!.find('[aria-haspopup="dialog"]').trigger('click')
+    const calendar = document.querySelector('[role="dialog"][aria-modal="true"]')
+    expect(calendar?.textContent).toContain('septiembre 2026')
+    expect(calendar?.textContent).not.toContain('septiembre de 2026')
+  })
+})

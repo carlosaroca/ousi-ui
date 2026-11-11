@@ -56,9 +56,11 @@ watch(
   },
 )
 
+// Month and year only ("septiembre 2026"): the locale's joining words would not fit the header.
 const headingLabel = computed(() => {
   const d = new Date(viewYear.value, viewMonth.value - 1, 1)
-  return d.toLocaleDateString(effectiveLocale.value, { month: 'long', year: 'numeric' })
+  const month = d.toLocaleDateString(effectiveLocale.value, { month: 'long' })
+  return `${month} ${viewYear.value}`
 })
 
 const weekdays = computed(() => {
