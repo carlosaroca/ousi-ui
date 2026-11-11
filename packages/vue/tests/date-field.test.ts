@@ -4,6 +4,7 @@ import { defineComponent, h, nextTick, ref } from 'vue'
 import ODateField from '../src/components/date-field/DateField.vue'
 import ODatePicker from '../src/components/date-picker/DatePicker.vue'
 import ODateRangePicker from '../src/components/date-range-picker/DateRangePicker.vue'
+import OTimePicker from '../src/components/time-picker/TimePicker.vue'
 import { useOusiConfig } from '../src/config'
 
 type DateValue = { year: number; month: number; day: number } | null
@@ -125,10 +126,10 @@ describe('ODateRangePicker segments', () => {
     wrapper = mount(Host, { attachTo: document.body })
     await nextTick()
     expect(wrapper.text()).toContain('aaaa')
-    const start = (part: string) => wrapper!.find(`[role="spinbutton"][aria-label="Start ${part}"]`)
-    await type(start('day'), '31')
-    await type(start('month'), '12')
-    await type(start('year'), '2026')
+    const start = (part: string) => wrapper!.find(`[role="spinbutton"][aria-label="${part} de inicio"]`)
+    await type(start('Día'), '31')
+    await type(start('Mes'), '12')
+    await type(start('Año'), '2026')
     expect(model.value?.start).toEqual({ year: 2026, month: 12, day: 31 })
   })
 })
@@ -188,5 +189,54 @@ describe('ODatePicker calendar (ips1:6, n343:23)', () => {
     await nextTick()
     await nextTick()
     expect(calendar()?.textContent?.toLowerCase()).toContain('octubre')
+  })
+})
+
+describe('Date and time popovers stay out of the way', () => {
+  const popover = () => document.querySelector('[role="dialog"]')
+
+  it('ODatePicker opens its calendar with Alt+ArrowDown', async () => {
+    config.locale.value = 'es-CO'
+    const { segment } = mountField(ODatePicker)
+    await segment('Día').trigger('keydown', { key: 'ArrowDown', altKey: true })
+    expect(popover()).not.toBeNull()
+  })
+
+  it('ODateRangePicker: a segment press types, typing closes the calendar, labels are translated', async () => {
+    config.locale.value = 'es-CO'
+    const model = ref<{ start: DateValue; end: DateValue } | null>(null)
+    const Host = defineComponent({
+      setup: () => () =>
+        h(ODateRangePicker as never, {
+          'modelValue': model.value,
+          'onUpdate:modelValue': (v: typeof model.value) => (model.value = v),
+          'locale': 'es-CO',
+        }),
+    })
+    wrapper = mount(Host, { attachTo: document.body })
+    await nextTick()
+    const startDay = wrapper.find('[role="spinbutton"][aria-label="Día de inicio"]')
+    expect(wrapper.find('[role="spinbutton"][aria-label="Año final"]').exists()).toBe(true)
+    await startDay.trigger('click')
+    expect(popover()).toBeNull()
+    await wrapper.find('[aria-haspopup="dialog"]').trigger('click')
+    expect(popover()).not.toBeNull()
+    await type(startDay, '1')
+    expect(popover()).toBeNull()
+  })
+
+  it('OTimePicker: a segment press types and leaving the field closes the wheels', async () => {
+    config.locale.value = 'es-CO'
+    const outside = document.createElement('input')
+    document.body.appendChild(outside)
+    wrapper = mount(OTimePicker, { props: { modelValue: null }, attachTo: document.body })
+    await nextTick()
+    await wrapper.find('[role="spinbutton"]').trigger('click')
+    expect(popover()).toBeNull()
+    await wrapper.find('[aria-haspopup="dialog"]').trigger('click')
+    expect(popover()).not.toBeNull()
+    await wrapper.find('[role="group"]').trigger('focusout', { relatedTarget: outside })
+    expect(popover()).toBeNull()
+    outside.remove()
   })
 })

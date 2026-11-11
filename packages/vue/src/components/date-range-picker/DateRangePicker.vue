@@ -299,6 +299,12 @@ function handleKeydown(e: KeyboardEvent, side: 'start' | 'end', idx: number) {
 
   const type = seg.type as 'year' | 'month' | 'day'
 
+  if (e.altKey && e.key === 'ArrowDown') {
+    e.preventDefault()
+    open()
+    return
+  }
+
   // Typing means the calendar is not wanted: it would only cover what comes after the field.
   if (/^\d$/.test(e.key) || e.key === 'Backspace') isOpen.value = false
   const s = getSide(side)
@@ -411,6 +417,12 @@ function toggle() {
   isOpen.value ? close() : open()
 }
 
+function rangePartLabel(side: 'start' | 'end', type: SegmentType): string {
+  const part = type === 'year' ? ousiText.value.year : type === 'month' ? ousiText.value.month : ousiText.value.day
+  const template = side === 'start' ? ousiText.value.rangeStartPart : ousiText.value.rangeEndPart
+  return template.replace('{part}', part)
+}
+
 // A press on a segment is for typing; the rest of the field opens the calendar.
 function handleTriggerClick(e: MouseEvent) {
   if ((e.target as HTMLElement | null)?.closest('[role="spinbutton"]')) return
@@ -491,7 +503,7 @@ defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.v
           :class="dateFieldSegmentTheme(focusedKey === `start-${idx}`)"
           role="spinbutton"
           tabindex="0"
-          :aria-label="`Start ${seg.type}`"
+          :aria-label="rangePartLabel('start', seg.type)"
           :aria-valuenow="getSegmentNow('start', seg.type)"
           :aria-valuemin="getMinMax('start', seg.type)[0]"
           :aria-valuemax="getMinMax('start', seg.type)[1]"
@@ -520,7 +532,7 @@ defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.v
           :class="dateFieldSegmentTheme(focusedKey === `end-${idx}`)"
           role="spinbutton"
           tabindex="0"
-          :aria-label="`End ${seg.type}`"
+          :aria-label="rangePartLabel('end', seg.type)"
           :aria-valuenow="getSegmentNow('end', seg.type)"
           :aria-valuemin="getMinMax('end', seg.type)[0]"
           :aria-valuemax="getMinMax('end', seg.type)[1]"

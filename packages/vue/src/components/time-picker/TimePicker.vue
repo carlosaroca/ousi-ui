@@ -338,15 +338,21 @@ function onSegmentKeydown(e: KeyboardEvent, idx: number) {
   handleKeydown(e, idx)
 }
 
+// A press on a segment is for typing; the rest of the field opens the wheels.
 function onFieldClick(e: MouseEvent) {
   if (props.disabled || props.readonly) return
-  if (!(e.target as HTMLElement).closest('[role="spinbutton"]')) focusFirst()
+  if ((e.target as HTMLElement).closest('[role="spinbutton"]')) return
+  focusFirst()
   open()
 }
 
 // A typed time outside [min, max] is clamped once the field loses focus.
 function onFieldFocusOut(e: FocusEvent) {
-  if (triggerRef.value?.contains(e.relatedTarget as Node | null)) return
+  const next = e.relatedTarget as Node | null
+  if (triggerRef.value?.contains(next)) return
+  if (popoverRef.value?.contains(next)) return
+  // Leaving the field and its wheels with the keyboard closes the wheels.
+  if (next && isOpen.value) cancel()
   if (value.value) {
     const clamped = clampToRange(value.value)
     if (tToSec(clamped) !== tToSec(value.value)) value.value = clamped
@@ -438,6 +444,7 @@ defineExpose(fieldFocus(() => firstSegment(triggerRef.value), () => triggerRef.v
       v-if="isOpen && isMounted"
       ref="popoverRef"
       :style="[floatingStyles, { zIndex }]"
+      @focusout="onFieldFocusOut"
     >
       <AnimatePresence>
         <Motion

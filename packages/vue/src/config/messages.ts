@@ -40,6 +40,8 @@ export interface OusiMessages {
   monthPlaceholder: string
   dayPlaceholder: string
   dateRangePicker: string
+  rangeStartPart: string
+  rangeEndPart: string
   dateRangeCalendar: string
   timePicker: string
   timeField: string
@@ -125,6 +127,8 @@ const en: OusiMessages = {
   monthPlaceholder: 'mm',
   dayPlaceholder: 'dd',
   dateRangePicker: 'Date range picker',
+  rangeStartPart: 'Start {part}',
+  rangeEndPart: 'End {part}',
   dateRangeCalendar: 'Date range calendar',
   timePicker: 'Time picker',
   timeField: 'Time field',
@@ -209,6 +213,8 @@ const es: OusiMessages = {
   monthPlaceholder: 'mm',
   dayPlaceholder: 'dd',
   dateRangePicker: 'Selector de rango de fechas',
+  rangeStartPart: '{part} de inicio',
+  rangeEndPart: '{part} final',
   dateRangeCalendar: 'Calendario de rango de fechas',
   timePicker: 'Selector de hora',
   timeField: 'Campo de hora',

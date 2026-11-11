@@ -252,6 +252,12 @@ function handleKeydown(e: KeyboardEvent, idx: number) {
 
   const type = seg.type as 'year' | 'month' | 'day'
 
+  if (e.altKey && e.key === 'ArrowDown') {
+    e.preventDefault()
+    open()
+    return
+  }
+
   // Typing means the calendar is not wanted: it would only cover what comes after the field.
   if (/^\d$/.test(e.key) || e.key === 'Backspace') isOpen.value = false
 
