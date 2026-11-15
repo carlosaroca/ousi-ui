@@ -137,3 +137,11 @@ export const tabPanelTheme = cva(
     defaultVariants: { orientation: 'horizontal' },
   },
 )
+
+/** Arrow over the edge of a scrolling list that still has tabs beyond it. It sticks to that edge
+ *  and takes no room in the row (its negative margin cancels its width). */
+export const tabScrollArrowTheme = [
+  'sticky z-20 flex size-7 shrink-0 items-center justify-center self-center',
+  'rounded-full bg-ousi-surface text-ousi-muted shadow-ousi-sm',
+  'cursor-(--ousi-cursor-interactive) hover:text-ousi-foreground',
+].join(' ')

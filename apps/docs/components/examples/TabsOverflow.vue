@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import { OTabs } from '@ousi-ui/vue'
 
-// Tabs that do not fit scroll sideways. The scrollbar is hidden, and the active tab is
-// always brought into view (try the arrow keys, or pick the last one).
+// Tabs that do not fit scroll sideways. An arrow on each side that still has tabs scrolls
+// that way, and the active tab is always brought into view (try the arrow keys).
 const items = ['Panel', 'People', 'Links', 'Income and travel', 'Social media', 'Sources', 'Press', 'Legal documents', 'Background'].map(
   (label) => ({ key: label, label }),
 )

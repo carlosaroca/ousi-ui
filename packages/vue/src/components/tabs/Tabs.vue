@@ -13,7 +13,7 @@ import {
 } from '../dropdown'
 import {
   tabsWrapperTheme, tabsListTheme, tabTheme,
-  tabIndicatorTheme, tabPanelTheme,
+  tabIndicatorTheme, tabPanelTheme, tabScrollArrowTheme,
 } from './tabs.theme'
 import type { TabsProps, TabsEmits } from './tabs.types'
 
@@ -26,6 +26,7 @@ const props = withDefaults(defineProps<TabsProps>(), {
   showSeparator: false,
   hideBorder: false,
   scrollFade: true,
+  scrollArrows: true,
   contained: false,
   shadow: 'none',
 })
@@ -51,12 +52,26 @@ const activeKey = useControllableState<string>({
 const listRef = ref<HTMLElement | null>(null)
 const tabRefs = ref<Map<string, HTMLElement>>(new Map())
 
-// Fade the edge(s) that still have tabs beyond them (the same logic OScrollShadow uses)
-const { maskStyle: fadeStyle, update: updateFade } = useScrollFade(listRef, {
+// The side that still has tabs beyond it gets an arrow (or, without arrows, the fade OScrollShadow
+// uses), so no tab is hidden without a sign.
+const arrows = computed(() => props.scrollArrows && props.orientation === 'horizontal')
+const {
+  maskStyle: fadeStyle,
+  update: updateFade,
+  start: hiddenBefore,
+  end: hiddenAfter,
+} = useScrollFade(listRef, {
   orientation: () => 'horizontal',
   size: () => 28,
-  enabled: () => props.scrollFade && props.orientation === 'horizontal',
+  enabled: () => props.scrollFade && props.orientation === 'horizontal' && !arrows.value,
 })
+
+function scrollTabs(direction: 1 | -1) {
+  const list = listRef.value
+  if (!list) return
+  const behavior: ScrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  list.scrollBy({ left: direction * Math.max(80, list.clientWidth * 0.6), behavior })
+}
 
 function setTabRef(key: string, el: any) {
   if (el) tabRefs.value.set(key, el as HTMLElement)
@@ -262,6 +277,19 @@ function handleKeydown(e: KeyboardEvent) {
       :class="cn(tabsListTheme({ variant, size, orientation, fullWidth, shadow, hideBorder }), 'relative')"
       :style="fadeStyle"
     >
+      <button
+        v-if="arrows && hiddenBefore"
+        type="button"
+        tabindex="-1"
+        aria-hidden="true"
+        :class="cn(tabScrollArrowTheme, 'left-1 -mr-7')"
+        @click="scrollTabs(-1)"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
       <!-- Sliding indicator — single element, animated via CSS transition -->
       <span
         v-if="isMounted"
@@ -340,6 +368,19 @@ function handleKeydown(e: KeyboardEvent) {
           </ODropdownMenu>
         </ODropdownPopover>
       </ODropdown>
+
+      <button
+        v-if="arrows && hiddenAfter"
+        type="button"
+        tabindex="-1"
+        aria-hidden="true"
+        :class="cn(tabScrollArrowTheme, 'right-1 -ml-7')"
+        @click="scrollTabs(1)"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
     </div>
 
     <!-- Tab panels (only rendered if panel slots are provided) -->

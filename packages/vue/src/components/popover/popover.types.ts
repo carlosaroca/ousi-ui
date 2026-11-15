@@ -15,6 +15,9 @@ export interface PopoverProps {
   shadow?: PopoverShadow
   /** Additional CSS classes on the panel. */
   class?: string
+  /** Classes on the element that wraps the trigger, an `inline-flex` box by default. Pass
+   *  `flex min-w-0 flex-1` to let a full-width trigger fill and shrink inside a flex row. */
+  triggerClass?: string
 }
 
 export interface PopoverEmits {

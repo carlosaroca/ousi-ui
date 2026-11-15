@@ -100,7 +100,7 @@ defineExpose({ open, close, toggle })
 
 <template>
   <!-- Trigger -->
-  <span ref="triggerRef" :class="popoverTriggerTheme" @click="toggle">
+  <span ref="triggerRef" :class="cn(popoverTriggerTheme, props.triggerClass)" @click="toggle">
     <slot name="trigger" :open="isOpen" :toggle="toggle" />
   </span>
 

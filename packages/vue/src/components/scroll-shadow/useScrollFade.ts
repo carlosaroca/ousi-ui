@@ -87,5 +87,5 @@ export function useScrollFade(el: Ref<HTMLElement | null>, opts: ScrollFadeOptio
     observer?.disconnect()
   })
 
-  return { maskStyle, update }
+  return { maskStyle, update, start: left, end: right }
 }

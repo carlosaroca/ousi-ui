@@ -21,4 +21,5 @@ export {
   tableCellTheme,
   tableFooterTheme,
   tableEmptyTheme,
+  tableScrollEdgeTheme,
 } from './table.theme'

@@ -53,6 +53,7 @@ export const popoverData: ComponentData = {
     { name: 'showArrow', type: 'boolean', default: 'false', description: 'Show an arrow pointing to the trigger.' },
     { name: 'title', type: 'string', description: 'Title shown at the top of the popover.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes on the panel.' },
+    { name: 'triggerClass', type: 'string', default: '-', description: 'Classes on the box that wraps the trigger (inline-flex by default). Use flex min-w-0 flex-1 to let a full-width trigger fill and shrink in a flex row.' },
   ],
 
   slots: [

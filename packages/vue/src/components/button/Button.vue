@@ -46,7 +46,7 @@ const classes = computed(() =>
 
 // Per animation-type, hardcode at-rest + hovered classes so Tailwind's JIT picks
 // them up. We animate only `transform` (not opacity) so the swap reads as a
-// single continuous motion clipped by the button's overflow-hidden — no fading
+// single continuous motion clipped by the button's overflow-clip — no fading
 // crossover. The default layer takes h-full so translateY(-100%) clears the
 // button completely; without it the span only moves by its own line-height.
 const animLayers = computed(() => {
@@ -154,10 +154,12 @@ function handleClick(event: MouseEvent) {
 
     <!-- Default content — sizes the button. When the animate slot is present we
          force h-full so the layer fills the button height and translateY(-100%)
-         clears it completely (otherwise it'd only move by its own line height). -->
+         clears it completely (otherwise it'd only move by its own line height).
+         It fills the button and follows its justify-content, so `justify-between` spreads a
+         label and a value, while a fit-content button still hugs its label. -->
     <span
       :class="[
-        'inline-flex items-center gap-2',
+        'inline-flex min-w-0 grow items-center gap-2 [justify-content:inherit]',
         hasAnimateSlot && 'h-full',
         loading && 'opacity-0',
         animLayers?.default,

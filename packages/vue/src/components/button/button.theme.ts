@@ -2,7 +2,9 @@ import { cva } from 'class-variance-authority'
 
 export const buttonTheme = cva(
   [
-    'relative isolate inline-flex w-fit origin-center items-center justify-center gap-2 overflow-hidden',
+    // overflow-clip (not hidden) clips the ripple without making the button a scroll container,
+    // so in a flex or grid row it never shrinks below its label.
+    'relative isolate inline-flex w-fit origin-center items-center justify-center gap-2 overflow-clip',
     'whitespace-nowrap select-none outline-none',
     'font-medium transition-[transform,background-color,box-shadow]',
     'duration-[250ms,100ms,100ms]',
@@ -50,14 +52,16 @@ export const buttonTheme = cva(
           'hover:bg-ousi-danger-soft-hover',
         ],
       },
+      // The height lives in a variable, so one class from the caller (`h-auto` for a row with two
+      // lines, `h-8`) replaces it at every breakpoint.
       size: {
-        xs: 'h-8 px-2.5 text-xs md:h-7',
-        sm: 'h-9 px-3 text-sm md:h-8',
-        md: 'h-10 px-4 text-sm md:h-9',
-        lg: 'h-11 px-5 text-base md:h-10',
+        xs: '[--ousi-btn-h:2rem] md:[--ousi-btn-h:1.75rem] h-[var(--ousi-btn-h)] px-2.5 text-xs',
+        sm: '[--ousi-btn-h:2.25rem] md:[--ousi-btn-h:2rem] h-[var(--ousi-btn-h)] px-3 text-sm',
+        md: '[--ousi-btn-h:2.5rem] md:[--ousi-btn-h:2.25rem] h-[var(--ousi-btn-h)] px-4 text-sm',
+        lg: '[--ousi-btn-h:2.75rem] md:[--ousi-btn-h:2.5rem] h-[var(--ousi-btn-h)] px-5 text-base',
       },
       isIconOnly: {
-        true: 'w-10 p-0 md:w-9',
+        true: 'w-[var(--ousi-btn-h)] p-0',
         false: '',
       },
       fullWidth: {
@@ -73,10 +77,7 @@ export const buttonTheme = cva(
     },
     compoundVariants: [
       // A link sits in running text: no box, no press scale, the ring hugs the label.
-      { variant: 'link', class: 'h-auto px-0 md:h-auto rounded-ousi-sm active:scale-100' },
-      { size: 'xs', isIconOnly: true, class: 'w-8 md:w-7' },
-      { size: 'sm', isIconOnly: true, class: 'w-9 md:w-8' },
-      { size: 'lg', isIconOnly: true, class: 'w-11 md:w-10' },
+      { variant: 'link', class: 'h-auto px-0 rounded-ousi-sm active:scale-100' },
     ],
     defaultVariants: {
       variant: 'primary',

@@ -73,6 +73,7 @@ export const colorPickerData: ComponentData = {
     { name: 'label', type: 'string', default: '-', description: 'Label shown next to the trigger swatch.' },
     { name: 'showAlpha', type: 'boolean', default: 'true', description: 'Show alpha slider.' },
     { name: 'showHexInput', type: 'boolean', default: 'true', description: 'Show hex input field.' },
+    { name: 'showValue', type: 'boolean', default: 'true', description: 'Without a label, show the hex value next to the trigger swatch. Turn it off when an editable hex field already sits beside the picker.' },
     { name: 'showSwatches', type: 'boolean', default: 'false', description: 'Show preset swatches palette.' },
     { name: 'swatches', type: 'string[]', default: 'DEFAULT_SWATCHES', description: 'Custom preset colors (hex strings).' },
     { name: 'placement', type: "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end'", default: "'bottom-start'", description: 'Popover placement.' },

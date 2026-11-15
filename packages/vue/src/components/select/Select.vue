@@ -89,7 +89,14 @@ watch(
   { immediate: true },
 )
 
+// An option whose value is '' ("All statuses") is what an empty single select holds: it shows
+// as the value, not the placeholder.
+const emptyOption = computed(() =>
+  props.multiple ? undefined : props.options.find((o) => o.value === ''),
+)
+
 function isSelected(optionValue: string | number): boolean {
+  if (optionValue === '' && emptyOption.value && internalValue.value.length === 0) return true
   return internalValue.value.includes(optionValue)
 }
 
@@ -118,14 +125,14 @@ function selectOption(option: SelectOption | undefined) {
 
 // Display text
 const displayText = computed(() => {
-  if (internalValue.value.length === 0) return ''
+  if (internalValue.value.length === 0) return emptyOption.value?.label ?? ''
   const labels = internalValue.value
     .map((v) => props.options.find((o) => o.value === v)?.label)
     .filter(Boolean)
   return labels.join(', ')
 })
 
-const hasValue = computed(() => internalValue.value.length > 0)
+const hasValue = computed(() => internalValue.value.length > 0 || Boolean(emptyOption.value))
 
 // Open / close
 const isOpen = ref(false)

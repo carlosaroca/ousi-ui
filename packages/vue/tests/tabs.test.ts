@@ -53,7 +53,7 @@ describe('OTabs scroll fade', () => {
   }
 
   it('fades only the side that still has tabs beyond it', async () => {
-    const w = mount(OTabs, { props: { items }, attachTo: document.body })
+    const w = mount(OTabs, { props: { items, scrollArrows: false }, attachTo: document.body })
     const el = list(w).element as HTMLElement
     scrollMetrics(el, 0)
     el.dispatchEvent(new Event('scroll'))
@@ -75,14 +75,14 @@ describe('OTabs scroll fade', () => {
   })
 
   it('no fade when the tabs fit, and scrollFade=false turns it off', async () => {
-    const fits = mount(OTabs, { props: { items: items.slice(0, 2) }, attachTo: document.body })
+    const fits = mount(OTabs, { props: { items: items.slice(0, 2), scrollArrows: false }, attachTo: document.body })
     const el = list(fits).element as HTMLElement
     el.dispatchEvent(new Event('scroll')) // scrollWidth = clientWidth = 0 in happy-dom
     await fits.vm.$nextTick()
     expect(el.getAttribute('style') ?? '').not.toContain('mask-image')
     fits.unmount()
 
-    const off = mount(OTabs, { props: { items, scrollFade: false }, attachTo: document.body })
+    const off = mount(OTabs, { props: { items, scrollFade: false, scrollArrows: false }, attachTo: document.body })
     const el2 = list(off).element as HTMLElement
     scrollMetrics(el2, 0)
     el2.dispatchEvent(new Event('scroll'))

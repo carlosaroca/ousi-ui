@@ -69,8 +69,8 @@ export const tabsData: ComponentData = {
 import { ref } from 'vue'
 import { OTabs } from '@ousi-ui/vue'
 
-// Tabs that do not fit scroll sideways. The scrollbar is hidden, and the active tab is
-// always brought into view (try the arrow keys, or pick the last one).
+// Tabs that do not fit scroll sideways. An arrow on each side that still has tabs scrolls
+// that way, and the active tab is always brought into view (try the arrow keys).
 const items = ['Panel', 'People', 'Links', 'Income and travel', 'Social media', 'Sources', 'Press', 'Legal documents', 'Background'].map(
   (label) => ({ key: label, label }),
 )
@@ -289,6 +289,7 @@ const b = ref('m4')
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the tabs.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation.' },
     { name: 'overflow', type: "'scroll' | 'menu'", default: "'scroll'", description: 'What horizontal tabs do when they do not fit: scroll sideways (the active tab is kept in view), or collect the ones that do not fit under a More menu that shows the active tab when it is one of them.' },
+    { name: 'scrollArrows', type: 'boolean', default: 'true', description: 'While the tabs scroll, show an arrow on each edge that still has tabs beyond it; a click scrolls that way. With it off, the edge fades instead (scrollFade).' },
     { name: 'contained', type: 'boolean', default: 'false', description: 'Fill the parent without making it wider. Use it inside grid cells, cards in a flex row and other flex/grid children, where a long list of tabs would otherwise stretch its column. Needs a parent with a defined width (it collapses inside a parent that only fits its content).' },
     { name: 'scrollFade', type: 'boolean', default: 'true', description: 'Fade the edge(s) of a scrolling horizontal list that still have tabs beyond them. Uses the same logic as OScrollShadow.' },
     { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch horizontal tabs to share the full width. By default each tab is as wide as its label; tabs that do not fit scroll sideways (scrollbar hidden) in both variants. If OTabs sits inside a grid cell or a card in a flex row, add the contained prop (or give that parent min-w-0) so a long list scrolls instead of stretching its column.' },

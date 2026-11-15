@@ -24,8 +24,8 @@ export const tableRootTheme = cva(
 export const tableScrollContainerTheme = cva(
   [
     'overflow-x-auto',
-    // Hide native scrollbars on both axes — wheel/touch scroll still works.
-    '[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden',
+    // A thin scrollbar, so a mouse without a sideways wheel can still reach hidden columns.
+    '[scrollbar-width:thin] [scrollbar-color:color-mix(in_oklab,var(--ousi-muted)_40%,transparent)_transparent]',
   ],
   {
     variants: {
@@ -39,6 +39,19 @@ export const tableScrollContainerTheme = cva(
 )
 
 export const tableContentTheme = 'w-full border-separate border-spacing-0 text-sm'
+
+/** Shadow over the side of the scroll area that still hides columns. */
+export const tableScrollEdgeTheme = cva(
+  'pointer-events-none absolute inset-y-0 z-[12] w-3',
+  {
+    variants: {
+      side: {
+        start: 'shadow-[inset_10px_0_8px_-8px_hsl(var(--ousi-shadow-color)/0.28)]',
+        end: 'shadow-[inset_-10px_0_8px_-8px_hsl(var(--ousi-shadow-color)/0.28)]',
+      },
+    },
+  },
+)
 
 export const tableHeaderTheme = cva(
   '',

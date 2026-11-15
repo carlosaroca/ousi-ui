@@ -175,7 +175,7 @@ defineExpose({ open, close })
             </div>
 
             <!-- Footer -->
-            <div v-if="$slots.footer" class="flex flex-row items-center justify-end gap-2 mt-5">
+            <div v-if="$slots.footer" class="flex flex-row flex-wrap items-center justify-end gap-2 mt-5">
               <slot name="footer" :close="close" />
             </div>
           </Motion>

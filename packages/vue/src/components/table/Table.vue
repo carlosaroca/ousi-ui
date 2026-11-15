@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, toRef, nextTick, watch, getCurrentInstance } from 'vue'
+import { ref, computed, toRef, nextTick, watch, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { OSkeleton } from '../skeleton'
 import { OCheckbox } from '../checkbox'
@@ -22,6 +22,7 @@ import {
   tableExpandToggleTheme,
   tableExpandedRowTheme,
   tableEmptyTheme,
+  tableScrollEdgeTheme,
 } from './table.theme'
 import type { TableProps, TableEmits, SortDescriptor } from './table.types'
 
@@ -549,6 +550,47 @@ function stickyClassesFor(key: string, isHeader: boolean): string {
   const theme = isHeader ? tableStickyHeaderCellTheme : tableStickyCellTheme
   return theme({ variant: props.variant, edge: m.isEdge ? m.side : 'none' })
 }
+
+// ── Horizontal overflow cue ──
+// A table wider than its box scrolls inside it; a shadow marks each side that hides columns, at
+// the edge of the pinned columns when there are any, so nothing is cut without a sign.
+const scrollRef = ref<HTMLElement | null>(null)
+const hiddenStart = ref(false)
+const hiddenEnd = ref(false)
+
+function pinnedWidth(map: Record<string, unknown>): number {
+  let total = 0
+  for (const key of Object.keys(map)) {
+    if (key === '__expand') total += EXPAND_COL_WIDTH
+    else if (key === '__checkbox') total += CHECKBOX_COL_WIDTH
+    else {
+      const col = props.columns.find((c) => c.key === key)
+      if (col) total += explicitWidth(col)
+    }
+  }
+  return total
+}
+const pinnedStart = computed(() => pinnedWidth(stickyLeftMap.value))
+const pinnedEnd = computed(() => pinnedWidth(stickyRightMap.value))
+
+function updateScrollEdges() {
+  const el = scrollRef.value
+  if (!el) return
+  const hidden = el.scrollWidth - el.clientWidth
+  hiddenStart.value = hidden > 1 && el.scrollLeft > 1
+  hiddenEnd.value = hidden > 1 && el.scrollLeft < hidden - 1
+}
+
+let edgeObserver: ResizeObserver | null = null
+onMounted(() => {
+  updateScrollEdges()
+  if (typeof ResizeObserver === 'undefined') return
+  edgeObserver = new ResizeObserver(() => updateScrollEdges())
+  if (scrollRef.value) edgeObserver.observe(scrollRef.value)
+  if (tableRef.value) edgeObserver.observe(tableRef.value)
+})
+onBeforeUnmount(() => edgeObserver?.disconnect())
+watch(() => [props.rows, props.columns, props.isLoading, hiddenColumns.value], () => nextTick(updateScrollEdges))
 </script>
 
 <template>
@@ -561,7 +603,14 @@ function stickyClassesFor(key: string, isHeader: boolean): string {
       <slot name="toolbar" :hidden-columns="hiddenColumns" :toggle-column="toggleColumn" :export-csv="exportCSV" />
     </div>
 
-    <div :class="tableScrollContainerTheme({ stickyHeader })">
+    <div class="relative min-w-0">
+    <div
+      ref="scrollRef"
+      :class="tableScrollContainerTheme({ stickyHeader })"
+      :data-hidden-start="hiddenStart || undefined"
+      :data-hidden-end="hiddenEnd || undefined"
+      @scroll.passive="updateScrollEdges"
+    >
       <table ref="tableRef" :class="tableContentTheme">
         <!-- Header -->
         <thead :class="tableHeaderTheme({ variant, sticky: stickyHeader })">
@@ -788,6 +837,19 @@ function stickyClassesFor(key: string, isHeader: boolean): string {
           </template>
         </tbody>
       </table>
+    </div>
+    <span
+      v-if="hiddenStart"
+      aria-hidden="true"
+      :class="tableScrollEdgeTheme({ side: 'start' })"
+      :style="{ left: `${pinnedStart}px` }"
+    />
+    <span
+      v-if="hiddenEnd"
+      aria-hidden="true"
+      :class="tableScrollEdgeTheme({ side: 'end' })"
+      :style="{ right: `${pinnedEnd}px` }"
+    />
     </div>
 
     <!-- Footer -->

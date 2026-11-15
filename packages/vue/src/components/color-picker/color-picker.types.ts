@@ -12,6 +12,9 @@ export interface ColorPickerProps {
   defaultValue?: ColorPickerValue
   /** Label shown next to the trigger swatch. */
   label?: string
+  /** Without a label, show the hex value next to the trigger swatch. Turn it off when the hex
+   *  is already shown elsewhere (an editable hex field beside the picker). Defaults to `true`. */
+  showValue?: boolean
   /** Show alpha slider. */
   showAlpha?: boolean
   /** Show hex input field. */

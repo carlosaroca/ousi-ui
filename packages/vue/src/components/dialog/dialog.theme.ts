@@ -112,4 +112,5 @@ export const dialogBodyTheme = cva(
   },
 )
 
-export const dialogFooterTheme = 'mt-6 flex flex-row items-center justify-end gap-2 first:mt-0'
+// Buttons wrap to a new line instead of squeezing; the last one (the main action) stays at the end.
+export const dialogFooterTheme = 'mt-6 flex flex-row flex-wrap items-center justify-end gap-2 first:mt-0'

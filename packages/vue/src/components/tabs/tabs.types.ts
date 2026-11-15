@@ -27,16 +27,20 @@ export interface TabsProps {
   /** Stretch horizontal tabs to share the full width. Defaults to `false`: each tab is as wide
    *  as its label, and a secondary list scrolls when the tabs overflow. */
   fullWidth?: boolean
-  /** What horizontal tabs do when they don't fit: 'scroll' sideways (default) or collect the
-   *  ones that don't fit under a "More" menu. 'menu' has no effect with `fullWidth`. */
+  /** What horizontal tabs do when they don't fit: 'scroll' sideways (default), with an arrow on
+   *  each side that still has tabs, or collect the ones that don't fit under a "More" menu.
+   *  'menu' has no effect with `fullWidth`. */
   overflow?: 'scroll' | 'menu'
   /** Fill the width of the parent without making the parent wider. Use it inside grid cells, cards
    *  in a flex row and other flex/grid children, where a long list of tabs would otherwise stretch
    *  its column. Needs a parent with a defined width. Defaults to `false`. */
   contained?: boolean
   /** Fade the edge(s) of a horizontal list that still has tabs beyond it, like OScrollShadow.
-   *  Only applies while the tabs scroll. Defaults to `true`. */
+   *  Only applies while the tabs scroll and `scrollArrows` is off. Defaults to `true`. */
   scrollFade?: boolean
+  /** Show an arrow on each edge of a scrolling horizontal list that still has tabs beyond it;
+   *  a click scrolls that way. Defaults to `true`. */
+  scrollArrows?: boolean
   /** Hide the secondary variant's track border (the long underline / left rail).
    *  Has no effect on `primary`. The active-tab indicator is unaffected. Defaults to `false`. */
   hideBorder?: boolean

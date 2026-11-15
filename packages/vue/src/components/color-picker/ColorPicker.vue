@@ -17,6 +17,7 @@ const ousiText = useOusiMessages()
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   showAlpha: true,
   showHexInput: true,
+  showValue: true,
   showSwatches: false,
   swatches: () => DEFAULT_SWATCHES,
   placement: 'bottom-start',
@@ -139,7 +140,7 @@ const { zIndex } = useLayer(isOpen, {
     >
       <OColorSwatch :color="currentColor" shape="square" size="md" class="rounded-ousi-md" />
       <span v-if="label" class="text-sm font-medium text-ousi-foreground">{{ label }}</span>
-      <span v-else class="text-sm text-ousi-muted font-mono">{{ hexColor }}</span>
+      <span v-else-if="showValue" class="text-sm text-ousi-muted font-mono">{{ hexColor }}</span>
     </button>
 
     <!-- Popover -->
