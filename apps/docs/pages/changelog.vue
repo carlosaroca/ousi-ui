@@ -7,6 +7,7 @@ useSeoMeta({
 })
 
 const tocItems = [
+  { id: 'v0-7-4', label: 'v0.7.4' },
   { id: 'v0-7-3', label: 'v0.7.3' },
   { id: 'v0-7-2', label: 'v0.7.2' },
   { id: 'v0-7-1', label: 'v0.7.1' },
@@ -32,13 +33,71 @@ const tocItems = [
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.7.4 -->
+    <article id="v0-7-4" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.7.4</h2>
+        <span class="text-xs text-ousi-muted">November 16, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Added</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OTabs</strong>: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">scrollArrows</code> (on by default) shows an arrow on each side of a scrolling list that still has tabs; a click scrolls that way. With <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">:scroll-arrows=&quot;false&quot;</code> the edge fade stays.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OTable</strong>: a thin scrollbar and a shadow on each side that still hides columns, placed at the edge of the pinned columns when there are any.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OPopover</strong>: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">triggerClass</code> for the box around the trigger, so a full-width trigger can fill and shrink in a flex row.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OColorPicker</strong>: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">showValue</code> hides the hex next to the swatch when a hex field sits beside it.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Fixed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OButton</strong> never shrinks below its label in a flex or grid row, its height lives in <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">--ousi-btn-h</code> so one class from the caller (<code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">h-auto</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">h-8</code>) replaces it at any breakpoint, and its content follows <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">justify-between</code>.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">ODialog</strong> and <strong class="text-ousi-foreground">ODrawer</strong> footers wrap their buttons, and the last one stays at the end.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OSelect</strong> shows an option whose value is an empty string (&quot;All statuses&quot;) as the value instead of the placeholder.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">ODatePicker</strong>, <strong class="text-ousi-foreground">ODateRangePicker</strong> and <strong class="text-ousi-foreground">OTimePicker</strong>: Alt+ArrowDown opens the calendar from the keyboard; pressing a segment no longer opens it, typing closes it, leaving the field closes it, and an open calendar follows a value set from outside. Range segment labels follow the locale (Día de inicio, Año final).</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OCalendar</strong>: the month and year heading stays on one line without joining words.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <!-- v0.7.3 -->
     <article id="v0-7-3" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.7.3</h2>
         <span class="text-xs text-ousi-muted">November 9, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
 
       <div class="space-y-4">
