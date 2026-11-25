@@ -10,6 +10,12 @@ export interface OusiMessages {
   showPassword: string
   slideToConfirm: string
   confirmed: string
+  tourNext: string
+  tourBack: string
+  tourDone: string
+  tourClose: string
+  /** `{step}` and `{total}` are replaced. */
+  tourProgress: string
   cancel: string
   ok: string
   loading: string
@@ -147,6 +153,11 @@ const en: OusiMessages = {
   showPassword: 'Show password',
   slideToConfirm: 'Slide to confirm',
   confirmed: 'Confirmed',
+  tourNext: 'Next',
+  tourBack: 'Back',
+  tourDone: 'Done',
+  tourClose: 'Close tour',
+  tourProgress: '{step} of {total}',
   cancel: 'Cancel',
   ok: 'OK',
   loading: 'Loading…',
@@ -280,6 +291,11 @@ const es: OusiMessages = {
   showPassword: 'Mostrar la contraseña',
   slideToConfirm: 'Desliza para confirmar',
   confirmed: 'Confirmado',
+  tourNext: 'Siguiente',
+  tourBack: 'Atrás',
+  tourDone: 'Listo',
+  tourClose: 'Cerrar el recorrido',
+  tourProgress: '{step} de {total}',
   cancel: 'Cancelar',
   ok: 'Aceptar',
   loading: 'Cargando…',

@@ -169,5 +169,7 @@ export * from './components/image-editor'
 
 export * from './components/slide-button'
 
+export * from './components/tour'
+
 // Image utilities
 export * from './image'

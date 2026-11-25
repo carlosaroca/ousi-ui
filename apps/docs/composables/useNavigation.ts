@@ -167,6 +167,7 @@ export function useVueNavigation(): NavSection[] {
         { title: 'Drawer', path: '/vue/components/drawer' },
         { title: 'Dropdown', path: '/vue/components/dropdown' },
         { title: 'Popover', path: '/vue/components/popover' },
+        { title: 'Tour', path: '/vue/components/tour' },
         { title: 'Tooltip', path: '/vue/components/tooltip' },
       ],
     },

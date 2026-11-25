@@ -1,6 +1,7 @@
 import type { ComponentData } from './types'
 
 // Buttons
+import { tourData } from './tour'
 import { slideButtonData } from './slide-button'
 import { buttonData } from './button'
 import { buttonGroupData } from './button-group'
@@ -211,6 +212,7 @@ export const componentRegistry: Record<string, ComponentData> = {
   'resizable': resizableData,
   'infinite-scroll': infiniteScrollData,
   'aspect-ratio': aspectRatioData,
+  'tour': tourData,
   'slide-button': slideButtonData,
 }
 
