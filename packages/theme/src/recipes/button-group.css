@@ -35,6 +35,12 @@
   width: 100%;
 }
 
+/* Vertical: every button takes the width of the group. A button is w-fit on its own, so without this
+   each one would keep the width of its label and the group would have a ragged edge. */
+.ousi-btn-group--vertical > * {
+  width: 100%;
+}
+
 /* Disable active scale in group */
 .ousi-btn-group > *:active {
   transform: none !important;

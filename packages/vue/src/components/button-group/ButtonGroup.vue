@@ -17,7 +17,8 @@ provide('button-group-orientation', props.orientation)
   <div
     :class="cn(
       buttonGroupBaseTheme({ shadow }),
-      orientation === 'vertical' ? 'flex-col' : 'flex-row',
+      // A column stretches its buttons to one width: with the row's items-center each kept the width of its text.
+      orientation === 'vertical' ? 'flex-col items-stretch' : 'flex-row',
       fullWidth && 'w-full',
       'ousi-btn-group',
       orientation === 'vertical' ? 'ousi-btn-group--vertical' : 'ousi-btn-group--horizontal',
