@@ -12,7 +12,7 @@ const picked = ref<GaugeItem | null>(null)
 </script>
 <template>
   <div class="flex flex-wrap items-center gap-8">
-    <OSegmentedGauge :segments="segments" :size="180" :sweep="360" :gap="12" @segment-click="(s) => (picked = s)" />
+    <OSegmentedGauge :segments="segments" :size="180" :sweep="360" @segment-click="(s) => (picked = s)" />
     <div class="rounded-xl bg-ousi-default px-4 py-3 text-xs">
       <div class="text-ousi-muted">Click a segment</div>
       <div v-if="picked" class="mt-1">

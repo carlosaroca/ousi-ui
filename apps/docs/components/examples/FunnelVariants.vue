@@ -9,7 +9,7 @@ const stages = [
 ]
 </script>
 <template>
-  <div class="grid gap-10 md:grid-cols-2">
+  <div class="w-full grid gap-10 md:grid-cols-2">
     <div>
       <p class="mb-3 text-xs text-ousi-muted">shape="sharp"</p>
       <OFunnel :stages="stages" shape="sharp" :height="150" :show-legend="false" />
@@ -22,7 +22,7 @@ const stages = [
       <p class="mb-3 text-xs text-ousi-muted">no halo</p>
       <OFunnel :stages="stages" :halo="false" :height="150" :show-legend="false" />
     </div>
-    <div>
+    <div class="md:col-span-2">
       <p class="mb-3 text-xs text-ousi-muted">bars + mono, no percentages</p>
       <OFunnel :stages="stages" variant="bars" mono :show-percent="false" />
     </div>

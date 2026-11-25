@@ -14,7 +14,7 @@ const selected = ref<FunnelItem | null>(null)
 const push = (m: string) => { log.value = [m, ...log.value].slice(0, 4) }
 </script>
 <template>
-  <div class="flex flex-col gap-5">
+  <div class="w-full flex flex-col gap-5">
     <OFunnel
       :stages="stages"
       variant="bars"

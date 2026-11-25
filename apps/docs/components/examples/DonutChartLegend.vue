@@ -12,5 +12,5 @@ const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',
 </script>
 <template>
   <!-- Hover a segment or a legend row: both highlight each other without any v-model -->
-  <ODonutChart :data="data" :size="200" :thickness="11" :gap="4" rounded show-legend :format-value="(v) => usd.format(v)" class="w-72" />
+  <ODonutChart :data="data" :size="200" :thickness="11" :gap="4" show-legend :format-value="(v) => usd.format(v)" class="w-72" />
 </template>

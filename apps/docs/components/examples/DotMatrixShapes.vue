@@ -5,7 +5,7 @@ const rand = (s: number) => { const x = Math.sin(s * 91.7) * 43758.5453; return 
 const data = Array.from({ length: 16 }, (_, i) => ({ label: `#${i + 1}`, value: Math.round(10 + rand(i + 1) * 90) }))
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div><p class="mb-2 text-xs text-ousi-muted">circle (default)</p><ODotMatrix :data="data" :max="100" color="accent" :dot-size="14" /></div>
     <div><p class="mb-2 text-xs text-ousi-muted">rounded</p><ODotMatrix :data="data" :max="100" color="success" shape="rounded" :dot-size="14" /></div>
     <div><p class="mb-2 text-xs text-ousi-muted">square, 8 rows, tight gap</p><ODotMatrix :data="data" :max="100" color="orange" shape="square" :rows="8" :gap="3" :dot-size="12" /></div>

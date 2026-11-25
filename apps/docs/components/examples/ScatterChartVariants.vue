@@ -9,7 +9,7 @@ const bubbles = [
 ]
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div>
       <p class="mb-2 text-xs text-ousi-muted">No grid, no axes</p>
       <OScatterChart :series="series" :height="190" :grid="false" :show-x-axis="false" :show-y-axis="false" />

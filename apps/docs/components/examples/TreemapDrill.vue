@@ -18,7 +18,7 @@ const current = computed(() => {
 })
 </script>
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="w-full flex flex-col gap-3">
     <div class="flex items-center gap-1.5 text-sm">
       <button type="button" class="font-medium" :class="path.length ? 'text-ousi-muted hover:text-ousi-foreground' : 'text-ousi-foreground'" @click="path = []">All regions</button>
       <template v-if="path.length"><span class="text-ousi-muted">/</span><span class="font-medium text-ousi-foreground">{{ path[0] }}</span></template>

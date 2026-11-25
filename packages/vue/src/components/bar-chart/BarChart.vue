@@ -88,6 +88,9 @@ const inner = computed(() => band.value * (1 - Math.min(Math.max(props.barGap, 0
 const innerStart = (i: number) => catStart.value + i * band.value + (band.value - inner.value) / 2
 const catCenter = (i: number) => catStart.value + (i + 0.5) * band.value
 
+/** A value above zero is always seen, however small next to the rest. */
+const SHORTEST = 3
+
 /** Rect from category start/size and value range. */
 function rectOf(cs: number, size: number, v0: number, v1: number) {
   const a = valPos(v0)
@@ -148,7 +151,14 @@ const bars = computed(() =>
     }
     const m = Math.max(p.values.length, 1)
     const w = (inner.value - (m - 1) * props.groupGap) / m
-    const segs = p.values.map((v, k) => ({ ...rectOf(start + k * (w + props.groupGap), w, 0, v.value), color: v.color, key: v.key }))
+    const segs = p.values.map((v, k) => {
+      const rect = rectOf(start + k * (w + props.groupGap), w, 0, v.value)
+      if (v.value > 0) {
+        if (horizontal.value) rect.w = Math.max(rect.w, SHORTEST)
+        else if (rect.h < SHORTEST) Object.assign(rect, { y: valBase.value - SHORTEST, h: SHORTEST })
+      }
+      return { ...rect, color: v.color, key: v.key }
+    })
     return { track, rx: r(w), segs, whole: track, grouped: true }
   }),
 )
@@ -257,9 +267,9 @@ const ariaLabel = computed(() => props.label ?? `${resolved.value.map((s) => s.l
         </g>
         <template v-else>
           <rect
-            v-for="(s, k) in b.segs" :key="s.key"
+            v-for="(s, k) in b.segs" :key="s.key" data-part="bar"
             :x="s.x" :y="s.y" :width="s.w" :height="s.h"
-            :rx="Math.min(barRadius, (horizontal ? s.h : s.w) / 2)"
+            :rx="Math.min(barRadius, s.w / 2, s.h / 2)"
             :fill="s.color"
             :style="{ opacity: dim && focused != null && focused !== i ? 0.35 : 1, filter: focused === i ? 'brightness(0.88)' : 'none', ...growStyle(i, k) }"
           />

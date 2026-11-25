@@ -11,7 +11,7 @@ const kpis = [
 <template>
   <div class="grid gap-4 sm:grid-cols-3">
     <OCard v-for="k in kpis" :key="k.label" class="items-center gap-1 p-4">
-      <OSegmentedGauge :segments="k.parts" :size="150" :sweep="180" :stroke-width="9" :gap="6" class="!h-[88px]">
+      <OSegmentedGauge :segments="k.parts" :size="150" :sweep="180" :stroke-width="9" class="!h-[88px]">
         <template #default="{ total, focusedSegment }">
           <div class="mt-9 text-center">
             <div class="text-xl font-semibold tabular-nums text-ousi-foreground">{{ focusedSegment ? focusedSegment.value : total }}<span class="ml-0.5 text-xs font-normal text-ousi-muted">{{ k.unit }}</span></div>

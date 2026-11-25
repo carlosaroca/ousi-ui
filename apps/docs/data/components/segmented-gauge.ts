@@ -2,7 +2,7 @@ import type { ComponentData } from './types'
 
 export const segmentedGaugeData: ComponentData = {
   title: 'Segmented Gauge',
-  description: 'An arc split into segments whose length follows each maximum, filled up to the value. Good for scores made of sub-scores.',
+  description: 'An arc split into segments whose length follows each maximum, filled up to the value. For how a total splits, quotas and budgets by category, and scores made of sub-scores.',
   category: 'Charts',
   importCode: "import { OSegmentedGauge } from '@ousi-ui/vue'",
 
@@ -34,6 +34,186 @@ const segments = [
       },
     },
     {
+      id: 'distribution',
+      title: 'Parts of a total',
+      example: {
+        component: 'SegmentedGaugeDistribution',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OCard, OSegmentedGauge } from '@ousi-ui/vue'
+
+const priorities = [
+  { label: 'Critical', count: 3, color: 'danger' },
+  { label: 'High', count: 128, color: 'orange' },
+  { label: 'Medium', count: 640, color: 'warning' },
+  { label: 'Low', count: 285, color: 'success' },
+  { label: 'No priority', count: 96, color: 'var(--ousi-muted)' },
+]
+// Parts of a total: each max is its own value, so each arc takes its share and comes out full.
+const segments = priorities.map((p) => ({ label: p.label, value: p.count, max: p.count, color: p.color }))
+const total = priorities.reduce((sum, p) => sum + p.count, 0)
+const focused = ref<number | null>(null)
+
+// A tiny part is drawn bigger than it is, so the numbers carry the truth.
+const share = (count: number) => (count / total < 0.01 ? '<1%' : \`\${Math.round((count / total) * 100)}%\`)
+const dot = (color: string) => (color.startsWith('var') ? color : \`var(--ousi-\${color})\`)
+</script>
+<template>
+  <OCard class="w-full max-w-xl flex-row flex-wrap items-center gap-6 p-5">
+    <OSegmentedGauge v-model:focused="focused" :segments="segments" :size="190">
+      <template #default="{ focusedSegment }">
+        <div class="text-center">
+          <div class="text-3xl font-semibold tabular-nums text-ousi-foreground">{{ (focusedSegment ? focusedSegment.value : total).toLocaleString('en-US') }}</div>
+          <div class="text-xs text-ousi-muted">{{ focusedSegment ? focusedSegment.label : 'open tickets' }}</div>
+        </div>
+      </template>
+    </OSegmentedGauge>
+    <ul class="min-w-52 flex-1 space-y-2 text-sm">
+      <li
+        v-for="(p, i) in priorities"
+        :key="p.label"
+        class="flex items-center justify-between gap-3 transition-opacity"
+        :class="focused != null && focused !== i && 'opacity-40'"
+        @mouseenter="focused = i"
+        @mouseleave="focused = null"
+      >
+        <span class="flex items-center gap-2 text-ousi-muted"><span class="size-2 rounded-full" :style="{ backgroundColor: dot(p.color) }" />{{ p.label }}</span>
+        <span class="tabular-nums"><b class="font-semibold text-ousi-foreground">{{ p.count }}</b> <span class="inline-block w-10 text-right text-ousi-muted">{{ share(p.count) }}</span></span>
+      </li>
+    </ul>
+  </OCard>
+</template>`,
+      },
+    },
+    {
+      id: 'quotas',
+      title: 'Quotas by category',
+      example: {
+        component: 'SegmentedGaugeQuota',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OCard, OSegmentedGauge } from '@ousi-ui/vue'
+
+// A quota per category: the arc is as long as the quota, filled with what is used.
+const segments = [
+  { label: 'Photos', value: 34, max: 50, color: 'accent' },
+  { label: 'Documents', value: 12, max: 30, color: 'violet' },
+  { label: 'Videos', value: 52, max: 60, color: 'orange' },
+  { label: 'Backups', value: 6, max: 20, color: 'success' },
+]
+const focused = ref<number | null>(null)
+</script>
+<template>
+  <OCard class="w-full max-w-sm items-center gap-4 p-5">
+    <div class="w-full text-sm font-medium text-ousi-muted">Storage plan</div>
+    <OSegmentedGauge v-model:focused="focused" :segments="segments" :size="200">
+      <template #default="{ total, max, focusedSegment }">
+        <div class="text-center">
+          <div class="text-3xl font-semibold tabular-nums text-ousi-foreground">{{ focusedSegment ? focusedSegment.value : total }}<span class="ml-1 text-sm font-normal text-ousi-muted">GB</span></div>
+          <div class="text-xs text-ousi-muted">{{ focusedSegment ? \`of \${focusedSegment.max} GB\` : \`of \${max} GB used\` }}</div>
+        </div>
+      </template>
+    </OSegmentedGauge>
+    <ul class="w-full divide-y divide-ousi-border/50 text-sm">
+      <li
+        v-for="(s, i) in segments"
+        :key="s.label"
+        class="flex items-center justify-between py-2 transition-opacity"
+        :class="focused != null && focused !== i && 'opacity-40'"
+        @mouseenter="focused = i"
+        @mouseleave="focused = null"
+      >
+        <span class="flex items-center gap-2 text-ousi-foreground"><span class="size-2 rounded-full" :style="{ backgroundColor: \`var(--ousi-\${s.color})\` }" />{{ s.label }}</span>
+        <span class="tabular-nums text-ousi-muted">{{ s.max - s.value }} GB free</span>
+      </li>
+    </ul>
+  </OCard>
+</template>`,
+      },
+    },
+    {
+      id: 'budget',
+      title: 'Budget with a limit',
+      example: {
+        component: 'SegmentedGaugeBudget',
+        code: `<script setup lang="ts">
+import { OCard, OSegmentedGauge } from '@ousi-ui/vue'
+
+const teams = [
+  { name: 'Marketing', spent: 42, budget: 50, color: 'accent' },
+  { name: 'Product', spent: 61, budget: 55, color: 'violet' },
+  { name: 'Operations', spent: 18, budget: 30, color: 'success' },
+  { name: 'Sales', spent: 33, budget: 40, color: 'orange' },
+]
+const isOver = (t: (typeof teams)[number]) => t.spent > t.budget
+// Over its limit a segment comes out full, no longer: the color and the list say by how much.
+const segments = teams.map((t) => ({ label: t.name, value: t.spent, max: t.budget, color: isOver(t) ? 'danger' : t.color }))
+const over = teams.filter(isOver).length
+</script>
+<template>
+  <OCard class="w-full max-w-xl flex-row flex-wrap items-center gap-6 p-5">
+    <OSegmentedGauge :segments="segments" :size="190">
+      <template #default="{ total, max, focusedSegment }">
+        <div class="text-center">
+          <div class="text-3xl font-semibold tabular-nums text-ousi-foreground">\${{ focusedSegment ? focusedSegment.value : total }}k</div>
+          <div class="text-xs text-ousi-muted">{{ focusedSegment ? focusedSegment.label : \`of $\${max}k\` }}</div>
+        </div>
+      </template>
+    </OSegmentedGauge>
+    <div class="min-w-52 flex-1">
+      <p class="mb-2 text-sm font-medium" :class="over ? 'text-ousi-danger' : 'text-ousi-foreground'">{{ over ? \`\${over} team over budget\` : 'All within budget' }}</p>
+      <ul class="space-y-2 text-sm">
+        <li v-for="(t, i) in teams" :key="t.name" class="flex items-center justify-between gap-3">
+          <span class="flex items-center gap-2 text-ousi-muted"><span class="size-2 rounded-full" :style="{ backgroundColor: \`var(--ousi-\${segments[i].color})\` }" />{{ t.name }}</span>
+          <span class="tabular-nums" :class="isOver(t) ? 'font-medium text-ousi-danger' : 'text-ousi-muted'">{{ isOver(t) ? \`$\${t.spent - t.budget}k over\` : \`$\${t.spent}k of $\${t.budget}k\` }}</span>
+        </li>
+      </ul>
+    </div>
+  </OCard>
+</template>`,
+      },
+    },
+    {
+      id: 'survey',
+      title: 'Survey score',
+      example: {
+        component: 'SegmentedGaugeNps',
+        code: `<script setup lang="ts">
+import { OCard, OSegmentedGauge } from '@ousi-ui/vue'
+
+const answers = [
+  { label: 'Detractors', value: 60, color: 'danger' },
+  { label: 'Passives', value: 115, color: 'warning' },
+  { label: 'Promoters', value: 325, color: 'success' },
+]
+const segments = answers.map((a) => ({ ...a, max: a.value }))
+const total = answers.reduce((sum, a) => sum + a.value, 0)
+const percent = (value: number) => Math.round((value / total) * 100)
+const score = Math.round(((answers[2].value - answers[0].value) / total) * 100)
+</script>
+<template>
+  <OCard class="w-full max-w-xs items-center gap-3 p-5">
+    <div class="w-full text-sm font-medium text-ousi-muted">Net Promoter Score</div>
+    <!-- joined: one band, for a single answer split in three. -->
+    <OSegmentedGauge :segments="segments" :size="200" :sweep="180" joined class="!h-[112px]">
+      <template #default="{ focusedSegment }">
+        <div class="mt-12 text-center">
+          <div class="text-4xl font-semibold tabular-nums text-ousi-foreground">{{ focusedSegment ? \`\${percent(focusedSegment.value)}%\` : score }}</div>
+          <div class="text-xs text-ousi-muted">{{ focusedSegment ? focusedSegment.label : \`\${total} answers\` }}</div>
+        </div>
+      </template>
+    </OSegmentedGauge>
+    <ul class="grid w-full grid-cols-3 gap-2 text-center">
+      <li v-for="a in answers" :key="a.label">
+        <div class="text-sm font-semibold tabular-nums text-ousi-foreground">{{ percent(a.value) }}%</div>
+        <div class="flex items-center justify-center gap-1.5 text-[11px] text-ousi-muted"><span class="size-1.5 rounded-full" :style="{ backgroundColor: \`var(--ousi-\${a.color})\` }" />{{ a.label }}</div>
+      </li>
+    </ul>
+  </OCard>
+</template>`,
+      },
+    },
+    {
       id: 'kpis',
       title: 'Half-circle KPIs',
       example: {
@@ -51,7 +231,7 @@ const kpis = [
 <template>
   <div class="grid gap-4 sm:grid-cols-3">
     <OCard v-for="k in kpis" :key="k.label" class="items-center gap-1 p-4">
-      <OSegmentedGauge :segments="k.parts" :size="150" :sweep="180" :stroke-width="9" :gap="6" class="!h-[88px]">
+      <OSegmentedGauge :segments="k.parts" :size="150" :sweep="180" :stroke-width="9" class="!h-[88px]">
         <template #default="{ total, focusedSegment }">
           <div class="mt-9 text-center">
             <div class="text-xl font-semibold tabular-nums text-ousi-foreground">{{ focusedSegment ? focusedSegment.value : total }}<span class="ml-0.5 text-xs font-normal text-ousi-muted">{{ k.unit }}</span></div>
@@ -66,7 +246,7 @@ const kpis = [
     },
     {
       id: 'week',
-      title: 'Recipe: day picker',
+      title: 'Day picker',
       example: {
         component: 'SegmentedGaugeWeek',
         code: `<script setup lang="ts">
@@ -124,7 +304,7 @@ const rating = computed(() => (score(current.value) >= 95 ? 'Excellent' : score(
         :class="selected === i ? 'bg-ousi-default' : 'hover:bg-ousi-default/60'"
         @click="selected = i"
       >
-        <OSegmentedGauge :segments="segs(r)" :size="38" :stroke-width="14" :gap="14" :interactive="false" :animated="false" />
+        <OSegmentedGauge :segments="segs(r)" :size="38" :stroke-width="14" :gap="7" :interactive="false" :animated="false" />
         <span class="text-[11px]" :class="selected === i ? 'font-medium text-ousi-foreground' : 'text-ousi-muted'">{{ r.day }}</span>
       </button>
     </div>
@@ -134,7 +314,7 @@ const rating = computed(() => (score(current.value) >= 95 ? 'Excellent' : score(
     },
     {
       id: 'rows',
-      title: 'Recipe: linked rows',
+      title: 'Linked rows',
       example: {
         component: 'SegmentedGaugeRows',
         code: `<script setup lang="ts">
@@ -196,11 +376,12 @@ const segments = [
 ]
 </script>
 <template>
-  <div class="flex flex-wrap items-center gap-10">
+  <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
     <div class="flex flex-col items-center gap-2"><OSegmentedGauge :segments="segments" :size="130" /><span class="text-xs text-ousi-muted">sweep 270 (default)</span></div>
-    <div class="flex flex-col items-center gap-2"><OSegmentedGauge :segments="segments" :size="130" :sweep="360" :gap="10" /><span class="text-xs text-ousi-muted">full ring</span></div>
+    <div class="flex flex-col items-center gap-2"><OSegmentedGauge :segments="segments" :size="130" joined /><span class="text-xs text-ousi-muted">joined</span></div>
+    <div class="flex flex-col items-center gap-2"><OSegmentedGauge :segments="segments" :size="130" :sweep="360" /><span class="text-xs text-ousi-muted">full ring</span></div>
     <div class="flex flex-col items-center gap-2"><OSegmentedGauge :segments="segments" :size="130" :sweep="220" :stroke-width="14" /><span class="text-xs text-ousi-muted">sweep 220, thicker</span></div>
-    <div class="flex flex-col items-center gap-2"><OSegmentedGauge :segments="segments" :size="130" :stroke-width="5" :gap="14" /><span class="text-xs text-ousi-muted">thin, wide gaps</span></div>
+    <div class="flex flex-col items-center gap-2"><OSegmentedGauge :segments="segments" :size="130" :stroke-width="5" :gap="7" /><span class="text-xs text-ousi-muted">thin, wider gaps</span></div>
   </div>
 </template>`,
       },
@@ -224,7 +405,7 @@ const picked = ref<GaugeItem | null>(null)
 </script>
 <template>
   <div class="flex flex-wrap items-center gap-8">
-    <OSegmentedGauge :segments="segments" :size="180" :sweep="360" :gap="12" @segment-click="(s) => (picked = s)" />
+    <OSegmentedGauge :segments="segments" :size="180" :sweep="360" @segment-click="(s) => (picked = s)" />
     <div class="rounded-xl bg-ousi-default px-4 py-3 text-xs">
       <div class="text-ousi-muted">Click a segment</div>
       <div v-if="picked" class="mt-1">
@@ -239,11 +420,12 @@ const picked = ref<GaugeItem | null>(null)
   ],
 
   props: [
-    { name: 'segments', type: 'GaugeSegment[]', description: 'Segments: { id?, label, value, max, color?, valueLabel? }. Arc length is proportional to max.' },
+    { name: 'segments', type: 'GaugeSegment[]', description: 'Segments: { id?, label, value, max, color?, valueLabel? }. Arc length is proportional to max, and the segment fills up to value. To show how a total splits, set each max to its own value.' },
     { name: 'size', type: 'number', default: '200', description: 'Diameter in px.' },
     { name: 'strokeWidth', type: 'number', default: '10', description: 'Thickness (0-100 viewBox scale).' },
     { name: 'sweep', type: 'number', default: '270', description: 'Total angle in degrees. 360 draws a full ring.' },
-    { name: 'gap', type: 'number', default: '8', description: 'Gap between segments in degrees.' },
+    { name: 'gap', type: 'number', default: '2', description: 'Space between segments, in degrees: a curve of even width around the round end of the next one. 0 is the same as joined. Small gauges need more to be seen.' },
+    { name: 'joined', type: 'boolean', default: 'false', description: 'Segments touch, with no space between them. By default a thin curved space separates them.' },
     { name: 'interactive', type: 'boolean', default: 'true', description: 'Enable hover and click reactions.' },
     { name: 'focused', type: 'number | null', default: 'null', description: 'Highlighted segment index. Optional: the chart tracks hover by itself; bind v-model:focused to read or drive it.' },
     { name: 'animated', type: 'boolean', default: 'true', description: 'Animate on mount.' },

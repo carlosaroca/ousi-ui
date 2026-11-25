@@ -9,7 +9,7 @@ const stages = [
 ]
 </script>
 <template>
-  <div class="flex flex-col gap-10">
+  <div class="w-full flex flex-col gap-10">
     <!-- `stage` replaces the content of each legend tile -->
     <OFunnel :stages="stages" :height="180">
       <template #stage="{ item, focused }">

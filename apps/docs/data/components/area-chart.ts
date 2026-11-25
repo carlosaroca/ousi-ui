@@ -32,7 +32,7 @@ const data = [
     },
     {
       id: 'stock',
-      title: 'Recipe: stock price',
+      title: 'Stock price',
       example: {
         component: 'AreaChartStock',
         code: `<script setup lang="ts">
@@ -157,7 +157,7 @@ const data = [
 const usd = (v: number) => \`$\${(v / 1000).toFixed(0)}k\`
 </script>
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="w-full flex flex-col gap-3">
     <div class="flex gap-4 text-xs text-ousi-muted">
       <span class="flex items-center gap-1.5"><span class="inline-block h-0.5 w-4 rounded bg-ousi-accent" />This year</span>
       <span class="flex items-center gap-1.5"><span class="inline-block h-0.5 w-4 rounded border-t-2 border-dashed border-ousi-muted" />Last year</span>
@@ -207,7 +207,7 @@ const data = [
     },
     {
       id: 'hover',
-      title: 'Recipe: header reacts to hover',
+      title: 'Header reacts to hover',
       example: {
         component: 'AreaChartHover',
         code: `<script setup lang="ts">
@@ -315,7 +315,7 @@ const data = [
 ]
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div>
       <p class="mb-2 text-xs text-ousi-muted">baseline="auto" (fits the data)</p>
       <OAreaChart :data="data" category-key="d" baseline="auto" :height="170" :series="[{ key: 'v', label: 'Score', color: 'violet' }]" />

@@ -27,7 +27,7 @@ const data = [
     },
     {
       id: 'compare',
-      title: 'Recipe: compare and filter series',
+      title: 'Compare and filter series',
       example: {
         component: 'RadarChartCompare',
         code: `<script setup lang="ts">
@@ -131,7 +131,7 @@ const data = [
     },
     {
       id: 'hover',
-      title: 'Recipe: header reacts to hover',
+      title: 'Header reacts to hover',
       example: {
         component: 'RadarChartHover',
         code: `<script setup lang="ts">

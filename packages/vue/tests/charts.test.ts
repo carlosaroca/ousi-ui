@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect, beforeAll, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import OComboChart from '../src/components/combo-chart/ComboChart.vue'
@@ -9,6 +9,7 @@ import OAreaChart from '../src/components/area-chart/AreaChart.vue'
 import ORadarChart from '../src/components/radar-chart/RadarChart.vue'
 import OScatterChart from '../src/components/scatter-chart/ScatterChart.vue'
 import OSegmentedGauge from '../src/components/segmented-gauge/SegmentedGauge.vue'
+import { shareArc } from '../src/components/chart-shared'
 import OSankey from '../src/components/sankey/Sankey.vue'
 import ODotMatrix from '../src/components/dot-matrix/DotMatrix.vue'
 import ODonutChart from '../src/components/donut-chart/DonutChart.vue'
@@ -20,6 +21,16 @@ beforeAll(() => {
   ;(globalThis as any).ResizeObserver = class { observe() {} disconnect() {} unobserve() {} }
   window.matchMedia = ((q: string) => ({ matches: true, media: q, addEventListener() {}, removeEventListener() {} })) as any
 })
+
+/** The circle each clip leaves out: `M<rect>ZM<x - r>,<y>a<r>,…`, with the even-odd rule. */
+function circlesCut(clips: { get: (selector: string) => { attributes: (name: string) => string | undefined } }[]) {
+  return clips.map((clip) => {
+    const path = clip.get('path')
+    expect(path.attributes('clip-rule')).toBe('evenodd') // otherwise the circle is kept, and nothing is cut
+    const [, left, y, r] = path.attributes('d')!.match(/ZM(-?[\d.]+),(-?[\d.]+)a([\d.]+),/)!.map(Number)
+    return { x: left + r, y, r }
+  })
+}
 
 const rows = [
   { m: 'Jan', a: 10, b: 2 },
@@ -108,10 +119,152 @@ describe('charts render', () => {
 
   it('segmented gauge: arcs and events', async () => {
     const w = mount(OSegmentedGauge, { props: { segments: [{ label: 'a', value: 5, max: 10 }, { label: 'b', value: 0, max: 5 }] } })
-    expect(w.findAll('path').length).toBe(3) // 2 tracks + 1 fill (value 0 draws no fill)
+    expect(w.findAll('[data-part="track"]').length).toBe(2)
+    expect(w.findAll('[data-part="fill"]').length).toBe(1) // value 0 draws no fill
     await w.findAll('g')[0].trigger('mouseenter')
     expect(w.emitted('segment-enter')).toBeTruthy()
     noNaN(w.html())
+  })
+
+  describe('segmented gauge joints', () => {
+    type Segment = [value: number, max: number]
+    const SWEEP = 270
+    const START = 90 + (360 - SWEEP) / 2
+    const RADIUS = 44 // strokeWidth 10
+
+    function gauge(values: Segment[], props: Record<string, unknown> = {}) {
+      return mount(OSegmentedGauge, {
+        props: { animated: false, segments: values.map(([value, max], i) => ({ label: String(i), value, max })), ...props },
+      })
+    }
+    type Gauge = ReturnType<typeof gauge>
+    const at = (x: number, y: number) => (((Math.atan2(y - 50, x - 50) * 180) / Math.PI - START + 720 + 1) % 360) - 1
+    /** Where each line starts and ends, in degrees from the start of the gauge. */
+    const lines = (w: Gauge) =>
+      w.findAll('[data-part="track"]').map((path) => {
+        const d = path.attributes('d')!
+        const ends = [...d.matchAll(/(?:M|0 [01] 1 )(-?[\d.]+),(-?[\d.]+)/g)].map((m) => [Number(m[1]), Number(m[2])])
+        expect(ends).toHaveLength(3) // start, middle and end
+        return { from: at(ends[0][0], ends[0][1]), to: at(ends[2][0], ends[2][1]), start: ends[0], end: ends[2] }
+      })
+    const cuts = (w: Gauge) => circlesCut(w.findAll('clipPath'))
+
+    const triage: Segment[] = [2, 453, 1224, 480, 39].map((v) => [v, v])
+
+    it('ends each segment exactly where the next begins, so their round ends cannot form a lump', () => {
+      for (const props of [{}, { joined: true }, { strokeWidth: 14, gap: 12 }]) {
+        const all = lines(gauge(triage, props))
+        expect(all).toHaveLength(5)
+        for (let i = 1; i < all.length; i++) expect(all[i].start).toEqual(all[i - 1].end)
+        // The two ends of the gauge are the two ends of the sweep.
+        expect(all[0].from).toBeCloseTo(0, 1)
+        expect(all.at(-1)!.to).toBeCloseTo(SWEEP, 1)
+      }
+    })
+
+    it('has round ends', () => {
+      for (const path of gauge(triage).findAll('[data-part="track"], [data-part="fill"]')) {
+        expect(path.attributes('stroke-linecap')).toBe('round')
+      }
+    })
+
+    it('cuts a ring of the same width around the round start of whatever follows', () => {
+      const w = gauge(triage, { gap: 6 })
+      const all = lines(w)
+      const ring = (6 * Math.PI) / 180 * RADIUS
+      expect(cuts(w)).toHaveLength(4) // the last one has nothing after it
+      cuts(w).forEach((cut, i) => {
+        expect(cut.x).toBeCloseTo(all[i].end[0], 2)
+        expect(cut.y).toBeCloseTo(all[i].end[1], 2)
+        expect(cut.r).toBeCloseTo(5 + ring, 2)
+      })
+      // Each cut applies to the track and the fill of its own segment.
+      const wanted = w.findAll('clipPath').map((c) => `url(#${c.attributes('id')})`)
+      for (const part of ['track', 'fill']) {
+        expect(w.findAll(`[data-part="${part}"]`).map((p) => p.attributes('clip-path'))).toEqual([...wanted, undefined])
+      }
+    })
+
+    it('cuts with a clip, not a mask: what is cut away must not take the pointer', () => {
+      expect(gauge(triage).findAll('mask')).toHaveLength(0)
+    })
+
+    it('closes a full ring: the last segment is cut around the start of the first', () => {
+      const w = gauge([[1, 1], [1, 1], [1, 1]], { sweep: 360 })
+      const first = w.get('[data-part="track"]').attributes('d')!.match(/^M(-?[\d.]+),(-?[\d.]+)/)!
+      expect(cuts(w)).toHaveLength(3)
+      expect(cuts(w)[2].x).toBeCloseTo(Number(first[1]), 2)
+      expect(cuts(w)[2].y).toBeCloseTo(Number(first[2]), 2)
+    })
+
+    it('joined, or with no gap, they touch without lying on each other; separated is the default', () => {
+      // An overlap shows as a disc at the joint as soon as a segment is faded.
+      for (const props of [{ joined: true }, { gap: 0 }]) {
+        const narrow = cuts(gauge(triage, props))
+        expect(narrow).toHaveLength(4)
+        for (const cut of narrow) expect(cut.r).toBeCloseTo(4.9, 3) // a hair under half the band
+      }
+      for (const cut of cuts(gauge(triage))) expect(cut.r).toBeGreaterThan(5)
+    })
+
+    it('draws a whole ring when a single segment closes on itself, without cutting it', () => {
+      const w = gauge([[1, 2]], { sweep: 360 })
+      expect(cuts(w)).toHaveLength(0)
+      const [only] = lines(w)
+      expect(only.start).toEqual(only.end)
+      expect(w.html()).not.toContain('NaN')
+    })
+
+    it('draws any value above zero once, even one that rounds to 0%, and nothing for zero', () => {
+      const [tiny, none] = gauge([[2, 1224], [0, 1224]]).findAll('g')
+      const fill = tiny.findAll('[data-part="fill"]')
+      expect(fill).toHaveLength(1)
+      // A repeat of the dash starting at the end of the line would draw a second dot there.
+      expect(fill[0].attributes('stroke-dasharray')).toBe('1 2')
+      expect(none.findAll('[data-part="fill"]')).toHaveLength(0)
+    })
+
+    it('animates a change of value: the line stays put and only the offset of its dash moves', async () => {
+      const w = gauge([[2, 10]])
+      await new Promise((resolve) => setTimeout(resolve, 30))
+      const fill = () => w.get('[data-part="fill"]')
+      const before = fill().attributes('d')
+      expect(Number(fill().attributes('stroke-dashoffset'))).toBeCloseTo(0.8)
+      await w.setProps({ segments: [{ label: '0', value: 7, max: 10 }] })
+      expect(fill().attributes('d')).toBe(before)
+      expect(Number(fill().attributes('stroke-dashoffset'))).toBeCloseTo(0.3)
+    })
+
+    it('does not fill past the segment when the value is over its maximum', async () => {
+      const w = gauge([[15, 10]])
+      await new Promise((resolve) => setTimeout(resolve, 30))
+      expect(Number(w.get('[data-part="fill"]').attributes('stroke-dashoffset'))).toBe(0)
+    })
+
+    it('gives a segment with no maximum no room', () => {
+      const w = gauge([[5, 10], [0, 0], [5, 10]])
+      expect(lines(w)).toHaveLength(2)
+      expect(w.html()).not.toContain('NaN')
+    })
+
+    it('gives clip ids that two gauges never share', () => {
+      const w = mount({
+        components: { OSegmentedGauge },
+        template: '<div><OSegmentedGauge :segments="s" /><OSegmentedGauge :segments="s" /></div>',
+        data: () => ({ s: [{ label: 'a', value: 1, max: 2 }, { label: 'b', value: 1, max: 1 }] }),
+      })
+      expect(new Set(w.findAll('clipPath').map((c) => c.attributes('id'))).size).toBe(2)
+    })
+
+    it('shares the sweep in proportion, lifting what is too small to see', () => {
+      expect(shareArc([1, 1, 2], 100, 5)).toEqual([25, 25, 50])
+      const lifted = shareArc([1, 99, 0, 100], 100, 10)
+      expect(lifted[0]).toBe(10)
+      expect(lifted[2]).toBe(0)
+      expect(lifted.reduce((a, b) => a + b)).toBeCloseTo(100)
+      expect(shareArc([1, 1, 1], 9, 10)).toEqual([3, 3, 3])
+      expect(shareArc([1, 2], -4, 5)).toEqual([0, 0])
+    })
   })
 
   it('sankey: columns, ribbons and focus', async () => {
@@ -233,12 +386,194 @@ describe('dot matrix', () => {
   })
 })
 
+describe('very small and empty values', () => {
+  const data = [{ m: 'tiny', v: 1 }, { m: 'big', v: 5000 }, { m: 'none', v: 0 }]
+  const series = [{ key: 'v' }]
+
+  it.each([
+    ['vertical', 'height', {}],
+    ['horizontal', 'width', { orientation: 'horizontal' }],
+  ])('bar chart, %s: anything above zero is seen, zero is not', (_, side, props) => {
+    const w = mount(OBarChart, { props: { data, categoryKey: 'm', series, animated: false, ...props } })
+    const [tiny, big, none] = w.findAll('[data-part="bar"]').map((r) => Number(r.attributes(side)))
+    expect(tiny).toBe(3)
+    expect(big).toBeGreaterThan(100)
+    expect(none).toBe(0)
+  })
+
+  it('bar chart: a short bar keeps round corners, not oval ones', () => {
+    // SVG limits rx and ry apart, so the radius has to fit both sides.
+    const w = mount(OBarChart, { props: { data, categoryKey: 'm', series, animated: false } })
+    for (const rect of w.findAll('[data-part="bar"]')) {
+      const [width, height, rx] = ['width', 'height', 'rx'].map((a) => Number(rect.attributes(a)))
+      expect(rx).toBeLessThanOrEqual(Math.min(width, height) / 2)
+    }
+  })
+
+  it('combo chart: anything above zero is seen, zero is not', () => {
+    const w = mount(OComboChart, { props: { data, categoryKey: 'm', bar: { key: 'v' }, animated: false } })
+    const tall = (d: string) => {
+      const ys = [...d.matchAll(/V(-?[\d.]+)|(?:M|0 0 1 )-?[\d.]+,(-?[\d.]+)/g)].map((m) => Number(m[1] ?? m[2]))
+      return Math.max(...ys) - Math.min(...ys)
+    }
+    const [tiny, big, none] = w.findAll('path[style*="scaleY"]').map((p) => tall(p.attributes('d')!))
+    expect(tiny).toBeCloseTo(3, 5)
+    expect(big).toBeGreaterThan(100)
+    expect(none).toBe(0)
+  })
+
+  it('funnel bars: with little room each bar takes a line of its own', async () => {
+    const stages = [{ label: 'Impressions', value: 10 }, { label: 'b', value: 4 }]
+    const laid = async (available: number) => {
+      const room = vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(available)
+      const w = mount(OFunnel, { props: { variant: 'bars', stages } })
+      await nextTick()
+      room.mockRestore()
+      return w.findAll('[data-part="track"]').map((track) => track.classes().includes('col-span-2'))
+    }
+    expect(await laid(300)).toEqual([true, true])
+    expect(await laid(640)).toEqual([false, false])
+  })
+
+  it('funnel bars: the shortest is a circle, and an empty stage has no bar', async () => {
+    const w = mount(OFunnel, {
+      props: { variant: 'bars', animated: false, stages: [{ label: 'a', value: 1000 }, { label: 'b', value: 1 }, { label: 'c', value: 0 }] },
+    })
+    await nextTick()
+    const rows = w.findAll('li')
+    const bar = rows[1].get('[data-part="bar"]').attributes('style')!
+    expect(bar).toContain('min-width: 2.25rem') // the height of the track: h-9
+    expect(bar).not.toContain('width: 8%') // the real share, which the minimum then holds up
+    expect(rows[0].find('[data-part="bar"]').exists()).toBe(true)
+    expect(rows[2].find('[data-part="bar"]').exists()).toBe(false)
+  })
+})
+
 describe('donut chart', () => {
   const data = [{ label: 'A', value: 50 }, { label: 'B', value: 30 }, { label: 'C', value: 20 }]
 
+  describe('joints', () => {
+    const RADIUS = 38 // size 220, thickness 16, explode 3
+    const donut = (props: Record<string, unknown> = {}) => mount(ODonutChart, { props: { data, animated: false, ...props } })
+    type Donut = ReturnType<typeof donut>
+    const segments = (w: Donut) => w.findAll('[data-part="segment"]')
+    /** Start and end of each arc. */
+    const ends = (w: Donut) =>
+      segments(w).map((path) => {
+        const all = [...path.attributes('d')!.matchAll(/(?:M|0 [01] 1 )(-?[\d.]+),(-?[\d.]+)/g)].map((m) => [Number(m[1]), Number(m[2])])
+        return { start: all[0], end: all.at(-1)! }
+      })
+    const cuts = (w: Donut) => circlesCut(w.findAll('clipPath'))
+    /** Degrees an arc spans. */
+    const spans = (w: Donut) =>
+      ends(w).map(({ start, end }) => {
+        const angle = ([x, y]: number[]) => (Math.atan2(y - 50, x - 50) * 180) / Math.PI
+        return (angle(end) - angle(start) + 360) % 360
+      })
+
+    it('is round by default, each segment ending exactly where the next begins, all the way round', () => {
+      const w = donut()
+      const all = ends(w)
+      expect(all).toHaveLength(3)
+      for (const path of segments(w)) expect(path.attributes('stroke-linecap')).toBe('round')
+      all.forEach((arc, i) => {
+        expect(arc.end[0]).toBeCloseTo(all[(i + 1) % 3].start[0], 2)
+        expect(arc.end[1]).toBeCloseTo(all[(i + 1) % 3].start[1], 2)
+      })
+      expect(all[0].start).toEqual([50, 50 - RADIUS]) // 12 o'clock
+    })
+
+    it('keeps the angles in proportion to the values', () => {
+      const [a, b, c] = spans(donut())
+      expect(a).toBeCloseTo(180, 1)
+      expect(b).toBeCloseTo(108, 1)
+      expect(c).toBeCloseTo(72, 1)
+    })
+
+    it('separates them with a ring of even width around the round start of the next one', () => {
+      const w = donut({ gap: 5 })
+      const all = ends(w)
+      expect(cuts(w)).toHaveLength(3)
+      cuts(w).forEach((cut, i) => {
+        expect(cut.x).toBeCloseTo(all[i].end[0], 2)
+        expect(cut.y).toBeCloseTo(all[i].end[1], 2)
+        expect(cut.r).toBeCloseTo(8 + ((5 * Math.PI) / 180) * RADIUS, 2)
+      })
+      expect(segments(w).map((p) => p.attributes('clip-path'))).toEqual(w.findAll('clipPath').map((c) => `url(#${c.attributes('id')})`))
+    })
+
+    it('joined, they touch without lying on each other, also where the circle closes', () => {
+      for (const props of [{ joined: true }, { gap: 0 }]) {
+        const w = donut(props)
+        expect(cuts(w)).toHaveLength(3)
+        for (const cut of cuts(w)) expect(cut.r).toBeCloseTo(7.9, 3) // a hair under half the band
+        expect(segments(w).every((p) => !!p.attributes('clip-path'))).toBe(true)
+      }
+    })
+
+    it('moves the hovered segment out, except from a joined round ring, which is one piece', () => {
+      const moved = (props: Record<string, unknown>) =>
+        !donut({ ...props, focused: 1 }).findAll('g[data-roving]')[1].attributes('style')!.includes('translate(0px, 0px)')
+      expect(moved({})).toBe(true)
+      expect(moved({ rounded: false, joined: true })).toBe(true) // straight ends come apart cleanly
+      expect(moved({ variant: 'pie', joined: true })).toBe(true)
+      expect(moved({ joined: true })).toBe(false)
+      expect(moved({ gap: 0 })).toBe(false)
+    })
+
+    it('can be cut straight, with the space as an angle', () => {
+      const w = donut({ rounded: false })
+      for (const path of segments(w)) expect(path.attributes('stroke-linecap')).toBe('butt')
+      expect(cuts(w)).toHaveLength(0)
+      expect(spans(w)[0]).toBeCloseTo((360 - 3 * 2) * 0.5, 1)
+      expect(spans(donut({ rounded: false, joined: true }))[0]).toBeCloseTo(180, 1)
+    })
+
+    it('never rounds or cuts a pie', () => {
+      const w = donut({ variant: 'pie' })
+      for (const path of segments(w)) expect(path.attributes('stroke-linecap')).toBe('butt')
+      expect(cuts(w)).toHaveLength(0)
+    })
+
+    it('draws a single value as a whole ring, uncut', () => {
+      const w = donut({ data: [{ label: 'all', value: 7 }, { label: 'none', value: 0 }] })
+      expect(segments(w)).toHaveLength(1)
+      expect(cuts(w)).toHaveLength(0)
+      expect(ends(w)[0].start).toEqual(ends(w)[0].end)
+    })
+
+    it('lifts a tiny share enough to be seen, and still reports its real percent', () => {
+      const w = donut({ data: [{ label: 'big', value: 999 }, { label: 'tiny', value: 1 }], showLegend: true })
+      const length = (degrees: number) => ((degrees * Math.PI) / 180) * RADIUS
+      expect(length(spans(w)[1]) - length(2)).toBeCloseTo(0.3 * 16, 1) // what is left of it once cut
+      expect(w.text()).toContain('0.1%')
+    })
+
+    it('draws each segment once: no repeat of the dash shows as a second dot', () => {
+      for (const path of segments(donut())) expect(path.attributes('stroke-dasharray')).toBe('1 2')
+    })
+
+    it('gives clip ids that two donuts never share', () => {
+      const w = mount({
+        components: { ODonutChart },
+        template: '<div><ODonutChart :data="d" /><ODonutChart :data="d" /></div>',
+        data: () => ({ d: data }),
+      })
+      expect(new Set(w.findAll('clipPath').map((c) => c.attributes('id'))).size).toBe(6)
+    })
+
+    it('survives no data and all zeros', () => {
+      for (const empty of [[], [{ label: 'a', value: 0 }, { label: 'b', value: 0 }]]) {
+        const w = donut({ data: empty })
+        expect(segments(w)).toHaveLength(0)
+        expect(w.html()).not.toContain('NaN')
+      }
+    })
+  })
+
   it('draws one arc per segment with the right shares', () => {
     const w = mount(ODonutChart, { props: { data } })
-    expect(w.findAll('path').length).toBe(3)
+    expect(w.findAll('[data-part="segment"]').length).toBe(3)
     expect(w.text()).toContain('100') // total in the hole
     noNaN(w.html())
   })

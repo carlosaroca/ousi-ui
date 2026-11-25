@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 import { cn } from '@ousi-ui/core'
-import { resolveChartColor, useChartMotion, useFocus } from '../chart-shared'
+import { jointedArcs, resolveChartColor, useChartMotion, useFocus } from '../chart-shared'
 import type { GaugeItem, SegmentedGaugeProps, SegmentedGaugeSlots } from './segmented-gauge.types'
 
 const props = withDefaults(defineProps<SegmentedGaugeProps>(), {
   size: 200,
   strokeWidth: 10,
   sweep: 270,
-  gap: 8,
+  gap: 2,
+  joined: false,
   interactive: true,
   animated: true,
 })
@@ -45,29 +46,20 @@ const maxTotal = computed(() => props.segments.reduce((t, s) => t + s.max, 0))
 
 // Angles are in degrees, 0° at 3 o'clock, clockwise (SVG). The gauge opens at the bottom.
 const start = computed(() => (fullRing.value ? -90 : 90 + (360 - props.sweep) / 2))
-const arcs = computed(() => {
-  const n = Math.max(items.value.length, 1)
-  const usable = props.sweep - props.gap * (fullRing.value ? n : n - 1)
-  let cursor = start.value
-  return items.value.map((it) => {
-    const span = Math.max((usable * it.max) / (maxTotal.value || 1), 0)
-    const a0 = cursor
-    cursor += span + props.gap
-    return { a0, a1: a0 + span, span }
-  })
-})
+const arcs = computed(() =>
+  jointedArcs({
+    sizes: items.value.map((it) => Math.max(it.max, 0)),
+    start: start.value,
+    sweep: props.sweep,
+    radius: R.value,
+    thickness: props.strokeWidth,
+    gap: props.gap,
+    joined: props.joined,
+  }),
+)
 
-const point = (deg: number): [number, number] => {
-  const rad = (deg * Math.PI) / 180
-  return [50 + Math.cos(rad) * R.value, 50 + Math.sin(rad) * R.value]
-}
-function arcPath(a0: number, a1: number) {
-  if (a1 - a0 <= 0.01) return ''
-  const [x0, y0] = point(a0)
-  const [x1, y1] = point(a1)
-  const large = a1 - a0 > 180 ? 1 : 0
-  return `M${x0},${y0}A${R.value},${R.value} 0 ${large} 1 ${x1},${y1}`
-}
+// Clip paths are shared by id across the page.
+const clipId = useId()
 
 const focusedSegment = computed(() => (focused.value == null ? null : items.value[focused.value] ?? null))
 const isDimmed = (i: number) => focused.value != null && focused.value !== i
@@ -105,19 +97,35 @@ const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.labe
         @mouseleave="leave(it, $event)"
         @click="click(it, $event)"
       >
-        <path
-          :d="arcPath(arcs[it.index].a0, arcs[it.index].a1)"
-          :stroke-width="strokeWidth" stroke-linecap="round"
-          stroke="var(--ousi-default)"
-        />
-        <path
-          v-if="it.percent > 0"
-          :d="arcPath(arcs[it.index].a0, arcs[it.index].a1)"
-          :stroke="it.color" :stroke-width="strokeWidth" stroke-linecap="round"
-          pathLength="1" stroke-dasharray="1"
-          :stroke-dashoffset="1 - (mounted ? it.value / (it.max || 1) : 0)"
-          :style="{ transition: motion ? `stroke-dashoffset 1000ms cubic-bezier(0.22, 1, 0.36, 1) ${it.index * 150}ms` : 'none' }"
-        />
+        <template v-if="arcs[it.index]">
+          <clipPath v-if="arcs[it.index]!.clip" :id="`${clipId}-${it.index}`">
+            <path :d="arcs[it.index]!.clip" clip-rule="evenodd" />
+          </clipPath>
+          <path
+            :clip-path="arcs[it.index]!.clip ? `url(#${clipId}-${it.index})` : undefined"
+            data-part="track"
+            :d="arcs[it.index]!.d"
+            :stroke-width="strokeWidth"
+            stroke-linecap="round"
+            stroke="var(--ousi-default)"
+          />
+          <!-- Any value above zero shows, even one that rounds to 0%. The gap of the dash is longer
+               than the line, so no repeat of the dash shows as a second dot at its end. The line
+               stays and the offset moves, which is what animates a change of value. -->
+          <path
+            v-if="it.value > 0 && it.max > 0"
+            :clip-path="arcs[it.index]!.clip ? `url(#${clipId}-${it.index})` : undefined"
+            data-part="fill"
+            :d="arcs[it.index]!.d"
+            :stroke="it.color"
+            :stroke-width="strokeWidth"
+            stroke-linecap="round"
+            pathLength="1"
+            stroke-dasharray="1 2"
+            :stroke-dashoffset="1 - (mounted ? Math.min(it.value / it.max, 1) : 0)"
+            :style="{ transition: motion ? `stroke-dashoffset 1000ms cubic-bezier(0.22, 1, 0.36, 1) ${it.index * 150}ms` : 'none' }"
+          />
+        </template>
       </g>
     </svg>
 

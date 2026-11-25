@@ -12,7 +12,7 @@ function toggle(it: DotMatrixItem) {
 const avg = () => (picked.value.length ? Math.round(picked.value.reduce((s, p) => s + p.value, 0) / picked.value.length) : 0)
 </script>
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="w-full flex flex-col gap-4">
     <ODotMatrix :data="data" :max="100" color="accent" :dot-size="16" @column-click="toggle" />
     <p class="text-xs text-ousi-muted">
       Click columns to select them ·

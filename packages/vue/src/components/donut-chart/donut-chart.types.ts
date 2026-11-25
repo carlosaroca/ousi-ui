@@ -27,11 +27,13 @@ export interface DonutChartProps {
   size?: number
   /** Ring thickness in viewBox units (0-100 scale). Ignored by `pie`. */
   thickness?: number
-  /** Gap between segments in degrees. */
+  /** Space between segments, in degrees. With round ends it is a curve of even width. 0 joins them. */
   gap?: number
-  /** Round the ends of every segment. Works best with a gap of 3 degrees or more. */
+  /** Round ends, each fitted around the next. Defaults to true; false cuts them straight. Not for pies. */
   rounded?: boolean
-  /** How far the hovered segment moves outward, in viewBox units. */
+  /** Segments touch, with no space between them. */
+  joined?: boolean
+  /** How far the hovered segment moves outward, in viewBox units. A joined ring with round ends stays whole. */
   explode?: number
   /** Show a legend under the chart: swatch, label and share. */
   showLegend?: boolean

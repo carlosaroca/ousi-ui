@@ -32,8 +32,13 @@ export interface SegmentedGaugeProps {
   strokeWidth?: number
   /** Total angle of the gauge in degrees. 360 draws a full ring. */
   sweep?: number
-  /** Gap between segments in degrees. */
+  /**
+   * Space between segments, in degrees: a curve of even width around the round end of the next one.
+   * 0 joins them.
+   */
   gap?: number
+  /** Segments touch, with no space between them. */
+  joined?: boolean
   interactive?: boolean
   /** Highlighted segment index. Supports v-model:focused. */
   focused?: number | null

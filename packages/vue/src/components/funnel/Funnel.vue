@@ -55,6 +55,11 @@ const items = computed<FunnelItem[]>(() => {
 
 const isDimmed = (i: number) => focused.value != null && focused.value !== i
 
+// With little room, a bar between its label and its figure is so short that unlike values all look
+// alike: it takes a line of its own. This also gives it a length where the parent only takes the
+// width of its content.
+const narrow = computed(() => width.value < 400)
+
 function enter(item: FunnelItem, e: Event) {
   if (!props.interactive) return
   setFocused(item.index)
@@ -205,8 +210,8 @@ const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.labe
       <li
         v-for="it in items"
         :key="it.key"
-        class="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 outline-none"
-        :class="interactive && 'cursor-pointer'"
+        class="grid items-center gap-x-3 outline-none"
+        :class="[narrow ? 'grid-cols-[minmax(0,1fr)_auto] gap-y-1' : 'grid-cols-[auto_minmax(0,1fr)_auto]', interactive && 'cursor-pointer']"
         :tabindex="roving.tabindexFor(it.index, interactive)" :data-roving="it.index" @focusin="roving.activate(it.index)" @keydown="roving.onKeydown($event, it.index)"
         @mouseenter="enter(it, $event)"
         @mouseleave="leave(it, $event)"
@@ -219,16 +224,21 @@ const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.labe
         <span class="min-w-16 text-sm text-ousi-muted transition-opacity duration-200" :class="isDimmed(it.index) && 'opacity-40'">
           {{ it.label }}
         </span>
-        <div class="h-9 overflow-hidden rounded-full bg-ousi-default">
+        <div data-part="track" class="h-9 overflow-hidden rounded-full bg-ousi-default" :class="narrow && 'order-last col-span-2'">
+          <!-- Narrower than it is tall, the pill would turn into a sliver: the shortest is a circle. A
+               stage with nothing in it has no bar. -->
           <div
+            v-if="it.value > 0"
+            data-part="bar"
             class="flex h-full items-center rounded-full pl-2.5 transition-[filter,opacity] duration-200"
             :style="{
-              width: mounted ? `${Math.max(it.percent, 8)}%` : '0%',
+              width: mounted ? `${it.percent}%` : '0%',
+              minWidth: mounted ? '2.25rem' : '0px',
               backgroundColor: it.color,
               opacity: isDimmed(it.index) ? 0.3 : 1,
               filter: focused === it.index ? 'brightness(0.88)' : 'none',
               transition: motion
-                ? `width 800ms cubic-bezier(0.22, 1, 0.36, 1) ${it.index * 80}ms, opacity 200ms, filter 200ms`
+                ? `width 800ms cubic-bezier(0.22, 1, 0.36, 1) ${it.index * 80}ms, min-width 800ms cubic-bezier(0.22, 1, 0.36, 1) ${it.index * 80}ms, opacity 200ms, filter 200ms`
                 : 'opacity 200ms, filter 200ms',
             }"
           >

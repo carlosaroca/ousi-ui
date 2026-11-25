@@ -42,7 +42,7 @@ const usd = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } as 
     </div>
 
     <div class="flex flex-wrap items-center gap-6">
-      <ODonutChart v-model:focused="focused" :data="data" :size="180" :thickness="14" :gap="3" rounded>
+      <ODonutChart v-model:focused="focused" :data="data" :size="180" :thickness="14" :gap="3">
         <template #default="{ focusedItem }">
           <div class="text-center">
             <div class="text-2xl font-semibold tabular-nums text-ousi-foreground">{{ focusedItem ? `${focusedItem.percent}%` : '100%' }}</div>

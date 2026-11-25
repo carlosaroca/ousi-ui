@@ -13,7 +13,7 @@ const best = data.reduce((b, r, i) => (r.sessions > data[b].sessions ? i : b), 0
 const worst = data.reduce((b, r, i) => (r.sessions < data[b].sessions ? i : b), 0)
 </script>
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="w-full flex flex-col gap-4">
     <div class="flex gap-2">
       <OButton size="sm" :variant="focused === best ? 'primary' : 'secondary'" @click="focused = focused === best ? null : best">
         Best month

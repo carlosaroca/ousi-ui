@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 import { cn } from '@ousi-ui/core'
-import { resolveChartColor, useChartMotion, useFocus, useRoving } from '../chart-shared'
+import { jointedArcs, pointAt, resolveChartColor, useChartMotion, useFocus, useRoving } from '../chart-shared'
 import type { DonutChartProps, DonutChartSlots, DonutItem } from './donut-chart.types'
 
 const props = withDefaults(defineProps<DonutChartProps>(), {
@@ -9,7 +9,8 @@ const props = withDefaults(defineProps<DonutChartProps>(), {
   size: 220,
   thickness: 16,
   gap: 2,
-  rounded: false,
+  rounded: true,
+  joined: false,
   explode: 3,
   showLegend: false,
   interactive: true,
@@ -49,35 +50,57 @@ const outer = computed(() => 50 - pad.value)
 const stroke = computed(() => (props.variant === 'pie' ? outer.value : Math.min(props.thickness, outer.value)))
 const R = computed(() => (props.variant === 'pie' ? outer.value / 2 : outer.value - stroke.value / 2))
 
+// A pie has no band to round.
+const isRound = computed(() => props.rounded && props.variant === 'donut')
+
 const arcs = computed(() => {
+  if (isRound.value) {
+    const round = jointedArcs({
+      sizes: items.value.map((it) => Math.max(it.value, 0)),
+      start: -90,
+      sweep: 360,
+      radius: R.value,
+      thickness: stroke.value,
+      gap: props.gap,
+      joined: props.joined,
+      // Shares are what a donut is read for, so a tiny one is lifted as little as can be seen.
+      least: 0.3,
+    })
+    return round.map((arc) => ({ d: arc?.d ?? '', clip: arc?.clip, mid: (arc?.mid ?? -90) + 90 }))
+  }
+  // Flat: straight ends, set apart by an angle.
   const visible = items.value.filter((i) => i.value > 0).length
-  const gap = visible > 1 ? props.gap : 0
+  const gap = visible > 1 && !props.joined ? props.gap : 0
   const usable = 360 - gap * visible
   let cursor = gap / 2
-  const inset = props.rounded ? (stroke.value / 2 / R.value) * (180 / Math.PI) : 0
   return items.value.map((it) => {
     const span = total.value ? (usable * Math.max(it.value, 0)) / total.value : 0
     const mid = cursor + span / 2
-    // A segment too short for round caps collapses into a dot centered in its slot
-    const short = span - inset * 2 < 0.6
-    const a0 = short ? mid - 0.3 : cursor + inset
-    const a1 = short ? mid + 0.3 : Math.min(cursor + span - inset, a0 + 359.9)
+    const a0 = cursor
+    const a1 = Math.min(cursor + span, a0 + 359.9)
     cursor += span + gap
-    return { a0, a1, mid }
+    return { d: arcPath(a0, Math.max(a1, a0 + 0.01)), clip: undefined as string | undefined, mid }
   })
 })
 
+/** Angles of the donut are measured from 12 o'clock. */
 const pt = (deg: number, r: number): [number, number] => {
-  const rad = ((deg - 90) * Math.PI) / 180
-  return [50 + Math.cos(rad) * r, 50 + Math.sin(rad) * r]
+  const { x, y } = pointAt(deg - 90, r)
+  return [x, y]
 }
 function arcPath(a0: number, a1: number) {
   const [x0, y0] = pt(a0, R.value)
   const [x1, y1] = pt(a1, R.value)
   return `M${x0},${y0}A${R.value},${R.value} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1},${y1}`
 }
+
+// Clip paths are shared by id across the page.
+const clipId = useId()
+
 function offset(i: number) {
-  if (focused.value !== i) return 'translate(0px, 0px)'
+  // A joined ring with round ends is one piece: pulled apart, the ends fitted into each other show.
+  const onePiece = isRound.value && (props.joined || props.gap <= 0)
+  if (focused.value !== i || onePiece) return 'translate(0px, 0px)'
   const [x, y] = pt(arcs.value[i].mid, props.explode)
   return `translate(${x - 50}px, ${y - 50}px)`
 }
@@ -128,14 +151,21 @@ const ariaLabel = computed(() => props.label ?? items.value.map((i) => `${i.labe
           @keydown.enter.prevent="click(it, $event)"
           @keydown.space.prevent="click(it, $event)"
         >
+          <clipPath v-if="it.value > 0 && arcs[i].clip" :id="`${clipId}-${i}`">
+            <path :d="arcs[i].clip" clip-rule="evenodd" />
+          </clipPath>
+          <!-- The dash gap is longer than the line: otherwise, while it is still empty, a repeat of
+               the dash starts at its end and its round cap shows as a dot. -->
           <path
             v-if="it.value > 0"
-            :d="arcPath(arcs[i].a0, arcs[i].a1)"
+            data-part="segment"
+            :d="arcs[i].d"
+            :clip-path="arcs[i].clip ? `url(#${clipId}-${i})` : undefined"
             :stroke="it.color"
             :stroke-width="stroke"
-            :stroke-linecap="rounded ? 'round' : 'butt'"
+            :stroke-linecap="isRound ? 'round' : 'butt'"
             pathLength="1"
-            stroke-dasharray="1"
+            stroke-dasharray="1 2"
             :stroke-dashoffset="mounted ? 0 : 1"
             :style="{ transition: motion ? `stroke-dashoffset 900ms cubic-bezier(0.22, 1, 0.36, 1) ${i * 110}ms` : 'none' }"
           />

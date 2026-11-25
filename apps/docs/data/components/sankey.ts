@@ -34,7 +34,7 @@ const links = [
     },
     {
       id: 'budget',
-      title: 'Recipe: budget with period switch',
+      title: 'Budget with period switch',
       example: {
         component: 'SankeyBudget',
         code: `<script setup lang="ts">
@@ -126,7 +126,7 @@ const links = [
     },
     {
       id: 'hover',
-      title: 'Recipe: header reacts to hover',
+      title: 'Header reacts to hover',
       example: {
         component: 'SankeyHover',
         code: `<script setup lang="ts">
@@ -192,7 +192,7 @@ const focused = ref<string | null>('node:4')
 const options = [{ label: 'Signup', key: 'node:4' }, { label: 'Bounce', key: 'node:5' }, { label: 'Search → Landing', key: 'link:0' }]
 </script>
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="w-full flex flex-col gap-4">
     <div class="flex flex-wrap gap-2">
       <OButton v-for="o in options" :key="o.key" size="sm" :variant="focused === o.key ? 'primary' : 'secondary'" @click="focused = focused === o.key ? null : o.key">
         {{ o.label }}
@@ -218,7 +218,7 @@ const links = [
 ]
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div>
       <p class="mb-2 text-xs text-ousi-muted">No labels, thin nodes</p>
       <OSankey :nodes="nodes" :links="links" :height="180" :show-labels="false" :node-width="6" />

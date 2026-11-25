@@ -39,7 +39,7 @@ const short = (v: number) => (v >= 1000 ? \`$\${v / 1000}K\` : \`$\${v}\`)
     },
     {
       id: 'earnings',
-      title: 'Recipe: earnings with period tabs',
+      title: 'Earnings with period tabs',
       example: {
         component: 'BarChartEarnings',
         code: `<script setup lang="ts">

@@ -141,8 +141,9 @@ const points = computed<ComboChartPoint[]>(() =>
 const bars = computed(() => {
   const bw = band.value * (1 - Math.min(Math.max(props.barGap, 0), 0.9))
   return points.value.map((p) => {
-    const y = yBar(p.bar.value)
-    const h = Math.max(plot.value.y1 - y, 0)
+    // A value above zero is always seen, however small next to the rest.
+    const h = Math.max(plot.value.y1 - yBar(p.bar.value), p.bar.value > 0 ? 3 : 0)
+    const y = plot.value.y1 - h
     return { index: p.index, d: barPath(p.x - bw / 2, y, bw, h, props.barRadius, props.barCorners === 'all') }
   })
 })

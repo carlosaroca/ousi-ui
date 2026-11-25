@@ -11,7 +11,7 @@ const data = [
 const usd = (v: number) => `$${(v / 1000).toFixed(0)}k`
 </script>
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="w-full flex flex-col gap-3">
     <div class="flex gap-4 text-xs text-ousi-muted">
       <span class="flex items-center gap-1.5"><span class="inline-block h-0.5 w-4 rounded bg-ousi-accent" />This year</span>
       <span class="flex items-center gap-1.5"><span class="inline-block h-0.5 w-4 rounded border-t-2 border-dashed border-ousi-muted" />Last year</span>

@@ -65,7 +65,7 @@ const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',
     },
     {
       id: 'card',
-      title: 'Recipe: traffic card',
+      title: 'Traffic card',
       example: {
         component: 'ComboChartCard',
         code: `<script setup lang="ts">
@@ -166,7 +166,7 @@ const delta = computed(() => {
     },
     {
       id: 'earnings',
-      title: 'Recipe: earnings (bars only)',
+      title: 'Earnings (bars only)',
       example: {
         component: 'ComboChartEarnings',
         code: `<script setup lang="ts">
@@ -242,7 +242,7 @@ const active = computed(() => (focused.value == null ? null : set.value.rows[foc
     },
     {
       id: 'steps',
-      title: 'Recipe: steps (week navigation)',
+      title: 'Steps (week navigation)',
       example: {
         component: 'ComboChartSteps',
         code: `<script setup lang="ts">
@@ -364,7 +364,7 @@ const selected = ref<ComboChartPoint | null>(null)
 const push = (m: string) => { log.value = [m, ...log.value].slice(0, 4) }
 </script>
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="w-full flex flex-col gap-4">
     <OComboChart
       :data="data"
       category-key="month"
@@ -411,7 +411,7 @@ const best = data.reduce((b, r, i) => (r.sessions > data[b].sessions ? i : b), 0
 const worst = data.reduce((b, r, i) => (r.sessions < data[b].sessions ? i : b), 0)
 </script>
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="w-full flex flex-col gap-4">
     <div class="flex gap-2">
       <OButton size="sm" :variant="focused === best ? 'primary' : 'secondary'" @click="focused = focused === best ? null : best">
         Best month
@@ -448,7 +448,7 @@ const data = [
 ]
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div>
       <p class="mb-2 text-xs text-ousi-muted">Bars only</p>
       <OComboChart :data="data" category-key="d" :height="180" :bar="{ key: 'visits', label: 'Visits', color: 'var(--ousi-violet)' }" />

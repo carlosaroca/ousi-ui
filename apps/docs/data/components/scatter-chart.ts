@@ -31,7 +31,7 @@ const series = [
     },
     {
       id: 'cohorts',
-      title: 'Recipe: filter series, custom tooltip',
+      title: 'Filter series, custom tooltip',
       example: {
         component: 'ScatterChartCohorts',
         code: `<script setup lang="ts">
@@ -130,7 +130,7 @@ const series = [
     },
     {
       id: 'hover',
-      title: 'Recipe: header reacts to hover',
+      title: 'Header reacts to hover',
       example: {
         component: 'ScatterChartHover',
         code: `<script setup lang="ts">
@@ -218,7 +218,7 @@ const bubbles = [
 ]
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div>
       <p class="mb-2 text-xs text-ousi-muted">No grid, no axes</p>
       <OScatterChart :series="series" :height="190" :grid="false" :show-x-axis="false" :show-y-axis="false" />

@@ -8,7 +8,7 @@ const data = [
 ]
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div>
       <p class="mb-2 text-xs text-ousi-muted">Bars only</p>
       <OComboChart :data="data" category-key="d" :height="180" :bar="{ key: 'visits', label: 'Visits', color: 'var(--ousi-violet)' }" />

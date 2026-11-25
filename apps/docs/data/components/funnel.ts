@@ -29,7 +29,7 @@ const stages = [
     },
     {
       id: 'signup',
-      title: 'Recipe: sign-up funnel',
+      title: 'Sign-up funnel',
       example: {
         component: 'FunnelSignup',
         code: `<script setup lang="ts">
@@ -122,7 +122,7 @@ const stages = [
 ]
 </script>
 <template>
-  <div class="grid gap-10 md:grid-cols-2">
+  <div class="w-full grid gap-10 md:grid-cols-2">
     <div>
       <p class="mb-3 text-xs text-ousi-muted">shape="sharp"</p>
       <OFunnel :stages="stages" shape="sharp" :height="150" :show-legend="false" />
@@ -135,7 +135,7 @@ const stages = [
       <p class="mb-3 text-xs text-ousi-muted">no halo</p>
       <OFunnel :stages="stages" :halo="false" :height="150" :show-legend="false" />
     </div>
-    <div>
+    <div class="md:col-span-2">
       <p class="mb-3 text-xs text-ousi-muted">bars + mono, no percentages</p>
       <OFunnel :stages="stages" variant="bars" mono :show-percent="false" />
     </div>
@@ -145,7 +145,7 @@ const stages = [
     },
     {
       id: 'hover',
-      title: 'Recipe: header reacts to hover',
+      title: 'Header reacts to hover',
       example: {
         component: 'FunnelHover',
         code: `<script setup lang="ts">
@@ -179,7 +179,7 @@ const active = computed(() => (focused.value == null ? null : stages[focused.val
     },
     {
       id: 'playground',
-      title: 'Recipe: range, variant and mono',
+      title: 'Range, variant and mono',
       example: {
         component: 'FunnelPlayground',
         code: `<script setup lang="ts">
@@ -258,7 +258,7 @@ const stages = [
 ]
 </script>
 <template>
-  <div class="flex flex-col gap-10">
+  <div class="w-full flex flex-col gap-10">
     <!-- \`stage\` replaces the content of each legend tile -->
     <OFunnel :stages="stages" :height="180">
       <template #stage="{ item, focused }">
@@ -311,7 +311,7 @@ const selected = ref<FunnelItem | null>(null)
 const push = (m: string) => { log.value = [m, ...log.value].slice(0, 4) }
 </script>
 <template>
-  <div class="flex flex-col gap-5">
+  <div class="w-full flex flex-col gap-5">
     <OFunnel
       :stages="stages"
       variant="bars"

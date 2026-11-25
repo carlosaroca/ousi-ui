@@ -53,7 +53,7 @@ const rating = computed(() => (score(current.value) >= 95 ? 'Excellent' : score(
         :class="selected === i ? 'bg-ousi-default' : 'hover:bg-ousi-default/60'"
         @click="selected = i"
       >
-        <OSegmentedGauge :segments="segs(r)" :size="38" :stroke-width="14" :gap="14" :interactive="false" :animated="false" />
+        <OSegmentedGauge :segments="segs(r)" :size="38" :stroke-width="14" :gap="7" :interactive="false" :animated="false" />
         <span class="text-[11px]" :class="selected === i ? 'font-medium text-ousi-foreground' : 'text-ousi-muted'">{{ r.day }}</span>
       </button>
     </div>

@@ -7,7 +7,7 @@ const data = [
 ]
 </script>
 <template>
-  <div class="grid gap-8 md:grid-cols-2">
+  <div class="w-full grid gap-8 md:grid-cols-2">
     <div>
       <p class="mb-2 text-xs text-ousi-muted">baseline="auto" (fits the data)</p>
       <OAreaChart :data="data" category-key="d" baseline="auto" :height="170" :series="[{ key: 'v', label: 'Score', color: 'violet' }]" />

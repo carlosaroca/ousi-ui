@@ -2,7 +2,7 @@ import type { ComponentData } from './types'
 
 export const donutChartData: ComponentData = {
   title: 'Donut Chart',
-  description: 'Share of a total split into segments. Donut or pie, with a center that reacts to hover, an optional legend and rounded segments.',
+  description: 'Share of a total split into segments. Donut or pie, with round segments, separated or joined, a center that reacts to hover and an optional legend.',
   category: 'Charts',
   importCode: "import { ODonutChart } from '@ousi-ui/vue'",
 
@@ -29,7 +29,7 @@ const data = [
     },
     {
       id: 'legend',
-      title: 'Legend and rounded segments',
+      title: 'Legend',
       example: {
         component: 'DonutChartLegend',
         code: `<script setup lang="ts">
@@ -46,7 +46,7 @@ const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',
 </script>
 <template>
   <!-- Hover a segment or a legend row: both highlight each other without any v-model -->
-  <ODonutChart :data="data" :size="200" :thickness="11" :gap="4" rounded show-legend :format-value="(v) => usd.format(v)" class="w-72" />
+  <ODonutChart :data="data" :size="200" :thickness="11" :gap="4" show-legend :format-value="(v) => usd.format(v)" class="w-72" />
 </template>`,
       },
     },
@@ -84,7 +84,7 @@ const data = [
     },
     {
       id: 'budget',
-      title: 'Recipe: budget with period switch',
+      title: 'Budget with period switch',
       example: {
         component: 'DonutChartBudget',
         code: `<script setup lang="ts">
@@ -131,7 +131,7 @@ const usd = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } as 
     </div>
 
     <div class="flex flex-wrap items-center gap-6">
-      <ODonutChart v-model:focused="focused" :data="data" :size="180" :thickness="14" :gap="3" rounded>
+      <ODonutChart v-model:focused="focused" :data="data" :size="180" :thickness="14" :gap="3">
         <template #default="{ focusedItem }">
           <div class="text-center">
             <div class="text-2xl font-semibold tabular-nums text-ousi-foreground">{{ focusedItem ? \`\${focusedItem.percent}%\` : '100%' }}</div>
@@ -178,9 +178,10 @@ const data = [
 </script>
 <template>
   <div class="flex flex-wrap items-center gap-10">
-    <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" /><span class="text-xs text-ousi-muted">donut</span></div>
-    <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" :thickness="8" :gap="3" rounded /><span class="text-xs text-ousi-muted">thin, rounded</span></div>
-    <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" :thickness="30" :gap="1" /><span class="text-xs text-ousi-muted">thick</span></div>
+    <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" /><span class="text-xs text-ousi-muted">separated (default)</span></div>
+    <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" joined /><span class="text-xs text-ousi-muted">joined</span></div>
+    <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" :rounded="false" /><span class="text-xs text-ousi-muted">straight ends</span></div>
+    <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" :thickness="8" :gap="3" /><span class="text-xs text-ousi-muted">thin</span></div>
     <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" variant="pie" :gap="1" /><span class="text-xs text-ousi-muted">pie</span></div>
     <div class="flex flex-col items-center gap-2"><ODonutChart :data="data" :size="150" :explode="0" :interactive="false" /><span class="text-xs text-ousi-muted">static</span></div>
   </div>
@@ -227,9 +228,10 @@ const selected = ref<DonutItem | null>(null)
     { name: 'variant', type: '\'donut\' | \'pie\'', default: '\'donut\'', description: 'Leave a hole in the middle or fill it.' },
     { name: 'size', type: 'number', default: '220', description: 'Diameter in px.' },
     { name: 'thickness', type: 'number', default: '16', description: 'Ring thickness (0-100 viewBox scale). Ignored by pie.' },
-    { name: 'gap', type: 'number', default: '2', description: 'Gap between segments in degrees.' },
-    { name: 'rounded', type: 'boolean', default: 'false', description: 'Round the ends of every segment. Works best with a gap of 3 degrees or more.' },
-    { name: 'explode', type: 'number', default: '3', description: 'How far the hovered segment moves outward (viewBox units).' },
+    { name: 'gap', type: 'number', default: '2', description: 'Space between segments, in degrees. With round ends it is a curve of even width. 0 joins them.' },
+    { name: 'rounded', type: 'boolean', default: 'true', description: 'Round ends, each fitted around the next. false cuts them straight. Not for pies. A share too small to see is drawn slightly larger; the figures stay exact.' },
+    { name: 'joined', type: 'boolean', default: 'false', description: 'Segments touch, with no space between them.' },
+    { name: 'explode', type: 'number', default: '3', description: 'How far the hovered segment moves outward (viewBox units). A joined ring with round ends stays whole.' },
     { name: 'showLegend', type: 'boolean', default: 'false', description: 'Show a legend under the chart.' },
     { name: 'formatValue', type: '(value: number) => string', description: 'Formats values.' },
     { name: 'interactive', type: 'boolean', default: 'true', description: 'Enable hover, focus and click reactions.' },

@@ -125,7 +125,7 @@ function describe(cell: { row: number; col: number; value: number }) {
     },
     {
       id: 'hours',
-      title: 'Recipe: range dropdown',
+      title: 'Range dropdown',
       example: {
         component: 'HeatmapHours',
         code: `<script setup lang="ts">
@@ -232,7 +232,7 @@ const rows = [
     },
     {
       id: 'hover',
-      title: 'Recipe: header reacts to hover',
+      title: 'Header reacts to hover',
       example: {
         component: 'HeatmapHover',
         code: `<script setup lang="ts">

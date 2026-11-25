@@ -18,7 +18,7 @@ const focused = ref<string | null>('node:4')
 const options = [{ label: 'Signup', key: 'node:4' }, { label: 'Bounce', key: 'node:5' }, { label: 'Search → Landing', key: 'link:0' }]
 </script>
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="w-full flex flex-col gap-4">
     <div class="flex flex-wrap gap-2">
       <OButton v-for="o in options" :key="o.key" size="sm" :variant="focused === o.key ? 'primary' : 'secondary'" @click="focused = focused === o.key ? null : o.key">
         {{ o.label }}
