@@ -53,6 +53,42 @@ export const drawerData: ComponentData = {
 </ODrawer>`,
       },
     },
+    {
+      id: 'swipe',
+      title: 'Swipe to close',
+      example: {
+        component: 'DrawerSwipe',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { ODrawer, OButton } from '@ousi-ui/vue'
+
+const sheet = ref(false)
+const panel = ref(false)
+const cities = [
+  'Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena', 'Cúcuta', 'Bucaramanga', 'Pereira',
+  'Santa Marta', 'Ibagué', 'Pasto', 'Manizales', 'Neiva', 'Villavicencio', 'Armenia', 'Montería',
+]
+</script>
+<template>
+  <div class="flex flex-wrap gap-3">
+    <OButton variant="outline" @click="sheet = true">Bottom sheet</OButton>
+    <OButton variant="outline" @click="panel = true">Side panel with handle</OButton>
+  </div>
+
+  <!-- The list scrolls first: pulling down closes the sheet once the list is at its top. -->
+  <ODrawer v-model="sheet" placement="bottom" title="Choose a city" description="Drag it down to close.">
+    <ul class="divide-y divide-ousi-border">
+      <li v-for="city in cities" :key="city" class="py-3 text-ousi-foreground">{{ city }}</li>
+    </ul>
+  </ODrawer>
+
+  <!-- A finger can swipe a side panel from anywhere; showHandle gives a mouse something to pull. -->
+  <ODrawer v-model="panel" show-handle title="Details">
+    <p>Swipe to the right, or drag the handle on the left edge.</p>
+  </ODrawer>
+</template>`,
+      },
+    },
   ],
 
   props: [
@@ -61,8 +97,9 @@ export const drawerData: ComponentData = {
     { name: 'shadow', type: "'md' | 'lg' | 'xl' | '2xl'", default: "'xl'", description: 'Elevation shadow.' },
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'", default: "'sm'", description: 'Width of a side drawer (left, right and their floating versions): sm 24rem, md 28rem, lg 36rem, xl 42rem, 2xl 56rem, never wider than 85% of the viewport; full takes the viewport but a 4rem strip (2rem on phones), for documents.' },
     { name: 'backdrop', type: "'opaque' | 'subtle' | 'blur' | 'glass' | 'transparent'", default: "app config, 'opaque'", description: "Layer behind the drawer. Without it the drawer uses the plugin's backdrop option." },
-    { name: 'showHandle', type: 'boolean', default: '-', description: 'Show a drag handle bar.' },
-    { name: 'showCloseButton', type: 'boolean', default: '-', description: 'Show the built-in close button.' },
+    { name: 'showHandle', type: 'boolean', default: 'false', description: 'Show the handle bar. Drawers from the top and bottom have one anyway while they can be swiped.' },
+    { name: 'swipeToClose', type: 'boolean', default: 'true', description: 'Close by dragging the drawer back the way it came: a mouse by the handle, a finger from anywhere, once the content under it has nothing left to scroll. Text fields, sliders and elements with touch-action: none keep their own drag, as does anything inside data-swipe-ignore. Not for floating-center.' },
+    { name: 'showCloseButton', type: 'boolean', default: 'true', description: 'Show the built-in close button.' },
     { name: 'title', type: 'string', description: 'Title text in the header.' },
     { name: 'description', type: 'string', description: 'Description text in the header.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes on the drawer panel.' },

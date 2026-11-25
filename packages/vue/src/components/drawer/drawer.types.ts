@@ -23,8 +23,11 @@ export interface DrawerProps {
    *  lg 36rem, xl 42rem, 2xl 56rem, never wider than 85% of the viewport; full takes the
    *  viewport but a 4rem strip (2rem on phones), for documents. Defaults to 'sm'. */
   size?: DrawerSize
-  /** Show a drag handle bar. */
+  /** Show the handle bar. Drawers from the top and bottom have one anyway while they can be swiped. */
   showHandle?: boolean
+  /** Close by dragging the drawer back the way it came: a mouse by the handle, a finger from
+   *  anywhere, once the content under it has nothing left to scroll. Not for floating-center. */
+  swipeToClose?: boolean
   /** Show the built-in close button. */
   showCloseButton?: boolean
   /** Title text in the header. */

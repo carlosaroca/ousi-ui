@@ -9,6 +9,7 @@ import {
   drawerPanelTheme,
 } from './drawer.theme'
 import type { DrawerProps, DrawerEmits, DrawerPlacement } from './drawer.types'
+import { useSwipeDismiss, type SwipeDirection } from './use-swipe-dismiss'
 
 const ousiText = useOusiMessages()
 
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   backdrop: undefined,
   showHandle: false,
   showCloseButton: true,
+  swipeToClose: true,
   shadow: 'xl',
   size: 'sm',
 })
@@ -92,10 +94,61 @@ const panelAnimation = computed(() => {
   return map[baseDir.value]
 })
 
+/* ── Swipe to close ────────────────────────────────────────────── */
+
+// Back the way it came. A centred drawer came from nowhere, so there is no way to swipe it.
+const swipeDirection = computed<SwipeDirection | undefined>(() => {
+  if (!props.swipeToClose) return undefined
+  const ways = { bottom: 'down', top: 'up', left: 'left', right: 'right', center: undefined } as const
+  return ways[baseDir.value]
+})
+
+const swipe = useSwipeDismiss({
+  direction: () => swipeDirection.value,
+  panel: () => panelEl.value,
+  onDismiss: close,
+})
+// A drawer swiped away keeps its place while it leaves; the next one starts from its own.
+watch(isOpen, (open) => open && swipe.reset())
+
+// The wrapper moves, not the panel, whose transform belongs to its entrance and exit.
+const swipeStyle = computed(() => {
+  const by = swipe.offset.value
+  const way = swipeDirection.value
+  if (!way) return {}
+  const [x, y] = { down: [0, by], up: [0, -by], right: [by, 0], left: [-by, 0] }[way]
+  return {
+    transform: by ? `translate3d(${x}px, ${y}px, 0)` : undefined,
+    transition: swipe.dragging.value ? 'none' : 'transform 300ms cubic-bezier(0.165, 0.84, 0.44, 1)',
+  }
+})
+// The page comes back into view as the drawer is pulled away. A filter, so that the opacity stays
+// with the entrance and exit; not on a blur, which a filter would undo.
+const backdropFade = computed(() => {
+  const blurs = resolvedBackdrop.value === 'blur' || resolvedBackdrop.value === 'glass'
+  return swipe.offset.value && !blurs ? `opacity(${1 - swipe.progress.value})` : undefined
+})
+
+// A handle that cannot be pulled promises something it does not do, so it only comes unasked where
+// the drawer can be swiped.
 const showHandleBar = computed(() => {
   if (props.showHandle) return true
-  return baseDir.value === 'bottom' || baseDir.value === 'top'
+  return swipeDirection.value === 'down' || swipeDirection.value === 'up'
 })
+
+/** The handle sits on the edge the drawer is pulled by. The zone reaches the border of the panel. */
+const handle = computed(() => {
+  const across = { zone: 'flex shrink-0 items-center justify-center -mx-6', pill: 'h-1 w-9' }
+  const along = { zone: 'absolute inset-y-0 flex w-5 items-center justify-center', pill: 'h-9 w-1' }
+  return {
+    bottom: { ...across, zone: `${across.zone} -mt-6 pt-6 pb-2` },
+    center: { ...across, zone: `${across.zone} -mt-6 pt-6 pb-2` },
+    top: { ...across, zone: `${across.zone} -mb-6 pt-4 pb-3` },
+    left: { ...along, zone: `${along.zone} right-0` },
+    right: { ...along, zone: `${along.zone} left-0` },
+  }[baseDir.value]
+})
+const handleGrab = computed(() => swipeDirection.value && 'cursor-grab touch-none select-none active:cursor-grabbing')
 
 defineExpose({ open, close })
 </script>
@@ -113,7 +166,7 @@ defineExpose({ open, close })
         <Motion
           tag="div"
           :class="drawerBackdropTheme({ backdrop: resolvedBackdrop })"
-          :style="{ zIndex: backdropZIndex }"
+          :style="{ zIndex: backdropZIndex, filter: backdropFade }"
           :initial="({ opacity: 0 } as any)"
           :animate="{ opacity: 1 }"
           :exit="{ opacity: 0 }"
@@ -124,7 +177,10 @@ defineExpose({ open, close })
         />
 
         <!-- Content wrapper -->
-        <div :class="drawerContentTheme({ placement })" :style="{ zIndex }">
+        <div
+          :class="cn(drawerContentTheme({ placement }), 'motion-reduce:!transition-none')"
+          :style="{ zIndex, ...swipeStyle }"
+        >
           <!-- Panel -->
           <Motion
             tag="div"
@@ -139,13 +195,16 @@ defineExpose({ open, close })
             :animate="(panelAnimation.animate as any)"
             :exit="(panelAnimation.exit as any)"
             :transition="{ duration: 0.3, ease: [0.165, 0.84, 0.44, 1] }"
+            v-on="swipe.handlers"
           >
-            <!-- Handle bar -->
+            <!-- Handle bar. A drawer from the top is pulled by its bottom edge: see below. -->
             <div
-              v-if="showHandleBar"
-              class="flex items-center justify-center pb-2"
+              v-if="showHandleBar && baseDir !== 'top'"
+              data-drawer-handle
+              aria-hidden="true"
+              :class="[handle.zone, handleGrab]"
             >
-              <div class="h-1 w-9 rounded-full bg-ousi-border" />
+              <div :class="['rounded-full bg-ousi-border', handle.pill]" />
             </div>
 
             <!-- Close button -->
@@ -170,13 +229,22 @@ defineExpose({ open, close })
             <slot name="header" />
 
             <!-- Body -->
-            <div class="flex-1 min-h-0 overflow-y-auto text-sm text-ousi-muted">
+            <div data-slot="drawer-body" class="flex-1 min-h-0 overflow-y-auto overscroll-contain text-sm text-ousi-muted">
               <slot />
             </div>
 
             <!-- Footer -->
             <div v-if="$slots.footer" class="flex flex-row flex-wrap items-center justify-end gap-2 mt-5">
               <slot name="footer" :close="close" />
+            </div>
+
+            <div
+              v-if="showHandleBar && baseDir === 'top'"
+              data-drawer-handle
+              aria-hidden="true"
+              :class="[handle.zone, handleGrab]"
+            >
+              <div :class="['rounded-full bg-ousi-border', handle.pill]" />
             </div>
           </Motion>
         </div>
