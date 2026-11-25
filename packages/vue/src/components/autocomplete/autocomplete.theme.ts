@@ -6,6 +6,15 @@ export { inputGroupTheme as autocompleteTriggerTheme } from '../input/input.them
 
 export const autocompleteWrapperTheme = 'flex w-full flex-col gap-1.5'
 
+// A picked value: a chip of the library, with its tokens, that never grows wider than the field.
+export const autocompleteChipTheme = 'max-w-full gap-1 pr-1 text-ousi-foreground'
+
+export const autocompleteChipRemoveTheme = [
+  'flex size-4 shrink-0 cursor-(--ousi-cursor-interactive) items-center justify-center rounded-full',
+  'text-ousi-muted transition-colors hover:bg-ousi-default-hover hover:text-ousi-foreground',
+  'outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-ousi-focus',
+].join(' ')
+
 export const autocompleteInputTheme = [
   'flex-1 bg-transparent outline-none border-none min-w-0 text-ellipsis',
   'text-ousi-field-foreground placeholder:text-ousi-field-placeholder',

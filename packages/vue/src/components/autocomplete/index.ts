@@ -1,5 +1,5 @@
 export { default as OAutocomplete } from './Autocomplete.vue'
-export type { AutocompleteProps, AutocompleteOption, AutocompleteEmits } from './autocomplete.types'
+export type { AutocompleteProps, AutocompleteOption, AutocompleteEmits, AutocompleteValue } from './autocomplete.types'
 export {
   autocompleteWrapperTheme,
   autocompleteInputTheme,

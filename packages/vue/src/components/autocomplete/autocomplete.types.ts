@@ -6,11 +6,17 @@ export interface AutocompleteOption {
 
 export type AutocompleteShadow = 'none' | 'xs' | 'sm' | 'md'
 
+/** One value, or with `multiple` a list of them. */
+export type AutocompleteValue = string | number | (string | number)[]
+
 export interface AutocompleteProps {
-  /** Selected value (v-model). */
-  modelValue?: string | number
+  /** Selected value (v-model). With `multiple`, an array in the order they were picked. */
+  modelValue?: AutocompleteValue
   /** Default value when uncontrolled. */
-  defaultValue?: string | number
+  defaultValue?: AutocompleteValue
+  /** Pick several: they show as chips in the field, and the list stays open. With
+   *  `allowCustomValue`, what is typed can be added too. */
+  multiple?: boolean
   /** List of options to filter. */
   options: AutocompleteOption[]
   /** Placeholder text. */
@@ -60,9 +66,11 @@ export interface AutocompleteProps {
   class?: string
 }
 
+/** The values are typed loosely on purpose: `v-model` then takes a ref of one value, as it always
+ *  has, or of a list with `multiple`. */
 export interface AutocompleteEmits {
-  'update:modelValue': [value: string | number]
-  'change': [value: string | number]
+  'update:modelValue': [value: any]
+  'change': [value: any]
   'inputChange': [query: string]
   'focus': [event: FocusEvent]
   'blur': [event: FocusEvent]

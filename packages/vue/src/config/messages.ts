@@ -142,6 +142,12 @@ export interface OusiMessages {
   editFailed: string
   noResults: string
   typeToSearch: string
+  /** `{value}` is replaced in these, `{values}` in `selectedValues`. */
+  removeValue: string
+  addValue: string
+  valueAdded: string
+  valueRemoved: string
+  selectedValues: string
   moreTabs: string
 }
 
@@ -280,6 +286,11 @@ const en: OusiMessages = {
   editFailed: '{name} could not be opened for editing',
   noResults: 'No results found',
   typeToSearch: 'Type at least {count} characters to search',
+  removeValue: 'Remove {value}',
+  addValue: 'Add “{value}”',
+  valueAdded: '{value} added',
+  valueRemoved: '{value} removed',
+  selectedValues: 'Selected: {values}',
   moreTabs: 'More',
 }
 
@@ -418,6 +429,11 @@ const es: OusiMessages = {
   editFailed: 'No se pudo abrir {name} para editarlo',
   noResults: 'Sin resultados',
   typeToSearch: 'Escribe al menos {count} caracteres para buscar',
+  removeValue: 'Quitar {value}',
+  addValue: 'Agregar «{value}»',
+  valueAdded: 'Se agregó {value}',
+  valueRemoved: 'Se quitó {value}',
+  selectedValues: 'Elegidos: {values}',
   moreTabs: 'Más',
 }
 

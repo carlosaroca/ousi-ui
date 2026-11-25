@@ -24,6 +24,110 @@ export const autocompleteData: ComponentData = {
       },
     },
     {
+      id: 'multiple',
+      title: 'Multiple selection',
+      example: {
+        component: 'AutocompleteMultiple',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OAutocomplete } from '@ousi-ui/vue'
+
+const reviewers = ref<string[]>(['ana', 'luis'])
+const people = [
+  { value: 'ana', label: 'Ana Gómez' },
+  { value: 'andres', label: 'Andrés Ruiz' },
+  { value: 'carla', label: 'Carla Ortiz' },
+  { value: 'diego', label: 'Diego Marín' },
+  { value: 'luis', label: 'Luis Peña' },
+  { value: 'marta', label: 'Marta Díaz', disabled: true },
+  { value: 'sofia', label: 'Sofía León' },
+  { value: 'tomas', label: 'Tomás Vélez' },
+]
+</script>
+<template>
+  <div class="flex w-full max-w-sm flex-col gap-2">
+    <OAutocomplete
+      v-model="reviewers"
+      multiple
+      :options="people"
+      label="Reviewers"
+      placeholder="Search people…"
+      description="Type to search. Backspace removes the last one."
+    />
+    <p class="break-all text-xs text-ousi-muted">Value: {{ JSON.stringify(reviewers) }}</p>
+  </div>
+</template>`,
+      },
+    },
+    {
+      id: 'tags',
+      title: 'Tags: adding new ones',
+      example: {
+        component: 'AutocompleteTags',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OAutocomplete } from '@ousi-ui/vue'
+
+const tags = ref<string[]>(['urgent'])
+const known = ['urgent', 'billing', 'follow-up', 'bug', 'idea'].map((tag) => ({ value: tag, label: tag }))
+</script>
+<template>
+  <!-- With allow-custom-value, what is not on the list can be added too. -->
+  <OAutocomplete
+    v-model="tags"
+    multiple
+    allow-custom-value
+    :options="known"
+    label="Tags"
+    placeholder="Add tags…"
+    class="max-w-sm"
+  />
+</template>`,
+      },
+    },
+    {
+      id: 'multiple-search',
+      title: 'Multiple with server search',
+      example: {
+        component: 'AutocompleteMultipleSearch',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OAutocomplete } from '@ousi-ui/vue'
+
+const invited = ref<number[]>([])
+const directory = [
+  'Ana Gómez', 'Andrés Ruiz', 'Carla Ortiz', 'Daniela Mora', 'Diego Marín', 'Luis Peña', 'Marta Díaz', 'Mariana Soto',
+].map((label, index) => ({ value: index + 1, label }))
+
+// Your request goes here. The labels of what is picked stay, whatever later searches return.
+async function search(query: string) {
+  await new Promise((resolve) => setTimeout(resolve, 500))
+  return directory.filter((person) => person.label.toLowerCase().includes(query.toLowerCase()))
+}
+const initials = (name: string) => name.split(' ').map((part) => part[0]).join('')
+</script>
+<template>
+  <OAutocomplete
+    v-model="invited"
+    multiple
+    :search="search"
+    :options="[]"
+    label="Invite people"
+    placeholder="Type a name…"
+    class="max-w-sm"
+  >
+    <!-- What each chip says. The button that removes it stays. -->
+    <template #chip="{ option }">
+      <span class="inline-flex items-center gap-1 align-middle">
+        <span class="flex size-4 items-center justify-center rounded-full bg-ousi-accent text-[9px] font-semibold text-ousi-accent-foreground" aria-hidden="true">{{ initials(option.label) }}</span>
+        {{ option.label }}
+      </span>
+    </template>
+  </OAutocomplete>
+</template>`,
+      },
+    },
+    {
       id: 'server-search',
       title: 'Server search',
       example: {
@@ -146,8 +250,9 @@ export const autocompleteData: ComponentData = {
   ],
 
   props: [
-    { name: 'modelValue', type: 'string | number', default: '-', description: 'Selected value (v-model).' },
-    { name: 'defaultValue', type: 'string | number', default: '-', description: 'Default value when uncontrolled.' },
+    { name: 'modelValue', type: 'string | number | (string | number)[]', default: '-', description: 'Selected value (v-model). With multiple, an array in the order picked. Your array is never changed: a new one is emitted.' },
+    { name: 'defaultValue', type: 'string | number | (string | number)[]', default: '-', description: 'Default value when uncontrolled.' },
+    { name: 'multiple', type: 'boolean', default: 'false', description: 'Pick several: they show as chips in the field and the list stays open. With name, each value is sent in a form. autoSelectSingle does not apply.' },
     { name: 'options', type: 'AutocompleteOption[]', default: '-', description: 'List of options to filter ({ value, label, disabled? }).' },
     { name: 'placeholder', type: 'string', default: '-', description: 'Placeholder text.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
@@ -160,8 +265,8 @@ export const autocompleteData: ComponentData = {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the field is disabled.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the field is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether a value is required.' },
-    { name: 'clearable', type: 'boolean', default: 'false', description: 'Show clear button.' },
-    { name: 'allowCustomValue', type: 'boolean', default: 'false', description: 'Allow values not in the options list.' },
+    { name: 'clearable', type: 'boolean', default: 'true', description: 'Show clear button.' },
+    { name: 'allowCustomValue', type: 'boolean', default: 'false', description: 'Allow values not in the options list. With multiple, a last row adds what was typed.' },
     { name: 'emptyMessage', type: 'string', default: "locale's no results text", description: 'Message when no results match.' },
     { name: 'filter', type: 'boolean', default: 'true', description: 'Filter options by the typed text, ignoring accents and case. Set false when the app searches on the server and passes the results.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Spinner in the field and a loading row while the options are on their way.' },
@@ -173,13 +278,14 @@ export const autocompleteData: ComponentData = {
 
   slots: [
     { name: 'option', type: '{ option: AutocompleteOption, selected: boolean }', description: 'Custom content for each option, for example a code and a name.' },
+    { name: 'chip', type: '{ option: AutocompleteOption, disabled: boolean }', description: 'With multiple, what a chip says, for example an avatar and a name. The button that removes it stays.' },
     { name: 'start', type: 'slot', description: 'Content before the input, for example a search icon. Styled and spaced like OInput #start.' },
     { name: 'end', type: 'slot', description: 'Content after the input, before the loading, clear and chevron controls.' },
   ],
 
   emits: [
-    { name: 'update:modelValue', type: '[value: string | number]', description: 'Emitted when selection changes.' },
-    { name: 'change', type: '[value: string | number]', description: 'Emitted on change.' },
+    { name: 'update:modelValue', type: '[value: any]', description: 'Emitted when selection changes: a value, or with multiple an array.' },
+    { name: 'change', type: '[value: any]', description: 'Emitted on change, with the same value.' },
     { name: 'inputChange', type: '[query: string]', description: 'Emitted when the text input changes.' },
     { name: 'focus', type: '[event: FocusEvent]', description: 'Emitted when the input is focused.' },
     { name: 'blur', type: '[event: FocusEvent]', description: 'Emitted when the input loses focus.' },
@@ -197,9 +303,12 @@ export const autocompleteData: ComponentData = {
 // CVA booleans: disabled, invalid`,
 
   keyboard: [
-    { key: 'ArrowDown', description: 'Opens the suggestions or moves to the next option.' },
-    { key: 'ArrowUp', description: 'Moves to the previous option.' },
-    { key: 'enter', description: 'Selects the focused option.' },
+    { key: 'down', description: 'Opens the suggestions or moves to the next option.' },
+    { key: 'up', description: 'Moves to the previous option.' },
+    { key: 'enter', description: 'Selects the focused option. With multiple, adds or removes it and keeps the list open.' },
+    { key: 'backspace', description: 'With multiple and nothing typed, removes the last pick. Held down, it stops after the text. On a chip, removes it and goes back one.' },
+    { key: 'left', description: 'With multiple and nothing typed, moves to the chips (right in right-to-left). The arrows walk them and return to the input.' },
+    { key: 'delete', description: 'On a chip, removes it and stays in place.' },
     { key: 'escape', description: 'Closes the suggestions dropdown.' },
     { key: 'tab', description: 'Moves focus to the next focusable element.' },
   ],
@@ -209,6 +318,8 @@ export const autocompleteData: ComponentData = {
     { attribute: 'role="combobox"', condition: 'always', description: 'Identifies the field as a combobox.' },
     { attribute: 'aria-expanded', condition: 'dropdown open', description: 'Indicates the suggestions are visible.' },
     { attribute: 'aria-autocomplete="list"', condition: 'always', description: 'Indicates inline autocomplete behavior.' },
+    { attribute: 'aria-activedescendant', condition: 'dropdown open', description: 'Points to the highlighted option, so it is read as the arrows move.' },
+    { attribute: 'aria-multiselectable="true"', condition: 'multiple', description: 'On the list. What is picked is part of the field description, and adding or removing is announced.' },
     { attribute: 'aria-invalid', condition: 'errorMessage is set', description: 'Indicates the field has an error.' },
   ],
 
