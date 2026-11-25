@@ -128,6 +128,9 @@ export interface OusiMessages {
   stillOverLimit: string
   cannotOpenImage: string
   save: string
+  startFromOriginal: string
+  editFile: string
+  editFailed: string
   noResults: string
   typeToSearch: string
   moreTabs: string
@@ -255,6 +258,9 @@ const en: OusiMessages = {
   stillOverLimit: 'still over {size}',
   cannotOpenImage: 'This image cannot be opened here',
   save: 'Save',
+  startFromOriginal: 'Start from original',
+  editFile: 'Edit {name}',
+  editFailed: '{name} could not be opened for editing',
   noResults: 'No results found',
   typeToSearch: 'Type at least {count} characters to search',
   moreTabs: 'More',
@@ -382,6 +388,9 @@ const es: OusiMessages = {
   stillOverLimit: 'aún supera {size}',
   cannotOpenImage: 'Esta imagen no se puede abrir aquí',
   save: 'Guardar',
+  startFromOriginal: 'Volver al original',
+  editFile: 'Editar {name}',
+  editFailed: 'No se pudo abrir {name} para editarlo',
   noResults: 'Sin resultados',
   typeToSearch: 'Escribe al menos {count} caracteres para buscar',
   moreTabs: 'Más',

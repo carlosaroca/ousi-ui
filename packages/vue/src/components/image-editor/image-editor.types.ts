@@ -41,6 +41,18 @@ export interface ImageEditorEmits {
   'error': [error: unknown]
 }
 
+export interface ImageEditorEditOptions {
+  /** Cancels the edit: the promise resolves with null. */
+  signal?: AbortSignal
+  /** The picture before earlier changes: the dialog offers to start from it again. */
+  original?: File
+  /**
+   * Saving without touching anything resolves with the very file that came in. Without it the output
+   * settings and the shape still apply, as a first edit needs.
+   */
+  keepUntouched?: boolean
+}
+
 export interface ImageEditorDialogProps extends ImageEditorProps {
   /** Open state (v-model:open). Not needed when you use `edit()`. */
   open?: boolean

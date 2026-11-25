@@ -20,6 +20,7 @@ export type {
   FileUploadPreview,
   FileUploadPaste,
   FileUploadTransform,
+  FileUploadEditorOptions,
 } from './file-upload.types'
 export {
   fileUploadAreaTheme,

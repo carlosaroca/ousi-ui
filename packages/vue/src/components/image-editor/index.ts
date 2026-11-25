@@ -5,6 +5,7 @@ export type {
   ImageEditorEmits,
   ImageEditorDialogProps,
   ImageEditorDialogEmits,
+  ImageEditorEditOptions,
   ImageEditorOutput,
   ImageEditorRatio,
   ImageEditorShape,

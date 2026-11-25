@@ -205,6 +205,30 @@ Your server still has to check type and size.
       },
     },
     {
+      id: 'edit',
+      title: 'Edit images in the list',
+      example: {
+        component: 'FileUploadEditable',
+        code: `<!-- editable: an Edit button on the images, with the built-in OImageEditor. Nothing else to set up. -->
+<OFileUpload v-model="files" editable multiple accept="image/*" :max-size="2 * 1024 * 1024" />
+
+<!-- Its settings. maxSize is the field's unless you give another. -->
+<OFileUpload
+  editable
+  accept="image/*"
+  :editor-options="{ shape: 'circle', maxDimension: 512, hideOutputSettings: true, title: 'Frame your photo' }"
+/>
+
+<!-- Uploaded images get the button when they have a url and you listen to edit-uploaded.
+     The list is not changed for you: upload the new file, then update uploadedFiles. -->
+<OFileUpload
+  v-model:uploaded-files="stored"
+  editable
+  @edit-uploaded="async (previous, file) => replace(previous, await upload(file))"
+/>`,
+      },
+    },
+    {
       id: 'paste',
       title: 'Paste from the clipboard',
       example: {
@@ -339,6 +363,8 @@ Your server still has to check type and size.
     { name: 'fileStatus', type: '(file: File) => { state?, progress?, error? } | undefined', default: '-', description: "Upload state per new file. A progress under 100 shows a bar, 100 a check and error a retry button. { state: 'uploading' } shows a bar without a percentage." },
     { name: 'transform', type: '(file: File, context: { signal: AbortSignal }) => File | null | Promise<File | null>', default: '-', description: 'Processes each picked file (compress, crop, convert) after the type check and before the size check, one at a time. Resolve with the file to add or null to drop it. It enters v-model only when done.' },
     { name: 'confirmTransform', type: 'boolean', default: 'false', description: 'A file that transform changed waits for the user: take the new version, keep the original (when it is within maxSize) or discard. Images can be compared side by side in a dialog. A file returned unchanged is added at once.' },
+    { name: 'editable', type: 'boolean', default: 'false', description: 'An Edit button on the images of the list, with the built-in editor. The result takes the place of the file, and once changed the editor offers to start from the original again. PDFs, GIFs, SVGs and animations have no button; an uploading file shows it when it ends.' },
+    { name: 'editorOptions', type: '{ title?, shape?, aspectRatio?, aspectRatios?, maxSize?, maxDimension?, type?, quality?, hideOutputSettings? }', default: '-', description: 'Settings of that editor, as in OImageEditorDialog. maxSize defaults to the one of the field.' },
     { name: 'preview', type: "'contain' | 'cover' | 'none'", default: "'contain'", description: 'How images show in the list, new ones and uploaded ones with a previewUrl: the whole image, cropped to fill, or always the icon.' },
     { name: 'paste', type: "'self' | 'page' | 'none'", default: "'self'", description: 'Add files with ⌘V or Ctrl+V: while the pointer is over the component or focus is inside, anywhere on the page, or never. In a text field, copied text wins over the picture that travels with it.' },
     { name: 'hideIcon', type: 'boolean', default: 'false', description: 'Hide the illustration or icon of the control.' },
@@ -360,11 +386,13 @@ Your server still has to check type and size.
     { name: 'change', type: '(files: File[]) => void', description: 'Fired when the list of new files changes.' },
     { name: 'update:modelValue', type: '(files: File[]) => void', description: 'v-model update.' },
     { name: 'error', type: '(message: string) => void', description: 'Fired once per rejected file (format, size or duplicate) and once when there are too many. Without a listener the component shows the messages under the control.' },
-    { name: 'remove', type: '(file: File) => void', description: 'Fired when a new file is taken off the list, one by one on a form reset too. It may be uploading: abort the request here (useFileUpload does it for you).' },
+    { name: 'remove', type: '(file: File) => void', description: 'Fired when a new file leaves the list: removed, replaced by an edit, or on a form reset (one by one). It may be uploading: abort the request here (useFileUpload does it for you).' },
     { name: 'retry', type: '(file: File) => void', description: 'Fired by the retry button of a failed file.' },
     { name: 'open', type: '(file: File | FileUploadUploadedFile) => void', description: 'Fired by a click on a name. Listening to it turns every name into a button.' },
     { name: 'pendingChange', type: '(count: number) => void', description: 'How many files are being transformed or waiting for approval. Hold your submit while over 0; a native form is already blocked.' },
     { name: 'transformError', type: '(error: unknown, file: File) => void', description: 'transform threw. The user is told the file could not be processed, and the original is not added.' },
+    { name: 'edited', type: '(file: File, previous: File) => void', description: 'An edited file took the place of the previous one. remove fires for the previous one too, so the same cleanup works; useFileUpload aborts it and uploads the new one by itself.' },
+    { name: 'editUploaded', type: '(uploaded: FileUploadUploadedFile, file: File) => void', description: 'An uploaded image was edited. The list is left as it is: upload file and update uploadedFiles. Listening to it shows their Edit button; they need a url that fetch can read.' },
     { name: 'update:uploadedFiles', type: '(files: FileUploadUploadedFile[]) => void', description: 'v-model:uploaded-files update.' },
     { name: 'removeUploaded', type: '(file: FileUploadUploadedFile) => void', description: 'Fired when an uploaded file is taken off the list: delete it on the server from here.' },
   ],
@@ -394,6 +422,7 @@ Your server still has to check type and size.
     { text: 'Upload each file as it is chosen, and disable the submit button while `isUploading`.', good: true },
     { text: 'Let `useFileUpload` run the uploads. If you write your own, abort the request in `remove`.', good: true },
     { text: 'Check type and size again on the server.', good: true },
+    { text: 'If an edited file had already been uploaded, delete the old copy on your server in `remove`.', good: true },
     { text: 'Use `confirm-transform` for photographed documents, so the user can check that the text is still readable.', good: true },
     { text: 'Allow uploads without communicating file restrictions.', good: false },
   ],

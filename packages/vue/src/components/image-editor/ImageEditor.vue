@@ -649,6 +649,7 @@ defineExpose({
         :step="1"
         :label="ousiText.quality"
         show-output
+        :format-options="{ style: 'unit', unit: 'percent' }"
         size="sm"
         :disabled="!state || output.type === 'image/png'"
         class="pb-2"

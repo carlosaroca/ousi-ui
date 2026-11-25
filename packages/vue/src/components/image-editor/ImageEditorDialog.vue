@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, shallowRef } from 'vue'
+import { computed, onBeforeUnmount, ref, shallowRef, toRaw } from 'vue'
 import { useOusiMessages } from '../../config'
 import { isAnimatedImage, isCompressibleType } from '../../image/compress-image'
 import { OButton } from '../button'
 import { ODialog, ODialogBody, ODialogFooter, ODialogHeader } from '../dialog'
 import OImageEditor from './ImageEditor.vue'
-import type { ImageEditorDialogEmits, ImageEditorDialogProps } from './image-editor.types'
+import type {
+  ImageEditorDialogEmits,
+  ImageEditorDialogProps,
+  ImageEditorEditOptions,
+} from './image-editor.types'
 
 const props = withDefaults(defineProps<ImageEditorDialogProps>(), {
   open: false,
@@ -42,6 +46,8 @@ const editorProps = computed(() => ({
 interface Request {
   id: number
   file: File
+  original?: File
+  keepUntouched: boolean
   done: boolean
   resolve: (file: File | null) => void
 }
@@ -49,6 +55,14 @@ interface Request {
 const request = shallowRef<Request>()
 let nextId = 0
 let closing: ReturnType<typeof setTimeout> | undefined
+
+/** The user asked to start again from the picture as it first was. */
+const fromOriginal = ref(false)
+const source = computed(() => {
+  const asked = request.value
+  if (!asked) return props.src
+  return fromOriginal.value ? asked.original : asked.file
+})
 
 const isOpen = computed(() => !!request.value || props.open)
 
@@ -66,7 +80,7 @@ function finish(asked: Request | undefined, result: File | null) {
  * cannot be edited (a PDF, a GIF, an animation) resolves at once, as it is: made to be passed to the
  * `transform` of OFileUpload.
  */
-async function edit(file: File, options: { signal?: AbortSignal } = {}): Promise<File | null> {
+async function edit(file: File, options: ImageEditorEditOptions = {}): Promise<File | null> {
   if (!isCompressibleType(file.type) || (await isAnimatedImage(file))) return file
   const { signal } = options
   if (signal?.aborted) return null
@@ -74,7 +88,16 @@ async function edit(file: File, options: { signal?: AbortSignal } = {}): Promise
     // A second call takes the editor over: the first one counts as cancelled.
     finish(request.value, null)
     clearTimeout(closing)
-    const asked: Request = { id: ++nextId, file, done: false, resolve }
+    const { original } = options
+    const asked: Request = {
+      id: ++nextId,
+      file,
+      original: original && toRaw(original) !== toRaw(file) ? original : undefined,
+      keepUntouched: !!options.keepUntouched,
+      done: false,
+      resolve,
+    }
+    fromOriginal.value = false
     request.value = asked
     signal?.addEventListener('abort', () => finish(asked, null), { once: true })
   })
@@ -91,7 +114,8 @@ async function save() {
   if (!editor.value || saving.value || asked?.done) return
   saving.value = true
   try {
-    const file = await editor.value.export()
+    const untouched = asked?.keepUntouched && !editor.value.dirty && !fromOriginal.value
+    const file = untouched ? asked.file : await editor.value.export()
     if (asked) finish(asked, file)
     else {
       emit('save', file)
@@ -118,7 +142,7 @@ defineExpose({ edit })
   <ODialog
     :model-value="isOpen"
     size="2xl"
-    :prevent-close="!!editor?.dirty"
+    :prevent-close="!!editor?.dirty || fromOriginal"
     @update:model-value="!$event && cancel()"
   >
     <ODialogHeader :title="title ?? ousiText.editImage" />
@@ -126,13 +150,23 @@ defineExpose({ edit })
       <!-- A shorter stage, so the tools and buttons fit a phone screen too. -->
       <OImageEditor
         ref="editor"
-        :key="request?.id ?? 'open'"
+        :key="`${request?.id ?? 'open'}-${fromOriginal}`"
         v-bind="editorProps"
-        :src="request?.file ?? src"
+        :src="source"
         class="[--image-editor-height:min(40dvh,22rem)]"
       />
     </ODialogBody>
     <ODialogFooter>
+      <OButton
+        v-if="request?.original && !fromOriginal"
+        variant="text"
+        size="sm"
+        class="mr-auto"
+        data-slot="image-editor-original"
+        @click="fromOriginal = true"
+      >
+        {{ ousiText.startFromOriginal }}
+      </OButton>
       <OButton variant="outline" size="sm" data-slot="image-editor-cancel" @click="cancel">
         {{ ousiText.cancel }}
       </OButton>

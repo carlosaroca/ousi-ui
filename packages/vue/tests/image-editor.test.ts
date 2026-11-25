@@ -327,6 +327,11 @@ describe('OImageEditor', () => {
     expect((await key('Tab')).defaultPrevented).toBe(false)
   })
 
+  it('shows the quality as a percentage', async () => {
+    await editor()
+    expect(document.querySelector('[data-slot="image-editor-settings"] output')!.textContent!.trim()).toBe('90%')
+  })
+
   it('can hide the output settings', async () => {
     await editor({ hideOutputSettings: true })
     expect(document.querySelector('[data-slot="image-editor-settings"]')).toBeNull()

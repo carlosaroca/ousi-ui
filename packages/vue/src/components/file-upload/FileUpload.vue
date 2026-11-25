@@ -20,6 +20,8 @@ import { OButton, buttonTheme } from '../button'
 import { labelTheme } from '../input/input.theme'
 import { useFormContext } from '../form/form.context'
 import { fieldFocus, useFieldAttrs } from '../shared/field-attrs'
+import OImageEditorDialog from '../image-editor/ImageEditorDialog.vue'
+import { isAnimatedImage, isCompressibleType } from '../../image/compress-image'
 import FileTypeIcon from './FileTypeIcon.vue'
 import FileUploadCompare from './FileUploadCompare.vue'
 import FileUploadIllustration from './FileUploadIllustration.vue'
@@ -73,6 +75,7 @@ const props = withDefaults(defineProps<FileUploadProps>(), {
   shadow: 'none',
   animated: false,
   confirmTransform: false,
+  editable: false,
   preview: 'contain',
   paste: 'self',
   hideIcon: false,
@@ -436,6 +439,110 @@ const dragListeners = {
   },
 }
 
+/* ── Editing what is in the list ───────────────────────────────── */
+
+const editorDialog = ref<InstanceType<typeof OImageEditorDialog>>()
+const editorSettings = computed(() => ({ maxSize: props.maxSize, ...props.editorOptions }))
+/** One edit at a time. */
+const editing = shallowRef<{
+  key: string
+  target: File | FileUploadUploadedFile
+  controller: AbortController
+}>()
+
+// A canvas would keep a single frame of an animation, so those get no Edit button.
+const animated = shallowReactive(new WeakSet<File>())
+const looked = new WeakSet<File>()
+
+async function findAnimations() {
+  if (!props.editable) return
+  for (const item of files.value) {
+    const file = toRaw(item)
+    if (looked.has(file)) continue
+    looked.add(file)
+    if (await isAnimatedImage(file).catch(() => false)) animated.add(file)
+  }
+}
+
+const hasEditUploadedListener = () => !!instance?.vnode.props?.onEditUploaded
+
+const isEditableUploaded = ({ name, type }: FileUploadUploadedFile) =>
+  type ? isCompressibleType(type) : /\.(jpe?g|png|webp|bmp|avif)$/i.test(name)
+
+function canEdit(row: Row): boolean {
+  if (!props.editable || row.pending) return false
+  if (row.file) {
+    return row.state !== 'uploading' && isCompressibleType(row.file.type) && !animated.has(toRaw(row.file))
+  }
+  // An uploaded one needs its full picture (a thumbnail would not do) and someone to take the result.
+  return hasEditUploadedListener() && !!row.href && isEditableUploaded(row.source as FileUploadUploadedFile)
+}
+
+/** The editor may change the format or fail to get under the limit: the field's rules still hold. */
+function acceptsEdit(result: File, name: string): boolean {
+  if (!isAccepted(result, props.accept)) {
+    reject(fill(ousiText.value.fileTypeRejected, { name: result.name }))
+    return false
+  }
+  if (isTooLarge(result)) {
+    reject(fill(ousiText.value.couldNotReduce, { name, size: formatSize(props.maxSize!) }))
+    return false
+  }
+  return true
+}
+
+async function editFile(file: File, signal: AbortSignal) {
+  const original = originalOf(file)
+  const result = await editorDialog.value!.edit(file, { signal, original, keepUntouched: true })
+  // Cancelled, left as it was, or gone from the list meanwhile.
+  if (!result || signal.aborted || toRaw(result) === toRaw(file) || !files.value.includes(file)) return
+  if (!acceptsEdit(result, file.name)) return
+  if (toRaw(result) !== toRaw(original)) originals.set(toRaw(result), original)
+  // The row keeps its key, so it changes in place and focus has somewhere to return.
+  fileKeys.set(toRaw(result), keyOf(file))
+  // The previous file leaves like a removed one, so what cleans up after `remove` still works.
+  emit('remove', file)
+  setFiles(files.value.map((other) => (other === file ? result : other)))
+  emit('edited', result, file)
+}
+
+async function editStored(uploaded: FileUploadUploadedFile, url: string, signal: AbortSignal) {
+  let file: File
+  try {
+    const response = await fetch(url, { signal })
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const blob = await response.blob()
+    file = new File([blob], uploaded.name, { type: blob.type || uploaded.type || '' })
+  } catch {
+    if (!signal.aborted) reject(fill(ousiText.value.editFailed, { name: uploaded.name }))
+    return
+  }
+  const result = await editorDialog.value!.edit(file, { signal, keepUntouched: true })
+  if (!result || signal.aborted || result === file || !props.uploadedFiles.includes(uploaded)) return
+  if (acceptsEdit(result, uploaded.name)) emit('editUploaded', uploaded, result)
+}
+
+async function editRow(row: Row) {
+  if (props.disabled || editing.value || !editorDialog.value) return
+  const controller = new AbortController()
+  editing.value = { key: row.key, target: row.source, controller }
+  rejections.value = []
+  try {
+    if (row.file) await editFile(row.file, controller.signal)
+    else await editStored(row.source as FileUploadUploadedFile, row.href!, controller.signal)
+  } finally {
+    editing.value = undefined
+  }
+}
+
+// If the app takes the file away while it is open, the editor closes.
+watch(
+  () => [...files.value, ...props.uploadedFiles],
+  (listed) => {
+    if (editing.value && !listed.includes(editing.value.target as File)) editing.value.controller.abort()
+  },
+)
+
 /* ── Paste ─────────────────────────────────────────────────────── */
 
 function isHovered(element: Element): boolean {
@@ -464,6 +571,8 @@ function onPaste(event: ClipboardEvent) {
   const root = rootRef.value
   // `defaultPrevented`: another uploader, or an editor, already took this paste.
   if (!root || props.paste === 'none' || props.disabled || event.defaultPrevented) return
+  // With the editor open, a paste must not slip a file in behind it.
+  if (editing.value) return
   if (!isPasteTarget(root)) return
 
   const data = event.clipboardData
@@ -484,6 +593,7 @@ function onPaste(event: ClipboardEvent) {
 function clearFiles() {
   rejections.value = []
   abortPending()
+  editing.value?.controller.abort()
   if (files.value.length === 0) return
   // Reported one by one, so an app can abort what is uploading.
   for (const file of files.value) emit('remove', file)
@@ -535,6 +645,7 @@ onMounted(() => {
     updatePreviews,
     { immediate: true },
   )
+  watch(() => [props.editable, ...files.value], findAnimations, { immediate: true })
   document.addEventListener('paste', onPaste)
   ownerForm = fileInput.value?.form ?? null
   ownerForm?.addEventListener('reset', onFormReset)
@@ -545,6 +656,7 @@ onBeforeUnmount(() => {
   ownerForm?.removeEventListener('reset', onFormReset)
   clearTimeout(resetTimer)
   for (const item of pending.value) item.controller.abort()
+  editing.value?.controller.abort()
 })
 
 /* ── The list ──────────────────────────────────────────────────── */
@@ -979,7 +1091,8 @@ const inputAttrs = () => ({
           data-slot="file-upload-item"
           :data-state="row.state"
         >
-          <div class="flex min-w-0 flex-1 basis-36 items-center gap-3">
+          <!-- With a second button the name gives way sooner, so narrow rows stay on one line. -->
+          <div :class="['flex min-w-0 flex-1 items-center gap-3', canEdit(row) ? 'basis-28' : 'basis-36']">
             <span :class="fileUploadFileIconTheme({ size })" data-slot="file-upload-item-icon" aria-hidden="true">
               <slot name="file-icon" :file="row.source" :kind="row.kind" :preview-url="row.previewUrl">
                 <FileTypeIcon
@@ -1053,6 +1166,23 @@ const inputAttrs = () => ({
               @click="emit('retry', row.file)"
             >
               {{ ousiText.retryUpload }}
+            </OButton>
+            <OButton
+              v-if="canEdit(row)"
+              variant="text"
+              size="sm"
+              is-icon-only
+              :disabled="disabled"
+              :loading="!row.file && editing?.key === row.key"
+              :aria-label="fill(ousiText.editFile, { name: row.name })"
+              :title="fill(ousiText.editFile, { name: row.name })"
+              data-slot="file-upload-edit"
+              @click="editRow(row)"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+                <path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z" />
+                <path d="m13.5 6.5 4 4" />
+              </svg>
             </OButton>
             <OButton
               variant="text"
@@ -1147,6 +1277,8 @@ const inputAttrs = () => ({
         </li>
       </TransitionGroup>
     </template>
+
+    <OImageEditorDialog v-if="editable" ref="editorDialog" v-bind="editorSettings" />
 
     <FileUploadCompare
       v-if="compared?.result"

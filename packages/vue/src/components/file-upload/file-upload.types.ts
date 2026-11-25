@@ -1,3 +1,5 @@
+import type { ImageEditorDialogProps } from '../image-editor/image-editor.types'
+
 export type FileUploadVariant = 'area' | 'inline' | 'button'
 export type FileUploadSize = 'sm' | 'md' | 'lg'
 export type FileUploadShadow = 'none' | 'xs' | 'sm' | 'md'
@@ -39,6 +41,20 @@ export type FileUploadTransform = (
   file: File,
   context: { signal: AbortSignal },
 ) => File | null | Promise<File | null>
+
+/** Settings of the built-in editor, as in OImageEditorDialog. `maxSize` defaults to the component's. */
+export type FileUploadEditorOptions = Pick<
+  ImageEditorDialogProps,
+  | 'title'
+  | 'aspectRatio'
+  | 'aspectRatios'
+  | 'shape'
+  | 'maxSize'
+  | 'maxDimension'
+  | 'type'
+  | 'quality'
+  | 'hideOutputSettings'
+>
 
 /** A file that is already on the server, such as the attachments of a record being edited. */
 export interface FileUploadUploadedFile {
@@ -108,6 +124,13 @@ export interface FileUploadProps {
   /** Ask the user before adding a file that `transform` changed. */
   confirmTransform?: boolean
   /**
+   * Adds an Edit button to the images of the list, which opens the built-in editor. Uploaded images
+   * get it too when they have a `url` and you listen to `editUploaded`.
+   */
+  editable?: boolean
+  /** Settings of that editor: shape, ratios, output size and format. */
+  editorOptions?: FileUploadEditorOptions
+  /**
    * Add files with ⌘V / Ctrl+V: 'self' (default) while the pointer is over the component or focus is
    * inside, 'page' wherever the paste happens, 'none' never.
    */
@@ -127,7 +150,7 @@ export interface FileUploadEmits {
   'change': [files: File[]]
   /** A file was rejected. Without a listener the message shows under the control. */
   'error': [message: string]
-  /** A new file was taken off the list. If it was uploading, abort the request here. */
+  /** A new file left the list, removed or replaced by an edit. If it was uploading, abort here. */
   'remove': [file: File]
   /** The retry button of a file whose upload failed. */
   'retry': [file: File]
@@ -137,6 +160,13 @@ export interface FileUploadEmits {
   'pendingChange': [count: number]
   /** `transform` threw. The user sees that the file could not be processed; the cause is here. */
   'transformError': [error: unknown, file: File]
+  /** A new file was edited and took the place of the previous one. `remove` fires for that one. */
+  'edited': [file: File, previous: File]
+  /**
+   * An uploaded image was edited. Nothing changes in the list: upload `file`, replace the record and
+   * update `uploadedFiles` when your server has it. Listening to it shows their Edit button.
+   */
+  'editUploaded': [uploaded: FileUploadUploadedFile, file: File]
   'update:uploadedFiles': [files: FileUploadUploadedFile[]]
   /** An uploaded file was taken off the list: delete it on the server from here. */
   'removeUploaded': [file: FileUploadUploadedFile]

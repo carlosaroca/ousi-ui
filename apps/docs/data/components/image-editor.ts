@@ -102,7 +102,7 @@ async function apply() {
   parts: [
     {
       name: 'OImageEditorDialog',
-      description: 'The editor in a dialog with Save and Cancel. It takes every prop of OImageEditor. Its method edit(file, { signal }) opens it and resolves with the result, or null on Cancel. Once something changed, Escape and a click outside no longer close it.',
+      description: 'The editor in a dialog with Save and Cancel. It takes every prop of OImageEditor. Its method edit(file, { signal, original, keepUntouched }) opens it and resolves with the result, or null on Cancel. With original it offers to start from that picture again; with keepUntouched, saving without changes resolves with the very file that came in. Once something changed, Escape and a click outside no longer close it.',
       props: [
         { name: 'open', type: 'boolean', default: 'false', description: 'Open state (v-model:open), when you do not use edit().' },
         { name: 'title', type: 'string', default: "'Edit image'", description: 'Heading of the dialog.' },
