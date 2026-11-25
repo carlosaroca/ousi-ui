@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "vite build",
-    "prepack": "vite build",
+    "prepack": "pnpm --filter \"@ousi-ui/vue^...\" build && vite build",
     "prepublishOnly": "node ../../tooling/require-pnpm.mjs",
     "test": "vitest run",
     "typecheck": "vue-tsc --noEmit",
