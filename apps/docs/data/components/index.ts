@@ -76,6 +76,7 @@ import { separatorData } from './separator'
 // Media
 import { avatarData } from './avatar'
 import { imageCompareData } from './image-compare'
+import { imageEditorData } from './image-editor'
 
 // Navigation
 import { breadcrumbsData } from './breadcrumbs'
@@ -182,6 +183,7 @@ export const componentRegistry: Record<string, ComponentData> = {
   'separator': separatorData,
   'avatar': avatarData,
   'image-compare': imageCompareData,
+  'image-editor': imageEditorData,
   'breadcrumbs': breadcrumbsData,
   'pagination': paginationData,
   'tabs': tabsData,

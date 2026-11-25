@@ -164,3 +164,8 @@ export type { OusiMessages } from './config'
 // Resolver
 export { OusiResolver } from './plugin/resolver'
 export type { OusiResolverOptions } from './plugin/resolver'
+
+export * from './components/image-editor'
+
+// Image utilities
+export * from './image'

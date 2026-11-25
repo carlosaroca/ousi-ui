@@ -86,6 +86,7 @@ import { OBentoGrid, OBentoGridItem } from '../components/bento-grid'
 import { OResizable } from '../components/resizable'
 import { OInfiniteScroll } from '../components/infinite-scroll'
 import { OAspectRatio } from '../components/aspect-ratio'
+import { OImageEditor, OImageEditorDialog } from '../components/image-editor'
 import { vTooltip } from '../components/tooltip'
 
 const components = {
@@ -196,6 +197,8 @@ const components = {
   OResizable,
   OInfiniteScroll,
   OAspectRatio,
+  OImageEditor,
+  OImageEditorDialog,
 } as const
 
 import { applyOusiConfig, applyOusiMessages, type OusiConfigInit, type OusiMessages } from '../config'

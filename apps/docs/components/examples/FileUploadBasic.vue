@@ -5,5 +5,11 @@ function onFilesChange(files: File[]) {
 </script>
 
 <template>
-  <OFileUpload @change="onFilesChange" />
+  <OFileUpload
+    multiple
+    accept=".jpg,.png,.pdf"
+    :max-size="5 * 1024 * 1024"
+    class="max-w-md"
+    @change="onFilesChange"
+  />
 </template>

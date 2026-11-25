@@ -80,12 +80,54 @@ export interface OusiMessages {
   images: string
   videos: string
   audio: string
+  browseFilesMultiple: string
   removeFile: string
+  cancelUpload: string
   retryUpload: string
   uploadFailed: string
+  uploading: string
+  fileUploaded: string
   fileTypeRejected: string
   fileTooLarge: string
   tooManyFiles: string
+  maxFilesHint: string
+  duplicateFile: string
+  processing: string
+  processingFailed: string
+  couldNotReduce: string
+  wasSize: string
+  awaitingApproval: string
+  useNewVersion: string
+  keepOriginal: string
+  originalTooLarge: string
+  compare: string
+  compareTitle: string
+  originalVersion: string
+  newVersion: string
+  actualSize: string
+  discardFile: string
+  pendingFiles: string
+  /** Image editor. `{size}` is replaced. */
+  editImage: string
+  cropArea: string
+  cropHint: string
+  aspectRatio: string
+  freeRatio: string
+  rotateLeft: string
+  rotateRight: string
+  flipHorizontal: string
+  flipVertical: string
+  zoom: string
+  resetEdit: string
+  maxSide: string
+  fullSize: string
+  outputFormat: string
+  automaticFormat: string
+  quality: string
+  calculating: string
+  stillOverLimit: string
+  cannotOpenImage: string
+  save: string
   noResults: string
   typeToSearch: string
   moreTabs: string
@@ -166,12 +208,53 @@ const en: OusiMessages = {
   images: 'Images',
   videos: 'Videos',
   audio: 'Audio',
+  browseFilesMultiple: 'Choose files',
   removeFile: 'Remove {name}',
+  cancelUpload: 'Cancel the upload of {name}',
   retryUpload: 'Retry',
   uploadFailed: 'Upload failed',
+  uploading: 'Uploading…',
+  fileUploaded: 'File uploaded',
   fileTypeRejected: '{name}: this format is not allowed',
   fileTooLarge: '{name} is larger than {size}',
   tooManyFiles: 'You can add up to {count} files',
+  maxFilesHint: '{count} files at most',
+  duplicateFile: '{name} is already in the list',
+  processing: 'Processing…',
+  processingFailed: '{name} could not be processed',
+  couldNotReduce: '{name} could not be brought under {size}',
+  wasSize: 'was {size}',
+  awaitingApproval: 'waiting for your approval',
+  useNewVersion: 'Use new version',
+  keepOriginal: 'Keep original',
+  originalTooLarge: 'The original is over {size}',
+  compare: 'Compare',
+  compareTitle: 'Compare {name}',
+  originalVersion: 'Original',
+  newVersion: 'New version',
+  actualSize: 'Actual size',
+  discardFile: 'Discard {name}',
+  pendingFiles: 'Finish with the pending files first',
+  editImage: 'Edit image',
+  cropArea: 'Crop area',
+  cropHint: 'Arrow keys move it, Shift with the arrows resizes it, plus and minus zoom.',
+  aspectRatio: 'Shape',
+  freeRatio: 'Free',
+  rotateLeft: 'Rotate left',
+  rotateRight: 'Rotate right',
+  flipHorizontal: 'Flip horizontally',
+  flipVertical: 'Flip vertically',
+  zoom: 'Zoom',
+  resetEdit: 'Reset',
+  maxSide: 'Longest side',
+  fullSize: 'Full size',
+  outputFormat: 'Format',
+  automaticFormat: 'Automatic',
+  quality: 'Quality',
+  calculating: 'Calculating…',
+  stillOverLimit: 'still over {size}',
+  cannotOpenImage: 'This image cannot be opened here',
+  save: 'Save',
   noResults: 'No results found',
   typeToSearch: 'Type at least {count} characters to search',
   moreTabs: 'More',
@@ -252,12 +335,53 @@ const es: OusiMessages = {
   images: 'Imágenes',
   videos: 'Videos',
   audio: 'Audio',
+  browseFilesMultiple: 'Elegir archivos',
   removeFile: 'Quitar {name}',
+  cancelUpload: 'Cancelar la subida de {name}',
   retryUpload: 'Reintentar',
   uploadFailed: 'No se pudo subir',
+  uploading: 'Subiendo…',
+  fileUploaded: 'Archivo subido',
   fileTypeRejected: '{name}: este formato no está permitido',
   fileTooLarge: '{name} supera {size}',
   tooManyFiles: 'Puedes agregar hasta {count} archivos',
+  maxFilesHint: 'Hasta {count} archivos',
+  duplicateFile: '{name} ya está en la lista',
+  processing: 'Procesando…',
+  processingFailed: 'No se pudo procesar {name}',
+  couldNotReduce: 'No se pudo reducir {name} a {size} o menos',
+  wasSize: 'antes {size}',
+  awaitingApproval: 'espera tu aprobación',
+  useNewVersion: 'Usar la nueva',
+  keepOriginal: 'Usar el original',
+  originalTooLarge: 'El original supera {size}',
+  compare: 'Comparar',
+  compareTitle: 'Comparar {name}',
+  originalVersion: 'Original',
+  newVersion: 'Nueva versión',
+  actualSize: 'Tamaño real',
+  discardFile: 'Descartar {name}',
+  pendingFiles: 'Primero termina con los archivos pendientes',
+  editImage: 'Editar imagen',
+  cropArea: 'Área de recorte',
+  cropHint: 'Las flechas la mueven, Mayús con las flechas cambia su tamaño, y más y menos amplían o reducen.',
+  aspectRatio: 'Proporción',
+  freeRatio: 'Libre',
+  rotateLeft: 'Girar a la izquierda',
+  rotateRight: 'Girar a la derecha',
+  flipHorizontal: 'Voltear en horizontal',
+  flipVertical: 'Voltear en vertical',
+  zoom: 'Zoom',
+  resetEdit: 'Restablecer',
+  maxSide: 'Lado más largo',
+  fullSize: 'Tamaño completo',
+  outputFormat: 'Formato',
+  automaticFormat: 'Automático',
+  quality: 'Calidad',
+  calculating: 'Calculando…',
+  stillOverLimit: 'aún supera {size}',
+  cannotOpenImage: 'Esta imagen no se puede abrir aquí',
+  save: 'Guardar',
   noResults: 'Sin resultados',
   typeToSearch: 'Escribe al menos {count} caracteres para buscar',
   moreTabs: 'Más',

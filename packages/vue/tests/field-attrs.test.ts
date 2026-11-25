@@ -14,6 +14,7 @@ import OTimeField from '../src/components/time-field/TimeField.vue'
 import OTagInput from '../src/components/tag-input/TagInput.vue'
 import OInputOtp from '../src/components/input-otp/InputOtp.vue'
 import OColorField from '../src/components/color-field/ColorField.vue'
+import OFileUpload from '../src/components/file-upload/FileUpload.vue'
 
 interface FieldCase {
   name: string
@@ -41,6 +42,7 @@ const cases: FieldCase[] = [
   { name: 'OTagInput', component: OTagInput, control: 'input', labelled: true },
   { name: 'OInputOtp', component: OInputOtp, control: 'input', labelled: true },
   { name: 'OColorField', component: OColorField, control: 'input', labelled: true },
+  { name: 'OFileUpload', component: OFileUpload, control: 'input[type="file"]', labelled: true },
   { name: 'ODatePicker', component: ODatePicker, control: '[role="group"]', focusTarget: '[role="spinbutton"]', labelled: true },
   { name: 'ODateRangePicker', component: ODateRangePicker, control: '[role="group"]', focusTarget: '[role="spinbutton"]', labelled: true },
   { name: 'OTimePicker', component: OTimePicker, control: '[role="group"]', focusTarget: '[role="spinbutton"]', labelled: true },

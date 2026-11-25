@@ -142,6 +142,7 @@ export function useVueNavigation(): NavSection[] {
         { title: 'Avatar', path: '/vue/components/avatar' },
         { title: 'Carousel', path: '/vue/components/carousel' },
         { title: 'ImageCompare', path: '/vue/components/image-compare' },
+        { title: 'ImageEditor', path: '/vue/components/image-editor' },
         { title: 'Marquee', path: '/vue/components/marquee' },
       ],
     },
