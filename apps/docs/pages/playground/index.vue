@@ -261,8 +261,9 @@ function copyLink() {
 </script>
 
 <template>
-  <section ref="sectionRef" class="relative overflow-hidden" :data-theme="theme">
-    <div class="absolute inset-0 -z-10 pointer-events-none">
+  <section ref="sectionRef" class="relative" :data-theme="theme">
+    <!-- The glows are clipped here. overflow-hidden on the section would stop the controls from sticking. -->
+    <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
       <div
         class="absolute top-1/3 left-1/4 w-[700px] h-[500px] rounded-full blur-3xl opacity-30"
         :style="{ background: `radial-gradient(circle, ${accent}22, transparent 70%)` }"
@@ -274,7 +275,8 @@ function copyLink() {
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-12 lg:gap-8 items-start">
 
         <!-- ═══ LEFT: Theme controls ═══ -->
-        <div class="relative lg:sticky lg:top-24 max-w-sm space-y-5">
+        <!-- On a window too short for the whole panel it scrolls on its own, so Export stays reachable. -->
+        <div class="relative lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto max-w-sm space-y-5">
           <!-- Title + description -->
           <div>
             <p class="text-xs font-semibold text-ousi-muted uppercase tracking-wide mb-1">Playground</p>
