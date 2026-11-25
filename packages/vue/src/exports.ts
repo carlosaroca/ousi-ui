@@ -171,5 +171,11 @@ export * from './components/slide-button'
 
 export * from './components/tour'
 
+export * from './components/waterfall-chart'
+
+export * from './components/candlestick-chart'
+
+export * from './components/sunburst'
+
 // Image utilities
 export * from './image'

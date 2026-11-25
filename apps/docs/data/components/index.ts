@@ -1,6 +1,9 @@
 import type { ComponentData } from './types'
 
 // Buttons
+import { sunburstData } from './sunburst'
+import { candlestickChartData } from './candlestick-chart'
+import { waterfallChartData } from './waterfall-chart'
 import { tourData } from './tour'
 import { slideButtonData } from './slide-button'
 import { buttonData } from './button'
@@ -212,6 +215,9 @@ export const componentRegistry: Record<string, ComponentData> = {
   'resizable': resizableData,
   'infinite-scroll': infiniteScrollData,
   'aspect-ratio': aspectRatioData,
+  'sunburst': sunburstData,
+  'candlestick-chart': candlestickChartData,
+  'waterfall-chart': waterfallChartData,
   'tour': tourData,
   'slide-button': slideButtonData,
 }

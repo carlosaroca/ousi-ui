@@ -40,6 +40,9 @@ import { ORadarChart } from '../components/radar-chart'
 import { OScatterChart } from '../components/scatter-chart'
 import { OSegmentedGauge } from '../components/segmented-gauge'
 import { OSankey } from '../components/sankey'
+import { OSunburst } from '../components/sunburst'
+import { OCandlestickChart } from '../components/candlestick-chart'
+import { OWaterfallChart } from '../components/waterfall-chart'
 import { ODotMatrix } from '../components/dot-matrix'
 import { ODonutChart } from '../components/donut-chart'
 import { OBarChart } from '../components/bar-chart'
@@ -152,6 +155,9 @@ const components = {
   OScatterChart,
   OSegmentedGauge,
   OSankey,
+  OSunburst,
+  OCandlestickChart,
+  OWaterfallChart,
   ODotMatrix,
   ODonutChart,
   OBarChart,

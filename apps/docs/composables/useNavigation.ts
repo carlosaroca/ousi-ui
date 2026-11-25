@@ -112,6 +112,9 @@ export function useVueNavigation(): NavSection[] {
         { title: 'SegmentedGauge', path: '/vue/components/segmented-gauge' },
         { title: 'ActivityRings', path: '/vue/components/activity-rings' },
         { title: 'DotMatrix', path: '/vue/components/dot-matrix' },
+        { title: 'WaterfallChart', path: '/vue/components/waterfall-chart' },
+        { title: 'CandlestickChart', path: '/vue/components/candlestick-chart' },
+        { title: 'Sunburst', path: '/vue/components/sunburst' },
       ],
     },
     {
