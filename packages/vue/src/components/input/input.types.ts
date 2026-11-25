@@ -35,6 +35,8 @@ export interface InputProps {
   required?: boolean
   /** Show a clear button when there is a value. */
   clearable?: boolean
+  /** With `type="password"`, a button that shows what was typed and hides it again. */
+  revealable?: boolean
   /** Show a loading spinner in the end slot. */
   loading?: boolean
   /** Renders the wrapper as a different element or component. */

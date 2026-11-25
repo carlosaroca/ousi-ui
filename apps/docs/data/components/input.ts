@@ -107,6 +107,32 @@ export const inputData: ComponentData = {
 <OInput placeholder="With tactile press" animated />`,
       },
     },
+    {
+      id: 'password',
+      title: 'Password',
+      example: {
+        component: 'InputPassword',
+        code: `<script setup lang="ts">
+import { ref } from 'vue'
+import { OInput } from '@ousi-ui/vue'
+
+const password = ref('correct-horse')
+</script>
+<template>
+  <form class="flex w-full max-w-xs flex-col gap-4" @submit.prevent>
+    <OInput
+      v-model="password"
+      type="password"
+      revealable
+      label="Password"
+      autocomplete="new-password"
+      description="Use the eye to check what you typed."
+    />
+    <OInput type="password" revealable label="Repeat password" autocomplete="new-password" placeholder="Type it again" />
+  </form>
+</template>`,
+      },
+    },
   ],
 
   props: [
@@ -126,6 +152,7 @@ export const inputData: ComponentData = {
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Whether the input is read-only.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the input is required.' },
     { name: 'clearable', type: 'boolean', default: 'false', description: 'Show a clear button when there is a value.' },
+    { name: 'revealable', type: 'boolean', default: 'false', description: 'With type password, a button that shows what was typed and hides it again. It is hidden again when the form is sent.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Show a loading spinner in the end slot.' },
     { name: 'as', type: 'string | Component', default: '-', description: 'Render wrapper as a different element.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },

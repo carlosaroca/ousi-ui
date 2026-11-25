@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useOusiMessages } from '../../config'
-import { computed, ref, toRef, useId } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, toRef, useId, watch } from 'vue'
 import { cn, useControllableState } from '@ousi-ui/core'
 import { inputGroupTheme, inputInnerTheme, labelTheme } from './input.theme'
 import { useFormContext } from '../form/form.context'
@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<InputProps>(), {
   readonly: false,
   required: false,
   clearable: false,
+  revealable: false,
   loading: false,
   shadow: 'xs',
   animated: false,
@@ -57,6 +58,40 @@ const isInvalid = computed(() => !!resolvedError.value)
 const showClear = computed(() =>
   props.clearable && !!value.value && !props.disabled && !props.readonly,
 )
+
+/* ── Showing a password ────────────────────────────────────────── */
+
+const isPassword = computed(() => props.type === 'password')
+const canReveal = computed(() => isPassword.value && props.revealable)
+const revealed = ref(false)
+const shownType = computed(() => (canReveal.value && revealed.value ? 'text' : props.type))
+watch(canReveal, (can) => !can && (revealed.value = false))
+
+async function toggleReveal() {
+  const input = inputRef.value
+  if (!input) return
+  // Browsers may move the caret when the type changes.
+  const { selectionStart, selectionEnd } = input
+  const typing = document.activeElement === input
+  revealed.value = !revealed.value
+  await nextTick()
+  // Chromium moves it only after the click is over, so it is put back in the next frame.
+  if (typing) requestAnimationFrame(() => input.setSelectionRange(selectionStart, selectionEnd))
+}
+
+// A form is sent with the password hidden again: sent as plain text, a browser may keep it among the
+// words it offers to complete. At once, without waiting for Vue to patch.
+function hideOnSubmit() {
+  revealed.value = false
+  if (inputRef.value) inputRef.value.type = 'password'
+}
+let form: HTMLFormElement | null = null
+watch(revealed, (on) => {
+  form?.removeEventListener('submit', hideOnSubmit, true)
+  form = on ? (inputRef.value?.form ?? null) : null
+  form?.addEventListener('submit', hideOnSubmit, true)
+})
+onBeforeUnmount(() => form?.removeEventListener('submit', hideOnSubmit, true))
 
 function handleInput(e: Event) {
   const target = e.target as HTMLInputElement
@@ -103,8 +138,11 @@ defineExpose(fieldFocus(() => inputRef.value))
       <input
         ref="inputRef"
         :name="name"
-        :class="inputInnerTheme({ size, hasStart: !!$slots.start || undefined })"
-        :type="type"
+        :class="[inputInnerTheme({ size, hasStart: !!$slots.start || undefined }), canReveal && '[&::-ms-reveal]:hidden']"
+        :type="shownType"
+        :spellcheck="isPassword ? 'false' : undefined"
+        :autocapitalize="isPassword ? 'off' : undefined"
+        :autocorrect="isPassword ? 'off' : undefined"
         :placeholder="placeholder"
         :disabled="disabled"
         :readonly="readonly"
@@ -154,6 +192,28 @@ defineExpose(fieldFocus(() => inputRef.value))
       <div v-else-if="$slots.end" class="flex items-center pr-3 text-ousi-muted">
         <slot name="end" />
       </div>
+
+      <!-- Show or hide the password. The press leaves focus where it was, so someone typing carries
+           on, and leaving the field is not reported. -->
+      <button
+        v-if="canReveal"
+        type="button"
+        data-slot="input-reveal"
+        class="mr-1.5 flex size-7 shrink-0 items-center justify-center rounded-full text-ousi-muted transition-colors hover:text-ousi-foreground focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ousi-focus"
+        :aria-label="ousiText.showPassword"
+        :aria-pressed="revealed"
+        :aria-controls="controlId"
+        :disabled="disabled"
+        @mousedown.prevent
+        @click="toggleReveal"
+      >
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+          <circle cx="12" cy="12" r="2.75" />
+          <!-- A stroke across the eye while the password is in view: pressing hides it. -->
+          <path v-if="revealed" data-part="slash" d="M4.5 4.5l15 15" />
+        </svg>
+      </button>
     </div>
 
     <!-- Description -->
