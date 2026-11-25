@@ -1,4 +1,6 @@
+import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 
 // The version shown in the site comes from the package, so a release never leaves it stale.
@@ -19,6 +21,15 @@ export default defineNuxtConfig({
 
   // SPA mode: OG meta tags are in app.head (static HTML)
   ssr: false,
+
+  // The files for AI assistants (llms.txt, the skill...) are generated into public/. This runs from
+  // Nuxt itself because a host can call `nuxt build` directly, and then the pre* scripts of
+  // package.json never run: the first deploy went out without any of those files.
+  hooks: {
+    'build:before': () => {
+      execFileSync(process.execPath, [fileURLToPath(new URL('./scripts/build-ai.mjs', import.meta.url))], { stdio: 'inherit' })
+    },
+  },
 
   // ── SEO ──
   app: {

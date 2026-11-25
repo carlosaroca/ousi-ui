@@ -9,8 +9,9 @@
  *   public/skills/ousi-ui/...            a Claude skill (SKILL.md + references)
  *   public/skills/ousi-ui.tar.gz         the same skill, installable with one command
  *
- * It runs before dev, build and generate, so the output never goes stale. Nothing here is committed:
- * the single sources are data/components/*.ts, ai/*.md, and the theme package.
+ * nuxt.config.ts runs it on dev, build and generate, however Nuxt is called, so the output never
+ * goes stale. Nothing here is committed: the single sources are data/components/*.ts, ai/*.md, and
+ * the theme package.
  *
  * It also compares the documented props of each component with the real props in the component's
  * `*.types.ts` and prints what differs: an assistant is only as right as the docs it reads.
