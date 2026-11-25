@@ -27,6 +27,22 @@ export const dropdownData: ComponentData = {
       },
     },
     {
+      id: 'selection',
+      title: 'Selection',
+      example: {
+        component: 'DropdownSelection',
+        code: `<ODropdownMenu v-model:selected-keys="view" selection-mode="single">
+  <ODropdownItem id="list"><ODropdownItemIndicator />List</ODropdownItem>
+  <ODropdownItem id="grid"><ODropdownItemIndicator />Grid</ODropdownItem>
+</ODropdownMenu>
+
+<ODropdownMenu v-model:selected-keys="columns" selection-mode="multiple">
+  <ODropdownItem id="name"><ODropdownItemIndicator />Name</ODropdownItem>
+  <ODropdownItem id="status"><ODropdownItemIndicator />Status</ODropdownItem>
+</ODropdownMenu>`,
+      },
+    },
+    {
       id: 'with-icons',
       title: 'With Icons',
       example: {
@@ -65,6 +81,82 @@ export const dropdownData: ComponentData = {
     { name: 'shadow', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'lg'", description: 'Elevation shadow (on ODropdownPopover).' },
     { name: 'defaultOpen', type: 'boolean', default: 'false', description: 'Whether the dropdown starts open.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
+  ],
+
+  parts: [
+    {
+      name: 'ODropdownTrigger',
+      description: 'The element that opens and closes the menu. Wrap a button in it.',
+      slots: [
+        { name: 'default', type: 'slot', description: 'The trigger content, usually an OButton.' },
+      ],
+    },
+    {
+      name: 'ODropdownPopover',
+      description: 'The floating panel that holds the menu. It flips and shifts to stay inside the viewport, and closes on Escape or a click outside.',
+      props: [
+        { name: 'placement', type: "'bottom' | 'bottom-start' | 'bottom-end' | 'top' | 'top-start' | 'top-end' | 'left' | 'right'", default: "'bottom-start'", description: 'Where the panel opens relative to the trigger.' },
+        { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
+      ],
+      slots: [
+        { name: 'default', type: 'slot', description: 'The ODropdownMenu.' },
+      ],
+    },
+    {
+      name: 'ODropdownMenu',
+      description: 'The list of items. It owns selection and keyboard navigation.',
+      props: [
+        { name: 'selectionMode', type: "'none' | 'single' | 'multiple'", default: "'none'", description: 'With none, activating an item fires action and closes the menu. With single or multiple it toggles the item instead, keeps the menu open and emits selectionChange. In single mode, choosing the selected item again clears it.' },
+        { name: 'selectedKeys', type: 'Set<string>', default: '-', description: 'Ids of the selected items. Pass it to control the selection (v-model:selected-keys).' },
+        { name: 'defaultSelectedKeys', type: 'Set<string>', default: 'new Set()', description: 'Ids selected first when the selection is uncontrolled.' },
+        { name: 'disabledKeys', type: 'Set<string>', default: 'new Set()', description: 'Ids of items that cannot be activated, without setting disabled on each one.' },
+        { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
+      ],
+      slots: [
+        { name: 'default', type: 'slot', description: 'ODropdownItem, ODropdownSection and ODropdownSeparator.' },
+      ],
+      emits: [
+        { name: 'action', type: '[key: string]', description: 'Emitted with the item id when an item is activated and selectionMode is none.' },
+        { name: 'selectionChange', type: '[keys: Set<string>]', description: 'Emitted when the selection changes.' },
+        { name: 'update:selectedKeys', type: '[keys: Set<string>]', description: 'Emitted when the selection changes (v-model:selected-keys).' },
+      ],
+    },
+    {
+      name: 'ODropdownItem',
+      description: 'One option of the menu.',
+      props: [
+        { name: 'id', type: 'string', default: 'required', description: 'Unique key of the item. It is what action and the selection sets carry.' },
+        { name: 'variant', type: "'default' | 'danger'", default: "'default'", description: 'Visual style. Use danger for destructive actions.' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Makes the item non-interactive.' },
+        { name: 'haptic', type: 'HapticInput', default: "'light'", description: 'Haptic feedback on click. Pass false to turn it off.' },
+        { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
+      ],
+      slots: [
+        { name: 'default', type: 'slot', description: 'The item content. Put an ODropdownItemIndicator first to show the selection.' },
+      ],
+    },
+    {
+      name: 'ODropdownItemIndicator',
+      description: 'A check mark that shows while its item is selected. It keeps its space when it is not, so the labels stay aligned.',
+      slots: [
+        { name: 'default', type: 'slot', description: 'Replaces the check mark.' },
+      ],
+    },
+    {
+      name: 'ODropdownSection',
+      description: 'Groups related items under a heading.',
+      props: [
+        { name: 'title', type: 'string', default: '-', description: 'Heading shown above the section.' },
+        { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
+      ],
+      slots: [
+        { name: 'default', type: 'slot', description: 'The ODropdownItem elements of the section.' },
+      ],
+    },
+    {
+      name: 'ODropdownSeparator',
+      description: 'A divider line between items or sections. It has no props.',
+    },
   ],
 
   slots: [

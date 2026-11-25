@@ -317,6 +317,8 @@ function handle(key) {
     { name: 'emptyContent', type: 'string', default: '-', description: 'Text shown when rows is empty.' },
     { name: 'showFooter', type: 'boolean', default: 'false', description: 'Show the footer slot area.' },
     { name: 'allowsResizing', type: 'boolean', default: 'false', description: 'Enable column resizing (mouse drag or keyboard ArrowLeft/Right when the resizer is focused).' },
+    { name: 'clickBehavior', type: "'select' | 'action'", default: "'select' with selectable rows, else 'action'", description: 'What a click (or Enter) on a row does: toggle its selection, or fire rowAction. With action and selection on, the checkbox column selects and the row itself opens.' },
+    { name: 'manualSort', type: 'boolean', default: 'false', description: 'Skip the client-side sort. Use it when sorting happens on the server and rows already arrive sorted. The table still emits sort-change.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

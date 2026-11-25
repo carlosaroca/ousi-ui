@@ -273,6 +273,7 @@ const initials = (name: string) => name.split(' ').map((part) => part[0]).join('
     { name: 'search', type: '(query: string) => Promise<AutocompleteOption[]>', default: '-', description: 'Search on the server instead of filtering options: runs after minChars and a debounce pause, drops late answers and shows the loading state. options then only seeds the current value.' },
     { name: 'minChars', type: 'number', default: '2', description: 'Characters typed before search runs.' },
     { name: 'debounce', type: 'number', default: '250', description: 'Pause in ms before search runs.' },
+    { name: 'autoSelectSingle', type: 'boolean', default: "app config, false", description: 'Pick the only enabled option when the field is empty. Without a value it follows the autoSelectSingle option of the plugin, which applies to required fields.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

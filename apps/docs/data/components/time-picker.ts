@@ -128,6 +128,7 @@ const time = ref<TimeFieldValue | null>({ hour: 14, minute: 30 })
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the picker.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Read-only mode.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Mark as required (shows asterisk on label).' },
+    { name: 'locale', type: 'string', default: 'app config', description: 'Locale for the AM/PM labels and clock conventions. Without a value it uses the locale of the plugin.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

@@ -147,6 +147,7 @@ const steps = [
   props: [
     { name: 'steps', type: 'StepItem[]', default: '[]', description: 'Array of step items with title and optional description.' },
     { name: 'modelValue', type: 'number', default: '0', description: 'Index of the currently active step.' },
+    { name: 'defaultValue', type: 'number', default: '0', description: 'Step active first when the stepper is uncontrolled (no v-model).' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout direction of the stepper.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the step indicators.' },
     { name: 'clickable', type: 'boolean', default: 'false', description: 'Allow clicking on steps to navigate directly.' },

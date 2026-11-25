@@ -57,6 +57,7 @@ export const rangeCalendarData: ComponentData = {
     { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for month and day names.' },
     { name: 'showOutsideDays', type: 'boolean', default: 'true', description: 'Show adjacent month days.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Prevent selection.' },
+    { name: 'firstDayOfWeek', type: '0 | 1 | 2 | 3 | 4 | 5 | 6', default: "app config, then locale", description: 'First day of the week: 0 is Sunday, 1 is Monday, up to 6 for Saturday. Without a value it uses the firstDayOfWeek option of the plugin, then a default based on the locale region.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

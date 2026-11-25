@@ -83,6 +83,7 @@ export const timeFieldData: ComponentData = {
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the field.' },
     { name: 'readOnly', type: 'boolean', default: 'false', description: 'Mark field as read-only.' },
     { name: 'label', type: 'string', default: '-', description: 'Accessible label.' },
+    { name: 'locale', type: 'string', default: 'app config', description: 'Locale used to decide between 12 and 24 hour time when hour12 is not set. Without a value it uses the locale of the plugin.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

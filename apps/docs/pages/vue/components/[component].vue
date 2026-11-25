@@ -206,6 +206,28 @@ function resolveExample(name: string) {
         </section>
       </template>
 
+      <template v-for="part in data.parts" :key="part.name">
+        <OSeparator />
+        <section>
+          <h2 class="text-lg font-semibold text-ousi-foreground mb-1"><code class="font-mono">{{ part.name }}</code></h2>
+          <p class="text-sm text-ousi-muted mb-4">{{ part.description }}</p>
+          <div class="space-y-6">
+            <div v-if="part.props?.length">
+              <h3 class="text-sm font-semibold text-ousi-foreground mb-2">Props</h3>
+              <PropsTable :props="part.props" />
+            </div>
+            <div v-if="part.slots?.length">
+              <h3 class="text-sm font-semibold text-ousi-foreground mb-2">Slots</h3>
+              <PropsTable :props="part.slots" />
+            </div>
+            <div v-if="part.emits?.length">
+              <h3 class="text-sm font-semibold text-ousi-foreground mb-2">Emits</h3>
+              <PropsTable :props="part.emits" />
+            </div>
+          </div>
+        </section>
+      </template>
+
       <template v-if="data.themeCode">
         <OSeparator />
         <section>

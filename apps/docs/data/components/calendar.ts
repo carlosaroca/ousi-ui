@@ -71,6 +71,14 @@ export const calendarData: ComponentData = {
       },
     },
     {
+      id: 'first-day-of-week',
+      title: 'First Day of the Week',
+      example: {
+        component: 'CalendarFirstDay',
+        code: '<OCalendar v-model="date" :first-day-of-week="1" />',
+      },
+    },
+    {
       id: 'custom-cell-prices',
       title: 'Custom Cell: Prices',
       example: {
@@ -184,6 +192,7 @@ export const calendarData: ComponentData = {
     { name: 'showYearPicker', type: 'boolean', default: 'false', description: 'Enable year picker overlay.' },
     { name: 'readonly', type: 'boolean', default: 'false', description: 'Prevent date selection.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the entire calendar.' },
+    { name: 'firstDayOfWeek', type: '0 | 1 | 2 | 3 | 4 | 5 | 6', default: "app config, then locale", description: 'First day of the week: 0 is Sunday, 1 is Monday, up to 6 for Saturday. Without a value it uses the firstDayOfWeek option of the plugin, then a default based on the locale region.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

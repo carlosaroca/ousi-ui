@@ -79,6 +79,20 @@ export const selectData: ComponentData = {
       },
     },
     {
+      id: 'auto-select-single',
+      title: 'Auto Select a Single Option',
+      example: {
+        component: 'SelectAutoSingle',
+        code: `<OSelect
+  v-model="country"
+  :options="[{ value: 'es', label: 'Spain' }]"
+  label="Country"
+  required
+  auto-select-single
+/>`,
+      },
+    },
+    {
       id: 'disabled',
       title: 'Disabled',
       example: {
@@ -121,6 +135,7 @@ export const selectData: ComponentData = {
     { name: 'animated', type: 'boolean', default: 'false', description: 'Tactile press animation: scales to 98% on focus.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the select is disabled.' },
     { name: 'required', type: 'boolean', default: 'false', description: 'Whether the select is required.' },
+    { name: 'autoSelectSingle', type: 'boolean', default: "app config, false", description: 'Pick the only enabled option when the field is empty. Without a value it follows the autoSelectSingle option of the plugin, which applies to required fields.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes.' },
   ],
 

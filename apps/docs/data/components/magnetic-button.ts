@@ -71,6 +71,8 @@ export const magneticButtonData: ComponentData = {
     { name: 'magnetStrength', type: 'number', default: '0.3', description: 'How much the button pulls toward the cursor (0-1).' },
     { name: 'tiltMax', type: 'number', default: '15', description: 'Maximum 3D tilt angle in degrees.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the magnetic effect.' },
+    { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'text' | 'link' | 'soft' | 'danger' | 'danger-soft'", default: "'secondary'", description: 'Visual variant of the underlying OButton.' },
+    { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the underlying OButton.' },
     { name: 'class', type: 'string', default: '-', description: 'Additional CSS classes on the button element.' },
   ],
 

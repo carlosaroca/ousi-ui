@@ -29,6 +29,17 @@ export interface SectionDef {
   example: ExampleDef
 }
 
+/** One piece of a compound component (ODropdownMenu, ODropdownItem...), with its own API. */
+export interface PartDef {
+  /** Export name, for example 'ODropdownMenu' */
+  name: string
+  /** What the part is for */
+  description: string
+  props?: PropDef[]
+  slots?: PropDef[]
+  emits?: PropDef[]
+}
+
 export interface ComponentData {
   /** Display name */
   title: string
@@ -48,6 +59,8 @@ export interface ComponentData {
   emits?: PropDef[]
   /** Methods exposed via `defineExpose`: accessed through a template ref. */
   methods?: PropDef[]
+  /** Pieces of a compound component that have an API of their own, shown under the root's. */
+  parts?: PartDef[]
   /** Theme import info */
   themeCode?: string
   /** Keyboard interactions for accessibility tab */

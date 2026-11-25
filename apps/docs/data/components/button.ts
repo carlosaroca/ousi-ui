@@ -65,6 +65,16 @@ export const buttonData: ComponentData = {
       },
     },
     {
+      id: 'icon-only',
+      title: 'Icon Only',
+      example: {
+        component: 'ButtonIconOnly',
+        code: `<OButton is-icon-only aria-label="Add">
+  <PlusIcon />
+</OButton>`,
+      },
+    },
+    {
       id: 'loading',
       title: 'Loading',
       example: {
@@ -133,6 +143,7 @@ export const buttonData: ComponentData = {
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the button.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the button.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Shows a loading spinner.' },
+    { name: 'isIconOnly', type: 'boolean', default: 'false', description: 'Render as an icon-only button: square, with no horizontal text padding. Add an aria-label, since there is no visible text.' },
     { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch to fill parent width.' },
     { name: 'ripple', type: 'boolean', default: 'true', description: 'Material-style ripple from the click point.' },
     { name: 'animationType', type: "'vertical' | 'scale' | 'rotate'", default: "'vertical'", description: 'Transition used to swap default content with the #animate slot on hover.' },

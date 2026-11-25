@@ -118,6 +118,7 @@ const currentSlide = ref(0)
 
   props: [
     { name: 'modelValue', type: 'number', default: '0', description: 'Index of the currently active slide.' },
+    { name: 'defaultValue', type: 'number', default: '0', description: 'Slide shown first when the carousel is uncontrolled (no v-model).' },
     { name: 'loop', type: 'boolean', default: 'false', description: 'Enable infinite looping of slides.' },
     { name: 'autoplay', type: 'boolean', default: 'false', description: 'Automatically advance slides.' },
     { name: 'autoplayInterval', type: 'number', default: '5000', description: 'Interval in milliseconds between auto-advances.' },
