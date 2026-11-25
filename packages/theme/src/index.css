@@ -15,8 +15,10 @@
 
 @import "./base/reset.css";
 @import "./base/base.css";
-@import "./themes/ousi-dark.css";
+/* Light first, then dark. Light sets :root, and :root weighs the same as .dark and
+   [data-theme="dark"], so on <html> whichever comes last wins. */
 @import "./themes/ousi-light.css";
+@import "./themes/ousi-dark.css";
 @import "./shared/theme.css";
 @import "./motion.css";
 @import "./recipes/button-group.css";

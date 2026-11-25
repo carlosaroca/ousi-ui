@@ -43,7 +43,7 @@ const tocItems = [
         <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
 
-      <p class="text-sm text-ousi-muted mb-4"><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/vue</code> 0.8.0, with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/theme</code> 0.6.1 and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/nuxt</code> 0.7.0. Upgrade the library and the theme together, and read Changed before you do.</p>
+      <p class="text-sm text-ousi-muted mb-4"><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/vue</code> 0.8.0, with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/theme</code> 0.6.2 and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/nuxt</code> 0.7.0. Upgrade the library and the theme together, and read Changed before you do.</p>
 
       <div class="space-y-4">
         <div>
@@ -137,6 +137,10 @@ const tocItems = [
             </li>
             <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
               <span class="text-ousi-accent mt-0.5">~</span>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span>Dark mode works on <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">&lt;html&gt;</code>: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">data-theme=&quot;dark&quot;</code> or <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">class=&quot;dark&quot;</code> there did nothing. An app that already had one of them will turn dark. This fix is in <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/theme</code> 0.6.2.</span>
+            </li>
               <span>A vertical <strong class="text-ousi-foreground">OButtonGroup</strong> gives every button its full width.</span>
             </li>
             <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
