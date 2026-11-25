@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, useId, useSlots } from 'vue'
+import { computed, ref, useId } from 'vue'
 import { cn } from '@ousi-ui/core'
 import { vHaptic } from '@ousi-ui/haptics'
 import { buttonTheme } from './button.theme'
-import type { ButtonProps } from './button.types'
+import type { ButtonProps, ButtonSlots } from './button.types'
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   variant: 'primary',
@@ -23,7 +23,9 @@ const emit = defineEmits<{
   click: [event: MouseEvent]
 }>()
 
-const slots = useSlots()
+// Typed with defineSlots: `useSlots()` infers its type from the slots this component declares, which in
+// turn are inferred from how `slots` is used, and generating the declaration files fails on that loop.
+const slots = defineSlots<ButtonSlots>()
 const id = useId()
 
 const isDisabled = computed(() => props.disabled || props.loading)
