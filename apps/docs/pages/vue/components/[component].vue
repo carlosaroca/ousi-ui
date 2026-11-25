@@ -24,6 +24,23 @@ useSeoMeta({
   twitterImage: '/og-image.png',
 })
 
+// "Copy for AI": the component's reference as Markdown (generated at build time into public/ai).
+const aiState = ref<'idle' | 'copied' | 'failed'>('idle')
+async function copyForAi() {
+  const url = `/ai/components/${slug.value}.md`
+  try {
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    await navigator.clipboard.writeText(await res.text())
+    aiState.value = 'copied'
+  } catch {
+    // No clipboard access (or no file): open the Markdown so it can still be copied by hand.
+    window.open(url, '_blank')
+    aiState.value = 'failed'
+  }
+  setTimeout(() => (aiState.value = 'idle'), 2000)
+}
+
 // Page tabs
 const pageTab = ref('component')
 const pageTabs: TabItem[] = [
@@ -70,6 +87,17 @@ function resolveExample(name: string) {
         <p class="mt-1.5 text-base text-ousi-muted">{{ data.description }}</p>
       </div>
       <div class="hidden sm:flex items-center gap-2 shrink-0 mt-1">
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 h-8 rounded-ousi-lg border border-ousi-border px-3 text-xs font-medium transition-colors hover:bg-ousi-default"
+          :class="aiState === 'copied' ? 'text-ousi-success' : 'text-ousi-muted hover:text-ousi-foreground'"
+          title="Copy this component's reference as Markdown, to paste into an AI assistant"
+          @click="copyForAi"
+        >
+          <svg v-if="aiState === 'copied'" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+          <svg v-else class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" /></svg>
+          {{ aiState === 'copied' ? 'Copied' : aiState === 'failed' ? 'Opened' : 'Copy for AI' }}
+        </button>
         <a href="#" class="inline-flex items-center gap-1.5 h-8 rounded-ousi-lg border border-ousi-border px-3 text-xs font-medium text-ousi-muted hover:text-ousi-foreground hover:bg-ousi-default transition-colors">
           <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round" /></svg>
           Source

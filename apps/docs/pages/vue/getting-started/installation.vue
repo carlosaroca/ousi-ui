@@ -33,7 +33,7 @@ const tocItems = [
       <section id="requirements">
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Requirements</h2>
         <div class="flex flex-wrap gap-2">
-          <OChip variant="flat" size="sm">Vue 3.4+</OChip>
+          <OChip variant="flat" size="sm">Vue 3.5+</OChip>
           <OChip variant="flat" size="sm">Tailwind CSS 4+</OChip>
           <OChip variant="flat" size="sm">Node.js 18+</OChip>
         </div>

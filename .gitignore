@@ -27,6 +27,12 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Generated for AI assistants by apps/docs/scripts/build-ai.mjs
+apps/docs/public/llms.txt
+apps/docs/public/llms-full.txt
+apps/docs/public/ai/
+apps/docs/public/skills/
+
 # Logs
 *.log
 npm-debug.log*

@@ -99,6 +99,20 @@ import { OButton } from '@ousi-ui/vue'
 | **Interactive** | Collapsible, InfiniteScroll, ScrollShadow |
 | **Trendy** | Marquee, Dock, Typewriter, GradientText, Confetti |
 
+## Use with AI
+
+Give Claude, Cursor or any assistant the real props, variants and tokens instead of letting it guess. Everything is generated from the docs data on every build.
+
+```bash
+# Claude Code skill, in your project
+mkdir -p .claude/skills
+curl -sL https://ousiui.com/skills/ousi-ui.tar.gz | tar -xz -C .claude/skills
+```
+
+- [`llms.txt`](https://ousiui.com/llms.txt): an index with a link per component. Each component is also a Markdown file at `/ai/components/<slug>.md`.
+- Every component page in the docs has a **Copy for AI** button.
+- Details and a block for `CLAUDE.md` / `AGENTS.md`: [ousiui.com/vue/getting-started/ai](https://ousiui.com/vue/getting-started/ai)
+
 ## Theming
 
 Ousi UI uses CSS custom properties. Switch themes instantly:

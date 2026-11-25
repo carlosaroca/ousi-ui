@@ -4,8 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "ai": "node scripts/build-ai.mjs",
+    "predev": "node scripts/build-ai.mjs",
     "dev": "nuxt dev",
+    "prebuild": "node scripts/build-ai.mjs",
     "build": "nuxt build",
+    "pregenerate": "node scripts/build-ai.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "clean": "rm -rf .nuxt .output dist"

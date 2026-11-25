@@ -1,7 +1,10 @@
 export interface NavItem {
   title: string
   path: string
+  /** Marks the item as not available yet: it is dimmed and cannot be clicked (the Flutter widgets use 'Soon'). */
   badge?: string
+  /** A label shown next to the title. The item stays fully clickable. */
+  tag?: string
 }
 
 export interface NavSection {
@@ -17,6 +20,7 @@ export function useVueNavigation(): NavSection[] {
       items: [
         { title: 'Introduction', path: '/vue/getting-started/introduction' },
         { title: 'Installation', path: '/vue/getting-started/installation' },
+        { title: 'Agents', path: '/vue/getting-started/ai', tag: 'AI' },
       ],
     },
     {

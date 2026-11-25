@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
+import { OChip } from '@ousi-ui/vue'
 import type { NavSection } from '~/composables/useNavigation'
 
 const props = defineProps<{
@@ -20,6 +21,7 @@ interface FlatItem {
   title: string
   path?: string
   badge?: string
+  tag?: string
   isHeader: boolean
 }
 
@@ -28,7 +30,7 @@ const flatItems = computed((): FlatItem[] => {
   for (const section of props.sections) {
     items.push({ id: `h-${section.title}`, title: section.title, isHeader: true })
     for (const item of section.items) {
-      items.push({ id: item.path, title: item.title, path: item.path, badge: item.badge, isHeader: false })
+      items.push({ id: item.path, title: item.title, path: item.path, badge: item.badge, tag: item.tag, isHeader: false })
     }
   }
   return items
@@ -293,6 +295,7 @@ onMounted(async () => {
           >
             {{ item.badge }}
           </span>
+          <OChip v-if="item.tag" size="xs" variant="soft" color="accent" class="ml-auto mr-1">{{ item.tag }}</OChip>
         </div>
       </template>
     </div>

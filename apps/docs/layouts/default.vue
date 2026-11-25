@@ -80,7 +80,7 @@ const searchItems = computed<CommandItem[]>(() => {
         key: item.path,
         label: item.title,
         group: section.title,
-        shortcut: item.badge || undefined,
+        shortcut: item.badge || item.tag || undefined,
       })
     }
   }
