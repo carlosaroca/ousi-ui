@@ -7,6 +7,23 @@
 @source "../../pages/**/*.vue";
 @source "../../../shared/**/*.vue";
 
+/* The docs site paints its pages a cool grey-blue (#edf1f8). It is set on the token, so every layout
+   and the navbar, sidebar and tiles that use bg-ousi-background follow it.
+   The greys that sit on that page (the "secondary" color of tabs, buttons, chips and soft cards, plus
+   borders) are the library's neutral ones, which turn muddy next to a blue page. They are re-tinted
+   to the page's own hue (oklch 262) with the same lightness step as before, so contrast is unchanged.
+   The dark theme keeps its own. */
+:root,
+[data-theme="light"] {
+  --ousi-background: #edf1f8;
+  --ousi-default: oklch(92.5% 0.017 262);
+  --ousi-surface-secondary: oklch(94.5% 0.010 262);
+  --ousi-surface-tertiary: oklch(92% 0.013 262);
+  --ousi-field-hover: oklch(94.5% 0.010 262);
+  --ousi-border: oklch(89.5% 0.014 262);
+  --ousi-separator: oklch(91.5% 0.012 262);
+}
+
 /* Smooth scroll with offset for sticky header */
 html {
   scroll-behavior: smooth;

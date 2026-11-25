@@ -127,7 +127,7 @@ watch(fontFamily, (font) => {
 const sectionRef = ref<HTMLElement | null>(null)
 
 const VAR_KEYS = [
-  '--ousi-accent', '--ousi-muted', '--ousi-shadow-color', '--ousi-font-sans',
+  '--ousi-accent', '--showcase-accent', '--ousi-muted', '--ousi-shadow-color', '--ousi-font-sans',
   '--ousi-radius', '--ousi-radius-xs', '--ousi-radius-sm', '--ousi-radius-md',
   '--ousi-radius-lg', '--ousi-radius-xl', '--ousi-radius-2xl', '--ousi-radius-3xl',
   '--ousi-radius-4xl', '--ousi-radius-field',
@@ -181,6 +181,7 @@ function applyVars(el: HTMLElement | null) {
   const shadows = buildShadow(scale)
 
   el.style.setProperty('--ousi-accent', accent.value)
+  el.style.setProperty('--showcase-accent', accent.value)
   el.style.setProperty('--ousi-muted', base.value)
   el.style.setProperty('--ousi-shadow-color', `${shadowHue.value} 40% 10%`)
   el.style.setProperty('--ousi-font-sans', `'${fontFamily.value}', system-ui, sans-serif`)

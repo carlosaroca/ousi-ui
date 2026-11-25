@@ -11,9 +11,10 @@ const credits = [
 </script>
 
 <template>
-  <section class="py-12 md:py-16">
+  <!-- The footer brings its own 64px of top margin, so the credits only pad their top. -->
+  <section class="pt-10 pb-2 md:pt-12">
     <div class="mx-auto max-w-2xl px-4 sm:px-6 text-center">
-      <OSeparator class="mb-10" />
+      <OSeparator class="mb-8" />
       <p class="text-sm font-medium text-ousi-muted mb-6">Special thanks to</p>
       <div class="flex items-center justify-center gap-8">
         <a
