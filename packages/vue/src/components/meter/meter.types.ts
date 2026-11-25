@@ -1,9 +1,28 @@
 export type MeterColor = 'default' | 'accent' | 'success' | 'warning' | 'danger'
 export type MeterSize = 'sm' | 'md' | 'lg'
 
-export interface MeterProps {
-  /** Current value (required — always determinate). */
+export interface MeterSegment {
+  /** Unique key. Falls back to the label. */
+  id?: string
+  label: string
+  /** An amount, on the same scale as `maxValue`. */
   value: number
+  /** Token name or any CSS color. Defaults to the chart palette. */
+  color?: string
+}
+
+export interface MeterProps {
+  /** Current value. Required unless `segments` is given. */
+  value?: number
+  /** Several amounts on one bar, in order: what takes up a quota, say. They replace `value` and
+   *  `color`. If they add up to more than the range, the bar is shared among them. */
+  segments?: MeterSegment[]
+  /** Space between segments, in px, curved around the round end of the next one. 0 joins them. */
+  gap?: number
+  /** Segments touch, with no space between them. */
+  joined?: boolean
+  /** With `segments`: list under the bar what each one is and how much. */
+  showLegend?: boolean
   /** Minimum value. Default: 0. */
   minValue?: number
   /** Maximum value. Default: 100. */

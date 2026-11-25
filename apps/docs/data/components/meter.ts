@@ -47,16 +47,54 @@ export const meterData: ComponentData = {
 <OMeter :value="90" auto-color label="High" show-value-label />`,
       },
     },
+    {
+      id: 'segments',
+      title: 'Segments',
+      example: {
+        component: 'MeterSegments',
+        code: `<script setup lang="ts">
+import { OMeter } from '@ousi-ui/vue'
+
+const storage = [
+  { label: 'Photos', value: 42, color: 'accent' },
+  { label: 'Videos', value: 27, color: 'violet' },
+  { label: 'Documents', value: 11, color: 'orange' },
+  { label: 'Other', value: 2, color: 'success' },
+]
+const gigabytes: Intl.NumberFormatOptions = { style: 'unit', unit: 'gigabyte' }
+</script>
+<template>
+  <div class="flex w-full max-w-md flex-col gap-8">
+    <OMeter
+      :segments="storage"
+      :max-value="128"
+      :format-options="gigabytes"
+      size="lg"
+      label="Storage"
+      show-value-label
+      show-legend
+    />
+    <OMeter :segments="storage" :max-value="128" size="lg" label="Joined" joined />
+    <!-- More than fits: the bar is shared among them, and the figure says by how much. -->
+    <OMeter :segments="storage" :max-value="64" size="lg" label="Over the limit" show-value-label />
+  </div>
+</template>`,
+      },
+    },
   ],
 
   props: [
-    { name: 'value', type: 'number', default: '-', description: 'Current value (required).' },
+    { name: 'value', type: 'number', default: '-', description: 'Current value. Required unless segments is given.' },
+    { name: 'segments', type: 'MeterSegment[]', default: '-', description: 'Several amounts on one bar: { id?, label, value, color? }. They replace value and color. If they add up to more than the range, the bar is shared among them.' },
+    { name: 'gap', type: 'number', default: '2', description: 'Space between segments, in px, curved around the round end of the next one. 0 joins them.' },
+    { name: 'joined', type: 'boolean', default: 'false', description: 'Segments touch, with no space between them.' },
+    { name: 'showLegend', type: 'boolean', default: 'false', description: 'With segments: list under the bar what each one is and how much.' },
     { name: 'minValue', type: 'number', default: '0', description: 'Minimum value.' },
     { name: 'maxValue', type: 'number', default: '100', description: 'Maximum value.' },
     { name: 'label', type: 'string', default: '-', description: 'Label text.' },
     { name: 'showValueLabel', type: 'boolean', default: 'false', description: 'Show formatted value to the right.' },
     { name: 'formatOptions', type: 'Intl.NumberFormatOptions', default: '-', description: 'Intl.NumberFormat options for the value label.' },
-    { name: 'color', type: "'default' | 'accent' | 'success' | 'warning' | 'danger'", default: "'default'", description: 'Fill color.' },
+    { name: 'color', type: "'default' | 'accent' | 'success' | 'warning' | 'danger'", default: "'accent'", description: 'Fill color.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Track height.' },
     { name: 'autoColor', type: 'boolean', default: 'false', description: 'Automatically change color based on thresholds.' },
     { name: 'low', type: 'number', default: '25', description: 'Low threshold (default: 25% of range).' },

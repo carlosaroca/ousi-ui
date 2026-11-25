@@ -22,9 +22,10 @@ export const meterTrackTheme = cva(
   {
     variants: {
       size: {
-        sm: 'h-1',
-        md: 'h-2',
-        lg: 'h-3',
+        // The height is also what the round ends of the segments are shaped from.
+        sm: 'h-1 [--meter-h:0.25rem]',
+        md: 'h-2 [--meter-h:0.5rem]',
+        lg: 'h-3 [--meter-h:0.75rem]',
       },
     },
     defaultVariants: { size: 'md' },
