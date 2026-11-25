@@ -1,6 +1,7 @@
 import type { ComponentData } from './types'
 
 // Buttons
+import { lightboxData } from './lightbox'
 import { sunburstData } from './sunburst'
 import { candlestickChartData } from './candlestick-chart'
 import { waterfallChartData } from './waterfall-chart'
@@ -215,6 +216,7 @@ export const componentRegistry: Record<string, ComponentData> = {
   'resizable': resizableData,
   'infinite-scroll': infiniteScrollData,
   'aspect-ratio': aspectRatioData,
+  'lightbox': lightboxData,
   'sunburst': sunburstData,
   'candlestick-chart': candlestickChartData,
   'waterfall-chart': waterfallChartData,

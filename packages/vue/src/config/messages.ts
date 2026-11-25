@@ -148,6 +148,17 @@ export interface OusiMessages {
   valueAdded: string
   valueRemoved: string
   selectedValues: string
+  lightbox: string
+  lightboxClose: string
+  zoomIn: string
+  zoomOut: string
+  download: string
+  /** `{index}` and `{total}` are replaced. */
+  imagePosition: string
+  imageFailed: string
+  chooseImage: string
+  /** `{index}` is replaced. */
+  showImage: string
   moreTabs: string
 }
 
@@ -291,6 +302,15 @@ const en: OusiMessages = {
   valueAdded: '{value} added',
   valueRemoved: '{value} removed',
   selectedValues: 'Selected: {values}',
+  lightbox: 'Image viewer',
+  lightboxClose: 'Close viewer',
+  zoomIn: 'Zoom in',
+  zoomOut: 'Zoom out',
+  download: 'Download',
+  imagePosition: '{index} of {total}',
+  imageFailed: 'This picture could not be loaded',
+  chooseImage: 'Choose a picture',
+  showImage: 'Show picture {index}',
   moreTabs: 'More',
 }
 
@@ -434,6 +454,15 @@ const es: OusiMessages = {
   valueAdded: 'Se agregó {value}',
   valueRemoved: 'Se quitó {value}',
   selectedValues: 'Elegidos: {values}',
+  lightbox: 'Visor de imágenes',
+  lightboxClose: 'Cerrar el visor',
+  zoomIn: 'Acercar',
+  zoomOut: 'Alejar',
+  download: 'Descargar',
+  imagePosition: '{index} de {total}',
+  imageFailed: 'No se pudo cargar esta imagen',
+  chooseImage: 'Elegir una imagen',
+  showImage: 'Ver la imagen {index}',
   moreTabs: 'Más',
 }
 

@@ -177,5 +177,7 @@ export * from './components/candlestick-chart'
 
 export * from './components/sunburst'
 
+export * from './components/lightbox'
+
 // Image utilities
 export * from './image'

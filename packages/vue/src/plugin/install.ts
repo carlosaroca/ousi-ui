@@ -10,6 +10,7 @@ import { OTooltip } from '../components/tooltip'
 import { OSelect } from '../components/select'
 import { ODialog, ODialogHeader, ODialogBody, ODialogFooter } from '../components/dialog'
 import { ODrawer } from '../components/drawer'
+import { OLightbox } from '../components/lightbox'
 import { OTour } from '../components/tour'
 import { OSlideButton } from '../components/slide-button'
 import { OTabs } from '../components/tabs'
@@ -114,6 +115,7 @@ const components = {
   ODialogBody,
   ODialogFooter,
   ODrawer,
+  OLightbox,
   OTour,
   OSlideButton,
   OTabs,
