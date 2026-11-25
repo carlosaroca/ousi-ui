@@ -7,6 +7,7 @@ useSeoMeta({
 })
 
 const tocItems = [
+  { id: 'v0-8-0', label: 'v0.8.0' },
   { id: 'v0-7-4', label: 'v0.7.4' },
   { id: 'v0-7-3', label: 'v0.7.3' },
   { id: 'v0-7-2', label: 'v0.7.2' },
@@ -33,13 +34,142 @@ const tocItems = [
     <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight mb-2">Changelog</h1>
     <p class="text-ousi-muted mb-10">All notable changes to Ousi UI.</p>
 
+    <!-- v0.8.0 -->
+    <article id="v0-8-0" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
+      <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
+      <div class="flex items-center gap-3 mb-3">
+        <h2 class="text-lg font-semibold text-ousi-foreground">v0.8.0</h2>
+        <span class="text-xs text-ousi-muted">November 25, 2026</span>
+        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
+      </div>
+
+      <p class="text-sm text-ousi-muted mb-4"><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/vue</code> 0.8.0, with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/theme</code> 0.6.1 and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/nuxt</code> 0.7.0. Upgrade the library and the theme together, and read Changed before you do.</p>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Added</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OLightbox</strong>: pictures over the whole screen. Zoom with two fingers, a double tap, the wheel, buttons or keys, swipe between pictures and downwards to close, with thumbnails, captions and a download button.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OSlideButton</strong>: slide to confirm, for what should not happen by accident. It works with a pointer, a finger, the keyboard and a screen reader, has loading and failure states, and a slot for the icon and the text of each state.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OTour</strong>: a guided walk through parts of the screen. It highlights a target and follows it as the page scrolls or resizes. A step can have no target, let the highlighted part be used, or bring its own content and footer.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OWaterfallChart</strong>, <strong class="text-ousi-foreground">OCandlestickChart</strong> and <strong class="text-ousi-foreground">OSunburst</strong>: rises, falls and totals; prices with optional volume; and a hierarchy in rings that opens on click.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OImageEditor</strong>, <strong class="text-ousi-foreground">OImageEditorDialog</strong> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">compressImage</code>: crop, rotate, mirror, zoom and choose the output. <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">compressImage</code> lowers the quality first and then the dimensions until a picture fits a size limit.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OFileUpload</strong> is redesigned: a new drop area, icons by type and a grouped list; <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">label</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">description</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">errorMessage</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">name</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">required</code> and form reset; saved files with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">v-model:uploaded-files</code>; previews; paste from the clipboard; duplicate detection; <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">transform</code>, which <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">confirm-transform</code> lets the person approve; and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">editable</code> to edit an image that was already added. The <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">useFileUpload</code> composable runs the queue, with progress, retry and abort.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OAutocomplete</strong> <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">multiple</code>: picks show as chips and the list stays open. <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">allowCustomValue</code> adds what is typed, the keyboard walks the chips, and a <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">#chip</code> slot draws them.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OInput</strong> <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">revealable</code>: a button that shows and hides a password.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OMeter</strong> <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">segments</code>: several amounts on one bar, with <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">showLegend</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">gap</code> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">joined</code>.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span><strong class="text-ousi-foreground">OSegmentedGauge</strong> and <strong class="text-ousi-foreground">ODonutChart</strong> <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">joined</code>: segments with no space between them.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">+</span>
+              <span>For AI assistants: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">llms.txt</code>, a Markdown file for each component, a Claude skill and a Copy for AI button on every component page. The Agents page explains how to use them.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Changed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">ODrawer</strong> now closes when it is swiped back the way it came. <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">:swipe-to-close=&quot;false&quot;</code> turns it off.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">ODonutChart</strong> is rounded by default; <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">:rounded=&quot;false&quot;</code> keeps straight cuts. A joined, round donut no longer moves the hovered segment outward.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OSegmentedGauge</strong> and <strong class="text-ousi-foreground">ODonutChart</strong> draw each segment with round ends, fitted around the next one. Small values stay visible in them, in short bars and in funnels, whose bars are never narrower than a circle. A funnel stage of 0 has no bar, and where there is little room each funnel bar takes a line of its own.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OFileUpload</strong>: the remove button shows while a file uploads, so abort the request in <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@remove</code>. <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">id</code>, <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">data-*</code> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">aria-*</code> go to the native input, the same file is not added twice, and paste is on by default (<code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">paste=&quot;none&quot;</code> turns it off).</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              <span><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">fileUploadAreaTheme</code> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">fileUploadInlineTheme</code> take <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">state</code> instead of <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">active</code>.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              <span>Password fields turn off spell checking and automatic capitals.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-warning mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OAutocomplete</strong>: <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">update:modelValue</code> and <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">change</code> are typed <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">any</code>, so <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">v-model</code> keeps taking a ref of one value. A press on the list no longer takes focus, so <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">blur</code> comes after the new value.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-ousi-foreground mb-1.5">Fixed</h3>
+          <ul class="space-y-1.5 text-sm text-ousi-muted">
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">npm install</code> works again. 0.7.4 and 0.7.2 declared the theme peer dependency as <code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">workspace:*</code>, which npm cannot install.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span>A vertical <strong class="text-ousi-foreground">OButtonGroup</strong> gives every button its full width.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OSegmentedGauge</strong> and <strong class="text-ousi-foreground">ORadarChart</strong>: what sits in the middle stays on the drawing when the container is wider than it, as in a stretched flex column.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OFileUpload</strong>: every rejected file shows its reason, uploads can be cancelled and native attributes reach the input.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OAutocomplete</strong>: a click opens the list again after Escape, 0 counts as a value, and screen readers follow the highlighted option, which is also scrolled into view.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><strong class="text-ousi-foreground">OMeter</strong>: screen readers are no longer told a value outside the range.</span>
+            </li>
+            <li class="flex items-start gap-2 [&>span:last-child]:min-w-0 [&>span:last-child]:[overflow-wrap:anywhere]">
+              <span class="text-ousi-accent mt-0.5">~</span>
+              <span><code class="text-xs rounded bg-ousi-default px-1 py-0.5 font-mono">@ousi-ui/nuxt</code> auto-imports <strong class="text-ousi-foreground">OStatus</strong>, which was missing, along with all the new components.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <!-- v0.7.4 -->
     <article id="v0-7-4" class="relative pl-8 pb-10 border-l-2 border-ousi-border">
       <div class="absolute -left-[9px] top-0 size-4 rounded-full bg-ousi-accent border-2 border-ousi-background" />
       <div class="flex items-center gap-3 mb-3">
         <h2 class="text-lg font-semibold text-ousi-foreground">v0.7.4</h2>
         <span class="text-xs text-ousi-muted">November 16, 2026</span>
-        <span class="text-xs font-medium text-ousi-accent bg-ousi-accent-soft px-2 py-0.5 rounded-full">Latest</span>
       </div>
 
       <div class="space-y-4">

@@ -124,7 +124,7 @@ const tocItems = [
       <section id="usage-in-components">
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Usage in Components</h2>
         <p class="text-sm text-ousi-muted mb-4">
-          Haptics are built into 10 components. Each has a sensible default: you don't need to configure anything.
+          Haptics are built into 11 components. Each has a sensible default: you don't need to configure anything.
         </p>
 
         <div class="rounded-ousi-xl border border-ousi-border bg-ousi-surface-secondary overflow-hidden">
@@ -157,8 +157,9 @@ const tocItems = [
                 { comp: 'OPagination', default: 'selection', when: 'Page change' },
                 { comp: 'ODialog', default: 'medium', when: 'Open (not close)' },
                 { comp: 'ODropdownItem', default: 'light / warning', when: 'Item click' },
+                { comp: 'OSlideButton', default: 'none', when: 'Slide confirmed (off until haptic is set)' },
                 { comp: 'Toast', default: 'auto-mapped', when: 'Toast created' },
-              ]" :key="row.comp" :class="i < 9 ? 'border-b border-ousi-border' : ''">
+              ]" :key="row.comp" :class="i < 10 ? 'border-b border-ousi-border' : ''">
                 <td class="px-4 py-3 font-mono text-xs text-ousi-accent">{{ row.comp }}</td>
                 <td class="px-4 py-3 font-mono text-xs text-ousi-muted">{{ row.default }}</td>
                 <td class="px-4 py-3 text-ousi-foreground">{{ row.when }}</td>

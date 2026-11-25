@@ -21,7 +21,7 @@ const tocItems = [
     </Teleport>
     <div class="mb-6">
       <h1 class="text-3xl font-bold text-ousi-foreground tracking-tight">Introduction</h1>
-      <p class="mt-1.5 text-base text-ousi-muted">A modern Vue 3 component library with 80+ beautifully crafted, accessible components.</p>
+      <p class="mt-1.5 text-base text-ousi-muted">A modern Vue 3 component library with 94+ beautifully crafted, accessible components.</p>
     </div>
 
     <div class="space-y-12">
@@ -145,9 +145,9 @@ const tocItems = [
 
       <section id="categories">
         <h2 class="text-lg font-semibold text-ousi-foreground mb-3">Component Categories</h2>
-        <p class="text-sm text-ousi-muted mb-4">80+ components organized into logical groups:</p>
+        <p class="text-sm text-ousi-muted mb-4">94+ components organized into logical groups:</p>
         <div class="flex flex-wrap gap-2">
-          <OChip v-for="cat in ['Buttons', 'Forms', 'Date & Time', 'Colors', 'Data Display', 'Feedback', 'Layout', 'Media', 'Navigation', 'Overlays', 'Typography', 'Interactive', 'Utilities']" :key="cat" variant="flat" size="sm">{{ cat }}</OChip>
+          <OChip v-for="cat in ['Buttons', 'Forms', 'Date & Time', 'Colors', 'Data Display', 'Charts', 'Feedback', 'Layout', 'Media', 'Navigation', 'Overlays', 'Typography', 'Interactive', 'Utilities']" :key="cat" variant="flat" size="sm">{{ cat }}</OChip>
         </div>
       </section>
 

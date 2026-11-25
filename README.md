@@ -6,7 +6,7 @@
 
 <p align="center">
   A beautiful, accessible component library for <strong>Vue</strong> and <strong>Flutter</strong>.<br/>
-  88+ components. Dark mode. OKLCH colors. TypeScript-first.
+  94+ components. Dark mode. OKLCH colors. TypeScript-first.
 </p>
 
 <p align="center">
@@ -34,7 +34,7 @@
 
 ## Features
 
-- **88+ Components**: Buttons, forms, date pickers, charts, color pickers, modals, and more
+- **94+ Components**: Buttons, forms, date pickers, charts, color pickers, modals, and more
 - **Vue 3 + Flutter**: Vue ready today, Flutter coming soon
 - **Tailwind CSS v4**: CSS-first configuration, no JS config files
 - **Dark Mode**: Every component adapts via `data-theme` attribute
@@ -85,17 +85,17 @@ import { OButton } from '@ousi-ui/vue'
 
 | Category | Components |
 |----------|-----------|
-| **Buttons** | Button, ButtonGroup, MagneticButton |
+| **Buttons** | Button, ButtonGroup, MagneticButton, SlideButton |
 | **Forms** | Input, Textarea, Select, Autocomplete, Checkbox, Radio, Switch, Slider, ElasticSlider, NumberField, InputOtp, TagInput, Rating, FileUpload, Form |
 | **Date & Time** | Calendar, RangeCalendar, DateField, TimeField, DatePicker, DateRangePicker |
 | **Colors** | ColorSwatch, ColorField, ColorSlider, ColorArea, ColorPicker |
-| **Data Display** | Badge, Chip, Table, Kbd, CodeBlock, AnimatedNumber, Timeline |
-| **Charts** | Chart, BarChart, ComboChart, AreaChart, DonutChart, RadarChart, ScatterChart, Funnel, Heatmap, Treemap, Sankey, SegmentedGauge, ActivityRings, DotMatrix |
+| **Data Display** | Badge, Chip, Status, Table, Kbd, CodeBlock, AnimatedNumber, Timeline |
+| **Charts** | Chart, BarChart, ComboChart, AreaChart, DonutChart, RadarChart, ScatterChart, Funnel, Heatmap, Treemap, Sankey, SegmentedGauge, ActivityRings, DotMatrix, WaterfallChart, CandlestickChart, Sunburst |
 | **Feedback** | Alert, ProgressBar, ProgressCircle, Meter, Skeleton, Spinner, Toast |
 | **Layout** | Card, Separator, BentoGrid, AspectRatio, Resizable |
-| **Media** | Avatar, Carousel, ImageCompare |
+| **Media** | Avatar, Carousel, ImageCompare, ImageEditor, Lightbox |
 | **Navigation** | Disclosure, Breadcrumbs, Pagination, Tabs, Accordion, Stepper, TreeView |
-| **Overlays** | Dialog, Drawer, Dropdown, Popover, Tooltip, ContextMenu, CommandPalette |
+| **Overlays** | Dialog, Drawer, Dropdown, Popover, Tooltip, ContextMenu, CommandPalette, Tour |
 | **Interactive** | Collapsible, InfiniteScroll, ScrollShadow |
 | **Trendy** | Marquee, Dock, Typewriter, GradientText, Confetti |
 

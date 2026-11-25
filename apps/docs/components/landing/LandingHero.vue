@@ -13,7 +13,7 @@ useHead({
 })
 
 const subtitles = [      
-    '88+ accessible components.',
+    '94+ accessible components.',
     'Production-ready out of the box.',       
     'Vue 3 & Nuxt, native.',              
     'SSR-ready. Zero config.',                  
