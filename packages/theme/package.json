@@ -16,6 +16,8 @@
   ],
   "scripts": {
     "build": "node build.mjs",
+    "prepack": "node build.mjs",
+    "prepublishOnly": "node ../../tooling/require-pnpm.mjs",
     "clean": "rm -rf dist"
   },
   "peerDependencies": {

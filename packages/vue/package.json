@@ -22,6 +22,8 @@
   ],
   "scripts": {
     "build": "vite build",
+    "prepack": "vite build",
+    "prepublishOnly": "node ../../tooling/require-pnpm.mjs",
     "test": "vitest run",
     "typecheck": "vue-tsc --noEmit",
     "clean": "rm -rf dist"
@@ -32,7 +34,7 @@
     "motion-v": "^1.0.0"
   },
   "peerDependencies": {
-    "@ousi-ui/theme": "workspace:*",
+    "@ousi-ui/theme": "workspace:^",
     "vue": "^3.5.0"
   },
   "devDependencies": {

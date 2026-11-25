@@ -17,6 +17,7 @@
   "scripts": {
     "build": "nuxt-module-build build",
     "prepack": "nuxt-module-build build",
+    "prepublishOnly": "node ../../tooling/require-pnpm.mjs",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
