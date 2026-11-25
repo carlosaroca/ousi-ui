@@ -10,11 +10,11 @@ export interface ModuleOptions {
 }
 
 const COMPONENTS = [
-  'OButton', 'OBadge', 'OChip', 'OAvatar', 'OInput',
+  'OButton', 'OBadge', 'OChip', 'OStatus', 'OAvatar', 'OInput',
   'OCard', 'OCardHeader', 'OCardTitle', 'OCardDescription', 'OCardContent', 'OCardFooter',
   'OTooltip', 'OSelect',
   'ODialog', 'ODialogHeader', 'ODialogBody', 'ODialogFooter',
-  'ODrawer', 'OTabs',
+  'ODrawer', 'OLightbox', 'OTour', 'OSlideButton', 'OTabs',
   'ODropdown', 'ODropdownTrigger', 'ODropdownPopover', 'ODropdownMenu', 'ODropdownItem',
   'ODropdownItemIndicator', 'ODropdownSection',
   'ODropdownSubmenuTrigger', 'ODropdownSubmenuIndicator', 'ODropdownSeparator',
@@ -24,7 +24,7 @@ const COMPONENTS = [
   'OAutocomplete', 'OBreadcrumbs',
   'OButtonGroup', 'OButtonGroupSeparator',
   'OCalendar', 'ORangeCalendar',
-  'OProgressBar', 'OProgressCircle', 'OActivityRings', 'OComboChart', 'OFunnel', 'OHeatmap', 'OAreaChart', 'ORadarChart', 'OScatterChart', 'OSegmentedGauge', 'OSankey', 'ODotMatrix', 'ODonutChart', 'OBarChart', 'OTreemap',
+  'OProgressBar', 'OProgressCircle', 'OActivityRings', 'OComboChart', 'OFunnel', 'OHeatmap', 'OAreaChart', 'ORadarChart', 'OScatterChart', 'OSegmentedGauge', 'OSankey', 'OSunburst', 'OCandlestickChart', 'OWaterfallChart', 'ODotMatrix', 'ODonutChart', 'OBarChart', 'OTreemap',
   'OColorSwatch', 'OColorField', 'OColorSlider', 'OColorArea', 'OColorPicker',
   'ODateField', 'OTimeField', 'ODatePicker', 'ODateRangePicker',
   'OForm', 'OInputOtp', 'OKbd', 'OMeter', 'ONumberField', 'OPagination', 'OTable', 'OSlider',
@@ -36,6 +36,7 @@ const COMPONENTS = [
   'OStepper', 'OFileUpload', 'OTreeView',
   'OBentoGrid', 'OBentoGridItem',
   'OResizable', 'OInfiniteScroll', 'OAspectRatio',
+  'OImageEditor', 'OImageEditorDialog',
 ] as const
 
 const COMPOSABLES = ['toast'] as const
