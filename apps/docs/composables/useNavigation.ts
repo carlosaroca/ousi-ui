@@ -37,6 +37,7 @@ export function useVueNavigation(): NavSection[] {
         { title: 'Button', path: '/vue/components/button' },
         { title: 'ButtonGroup', path: '/vue/components/button-group' },
         { title: 'MagneticButton', path: '/vue/components/magnetic-button' },
+        { title: 'SlideButton', path: '/vue/components/slide-button' },
       ],
     },
     {

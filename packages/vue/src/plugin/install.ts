@@ -10,6 +10,7 @@ import { OTooltip } from '../components/tooltip'
 import { OSelect } from '../components/select'
 import { ODialog, ODialogHeader, ODialogBody, ODialogFooter } from '../components/dialog'
 import { ODrawer } from '../components/drawer'
+import { OSlideButton } from '../components/slide-button'
 import { OTabs } from '../components/tabs'
 import { ODropdown, ODropdownTrigger, ODropdownPopover, ODropdownMenu, ODropdownItem, ODropdownItemIndicator, ODropdownSection, ODropdownSubmenuTrigger, ODropdownSubmenuIndicator, ODropdownSeparator } from '../components/dropdown'
 import { OToastProvider } from '../components/toast'
@@ -109,6 +110,7 @@ const components = {
   ODialogBody,
   ODialogFooter,
   ODrawer,
+  OSlideButton,
   OTabs,
   ODropdown,
   ODropdownTrigger,

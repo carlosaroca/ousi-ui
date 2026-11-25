@@ -1,6 +1,7 @@
 import type { ComponentData } from './types'
 
 // Buttons
+import { slideButtonData } from './slide-button'
 import { buttonData } from './button'
 import { buttonGroupData } from './button-group'
 import { magneticButtonData } from './magnetic-button'
@@ -210,6 +211,7 @@ export const componentRegistry: Record<string, ComponentData> = {
   'resizable': resizableData,
   'infinite-scroll': infiniteScrollData,
   'aspect-ratio': aspectRatioData,
+  'slide-button': slideButtonData,
 }
 
 export type { ComponentData } from './types'

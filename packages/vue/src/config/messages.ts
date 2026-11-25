@@ -8,6 +8,8 @@ export interface OusiMessages {
   clear: string
   clearInput: string
   showPassword: string
+  slideToConfirm: string
+  confirmed: string
   cancel: string
   ok: string
   loading: string
@@ -143,6 +145,8 @@ const en: OusiMessages = {
   clear: 'Clear',
   clearInput: 'Clear input',
   showPassword: 'Show password',
+  slideToConfirm: 'Slide to confirm',
+  confirmed: 'Confirmed',
   cancel: 'Cancel',
   ok: 'OK',
   loading: 'Loading…',
@@ -274,6 +278,8 @@ const es: OusiMessages = {
   clear: 'Limpiar',
   clearInput: 'Borrar el texto',
   showPassword: 'Mostrar la contraseña',
+  slideToConfirm: 'Desliza para confirmar',
+  confirmed: 'Confirmado',
   cancel: 'Cancelar',
   ok: 'Aceptar',
   loading: 'Cargando…',

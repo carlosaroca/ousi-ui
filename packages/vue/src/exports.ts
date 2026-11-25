@@ -167,5 +167,7 @@ export type { OusiResolverOptions } from './plugin/resolver'
 
 export * from './components/image-editor'
 
+export * from './components/slide-button'
+
 // Image utilities
 export * from './image'
