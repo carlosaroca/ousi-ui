@@ -184,80 +184,83 @@ defineExpose({ zoomTo: goTo, back })
 </script>
 
 <template>
-  <div data-roving-root :class="cn('relative inline-block max-w-full select-none align-top', props.class)">
-    <svg ref="svg" :width="size" :height="size" viewBox="0 0 100 100" class="block h-auto max-w-full" role="group" :aria-label="ariaLabel">
-      <circle v-if="!sectors.length" cx="50" cy="50" :r="(OUTER + hole) / 2" fill="none" stroke="var(--ousi-default)" :stroke-width="OUTER - hole" />
-      <g ref="chart" style="transform-origin: 50px 50px">
-        <g
-          :style="{
-            transformOrigin: '50px 50px',
-            transform: mounted ? 'scale(1) rotate(0deg)' : 'scale(0.86) rotate(-24deg)',
-            opacity: mounted ? 1 : 0,
-            transition: motion ? 'transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease-out' : 'none',
-          }"
-        >
-          <path
-            v-for="(s, i) in sectors"
-            :key="s.item.key"
-            data-part="sector"
-            :data-key="s.item.key"
-            :d="s.d"
-            :fill="s.item.color"
-            fill-rule="evenodd"
-            class="outline-none focus-visible:stroke-ousi-focus focus-visible:stroke-[0.8]"
-            :class="interactive && 'cursor-pointer'"
-            :style="{ opacity: isLit(s.item.key) ? 1 : 0.3, transition: 'opacity 200ms ease-out' }"
-            :role="interactive && zoomable && s.item.hasChildren ? 'button' : 'img'"
-            :tabindex="roving.tabindexFor(i, interactive)"
-            :data-roving="i"
-            :aria-label="`${s.item.parent ? `${s.item.parent}, ` : ''}${s.item.name}: ${s.item.formatted}, ${s.item.percent}%`"
-            @focusin="roving.activate(i)"
-            @keydown="onKeydown($event, i)"
-            @mouseenter="enter(s.item, $event)"
-            @mouseleave="leave(s.item, $event)"
-            @focus="enter(s.item, $event)"
-            @blur="leave(s.item, $event)"
-            @click="click(s.item, $event)"
-            @keydown.enter.prevent="click(s.item, $event)"
-            @keydown.space.prevent="click(s.item, $event)"
-          />
-          <g aria-hidden="true" class="pointer-events-none">
-            <template v-for="s in sectors" :key="`l-${s.item.key}`">
-              <text
-                v-if="s.label"
-                data-part="label"
-                :transform="s.label.transform"
-                text-anchor="middle"
-                dominant-baseline="central"
-                :font-size="FONT"
-                class="font-medium"
-                :fill="inkOn(s.item.color)"
-                :style="{ opacity: isLit(s.item.key) ? 0.9 : 0.25, transition: 'opacity 200ms ease-out' }"
-              >{{ s.label.text }}</text>
-            </template>
+  <div data-roving-root :class="cn('inline-block w-fit max-w-full select-none align-top', props.class)">
+    <!-- The box of the drawing: what sits in the middle is placed on it, however wide the root is. -->
+    <div class="relative mx-auto w-fit max-w-full">
+      <svg ref="svg" :width="size" :height="size" viewBox="0 0 100 100" class="block h-auto max-w-full" role="group" :aria-label="ariaLabel">
+        <circle v-if="!sectors.length" cx="50" cy="50" :r="(OUTER + hole) / 2" fill="none" stroke="var(--ousi-default)" :stroke-width="OUTER - hole" />
+        <g ref="chart" style="transform-origin: 50px 50px">
+          <g
+            :style="{
+              transformOrigin: '50px 50px',
+              transform: mounted ? 'scale(1) rotate(0deg)' : 'scale(0.86) rotate(-24deg)',
+              opacity: mounted ? 1 : 0,
+              transition: motion ? 'transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease-out' : 'none',
+            }"
+          >
+            <path
+              v-for="(s, i) in sectors"
+              :key="s.item.key"
+              data-part="sector"
+              :data-key="s.item.key"
+              :d="s.d"
+              :fill="s.item.color"
+              fill-rule="evenodd"
+              class="outline-none focus-visible:stroke-ousi-focus focus-visible:stroke-[0.8]"
+              :class="interactive && 'cursor-pointer'"
+              :style="{ opacity: isLit(s.item.key) ? 1 : 0.3, transition: 'opacity 200ms ease-out' }"
+              :role="interactive && zoomable && s.item.hasChildren ? 'button' : 'img'"
+              :tabindex="roving.tabindexFor(i, interactive)"
+              :data-roving="i"
+              :aria-label="`${s.item.parent ? `${s.item.parent}, ` : ''}${s.item.name}: ${s.item.formatted}, ${s.item.percent}%`"
+              @focusin="roving.activate(i)"
+              @keydown="onKeydown($event, i)"
+              @mouseenter="enter(s.item, $event)"
+              @mouseleave="leave(s.item, $event)"
+              @focus="enter(s.item, $event)"
+              @blur="leave(s.item, $event)"
+              @click="click(s.item, $event)"
+              @keydown.enter.prevent="click(s.item, $event)"
+              @keydown.space.prevent="click(s.item, $event)"
+            />
+            <g aria-hidden="true" class="pointer-events-none">
+              <template v-for="s in sectors" :key="`l-${s.item.key}`">
+                <text
+                  v-if="s.label"
+                  data-part="label"
+                  :transform="s.label.transform"
+                  text-anchor="middle"
+                  dominant-baseline="central"
+                  :font-size="FONT"
+                  class="font-medium"
+                  :fill="inkOn(s.item.color)"
+                  :style="{ opacity: isLit(s.item.key) ? 0.9 : 0.25, transition: 'opacity 200ms ease-out' }"
+                >{{ s.label.text }}</text>
+              </template>
+            </g>
           </g>
         </g>
-      </g>
-    </svg>
+      </svg>
 
-    <!-- The centre: what is in view, or the hovered sector. Pressing it goes back. -->
-    <component
-      :is="canGoBack ? 'button' : 'div'"
-      :type="canGoBack ? 'button' : undefined"
-      data-part="center"
-      class="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center overflow-hidden rounded-full text-center outline-none"
-      :class="canGoBack ? 'cursor-pointer transition-colors hover:bg-ousi-default focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-ousi-focus' : 'pointer-events-none'"
-      :style="{ width: `${holePercent}%`, height: `${holePercent}%`, containerType: 'inline-size' }"
-      :aria-label="canGoBack ? `${backName}` : undefined"
-      @click="canGoBack && back()"
-    >
-      <slot :total="total" :formatted-total="fmt(total)" :focused-item="focusedItem" :current="currentItem">
-        <span class="w-full truncate px-2 font-semibold leading-tight tabular-nums text-ousi-foreground" :style="{ fontSize: 'clamp(11px, 17cqw, 28px)' }">{{ focusedItem ? focusedItem.formatted : fmt(total) }}</span>
-        <span class="w-full truncate px-2 leading-tight text-ousi-muted" :style="{ fontSize: 'clamp(9px, 10cqw, 13px)' }">{{ focusedItem ? `${focusedItem.name} · ${focusedItem.percent}%` : (centre?.name ?? rootLabel) }}</span>
-        <svg v-if="canGoBack && !focusedItem" data-part="back-icon" class="mt-0.5 size-3.5 text-ousi-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M9 14 4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3" />
-        </svg>
-      </slot>
-    </component>
+      <!-- The centre: what is in view, or the hovered sector. Pressing it goes back. -->
+      <component
+        :is="canGoBack ? 'button' : 'div'"
+        :type="canGoBack ? 'button' : undefined"
+        data-part="center"
+        class="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center overflow-hidden rounded-full text-center outline-none"
+        :class="canGoBack ? 'cursor-pointer transition-colors hover:bg-ousi-default focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-ousi-focus' : 'pointer-events-none'"
+        :style="{ width: `${holePercent}%`, height: `${holePercent}%`, containerType: 'inline-size' }"
+        :aria-label="canGoBack ? `${backName}` : undefined"
+        @click="canGoBack && back()"
+      >
+        <slot :total="total" :formatted-total="fmt(total)" :focused-item="focusedItem" :current="currentItem">
+          <span class="w-full truncate px-2 font-semibold leading-tight tabular-nums text-ousi-foreground" :style="{ fontSize: 'clamp(11px, 17cqw, 28px)' }">{{ focusedItem ? focusedItem.formatted : fmt(total) }}</span>
+          <span class="w-full truncate px-2 leading-tight text-ousi-muted" :style="{ fontSize: 'clamp(9px, 10cqw, 13px)' }">{{ focusedItem ? `${focusedItem.name} · ${focusedItem.percent}%` : (centre?.name ?? rootLabel) }}</span>
+          <svg v-if="canGoBack && !focusedItem" data-part="back-icon" class="mt-0.5 size-3.5 text-ousi-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 14 4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3" />
+          </svg>
+        </slot>
+      </component>
+    </div>
   </div>
 </template>

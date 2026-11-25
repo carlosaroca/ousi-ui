@@ -117,99 +117,102 @@ const ariaLabel = computed(
 </script>
 
 <template>
-  <div data-roving-root :class="cn('relative inline-block max-w-full select-none align-top', props.class)">
-    <svg :width="box" :height="box" :viewBox="`0 0 ${box} ${box}`" class="block h-auto max-w-full overflow-visible" role="group" :aria-label="ariaLabel">
-      <!-- Grid -->
-      <g aria-hidden="true" fill="none" :stroke="chartGridColor">
-        <polygon v-for="(p, k) in gridPolys" :key="k" :points="p" />
-        <line v-for="a in axes" :key="a.index" :x1="c" :y1="c" :x2="at(a.index, R)[0]" :y2="at(a.index, R)[1]" />
-      </g>
+  <div data-roving-root :class="cn('inline-block w-fit max-w-full select-none align-top', props.class)">
+    <!-- The box of the drawing: what sits in the middle is placed on it, however wide the root is. -->
+    <div class="relative mx-auto w-fit max-w-full">
+      <svg :width="box" :height="box" :viewBox="`0 0 ${box} ${box}`" class="block h-auto max-w-full overflow-visible" role="group" :aria-label="ariaLabel">
+        <!-- Grid -->
+        <g aria-hidden="true" fill="none" :stroke="chartGridColor">
+          <polygon v-for="(p, k) in gridPolys" :key="k" :points="p" />
+          <line v-for="a in axes" :key="a.index" :x1="c" :y1="c" :x2="at(a.index, R)[0]" :y2="at(a.index, R)[1]" />
+        </g>
 
-      <!-- Highlighted axis -->
-      <line
-        v-if="focusedAxis"
-        :x1="c" :y1="c" :x2="at(focusedAxis.index, R)[0]" :y2="at(focusedAxis.index, R)[1]"
-        stroke="color-mix(in srgb, var(--ousi-foreground) 30%, transparent)" stroke-dasharray="3 3"
-      />
-
-      <!-- Series -->
-      <g
-        :style="{
-          transformOrigin: `${c}px ${c}px`,
-          transform: `scale(${mounted ? 1 : 0.2})`,
-          opacity: mounted ? 1 : 0,
-          transition: motion ? 'transform 800ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease-out' : 'none',
-        }"
-      >
-        <polygon
-          v-for="p in polys" :key="p.key" :points="p.d"
-          :fill="fillOn ? p.color : 'none'" :fill-opacity="fillOn ? 0.2 : 0"
-          :stroke="p.color" stroke-width="2" stroke-linejoin="round"
+        <!-- Highlighted axis -->
+        <line
+          v-if="focusedAxis"
+          :x1="c" :y1="c" :x2="at(focusedAxis.index, R)[0]" :y2="at(focusedAxis.index, R)[1]"
+          stroke="color-mix(in srgb, var(--ousi-foreground) 30%, transparent)" stroke-dasharray="3 3"
         />
-        <template v-if="variant === 'dots' || variant === 'score'">
-          <g v-for="p in polys" :key="`d-${p.key}`" class="pointer-events-none">
+
+        <!-- Series -->
+        <g
+          :style="{
+            transformOrigin: `${c}px ${c}px`,
+            transform: `scale(${mounted ? 1 : 0.2})`,
+            opacity: mounted ? 1 : 0,
+            transition: motion ? 'transform 800ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease-out' : 'none',
+          }"
+        >
+          <polygon
+            v-for="p in polys" :key="p.key" :points="p.d"
+            :fill="fillOn ? p.color : 'none'" :fill-opacity="fillOn ? 0.2 : 0"
+            :stroke="p.color" stroke-width="2" stroke-linejoin="round"
+          />
+          <template v-if="variant === 'dots' || variant === 'score'">
+            <g v-for="p in polys" :key="`d-${p.key}`" class="pointer-events-none">
+              <circle
+                v-for="(pt, i) in p.pts" :key="i" :cx="pt[0]" :cy="pt[1]" :r="focused === i ? 5 : 3.5"
+                :fill="p.color" stroke="var(--ousi-background)" stroke-width="2"
+                style="transition: r 150ms ease-out"
+              />
+            </g>
+          </template>
+        </g>
+
+        <!-- Active points -->
+        <template v-if="focusedAxis">
+          <g v-for="p in polys" :key="`f-${p.key}`" class="pointer-events-none">
+            <circle :cx="p.pts[focusedAxis.index][0]" :cy="p.pts[focusedAxis.index][1]" r="5" :fill="p.color" class="radar-pulse" />
             <circle
-              v-for="(pt, i) in p.pts" :key="i" :cx="pt[0]" :cy="pt[1]" :r="focused === i ? 5 : 3.5"
+              v-if="variant !== 'dots' && variant !== 'score'"
+              :cx="p.pts[focusedAxis.index][0]" :cy="p.pts[focusedAxis.index][1]" r="5"
               :fill="p.color" stroke="var(--ousi-background)" stroke-width="2"
-              style="transition: r 150ms ease-out"
             />
           </g>
         </template>
-      </g>
 
-      <!-- Active points -->
-      <template v-if="focusedAxis">
-        <g v-for="p in polys" :key="`f-${p.key}`" class="pointer-events-none">
-          <circle :cx="p.pts[focusedAxis.index][0]" :cy="p.pts[focusedAxis.index][1]" r="5" :fill="p.color" class="radar-pulse" />
-          <circle
-            v-if="variant !== 'dots' && variant !== 'score'"
-            :cx="p.pts[focusedAxis.index][0]" :cy="p.pts[focusedAxis.index][1]" r="5"
-            :fill="p.color" stroke="var(--ousi-background)" stroke-width="2"
+        <!-- Labels -->
+        <g v-if="showLabels" class="pointer-events-none">
+          <text
+            v-for="a in axes" :key="a.index"
+            :x="labelPos(a.index).x" :y="labelPos(a.index).y + labelPos(a.index).dy"
+            :text-anchor="labelPos(a.index).anchor"
+            class="text-[11px] transition-colors"
+            :class="focused === a.index ? 'fill-ousi-foreground' : 'fill-ousi-muted'"
+          >
+            {{ a.label }}
+            <tspan
+              v-if="variant === 'score'"
+              class="font-semibold tabular-nums"
+              :style="{ fill: isAlert(a) ? 'var(--ousi-danger)' : 'var(--ousi-foreground)' }"
+              dx="4"
+            >{{ fmt(Math.round(a.average)) }}</tspan>
+          </text>
+        </g>
+
+        <!-- Hit areas -->
+        <g v-if="interactive">
+          <line
+            v-for="a in axes" :key="`h-${a.index}`"
+            :x1="c" :y1="c" :x2="at(a.index, R + 26)[0]" :y2="at(a.index, R + 26)[1]"
+            stroke="transparent" stroke-width="36" stroke-linecap="round"
+            class="cursor-pointer outline-none" :tabindex="roving.tabindexFor(a.index, true)" :data-roving="a.index" @focusin="roving.activate(a.index)" @keydown="roving.onKeydown($event, a.index)" role="img"
+            :aria-label="`${a.label}: ${a.values.map((v) => `${v.label} ${v.formatted}`).join(', ')}`"
+            @mouseenter="enter(a, $event)" @mouseleave="leave(a, $event)"
+            @focus="enter(a, $event)" @blur="leave(a, $event)"
+            @click="click(a, $event)" @keydown.enter.prevent="click(a, $event)" @keydown.space.prevent="click(a, $event)"
           />
         </g>
-      </template>
+      </svg>
 
-      <!-- Labels -->
-      <g v-if="showLabels" class="pointer-events-none">
-        <text
-          v-for="a in axes" :key="a.index"
-          :x="labelPos(a.index).x" :y="labelPos(a.index).y + labelPos(a.index).dy"
-          :text-anchor="labelPos(a.index).anchor"
-          class="text-[11px] transition-colors"
-          :class="focused === a.index ? 'fill-ousi-foreground' : 'fill-ousi-muted'"
-        >
-          {{ a.label }}
-          <tspan
-            v-if="variant === 'score'"
-            class="font-semibold tabular-nums"
-            :style="{ fill: isAlert(a) ? 'var(--ousi-danger)' : 'var(--ousi-foreground)' }"
-            dx="4"
-          >{{ fmt(Math.round(a.average)) }}</tspan>
-        </text>
-      </g>
-
-      <!-- Hit areas -->
-      <g v-if="interactive">
-        <line
-          v-for="a in axes" :key="`h-${a.index}`"
-          :x1="c" :y1="c" :x2="at(a.index, R + 26)[0]" :y2="at(a.index, R + 26)[1]"
-          stroke="transparent" stroke-width="36" stroke-linecap="round"
-          class="cursor-pointer outline-none" :tabindex="roving.tabindexFor(a.index, true)" :data-roving="a.index" @focusin="roving.activate(a.index)" @keydown="roving.onKeydown($event, a.index)" role="img"
-          :aria-label="`${a.label}: ${a.values.map((v) => `${v.label} ${v.formatted}`).join(', ')}`"
-          @mouseenter="enter(a, $event)" @mouseleave="leave(a, $event)"
-          @focus="enter(a, $event)" @blur="leave(a, $event)"
-          @click="click(a, $event)" @keydown.enter.prevent="click(a, $event)" @keydown.space.prevent="click(a, $event)"
-        />
-      </g>
-    </svg>
-
-    <div
-      v-if="$slots.center || variant === 'score'"
-      class="pointer-events-none absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ousi-background text-center shadow-md"
-    >
-      <slot name="center" :average="overall" :focused-axis="focusedAxis">
-        <span class="text-lg font-semibold tabular-nums text-ousi-foreground">{{ fmt(Math.round(focusedAxis ? focusedAxis.average : overall)) }}</span>
-      </slot>
+      <div
+        v-if="$slots.center || variant === 'score'"
+        class="pointer-events-none absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ousi-background text-center shadow-md"
+      >
+        <slot name="center" :average="overall" :focused-axis="focusedAxis">
+          <span class="text-lg font-semibold tabular-nums text-ousi-foreground">{{ fmt(Math.round(focusedAxis ? focusedAxis.average : overall)) }}</span>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
